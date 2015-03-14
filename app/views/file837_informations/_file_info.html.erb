@@ -1,0 +1,98 @@
+<td align='right'>
+    <% unless file_837_information.facility_id.blank? %>
+    <% facility = file_837_information.facility # Facility.find(file_837_information.facility_id) %>
+    <% if facility.blank? || facility.sitecode.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= facility.sitecode %>
+    <% end %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.name.blank? %>
+    <%= '-' %>
+    <% elsif current_user.claim_retrieval_permission == '1' %>
+      <%= link_to file_837_information.name, {:action => 'claim_retrieval', :cf_id => file_837_information} %>
+    <% else %>
+      <%= file_837_information.name %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.zip_file_name.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= file_837_information.zip_file_name %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.arrival_time.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= format_complete_date(file_837_information.arrival_time) %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.size.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= (file_837_information.size/1024).round(2) %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.load_start_time.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= format_complete_date(file_837_information.load_start_time) %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.load_end_time.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= format_complete_date(file_837_information.load_end_time) %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.total_claim_count.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= file_837_information.total_claim_count %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.loaded_claim_count.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= file_837_information.loaded_claim_count %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.total_svcline_count.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= file_837_information.total_svcline_count %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.loaded_svcline_count.blank? %>
+    <%= '-' %>
+    <% else %>
+    <%= file_837_information.loaded_svcline_count %>
+    <% end %>
+</td>
+<td align='right'>
+    <% if file_837_information.status.blank? %>
+      <%= '-' %>
+    <% elsif current_user.has_role?(:admin) %>
+      <%= best_in_place file_837_information, :status, :path => "#{file_837_information.id}" %>
+    <% else %>
+      <%= file_837_information.status %>
+    <% end %>
+</td>
+<% if file_837_information.deleted? %>
+    <td>
+    </td>
+    <td align='right'>
+      <%= "Deleted at: #{file_837_information.updated_at.strftime('%m/%d/%y %H:%M')}" %>
+    </td>
+<% end %>

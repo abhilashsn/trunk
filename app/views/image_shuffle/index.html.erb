@@ -1,0 +1,21 @@
+<h1> Image Shuffle Management - Batches </h1>
+<table>
+    <tr>
+        <th style="width: 173px">
+            Batch Id
+        </th>
+        <th style="width: 173px">
+            Batch Date
+        </th>
+    </tr>
+  <% @batch.each do |batch| %>
+    <tr>
+        <td style="text-align: center;">
+            <%= link_to batch.batchid, :action => "batch_details", :batch_id => batch.id %>
+        </td>
+        <td style="text-align: center;">
+            <%= batch.date %>
+        </td>
+    </tr>
+  <% end %>
+</table>

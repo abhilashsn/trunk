@@ -1,0 +1,211 @@
+#App level config details
+parser_type: XML
+header: false
+partner_name: REVENUE MED
+claim_name: TransformClientA837
+
+
+
+#Claim and service level config
+GENERAL:
+  NM101: /qualifier
+  REF01: /xpeditor_qualifier
+  GS08 : claim_file_type
+  ISA09: file_interchange_date
+  ISA10 : file_interchange_time
+  HL03 : billing_provider_hierarchical_level_code
+  HL01 : extraction_start
+  HL02 : extraction
+  HL04 : extraction
+  DMG01: /date_of_birth_qualifier
+  DMG02: date_of_birth
+  SBR09: plan_type
+  SBR01: claim_type
+  SBR02: individual_relationship_code
+  SBR03: policy_number
+  SBR05: iplan
+  CLM01: patient_account_number
+  CLM02: total_charges
+  CLM04: plan_code
+  CLM0501: facility_type_code
+  CLM0502: patient_type_identifier
+  CLM0503: claim_frequency_type_code
+  CLM06: extraction
+  CLM07: extraction
+  CLM08: extraction
+  CLM09: extraction_end
+  DTP01: date_qualifier
+  DTP03: service_from_date
+  SV102: charges
+  SV201: revenue_code
+  SV203: charges
+  SV207: non_covered_charge
+  SV104: days_units
+  SV205: days_units
+  SV207: monetary_amount
+  SV10102: cpt_hcpcts
+  SV20202: cpt_hcpcts
+  SV10103: modifier1
+  SV20203: modifier1
+  SV10104: modifier2
+  SV20204: modifier2
+  SV10105: modifier3
+  SV20205: modifier3
+  SV10106: modifier4
+  SV20206: modifier4
+  SV20207: service_description
+  SVD01: identification_code
+  SVD02: monetary_amount
+  SVD0302: product_service_id
+  SVD0307: service_description
+  SV105: place_of_service_code
+  #SV303: place_of_service_code
+  SV302: charges
+  #SV303: charges
+  SV303: place_of_service_code
+  SV306: days_units
+  SV30102: cpt_hcpcts
+  SV1012: cpt_hcpcts
+  SV10107: service_description
+  SV30103: modifier1
+  SV30104: modifier2
+  SV30105: modifier3
+  SV30106: modifier4
+  SV30107: service_description
+  SV10101: product_or_service_id_qualifier
+  SV30101: product_or_service_id_qualifier
+  SVD0301: product_or_service_id_qualifier
+  SV20201: product_or_service_id_qualifier
+  TOO02: tooth_number
+  TOO0301: tooth_surface
+  TOO0302: tooth_surface
+  TOO0303: tooth_surface
+  TOO0304: tooth_surface
+  TOO0305: tooth_surface
+  TOO0306: tooth_surface
+"GROUP_3D8":
+  DMG02: date_of_birth
+"GROUP_7D8":
+  DMG02: date_of_birth
+"GROUP_3PR":
+  NM103: payer_name
+  NM109: payid
+  N301: payer_address
+  N401: payer_city
+  N402: payer_state
+  N403: payer_zipcode
+"GROUP_3IL":
+  NM109: insured_id
+  NM103: subscriber_last_name
+  NM104: subscriber_first_name
+  NM105: subscriber_middle_initial
+  NM107: subscriber_suffix
+  N301: subscriber_address_line
+  N401: subscriber_city_name
+  N402: subscriber_state_code
+  N403: subscriber_zip_code
+  DMG02: date_of_birth
+"GROUP_3QC":
+  NM103: patient_last_name
+  NM104: patient_first_name
+  NM105: patient_middle_initial
+  NM107: patient_suffix
+  N301: patient_address_line
+  N401: patient_city_name
+  N402: patient_state_code
+  N403: patient_zip_code
+  DMG02: date_of_birth
+"GROUP_385":
+  NM108: npi_tin_qualifier_85
+  NM109: npi_tin_85
+  NM103: billing_provider_organization_name
+  N301: billing_provider_address_one
+  N401: billing_provider_city
+  N402: billing_provider_state
+  N403: billing_provider_zipcode
+  REF01: reference_identification_code_ei, reference_identification_code_lu
+  REF02: employers_identification_number, legacy_provider_number
+"GROUP_387":
+  NM108: npi_tin_qualifier_85
+  NM109: npi_tin_85
+  NM103: billing_provider_organization_name
+  N301: billing_provider_address_one
+  N401: billing_provider_city
+  N402: billing_provider_state
+  N403: billing_provider_zipcode
+  REF01: reference_identification_code_ei, reference_identification_code_lu
+  REF02: employers_identification_number, legacy_provider_number
+"GROUP_4F8":
+  REF01: reference_identification_code_f8
+  REF02: payer_claim_original_reference_number
+"GROUP_4RD8":
+  DTP01: claim_date_qualifier
+  DTP02: claim_date_time_period_format_qualifier
+  DTP03: claim_service_from_date
+"GROUP_682":
+  NM108: npi_tin_qualifier_82
+  REF02: provider_ein
+  NM109: npi_tin_82
+  NM103: provider_last_name
+  NM104: provider_first_name
+  NM105: provider_middle_initial
+  NM107: provider_suffix
+  PRV03: rendering_provider_taxonomy_code
+  REF01: provider_tin_ei
+  REF02: provider_ein
+"GROUP_6FA":
+  NM108: npi_tin_qualifier_FA
+  NM109: npi_tin_FA
+  NM103: payee_name
+  N301: payee_address_one
+  N401: payee_city
+  N402: payee_state
+  N403: payee_zipcode
+"GROUP_672":
+  NM108: npi_tin_qualifier_82
+  REF02: provider_ein
+  NM109: npi_tin_82
+  NM103: provider_last_name
+  NM104: provider_first_name
+  NM105: provider_middle_initial
+  NM107: provider_suffix
+  PRV03: rendering_provider_taxonomy_code
+"GROUP_1182":
+  NM108: svc_npi_tin_qualifier_82
+  REF02: svc_provider_ein
+  NM109: svc_npi_tin_82
+  NM103: svc_provider_last_name
+  NM104: svc_provider_first_name
+  NM105: svc_provider_middle_initial
+  NM107: svc_provider_suffix
+  PRV03: svc_rendering_provider_taxonomy_code
+"GROUP_3XX":
+  NM109: billing_provider_npi
+"GROUP_324":
+  NM109: billing_provider_tin
+"GROUP_6XX":
+  NM109: payee_npi
+"GROUP_624":
+  NM109: payee_tin
+"GROUP_96R":
+  REF02: provider_control_number
+"GROUP_9UCR":
+  REF02: line_item_charge_amount
+"GROUP_4EA":
+  REF02: medical_record_number
+"GROUP_8IL":
+  NM109: insured_id
+  NM103: subscriber_last_name
+  NM104: subscriber_first_name
+  NM105: subscriber_middle_initial
+  NM107: subscriber_suffix
+"GROUP_8PR":
+  NM103: payer_name
+  NM109: payid
+  N301: payer_address
+  N401: payer_city
+  N402: payer_state
+  N403: payer_zipcode
+"GROUP_12EAF":
+  AMT01: amount_qualifier_code
+  AMT02: remaining_patient_liability_amount

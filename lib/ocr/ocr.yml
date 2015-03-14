@@ -1,0 +1,113 @@
+CheckDate:
+  TEXTSTRING: check_date, 1
+CheckNumber:
+  TEXTSTRING: check_number, 1
+ProviderTaxID:
+  TEXTSTRING: payee_tin, 1
+NationalProviderID:
+  TEXTSTRING: payee_npi, 1
+CheckAmount:
+  TEXTSTRING: check_amount, 1
+PatientAccountNumber:
+  TEXTSTRING: patient_account_number, 2
+ClaimNumber:
+  TEXTSTRING: claim_number, 2
+MemberNumber:
+  TEXTSTRING: subscriber_identification_code, 2
+TotalPaid:
+  TEXTSTRING: total_amount_paid_for_claim, 2
+OverPaymentRecovery:
+  TEXTSTRING: over_payment_recovery, 2
+TotalBilledAmount:
+  TEXTSTRING: total_submitted_charge_for_claim, 2
+TotalCopay:
+  TEXTSTRING: total_co_pay, 2
+TotalCoinsurance:
+  TEXTSTRING: total_co_insurance, 2
+TotalWriteoff:
+  TEXTSTRING: total_contractual_amount, 2
+TotalDisallowed:
+  TEXTSTRING: total_contractual_amount, 2
+TotalDeductible:
+  TEXTSTRING: total_deductible, 2
+TotalPrepaid:
+  TEXTSTRING: total_prepaid, 2
+TotalDiscount:
+  TEXTSTRING: total_discount, 2
+TotalDRGAmount:
+  TEXTSTRING: total_drg_amount, 2
+TotalWithholding:
+  TEXTSTRING: total_contractual_amount, 2
+TotalPlanCoverage:
+  TEXTSTRING: total_plan_coverage, 2
+TotalIneligibleAmountMember:
+  TEXTSTRING: total_non_covered, 2
+TotalAllowedAmount:
+  TEXTSTRING: total_allowable, 2
+TotalCOB:
+  TEXTSTRING: total_primary_payer_amount, 2
+TotalInterest:
+  TEXTSTRING: claim_interest, 2
+TotalBillType:
+  TEXTSTRING: place_of_service, 2
+TotalClaimStatus:
+  TEXTSTRING: claim_type, 2
+TotalAdjustmentAmount:
+  TEXTSTRING: total_contractual_amount, 2
+TotalBeginDateOfService:
+  TEXTSTRING: statement_start_date, 2
+TotalEndDateOfService:
+  TEXTSTRING: statement_end_date, 2
+BeginDateOfService:
+  TEXTSTRING: date_of_service_from, 3
+EndDateOfService:
+  TEXTSTRING: date_of_service_to, 3
+BilledAmount:
+  TEXTSTRING: service_procedure_charge_amount, 3
+Copay:
+  TEXTSTRING: service_co_pay, 3
+PaidAmount:
+  TEXTSTRING: service_paid_amount, 3
+Quantity:
+  TEXTSTRING: service_quantity, 3
+ProcedureCode:
+  TEXTSTRING: service_procedure_code, 3
+Coinsurance:
+  TEXTSTRING: service_co_insurance, 3
+Writeoff:
+  TEXTSTRING: contractual_amount, 3
+Disallowed:
+  TEXTSTRING: contractual_amount, 3
+Deductible:
+  TEXTSTRING: service_deductible, 3
+Discount:
+  TEXTSTRING: service_discount, 3
+WithHolding:
+  TEXTSTRING: contractual_amount, 3
+DRGAmount:
+  TEXTSTRING: drg_amount, 3
+AllowedAmount:
+  TEXTSTRING: service_allowable, 3
+COB:
+  TEXTSTRING: primary_payment, 3
+AdjustmentAmount:
+  TEXTSTRING: contractual_amount, 3
+PatientResponsibility:
+  TEXTSTRING: service_co_insurance, 3
+PatientLastName:
+  TEXTSTRING: patient_last_name, 2
+PatientFirstName:
+  TEXTSTRING: patient_first_name, 2
+MemberLastName:
+  TEXTSTRING: subscriber_last_name, 2
+MemberFirstName:
+  TEXTSTRING: subscriber_first_name, 2
+PatientName:
+  FirstName: patient_first_name, 2
+  LastName: patient_last_name, 2
+MemberName:
+  FirstName: subscriber_first_name, 2
+  LastName: subscriber_last_name, 2
+
+
+

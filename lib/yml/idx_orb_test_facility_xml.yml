@@ -1,0 +1,27 @@
+ITERATORS:
+  IBAT: /ins:Transmission
+  ICORR: /
+  ICHK: ins:Transaction
+  IEOB: ins:EOB
+BATCH:
+  batchid: "@BatchID"
+  date: [ "/ins:Transmission/@ProcessingDate", date, "%Y%m%d" ]
+  bank_deposit_date: [ "/ins:Transmission/@ProcessingDate", date, "%Y%m%d" ]
+  transmission_id: "/ins:Transmission/@TransmissionID"
+  file_name: "@FileName"
+  orbo_account_number: "/ins:Transmission/@OrboAccountNumber"
+JOB:
+  check_number: "ins:Payment/@CHK-EFT"
+  pages_from: "@Begin"
+  pages_to: "@End"
+CHEQUE:
+  check_date: [ "ins:Payment/@Date", date, "%Y%m%d" ]
+  check_amount: [ "ins:Payment/@Amount", float ]
+  check_number: "ins:Payment/@CHK-EFT"
+PAYER:
+   payer: "@PayerID"
+MICR:
+   aba_routing_number: "@ABARoutingNumber"
+   payer_account_number: "@AccountNumber"
+IMAGE:
+   image_file_name: "@FileName"

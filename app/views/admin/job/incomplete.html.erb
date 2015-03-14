@@ -1,0 +1,13 @@
+<h1>INCOMPLETE JOB COMMENT</h1>
+<p>
+<%@job_ids = params[:jobs].split(',')%>
+Check#
+<%@job_ids.each do |job_id|%>
+  <%= get_check_number job_id%>,
+  <%end%>
+<%= form_tag :action => 'update_incomplete_jobs', :ids => @job_ids, :page => params[:page], :back_page => params[:back_page] do %>
+  <p>COMMENTS</p>
+ <%= text_area( "job","processor_comments", :cols=>30, :rows=>10)%>
+  <%= submit_tag "Submit", :class => 'button' %>
+<% end %>
+<br/>

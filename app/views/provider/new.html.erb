@@ -1,0 +1,9 @@
+<div id="login_main">
+    <h1>New Provider</h1>
+    <%= form_tag :action => 'create' do %>
+    <%= render :partial => 'form' %>
+    <%= submit_tag "Create", :class => 'button' %>
+    <% end %>
+    <br/>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index' %>
+</div>

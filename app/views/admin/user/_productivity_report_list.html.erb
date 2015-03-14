@@ -1,0 +1,45 @@
+<div id="login_main">
+<% unless @jobs.blank?%>
+<table>
+      <tr>
+      <th>Processor</th>
+      <th>Batch ID</th>
+      <th>Batch Date</th>
+      <th>Site Number</th>
+      <th>Facility Name</th>
+      <th>Check <br/>Number </th>
+      <th>EOBs</th>
+      <th>Payer</th>
+	  <th>Shift</th>
+      <th>Batch Complete Time</th>
+    </tr>
+
+    <% @jobs.each do |job| %>
+    <tr>
+      <% if job.processor %>
+        <td ><%= job.processor.userid %></td>
+      <% else %>
+        <td >NA</td>
+      <% end %>
+      <td align='right'><%= job.batch.batchid %></td>
+      <td align='right'><%= job.batch.date.strftime("%m/%d/%y") %></td>
+      <td align='right'><%= job.batch.facility.sitecode %></td>
+      <td align='right'><%= job.batch.facility.name %></td>
+      <td ><%= job.check_number %></td>
+      <td align='right'><%= job.eob_count %></td>
+      <td >
+        <% if job.payer.nil? %>
+          No Payer
+        <% else %>
+          <%= job.payer.payer %>(<%= job.payer.supply_payid %>)
+        <% end %>
+      </td>
+      <td><%= job.processor_complete_shift %></td>
+      <td><%= job.batch.completion_time.strftime("%m/%d/%y %H:%M") %></td>
+    </tr>
+    <% end %>
+    <% else %>
+      No matching jobs found for criteria.
+    <% end %>
+  </table>
+</div>

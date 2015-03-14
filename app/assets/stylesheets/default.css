@@ -1,0 +1,211 @@
+/* Common Styles */
+
+
+body {
+    font-size: 60%;
+    font-family: Helvetica, Verdana, sans-serif;
+    background-color: #fff;
+}
+
+table {
+    padding: 1px;
+    border: 1px solid #aaa;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+th, td {
+    font-weight: normal;
+    padding: 1px;
+}
+
+a img {
+    border: 0;
+}
+/* Topbar */
+#topbar_grid {
+    padding: 2px;
+    width: 98%;
+}
+
+.topbar_item {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline;
+}
+
+.blue_table th {
+    background-color: #ddf;
+}
+
+.blue_table td {
+    text-align: center;
+    background-color: #eef;
+}
+
+.red_table th {
+    background-color: #edd;
+}
+
+.red_table td {
+    text-align: center;
+    background-color: #fee;
+}
+
+
+#popup {
+    background-color: #fff;
+}
+
+.popup_item {
+    padding: 10px;
+}
+
+input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: 1px solid #CCCCB4;
+    background-color: #FFFFFF;
+    padding-right: 3px;
+    vertical-align: top;
+}
+
+select {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: solid 1px #999999;
+}
+
+.contbox {
+    text-align: right;
+    width: 35px;
+}
+
+.datebox {
+    width: 55px;
+}
+
+.modibox {
+    width: 15px;
+}
+
+.desbox {
+    width: 35px;
+}
+
+#charges_amount, #allow, #payment_amount, #noncovered_amount, #denied_amount, #discount_amount, #coinsur_amount, #detect_amount, #copay_amount, #prim_payer_amount, #cont_allow_amount {
+    text-align: right;
+}
+
+#amount {
+    width: 40px;
+}
+
+#amount1 {
+    width: 100%;
+}
+
+#checknumber_id {
+    width: 90%;
+}
+
+#charges_id, #allowable_id, #payment_id, #non_covered_id, #denied_id, #discount_id, #co_insurance_id, #deductable_id, #copay_id, #primary_pay_payment_id, #contractualamount_id, #balance_id {
+    text-align: right;
+}
+
+#charges_reasoncode, #payment_reasoncode, #noncovered_reasoncode, #denied_reasoncode, #discount_reasoncode, #coinsur_reasoncode, #detect_reasoncode, #copay_reasoncode, #prim_payer_reasoncode, #cont_allow_reasoncode {
+    width: 25px;
+}
+
+#charges_reasoncode_description, #payment_reasoncode_description, #noncovered_reasoncode_description, #denied_reasoncode_description, #discount_reasoncode_description, #coinsur_reasoncode_description, #detect_reasoncode_description, #copay_reasoncode_description, #prim_payer_reasoncode_description, #cont_allow_reasoncode_description, #payer_state_id, #plan_type_id {
+    width: 15px;
+}
+
+#checkamount_id, #amount_so_far, #balance, #provider_adjustment, #check_amount_validate {
+    width: 6%;
+    text-align: right;
+}
+
+#some_name, #checkdate_id {
+    width: 55px;
+}
+
+#interest, #hcra, #payee_name {
+    width: 50px;
+}
+
+#add {
+    width: 20px;
+}
+
+td #suffix {
+    width: 30px;
+}
+
+td #middle {
+    width: 15px;
+}
+
+.checkbox {
+    width: 20px;
+}
+
+.bottom_text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #000000;
+}
+
+.submit_button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    width: 100px;
+}
+
+.checklist {
+    border: 1px solid #ccc;
+    list-style: none;
+    height: 70px;
+    overflow: auto;
+    width: 300px;
+    font-family: "Trebuchet MS", Arial;
+    font-size: 11px;
+    color: #000;
+}
+
+.checklist, .checklist li {
+    margin: 0;
+    padding: 0;
+}
+
+.checklist label {
+    display: block;
+    padding: 0 0.2em 0 25px;
+    text-indent: -25px;
+}
+
+.checklist label:hover, .checklist label.hover {
+    background: #777;
+    color: #fff;
+}
+
+* html .checklist label {
+    height: 1%;
+}
+
+#op_code{
+    width: 50px;
+}
+
+#ip_code{
+    width: 50px;
+}
+#ip_qa{
+    width: 100px;
+}
+
+/* CSS for checklists */
+  .checklist label { display: block; padding: 0 0.2em 0 25px; text-indent: -25px; }
+  .checklist label:hover, .checklist label.hover { background: #777; color: #fff; }
+  * html .checklist label { height: 1%; }

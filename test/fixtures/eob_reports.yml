@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+report1:
+      id: 1
+      verify_time: <%= (Time.now.yesterday.at_beginning_of_day - 12.hours).to_s(:db) %>
+      processor: 'procone'
+      accuracy: 100

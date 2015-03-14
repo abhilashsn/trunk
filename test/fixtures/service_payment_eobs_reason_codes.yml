@@ -1,0 +1,59 @@
+svc_rc_1:
+      id: 1
+      service_payment_eob_id: 25
+      reason_code_id: 1
+      adjustment_reason: coinsurance
+
+svc_rc_2:
+      id: 2
+      service_payment_eob_id: 25
+      reason_code_id: 2
+      adjustment_reason: coinsurance
+
+svc_rc_3:
+      id: 3
+      service_payment_eob_id: 25
+      reason_code_id: 3
+      adjustment_reason: copay
+
+svc_rc_4:
+      id: 4
+      service_payment_eob_id: 21
+      reason_code_id: 1
+      adjustment_reason: coinsurance
+
+svc_rc_5: #owner:ramya
+      id: 5
+      service_payment_eob_id: 26
+      reason_code_id: 80
+      adjustment_reason: coinsurance
+
+svc_rc_6:
+      id: 6
+      service_payment_eob_id: 21
+      reason_code_id: 74
+      adjustment_reason: copay
+
+svc_rc_7:
+      id: 7
+      service_payment_eob_id: 21
+      reason_code_id: 76
+      adjustment_reason: copay
+
+svc_rc_8: #owner:ramya
+      id: 8
+      service_payment_eob_id: 26
+      reason_code_id: 80
+      adjustment_reason: deductible
+
+svc_rc_9: #owner:ramya
+      id: 9
+      service_payment_eob_id: 26
+      reason_code_id: 80
+      adjustment_reason: discount
+
+svc_rc_10: #owner:ramya
+      id: 10
+      service_payment_eob_id: 26
+      reason_code_id: 80
+      adjustment_reason: no_covered

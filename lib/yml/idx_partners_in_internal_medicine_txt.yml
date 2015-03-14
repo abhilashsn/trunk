@@ -1,0 +1,43 @@
+PAYMENT:
+    HEADER: false
+    BATCH:
+        bank_deposit_date: [ 68, 73 , date]
+        date: [ 68, 73 , date]
+        record_type: [88, 88]
+        transaction_number: [81, 83]
+    JOB:
+        check_number: [ 114, 123 ]
+    CHEQUE:
+        check_number: [ 114, 123 ]
+        check_amount: [ 138, 146 ]
+    MICR:
+        aba_routing_number: [ 91, 99 ]
+        payer_account_number: [ 100, 113 ]
+    IMAGE:
+        image_file_name1: [ 60, 65 ]
+        image_file_name2: [ 75, 80 ]
+        image_file_name3: [88, 88]
+        image_file_name4: [ 84, 87 ]
+        image_file_name5: [ 124, 127 ]
+
+CORRESP:
+    HEADER: false
+    BATCH:
+        bank_deposit_date: [ 68, 73 , date]
+        date: [ 68, 73 , date]
+        record_type: [88, 88]
+        transaction_number: [81, 83]
+    JOB:
+        check_number: [ 114, 123 ]
+    CHEQUE:
+        check_number: [ 114, 123 ]
+        check_amount: [ 138, 146 ]
+    MICR:
+        aba_routing_number: [ 91, 99 ]
+        payer_account_number: [ 100, 113 ]
+    IMAGE:
+        image_file_name1: [ 60, 65 ]
+        image_file_name2: [ 75, 80 ]
+        image_file_name3: [88, 88]
+        image_file_name4: [ 84, 87 ]
+        image_file_name5: [ 124, 127 ]

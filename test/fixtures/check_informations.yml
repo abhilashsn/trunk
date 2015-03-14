@@ -1,0 +1,960 @@
+checkinfomation1:
+      id: 3333
+      job_id: 11
+ 
+check_information2:
+      id: 4444
+      job_id: 8888
+ 
+check_information3:
+      id: 4445
+      job_id: 13
+      
+one:
+      id: 909
+      payer_id: 213
+      check_amount: 100.00
+      check_number: 456465
+      job_id: 1
+      
+check_information_4:
+      id: 77
+      job_id: 77
+      payer_id: 77
+ 
+check_info1:
+      id: 98
+      job_id: 1234
+      check_amount: 100
+      micr_line_information_id: 99
+       
+check_info2:
+      id: 87
+      job_id: 5678
+      check_amount: 100
+ 
+check_info3:
+      id: 76
+      job_id: 9876
+      check_amount: 100
+ 
+check_info4:
+      id: 86
+      job_id: 7654
+      check_amount: 100
+       
+check_info5:
+      id: 84
+      job_id: 9874
+      check_amount: 100
+ 
+check_info6:
+      id: 73
+      job_id: 7655
+      check_amount: 100
+
+check_information_navicure_1:
+      id: 99
+      job_id: 54
+      payer_id: 343
+
+check_information_navicure_2:
+      id: 100
+      job_id: 55
+      payer_id: 343
+
+check_7:
+      id: 18
+      job_id: 18
+      payer_id: 7
+      check_number: '787987'
+      provider_adjustment_amount: 90
+      provider_adjustment_qualifier: 'CS'
+
+check_information4:
+      id: 4
+      job_id: 18
+      payment_type: 'EOB'
+      check_date: '2009-02-05'
+      check_amount: 100
+      check_number: 123123
+      micr_line_information_id: 99
+      payer_id: 50
+      payment_method: 'CHK'
+
+
+check_information_merit_mountain:
+      id: 4556
+      job_id: 1661
+      payer_id: 50
+  
+check_information_rumc:
+      id:      4557
+      job_id:  1662
+      payer_id: 50
+
+check8:
+      id: 19
+      job_id: 56
+      provider_adjustment_amount: 10.00
+
+check9:
+      id: 9
+      job_id: 2
+      check_number: '345345'
+
+check_10:
+      id: 111
+      job_id: 100
+      payer_id: 14
+
+check_11:
+      id: 112
+      job_id: 101
+      payer_id:   
+
+check_12:
+      id: 113
+      job_id: 102
+      payer_id: 14
+ 
+
+check_13:
+      id: 114
+      job_id: 103
+      payer_id: 15
+
+check_14:
+      id: 115
+      job_id: 104
+      payer_id: 15
+
+check_21:
+      id: 21
+      check_date: '2009-02-05'
+      check_amount: 100
+      check_number: 123123
+      job_id: 111
+
+check_15:
+      id: 15
+      check_amount: 100
+      check_number: 123123
+
+check_16:
+      id: 16
+      check_amount: 100
+
+check_17:
+      id: 17
+
+check_20:
+      id: 20
+      payment_type: 'EOB'
+    
+check_999:
+      id: 999
+      job_id: 999 
+      payer_id: 15
+
+check_information6:
+      id: 6
+      job_id: 106
+      payer_id: 16
+      check_number: '345'
+      check_amount: '56'
+      check_date: '2009-02-05'
+
+check_information7:
+      id: 7
+      job_id: 107
+      payer_id: 13
+      check_number: '45344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+
+check_information8:
+      id: 8
+      job_id: 108
+      payer_id: ''
+      check_number: '95344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+      provider_adjustment_amount: 20.00
+
+check_information9:
+      id: 10
+      job_id: 109
+      payer_id: 16
+      check_number: '95344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+
+check_information10:
+      id: 11
+      job_id: 110
+      payer_id: 13
+      check_number: '45344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+
+check_information11:
+      id: 12
+      job_id: 111
+      payer_id: ''
+      check_number: '95344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+
+check_information12:
+      id: 13
+      job_id: 111
+      payer_id: ''
+      check_mailed_date: '2009-02-05'
+      check_received_date: '2009-02-05'
+
+check_information_201:
+      id: 201
+      job_id: 201
+      payer_id: ''
+      check_number: '295344'
+      check_amount: '275'
+      check_date: '2010-02-05'
+
+check_information_202:
+      id: 202
+      job_id: 202
+      payer_id: ''
+      check_number: '245344'
+      check_amount: '245'
+      check_date: '2010-03-05'
+
+check_information_203:
+      id: 203
+      job_id: 203
+      payer_id: ''
+      check_number: '211344'
+      check_amount: '2145'
+      check_date: '2010-03-05'
+
+check_information_204:
+      id: 204
+      job_id: 204
+      payer_id: ''
+      check_number: '211044'
+      check_amount: '2175'
+      check_date: '2010-04-05'
+
+check_information_2015:
+      id: 2015
+      job_id: 205
+      payer_id: 205
+      check_number: '235211'
+      check_amount: '2145'
+      check_date: '2010-03-05'
+
+check_information_2016:
+      id: 2016
+      job_id: 206
+      payer_id: 206
+      check_number: '128521'
+      check_amount: '2845'
+      check_date: '2010-03-05'
+
+check_information_2017:
+      id: 2017
+      job_id: 207
+      payer_id: 205
+      check_number: '735211'
+      check_amount: '8145'
+      check_date: '2010-03-05'
+
+check_information_2018:
+      id: 2018
+      job_id: 208
+      payer_id: 205
+      check_number: '821852'
+      check_amount: '2845'
+      check_date: '2010-03-05'
+
+check_information_2019:
+      id: 2019
+      job_id: 209
+      payer_id: 205
+      check_number: '42352'
+      check_amount: '3215'
+      check_date: '2010-03-05'
+
+check_information_210:
+      id: 210
+      job_id: 210
+      payer_id: 205
+      check_number: '129521'
+      check_amount: '2645'
+      check_date: '2010-03-05'
+
+check_information_211:
+      id: 211
+      job_id: 211
+      payer_id: 205
+      check_number: '29521'
+      check_amount: '2945'
+      check_date: '2010-03-05'
+
+check_information13:
+      id: 14
+      job_id: 112
+      check_number: '211000'
+      check_amount: '234'
+      check_date: '2009-02-05'
+      check_mailed_date: '2009-01-05'
+      check_received_date: '2009-03-05'
+
+check_information205:
+      id: 205
+      job_id: 113
+      check_number: '211001'
+      check_amount: '235'
+
+check_with_non_footnote_payer:
+      id: 22
+      payer_id: 19
+      job_id: 14
+      check_number: 1020
+      check_amount: 100
+
+check_with_footnote_payer:
+      id: 23
+      payer_id: 21
+      job_id: 15
+
+check_24:
+      id: 24
+      payer_id: 27
+      job_id: 14
+
+  
+check_25:
+      id: 25
+      payer_id:
+      job_id: 15
+      micr_line_information_id: 1
+  
+check_26:
+      id: 26
+      payer_id: 29
+      job_id: 16
+
+check_27:
+      id: 27
+      payer_id: 29
+      job_id: 17
+
+check_28:
+      id: 28
+      payer_id: 29
+      job_id: 19
+
+check_29:
+      id: 29
+      payer_id: 30
+      micr_line_information_id: 2
+
+check_30:
+      id: 30
+      payer_id:
+      micr_line_information_id: 2
+
+check_31:
+      id: 31
+      payer_id: 23
+      micr_line_information_id:
+
+check_32:
+      id: 32
+      payer_id: 31
+      job_id: 20
+
+check_33:
+      id: 33
+      payer_id: 32
+      job_id: 21
+
+check_34:
+      id: 34
+      payer_id: 33
+
+check_35:
+      id: 35
+      payer_id: 34
+
+check_36:
+      id: 36
+      payer_id: 43
+
+check_37:
+      id: 37
+      payer_id: 44
+
+check_with_excluded_payer_exclusion_based_on_micr:
+      id: 206
+      payer_id: 39
+      check_number: '1234'
+      check_amount: '100'
+
+check_with_excluded_payer_exclusion_based_on_payid:
+      id: 207
+      payer_id: 41
+      check_number: '1234'
+      check_amount: '100'
+
+check_with_included_payer_with_micr:
+      id: 208
+      payer_id: 40
+      check_number: '1234'
+      check_amount: '100'
+
+check_with_included_payer_without_micr:
+      id: 209
+      payer_id: 42
+      check_number: '1234'
+      check_amount: '100'
+
+check_36:
+      id: 36
+      payer_id: 35
+
+check_37:
+      id: 37
+      payer_id: 36
+
+check_38:
+      id: 38
+      payer_id: 37
+      job_id: 12
+
+check_39:
+      id: 39
+      payer_id: 26
+      micr_line_information: 6
+
+check_information14:
+      id: 40
+      job_id: 115
+      payer_id: 15
+      check_number: '0'
+      check_amount: '0.0'
+      check_date: '2009-02-05'
+
+check_information15:
+      id: 41
+      job_id: 116
+      payer_id: 16
+      check_number: '345'
+      check_amount: '56'
+      check_date: '2009-02-05'
+
+check_information16:
+      id: 42
+      job_id: 117
+      payer_id: 13
+      check_number: '45344'
+      check_amount: '75'
+      check_date: '2009-02-05'
+
+check_information2206:
+      id: 2206
+      job_id: 212
+      check_number: '711001'
+      check_amount: 0.01
+      payer_id: 207
+      check_date: '2010-03-05'
+
+check_information2207:
+      id: 2207
+      job_id: 213
+      check_number: '211081'
+      check_amount: 90.00
+      payer_id: 208
+      check_date: '2010-03-05'
+
+check_information2208:
+      id: 2208
+      job_id: 214
+      check_number: '261081'
+      check_amount: 190.00
+      payer_id: 209
+      check_date: '2010-03-05'
+
+check_information2209:
+      id: 2209
+      job_id: 215
+      check_number: '267081'
+      check_amount: 190.00
+      payer_id: 210
+      check_date: '2010-03-05'
+
+check_information2210:
+      id: 2210
+      job_id: 216
+      check_number: '267091'
+      check_amount: 197.00
+      payer_id: 210
+      check_date: '2010-03-05'
+
+check_information2211:
+      id: 2211
+      job_id: 217
+      check_number: '2167091'
+      check_amount: 197.00
+      payer_id: 210
+      check_date: '2010-03-05'
+
+check_information2212:
+      id: 2212
+      job_id: 218
+      check_number: '2667091'
+      check_amount: 187.00
+      payer_id: 210
+      check_date: '2010-03-05'
+
+check_information2213: #owner :Dhanya
+      id: 2213
+      job_id: 219
+      check_number: '2168091'
+      check_amount: 177.00
+      payer_id: 211
+      micr_line_information_id: 152
+      check_date: '2010-03-05'
+
+check_information2214:  #owner :Dhanya
+      id: 2214
+      job_id: 220
+      check_number: '32667091'
+      check_amount: 1867.00
+      payer_id: 212
+      check_date: '2010-03-05'
+
+check_information2215:
+      id: 2215
+      job_id: 221
+      check_number: '3266709122'
+      check_amount: 18672.00
+      payer_id: 219
+      check_date: '2010-03-05'
+
+check_43:
+      id: 43
+      job_id: 22
+
+check_44: #owner : Sunil
+      id : 44
+      job_id : 18
+
+check_45: #owner : Ramya
+      id: 45
+      job_id: 222
+      check_number: '000000'
+      alternate_payer_name: 'UID01'
+
+check_9999: #owner : Anjana
+      id: 9999
+      check_number: '009900'
+
+check_46: #owner : Ramya
+      id: 46
+      payer_id: 35
+
+check_47: #owner : Ramya
+      id: 47
+      payer_id: 36
+      check_number: "0007878"
+      job_id: 82
+
+check_48: #owner: Sunil
+      id: 48
+      job_id: 226
+
+check_49: #owner : Ramya
+      id: 49
+      job_id: 227
+      micr_line_information_id: 153
+
+check_50: #owner : Ramya
+      id: 50
+      job_id: 228
+      check_number: "078787"
+
+check_51: #owner : Ramya
+      id: 51
+      micr_line_information_id: 154
+      job_id: 82
+
+check_52: #owner : Ramya
+      id: 52
+      micr_line_information_id: 155
+      check_number: "6767"
+   
+check_information2216: #Ower :Dhanya
+      id: 2216
+      job_id: 239
+      check_number: '1326670912'
+      check_amount: 18672.00
+      payer_id: 219
+      check_date: '2010-03-05'
+
+check_information2217:  #Ower :Dhanya
+      id: 2217
+      job_id: 240
+      check_number: '1326678912'
+      check_amount: 18672.00
+      payer_id: 212
+      check_date: '2010-03-05'
+
+
+check_information2218:  #Ower :Dhanya
+      id: 2218
+      job_id: 242
+      check_number: '1316670912'
+      check_amount: 18672.00
+      payer_id: 219
+      check_date: '2010-03-05'
+
+check_information2219:    #Ower :Dhanya
+      id: 2219
+      job_id: 242
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 212
+      check_date: '2010-03-05'
+
+check_information2220:    #Ower :Dhanya
+      id: 2220
+      job_id: 243
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 237
+      check_date: '2010-03-05'
+
+check_information2221:    #Ower :Dhanya
+      id: 2221
+      job_id: 244
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 238
+      check_date: '2010-03-05'
+
+check_information2222:    #Ower :Dhanya
+      id: 2222
+      job_id: 245
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 239
+      check_date: '2010-03-05'
+
+check_information2223:    #Ower :Dhanya
+      id: 2223
+      job_id: 246
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 240
+      check_date: '2010-03-05'
+
+check_information2224:    #Ower :Dhanya
+      id: 2224
+      job_id: 247
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 241
+      check_date: '2010-03-05'
+
+check_information2225:    #Ower :Dhanya
+      id: 2225
+      job_id: 248
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 242
+      check_date: '2010-03-05'
+
+check_information2226:    #Ower :Dhanya
+      id: 2226
+      job_id: 249
+      check_number: '1336678912'
+      check_amount: 18672.00
+      payer_id: 243
+      check_date: '2010-03-05'
+  
+check_53:
+      id: 53
+      payer_id: 47
+
+check_54:
+      id: 54
+      job_id: 24
+      check_number: 123
+
+check_55:
+      id: 55
+      job_id: 26
+
+check_56: #owner : Ramya
+      id: 56
+      micr_line_information_id: 155
+      check_number: "36767"
+
+check_having_micr_associated_to_patpay_payer_57: #owner : Ramya
+      id: 57
+      micr_line_information_id: 153
+      payer_id: 221
+      check_number: "9078"
+
+check_having_micr_associated_to_patpay_payer_58: #owner : Ramya
+      id: 58
+      micr_line_information_id: 153
+      payer_id: 221
+      check_number: "89078"
+      job_id: 82
+
+check_having_micr_associated_to_insurance_payer_59: #owner : Ramya
+      id: 59
+      micr_line_information_id: 154
+      payer_id: 222
+      check_number: "9078"
+      job_id: 82
+
+check_60:
+      id: 60
+
+check_61:
+      id: 61
+
+check_301:
+      id: 301
+      job_id: 310
+      payer_id: 301
+
+check_302:
+      id: 302
+      job_id: 311
+      payer_id: 302
+
+check_303:
+      id: 303
+      job_id: 312
+      payer_id: 303
+
+check_62:
+      id: 62
+      job_id: 28
+      
+check_63:
+      id: 63
+      job_id: 23
+
+check_64:
+      id: 64
+      job_id: 30
+
+check_65:
+      id: 65
+      job_id: 57
+
+check_66:
+      id: 66
+      job_id: 61
+
+check_67:
+      id: 67
+      job_id: 32
+
+check_68:
+      id: 68
+      job_id: 62
+
+check_69: #owner : Ramya
+      id: 69
+      job_id: 223
+      check_number: '000000'
+      alternate_payer_name: 'UID01'
+
+check_70:
+      id: 70
+      payer_id: 56
+      job_id: 74
+
+check_71:
+  id: 71
+  check_amount: 150
+  job_id: 75
+
+check_72:
+  id: 72
+  check_amount: 25.83
+  job_id: 76
+
+check_74:
+  id: 74
+  check_amount: 25.83
+  job_id: 78
+
+check_75:
+  id: 75
+  check_amount: 25.83
+  job_id: 79
+  
+check_78:
+      id: 78
+      job_id: 18
+      payment_type: 'EOB'
+      check_date: '2009-02-05'
+      check_amount: 100
+      check_number: 123123
+      micr_line_information_id: 99
+      payer_id: 50
+
+check_79:
+      id: 79
+      job_id: 18
+      payment_type: 'EOB'
+      check_date: '2009-02-05'
+      check_amount: 100
+      check_number: 123123
+      micr_line_information_id: 99
+      payer_id: 50
+      payment_method: "CHK"
+
+denial_check_80: #owner : Ramya
+      id: 80
+      job_id: 81
+      check_amount: 0.0
+      check_number: "RX300412111203"
+      payment_method: "COR"
+      payer_id: 205
+
+non_denial_check_81: #owner : Ramya
+      id: 81
+      job_id: 82
+      check_amount: 0.0
+      check_number: "0"
+      payment_method: "COR"
+      payer_id: 209
+
+correspondence_check_with_eob_without_svc__for_correspondence_82: #owner : Ramya
+      id: 82
+      job_id: 83
+      check_amount: 0.0
+      check_number: "0"
+      check_date: 
+
+correspondence_check_with_eob_with_svc_complete_eob_88: #owner : Ramya
+      id: 88
+      job_id: 85
+      check_amount: 0.0
+      check_number: "0"
+      check_date: 
+
+payment_check_with_eob_with_svc_complete_eob_85: #owner : Ramya
+      id: 85
+      job_id: 84
+      check_amount: 100
+      check_number: "TY677"
+      check_date: 2009-02-05
+      micr_line_information_id: 99
+
+correspondence_check_with_eob_with_svc_missing_check_89: #owner : Ramya
+      id: 89
+      job_id: 86
+      check_amount: 0.0
+      check_number: "0"
+      check_date: 
+
+payment_check_with_eob_without_svc_check_only_90: #owner : Ramya
+      id: 90
+      job_id: 87
+      check_amount: 100
+      check_number: "TY677"
+      check_date: 2009-02-05
+      micr_line_information_id: 99
+
+check_91:
+      id: 91
+      job_id: 88
+      micr_line_information_id: 156
+      payer_id: 305
+      check_number: "9078123"
+
+check_92:
+      id: 92
+      job_id: 89
+      micr_line_information_id: 157
+      payer_id: 306
+      check_number: "66678123"
+
+check_94:
+      id: 94
+      job_id: 91
+      micr_line_information_id: 159
+      payer_id: 308
+      check_number: "44478123"
+
+check_95:
+      id: 95
+      micr_line_information_id: 9
+      payer_id: 59
+      check_number: 444781
+
+check_96:
+      id: 96
+      micr_line_information_id: 10
+      payer_id: 61
+      check_number: 4447811
+
+check_97:
+      id: 97
+      micr_line_information_id: 11
+      payer_id: 62
+      check_number: 4447812
+
+check_101:
+      id: 101
+      micr_line_information_id: 12
+      payer_id: 63
+      check_number: 4477812
+
+check_102:
+      id: 102
+      micr_line_information_id: 13
+      payer_id: 66
+      check_number: 4477812
+
+check_103:
+      id: 103
+      micr_line_information_id:
+      payer_id: 68
+      check_number: 4777812
+
+non_denial_check_for_patient_pay_104: #owner : Ramya
+      id: 104
+      job_id: 92
+      check_amount: 0.0
+      check_number: "0"
+      payment_method: "COR"
+      payer_id: 68
+
+denial_check_for_patient_pay_105: #owner : Ramya
+      id: 105
+      job_id: 93
+      check_amount: 0.0
+      check_number: "RX210212111203"
+      payment_method: "COR"
+      payer_id: 68
+      
+check_info_106:
+      id: 106
+      job_id: 94
+      check_amount: 100
+
+check_info_107:
+      id: 107
+      job_id: 95
+      check_amount: 200

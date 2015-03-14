@@ -1,0 +1,258 @@
+html, body {
+margin : 0;
+padding : 0;
+height : 100%;
+border : none;
+}
+.user_box {
+background-color : #eeeeff;
+padding : 10px;
+float : right;
+border : #ccc solid 1px;
+}
+.red, #legend .red {
+background-color : #ff9797;
+}
+.palered, #legend .palered {
+background-color : #efafff;
+}
+.blue, #legend .blue {
+background-color : #a9a9ff;
+}
+#no_link a {
+text-decoration : none;
+}
+.green, #legend .green {
+background-color : #beff7d;
+}
+.darkgreen, #legend .darkgreen {
+background-color : #56B656;
+}
+.lightblue, #legend .lightblue {
+background-color : #55FFFF;
+}
+.lightgrey, #legend .lightgrey {
+background-color : #D2D2D2;
+}
+.darkgrey, #legend .darkgrey {
+background-color : #878787;
+}
+.white, #legend .white {
+background-color : #fff;
+}
+.center {
+text-align : center;
+}
+.full {
+width : 95%;
+}
+.one_third {
+width : 33%;
+}
+.two_third {
+width : 66%;
+}
+.info {
+background-color : #e9eef2;
+border : #eee solid 1px;
+padding : 10px;
+}
+.light_info {
+margin-top : 5px;
+margin-bottom : 5px;
+background-color : #e9eef2;
+border : #eee solid 1px;
+width : 900px;
+}
+#header {
+color : #999;
+}
+#logo_container {
+padding-top : 5px;
+font-family : Verdana, sans-serif;
+font-size : 160%;
+font-weight : bold;
+color : #30518E;
+}
+#menu_container ul {
+list-style : none;
+text-align : right;
+padding-right : 10px;
+border-bottom : 2px solid #5ba86a;
+}
+#menu_container li {
+display : inline;
+}
+#menu_container a:link, #menu_container a:visited {
+text-decoration : none;
+color : #fff;
+background-color : #5ba86a;
+padding-left : 10px;
+padding-bottom : 3px;
+padding-right : 10px;
+padding-top : 3px;
+}
+#menu_container a:hover, #menu_container a:active {
+background-color : #309649;
+}
+#page_container {
+padding-top : 10px;
+padding-left : 20px;
+padding-right : 20px;
+}
+#footer {
+border-top : 1px solid #ddd;
+text-align : center;
+font-family : sans-serif;
+color : #999;
+margin : 10px;
+padding : 5px;
+}
+h1 {
+font-size : 120%;
+color : #000000;
+}
+h2 {
+font-size : 11px;
+color : #990000;
+}
+h3 {
+font-size : 110%;
+color : #000099;
+}
+h4 {
+font-size : 105%;
+color : #000099;
+}
+h7 {
+font-size : smaller;
+color : grey;
+}
+hr {
+border : #eee solid 1px;
+}
+.highlight {
+background-color : green;
+}
+.left {
+text-align : left;
+}
+.right {
+text-align : right;
+}
+.input {
+background-color : #f9f9f9;
+border : #ccc solid 1px;
+padding : 2px;
+}
+.input:hover {
+background-color : #ffffdd;
+}
+input, textarea {
+background-color : #f9f9f9;
+border : #ccc solid 1px;
+padding : 2px;
+}
+input:hover, textarea:hover {
+background-color : #ffffdd;
+}
+.button {
+color : #fff;
+margin : 0;
+background-color : #333;
+}
+.button:hover {
+background-color : #600;
+}
+table.sortable span.sortarrow {
+color : black;
+text-decoration : none;
+}
+table.sortable a.sortheader {
+color : #000000;
+text-decoration : none;
+}
+#legend {
+width : 100%;
+text-align : left;
+margin : 1em 0;
+padding : 0.5em;
+display : block;
+}
+#legend dt {
+background : #fff;
+border : #999 solid 1px;
+float : left;
+margin : 0.1em 0.5em 0.1em 2em;
+overflow : hidden;
+width : 0.8em;
+height : 0.8em;
+}
+#legend dl, #legend dd {
+display : inline;
+float : left;
+padding : 0;
+margin : 0;
+margin-right : 0.5em;
+}
+th a:link, th a:visited {
+text-decoration : none;
+color : #000033;
+}
+th a:hover, th a:active {
+text-decoration : none;
+color : #000066;
+}
+a img {
+text-decoration : none;
+border : 0;
+}
+.tdbold {
+font-size : 10px;
+font-weight : bold;
+border : #000 solid 1px;
+width : 20%;
+}
+.dpTable {
+font-size : 80%;
+text-align : center;
+color : #505050;
+background-color : #ece9d8;
+border : #AAAAAA solid 1px;
+}
+.dpTD {
+border : #ece9d8 solid 1px;
+}
+.dpDayHighlightTD {
+background-color : #CCCCCC;
+border : #AAAAAA solid 1px;
+}
+.dpTDHover {
+background-color : #aca998;
+border : #888888 solid 1px;
+}
+.dpDayTD {
+background-color : #CCCCCC;
+border : #AAAAAA solid 1px;
+color : white;
+}
+.dpTitleText {
+font-size : 12px;
+color : gray;
+font-weight : bold;
+}
+.dpDayHighlight {
+font-weight : bold;
+}
+.dpButton {
+color : #666;
+background : #d8e8ff;
+padding : 1px;
+border : #999 solid 1px;
+}
+.dpTodayButton {
+color : gray;
+background : #d8e8ff;
+padding : 1px;
+border : #999 solid 1px;
+}

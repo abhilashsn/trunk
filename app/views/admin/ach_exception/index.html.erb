@@ -1,0 +1,79 @@
+<h1> ACH Exceptions </h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'index' do %>
+  <table>
+    <tr>
+      <th>Arrival Date</th>
+      <td>
+        <strong>From:</strong>
+        <%= text_field_tag 'arrival_date_from', params[:arrival_date_from], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_from", "mdy", "/") %>
+      </td>
+      <td>
+        <strong>To:</strong>
+        <%= text_field_tag 'arrival_date_to', params[:arrival_date_to], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_to", "mdy", "/") %>
+      </td>
+    </tr>
+    <tr>
+      <th>Filename</th>
+      <td><%= text_field_tag 'filename', params[:filename], :size => '14' %></td>
+      <th>Site ABA DDA</th>
+      <td><%= text_field_tag 'site_aba_dda', params[:site_aba_dda], :size => '10' %></td>
+    <tr>
+    <tr>
+      <th>Trace Number</th>
+      <td><%= text_field_tag 'trace_number', params[:trace_number], :size => '10' %></td>
+      <th>Payer Name</th>
+      <td><%= text_field_tag 'payer_name', params[:payer_name], :size => '10' %></td>
+    <tr>
+      <th>Exception</th>
+      <td><%= select_tag(:exception, options_for_select(['Unidentified Payer', 'Unidentified Site', 'Both'], :selected => params[:exception]), :include_blank => true) %></td>
+      <th>Company ID</th>
+      <td><%= text_field_tag 'company_id', params[:company_id], :size => '10' %></td>
+    </tr>
+    <tr>
+      <th>Site Name</th>
+      <td><%= text_field_tag 'site_name', params[:site_name], :size => '10' %></td>
+    </tr>
+  </table>
+  <%= submit_tag 'Filter', :class => 'button' %>
+  <% end%>
+</div>
+
+<% unless @cr_transactions.blank? %>
+  <div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @cr_transactions %>
+  </div><br/>
+  <table style="width:100%">
+    <tr>
+      <th>ACH File Arrival Date</th>
+      <th>Filename</th>
+      <th>Batch Number</th>
+      <th>Trace Number</th>
+      <th>Exception</th>
+      <th>Site ABA-DDA</th>
+      <th>Site Name</th>
+      <th>Company ID</th>
+      <th>Payer Name</th>
+      <th>Approve/Reject</th>
+    </tr>
+    <% for cr_transaction in @cr_transactions
+       %>
+    <tr>
+      <td><%= cr_transaction.ach_file.file_arrival_date %> </td>
+      <td><%= cr_transaction.ach_file.file_name %> </td>
+      <td><%= cr_transaction.batch_number %> </td>
+      <td> <%= !cr_transaction.eft_trace_number_eda ? cr_transaction.eft_trace_number_ed : cr_transaction.eft_trace_number_eda %>
+      </td>
+      <td><%= cr_transaction.status %> </td>
+      <td><%= "#{cr_transaction.aba_dda_lookup.aba_number}-#{cr_transaction.aba_dda_lookup.dda_number}" %> </td>
+      <td><%= cr_transaction.receivers_name %> </td>
+      <td><%= cr_transaction.company_id %> </td>
+      <td><%= cr_transaction.payer_name %> </td>
+      <td><%= link_to 'Verify', {action: 'approval', cr_id: cr_transaction} %></td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <h4> No ACH Exceptions. </h4>
+<% end %>

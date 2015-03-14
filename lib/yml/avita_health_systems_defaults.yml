@@ -1,0 +1,29 @@
+Lockbox_Array: "637234,637235,637260"
+Lockbox_637234:
+  Batch_id: "53RD_0000637234_ALL_"
+  Facility_Name: "BUCYRUS COMMUNITY HOSPITAL"
+  NPI: 1104914274
+  TIN: 274283931
+  Address_one: "PO BOX 637234"
+  City: "CINCINNATI"
+  State: "OH"
+  Zip_code: "45263"
+Lockbox_637235:
+  Batch_id: "53RD_0000637235_ALL_"
+  Facility_Name: "GALION COMMUNITY HOSPITAL"
+  NPI: 1215907522
+  TIN: 344451872
+  Address_one: "PO BOX 637235"
+  City: "CINCINNATI"
+  State: "OH"
+  Zip_code: "45263"
+Lockbox_637260:
+  Batch_id: "53RD_0000637260_ALL_"
+  Facility_Name: "COMMUNITY HEALTH ASSOCIATES"
+  NPI: 1396917969
+  TIN: 341784017
+  Address_one: "PO BOX 637260"
+  City: "CINCINNATI"
+  State: "OH"
+  Zip_code: "45263"
+ 

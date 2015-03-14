@@ -1,0 +1,48 @@
+
+<% @mpi_results.each do |mpi_result| %>
+  <% claim_id = "claim_#{mpi_result.id}_details" %>
+  <div class="claim_service hidden" id="<%= claim_id %>">
+   
+
+    <table class="table-striped table-hover table-bordered table-condensed">
+      <tr>
+      
+
+        <th> Billing Provider:</th> <td>  <%=  (mpi_result.blank? || mpi_result.billing_provider_organization_name.blank? ) ? "--" : mpi_result.billing_provider_organization_name%></td>
+        <th> Member ID:</th> <td>  <%=   (mpi_result.blank? || mpi_result.insured_id.blank? ) ? "--" : mpi_result.insured_id %></td>
+        <th>Sub Last Name:</th><td><%=  (mpi_result.blank? || mpi_result.subscriber_last_name.blank?) ? "--" : mpi_result.subscriber_last_name %></td>
+        <th>Sub First Name:</th><td><%=  (mpi_result.blank? || mpi_result.subscriber_first_name.blank?) ? "--" : mpi_result.subscriber_first_name %></td>
+        <th>File Name: </th> <td> <%=(mpi_result.blank? || mpi_result.claim_file_information.blank?) ? "--" : mpi_result.claim_file_information.name %></td>
+      
+      </tr>
+
+    </table>
+    <div class="scrollWrapperDetails">
+    <table class="table-striped table-hover table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>Row</th>
+          <th>Service Date From</th>
+          <th>Service Date To</th>
+          <th>CPT Code</th>
+          <th>Rev Code</th>
+          <th>SVC Charge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% service_lines = mpi_result.claim_service_informations.order(:line_number) || [] %>
+        <% service_lines.each_with_index do |csi, row| %>
+          <tr>
+            <td><%= row + 1 %>
+            <td><%= csi.service_from_date.strftime('%m/%d/%Y') rescue "Not Found" %></td>
+            <td><%= csi.service_to_date.strftime('%m/%d/%Y') rescue "Not Found" %></td>
+            <td><%= csi.cpt_hcpcts %></td>
+            <td><%= csi.revenue_code %></td>
+            <td class="numeric"><%= number_to_currency(csi.charges) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
+    </div>
+<% end %>

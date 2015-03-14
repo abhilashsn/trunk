@@ -1,0 +1,28 @@
+<%=  form_tag({:controller => 'temp_jobs', :action => 'create'}, remote: true, 'data-update-target' => 'temp_jobs',  id: "temp_job_form") do %>
+  
+  <table>
+    <tr>
+      <th>ABA Number</th>
+      <th>Account Number</th>
+      <th>Check #</th>
+      <th>Check Amount</th>
+      <th>Page Count</th>
+      <th>Image From</th>
+      <th>Image To</th>
+      <th>Add</th>
+    </tr>
+    <tr>
+      <td class="fixed"><%= text_field :temp_job, :aba_number %></td>
+      <td class="fixed"><%= text_field :temp_job, :account_number %></td>
+      <td class="fixed"><%= text_field :temp_job, :check_number %></td>
+      <td class="fixed"><%= text_field :temp_job, :check_amount %></td>
+      <td class="fixed"><%= select_tag "image_count", options_for_select(1..@image_count) %></td>
+      <td class="fixed"><div class="overflow"><%= select_tag "image_from", options_for_select(@image_names) %></div></td>
+      <td class="fixed"><div class="overflow"><%= select_tag "image_to", options_for_select(@image_names)%></div></td>
+      <td class="fixed"><%= submit_tag "+", :id => "temp_job_submit", :disable_with => 'Adding..', :class => 'button'%></td>
+    </tr>
+    <%= hidden_field_tag :job_id, @job_information.id %>
+    <%= hidden_field_tag :image_names, @image_names %>
+    <%= hidden_field_tag :client_name, @client_name %>
+  </table>
+<%end%>

@@ -1,0 +1,6 @@
+class OutputActivityStatus 
+  GENERATING = "GENERATING"
+  GENERATED = "GENERATED"
+  UPLOADING = "UPLOADING"
+  UPLOADED = "UPLOADED"
+end

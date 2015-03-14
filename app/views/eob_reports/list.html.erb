@@ -1,0 +1,85 @@
+<script LANGUAGE="JavaScript">
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+
+function validate_form(){
+  var client = document.getElementById("client_id");
+  var client_name_txt = client.options[client.selectedIndex].value;
+  if ((client_name_txt == "--Select--") || (client_name_txt == "")){
+    alert("Please select a client name");
+    return false;
+  }
+  var from_date = document.getElementById("from_date");
+  if (from_date.value == ""){
+    alert("Please select a valid from date");
+    return false;
+  }
+  var to_date = document.getElementById("to_date");
+  if (to_date.value == ""){
+    alert("Please select a valid to date");
+    return false;
+  }
+  return true;
+}
+</script>
+
+<div id="login_main">
+  <h1>EOB Report</h1>
+
+  <div class="light_info">
+    <%= form_tag :action => 'eob_list', :client => params[:client],
+      :facility => params[:facility_of_onbase], :to_date => params[:to_date],
+      :from_date => params[:from_date], :batch_id => params[:batch_id],
+      :check_number => params[:check_number], :eob_report_layout => params[:eob_report_layout] do %>
+
+      <table>
+        <tr>
+          <th>Client Name</th>
+          <td><%= select_tag 'client', ("<option value=''>--Select--</option>" + options_for_select(@clients)).html_safe,
+                  :id => 'client_id', :onchange => "getFacilityByClient(\'#{@relative}\',this, 'plan_type_facilities');" %>
+          </td>
+          <th>Facility Name</th>
+          <td width='20%'>
+            <span id="plan_type_facility_span"></span>
+          </td>
+        
+          <th>Batch Date</th>
+          <td>
+            <strong>From :</strong>
+            <%= text_field_tag 'from_date', params[:from_date], :size => '10', :class => 'dropdown' %>
+            <%= date_picker("from_date", "mdy", "/") %>
+          </td>
+          <td>
+            <strong>To :</strong>
+            <%= text_field_tag 'to_date', params[:to_date], :size => '10', :class => 'dropdown' %>
+            <%= date_picker("to_date", "mdy", "/") %>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Batch Id</th>
+          <td>
+            <%= text_field_tag 'batch_id', params[:batch_id], :size => '10' %>
+          </td>
+          <th>Check Number</th>
+          <td>
+            <%= text_field_tag 'check_number', params[:check_number], :size => '10' %>
+          </td>
+          <th>To be Generated at</th>
+          <td>
+            <%= select_tag 'eob_report_layout', optionize('Service line wise', 'EOB wise'), :class => "black_text" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= submit_tag 'Export EOB Report', :class => 'button', :onclick => "return validate_form()" %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+
+  </div>
+
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'dashboard', :action => 'index' %>
+</div>

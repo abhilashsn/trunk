@@ -1,0 +1,48 @@
+<% space = "&nbsp;"*2 %>
+<div id="login_main">
+<h5><%= link_to 'Online Processors', :action => 'list_processor_occupancy' %><%=space%>|<%=space%><%= link_to 'Processor Report', :action => 'processor_report' %><%=space%> > <%=space%> Facility List (Processor <%= @user.userid %>) </h5>
+ 
+<h1>Facility List</h1>
+
+<div class="right"><%= link_to 'Export to CSV', :controller => '/report', :action => "export_processor_facility_report", :user => params[:user], :date_from => @date_from, :date_to => @date_to %></div>
+
+<% unless @facility_jobs.blank? %>
+  <table style="width: 500px">
+    <tr>
+      <th>Facility</th>
+      <th>Job Count</th>
+      <th>EOB Count</th>
+    </tr>
+    <% @facility_jobs.each do |fj| %>
+    <tr>
+    <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <td>
+        <!--<%= link_to_remote "#{fj.facility_name}", 
+                    {:url => { :action => "processor_facility_jobs", :id => fj.id, :user => params[:user] }},
+                    :href => url_for({:action => "processor_facility_jobs", :id => fj.id, :user => params[:user] }),
+                    :loaded => "new Effect.BlindDown('container')",
+                    :update => 'container', 
+                    :before => "Element.show('spinner')",
+                    :success => "Element.hide('spinner')"
+                     %>
+        -->
+        <%= link_to "#{fj.facility_name}", :action => "processor_facility_jobs", :id => fj.id, :user => params[:user], :date_from => @date_from, :date_to => @date_to %>
+      </td>
+    <% else %>
+      <td><%= fj.facility_name %></td>
+    <% end %>
+      <td><%= fj.job_count %></td>
+      <td><%= fj.eob_count %></td>
+    </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h4> No Information available.</h4>
+<% end %> 
+<hr/>
+
+<div id='login_main' style="border: none;">
+  <h5><%= @jobs[0].batch.facility.name unless @jobs.nil? %></h5>
+  <%= render :partial => 'job_list', :layout => false %>
+</div>
+</div>

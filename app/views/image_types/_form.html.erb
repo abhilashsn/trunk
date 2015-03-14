@@ -1,0 +1,29 @@
+<h1>
+	<%= image_tag("spinner.gif", :align => 'absmiddle', :border=> 0,
+                          :id => "spinner", :style=>"display: none;" )%>
+</h1>
+<table width="800">
+        <tr>
+			<th>Patient Last Name</th>
+                        <th>Patient First Name</th>
+                        <th>Patient Account No</th>
+                        <th><div id = 'page_no_header_div' style="display:'none'">Image Page No <span class="alert">*</span></div></th>
+                        <th>Image type <span class="alert">*</span></th>
+	</tr>
+	<tr>
+		
+		<td><%= text_field :image_type, :patient_last_name,
+                  :onblur => validation_on_patient_name, :size => 25 %></td>
+                <td><%= text_field :image_type, :patient_first_name,
+                  :onblur => validation_on_patient_name, :size => 25 %></td>
+                <td><%= text_field :image_type, :patient_account_number,
+                  :onblur => "validateData(id, 'Patient Acc#')", :size => 25 %></td>
+                <td><%= hidden_field :image_type, :image_page_number, :size => 25, :id => 'image_page_number_id', :disabled => true%></td>
+                <td><%= select :image_type, :image_type, ["ENV", "CHK", "OTH", "NOT", "TIC", "HDR", "BOP"] %></td>
+                <td><%= submit_tag "Create", :id => "imagetype_create", :onclick => 'disableButton(this.id)' %></td>
+	
+	</tr>
+</table>
+<br/>
+
+

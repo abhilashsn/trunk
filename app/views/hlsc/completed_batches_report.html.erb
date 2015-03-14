@@ -1,0 +1,43 @@
+<div id="login_main">
+<h1>Completion/Verification Time Report</h1>
+
+<div class="light_info">
+    <%= form_tag :action => 'completed_batches_report' do %>
+      <strong class="sec_title">Date:</strong> <span class="black_text">From <%= text_field_tag 'from_date', @from_date,  :size => '10',:class => 'black_text' %> To <%= text_field_tag 'to_date', @to_date,  :size => '10',:class => 'black_text' %>
+      <%= select_tag 'criteria',  optionize('Batch Date', 'Batch ID'),:class => 'black_text' %>
+      <%= select_tag 'compare', optionize('=','>', '<'),:class => 'black_text'%>
+      <%= text_field_tag 'to_find', nil,  :size => '10',:class => 'black_text' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+</div>
+
+<% if @reports.size > 0 %>
+<div class="right"><%= link_to 'Export to CSV', :controller => '/report', :action => "export_completed_batches_report", :from_date => @from_date, :to_date => @to_date, :to_find2 => @search_field2, :criteria2 => @criteria2, :compare2 => @compare2 %></div>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @reports%>
+</div>
+<table>
+  <tr>
+    <th>User ID</th>
+    <th>Batch ID</th>
+    <th>Facility</th>
+    <th>Batch Date</th>
+    <th>Completed Time</th>
+    <th>Verified Time</th>
+  </tr>
+  <% for report in @reports %>
+      <tr>
+        <td><%= report.user %></td>
+        <td><%= report.batch.batchid %></td>
+        <td><%= report.batch.facility.name %></td>
+        <td><%= format_date(report.batch.date)%></td>
+        <td><%= format_datetime(report.batch.completion_time) %></td>
+        <td><%= format_datetime(report.time) %></td>
+      </tr>
+  <% end %>
+</table>
+<%= pagination %>
+<% else %>
+  <h4> No Matching Report Found. </h4>
+<% end %>
+</div>

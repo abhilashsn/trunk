@@ -1,0 +1,346 @@
+<script>
+  var NS4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5);
+
+  function addOption(theSel, theText, theValue)
+  {
+    var newOpt = new Option(theText, theValue);
+    var selLength = theSel.length;
+    theSel.options[selLength] = newOpt;
+  }
+
+  function deleteOption(theSel, theIndex)
+  {
+    var selLength = theSel.length;
+    if(selLength>0)
+    {
+      theSel.options[theIndex] = null;
+    }
+  }
+
+  function moveOptions(theSelFrom, theSelTo)
+  {
+
+    var selLength = theSelFrom.length;
+    var selectedText = new Array();
+    var selectedValues = new Array();
+    var selectedCount = 0;
+
+    var i;
+
+    // Find the selected Options in reverse order
+    // and delete them from the 'from' Select.
+    for(i=selLength-1; i>=0; i--)
+    {
+      if(theSelFrom.options[i].selected)
+      {
+        selectedText[selectedCount] = theSelFrom.options[i].text;
+        selectedValues[selectedCount] = theSelFrom.options[i].value;
+        deleteOption(theSelFrom, i);
+        selectedCount++;
+      }
+    }
+
+    // Add the selected text/values in reverse order.
+    // This will add the Options to the 'to' Select
+    // in the same order as they were in the 'from' Select.
+    for(i=selectedCount-1; i>=0; i--)
+    {
+      addOption(theSelTo, selectedText[i], selectedValues[i]);
+    }
+
+    if(NS4) history.go(0);
+  }
+
+  //-->
+</script>
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+  function codename() {
+
+    if(document.formname.checkboxname.checked)
+    {
+      document.formname.textname.disabled=false;
+    }
+
+    else
+    {
+      document.formname.textname.disabled=true;
+    }
+  }
+
+</SCRIPT>
+<%=  form_for :facility , :url => { :controller => "facilities", :action => "create"}, :html => { :method => :post } do |f| %>
+  <div id="login_main">
+    <h1>New facility</h1>
+
+
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th class="sub_title"><strong class="sec_title">Facility Details </strong></th>
+        <th class="sec_title1">Batch/837 Loading </th>
+        <th class="sec_title1">Output Setup </th>
+        <th class="sec_title1">Grid Setup</th>
+      </tr>
+      <tr>
+        <td valign="top"><table>
+            <tr>
+              <th>Name</th>
+              <td><%= f.text_field :name, :size => 30%></td>
+            </tr>
+            <tr>
+              <th>Site code</th>
+              <td><%= f.text_field :sitecode, :size => 30 %></td>
+            </tr>
+            <tr>
+              <th>Client</th>
+              <td><%= select_tag "client", options_for_select(@clients), :class=>"bullet_links"%>
+              </td>
+            </tr>
+            <tr>
+              <th>NPI</th>
+              <td><%= f.text_field :facility_npi, :size => 3 %></td>
+            </tr>
+            <tr>
+              <th>TIN</th>
+              <td><%= f.text_field :facility_tin, :size => 3 %></td>
+            </tr>
+            <tr>
+              <th>Practice ID </th>
+              <td><%#= f.text_field :address_one, :size => 30 %></td>
+            </tr>
+            <tr>
+              <th>Address One</th>
+              <td><%= f.text_field :address_one, :size => 30 %></td>
+            </tr>
+            <tr>
+              <th>Address Two</th>
+              <td><%= f.text_field :address_two, :size => 30 %></td>
+            </tr>
+            <tr>
+              <th>City</th>
+              <td><%= f.text_field :city, :size => 3 %></td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td><%= f.text_field :state, :size => 30 %></td>
+            </tr>
+            <tr>
+              <th>Zip</th>
+              <td><%= f.text_field :zip_code, :size => 30 %></td>
+            </tr>
+          </table></td>
+        <td valign="top"><table border="0">
+            <tr>
+              <th colspan="2">Batch Loading </th>
+            </tr>
+            <tr>
+              <th>TIFF type </th>
+              <td><input name="radiobutton" type="radio" value="radiobutton" />
+                Single Page<br />
+                <input name="radiobutton" type="radio" value="radiobutton" />
+                Multi page</td>
+            </tr>
+            <tr>
+              <th>Index file type </th>
+              <td><select name="select" class="bullet_links" id="select">
+                  <option value="Anodyne">RevenueMed file-Multi page TIFF</option>
+                  <option value="JPMC">RevenueMed file-Single page TIFF</option>
+                  <option value="MedAssets">BLK file</option>
+                  <option value="REMITDATA">Client specific file</option>
+                  <option value="REMITDATA">XML file</option>
+                </select></td>
+            </tr>
+            <tr>
+              <th colspan="2">837 Loading </th>
+            </tr>
+            <tr>
+              <th>Parser Type </th>
+              <td><input name="radiobutton" type="radio" value="radiobutton" />
+                837  I<br />
+                <input name="radiobutton" type="radio" value="radiobutton" />
+                837          P</td>
+            </tr>
+          </table></td>
+        <td valign="top"><table border="0">
+            <tr>
+              <td colspan="2" valign="top"><table width="100%" border="0">
+                  <tr>
+                    <th colspan="3">Output Type </th>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><input name="radiobutton" type="radio" value="radiobutton" />
+                      835</td>
+                    <td><input name="radiobutton" type="radio" value="radiobutton" />
+                      XML
+                      <input name="radiobutton" type="radio" value="radiobutton" />
+                      Both
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>835 Transaction Template </th>
+                    <td><select name="select3" class="bullet_links" id="select3">
+                        <option value="Anodyne">Single ST/SE</option>
+                        <option value="JPMC">Multiple ST/SE</option>
+                      </select></td>
+                    <th>XSD Type </th>
+                  </tr>
+                  <tr>
+                    <th>835 Type</th>
+                    <td><select name="select4" class="bullet_links" id="select4">
+                        <option value="Anodyne">Batch wise</option>
+                        <option value="JPMC" selected="selected">Payer wise</option>
+                        <option>Batch wise + Payer wise</option>
+                      </select></td>
+                    <td><input id="facility[sitecode]2" name="facility[sitecode]22" size="12" type="text" />
+                      <input name="Submit2" type="submit" class="black_text" value="Browse" /></td>
+                  </tr>
+                </table></td>
+            </tr>
+            <tr>
+              <th valign="top">Output file name format </th>
+            <form action="#" method="post">
+              <td>
+
+                <table border="0">
+                  <tr>
+                    <td><select name="sel1" size="5" multiple="multiple" class="bullet_links">
+                        <option value="2">deposit_date</option>
+                        <option value="4">batchid</option>
+                        <option value="5">payer</option>
+                        <option value="6">facility</option>
+                      </select>          </td>
+                    <td align="center" valign="middle"><input name="button" type="button"
+                                                              onclick="moveOptions(this.form.sel1, this.form.sel2);" value="--&gt;" />
+                      <br />
+                      <input name="button" type="button"
+                             onclick="moveOptions(this.form.sel2, this.form.sel1);" value="&lt;--" />          </td>
+                    <td><select name="sel2" size="5" multiple="multiple" class="dropdown">
+                        <option value="1">sitecode</option>
+                      </select>          </td>
+                  </tr>
+
+                  <tr>
+                    <td><input id="facility[sitecode]" name="facility[sitecode]2" size="15" type="text" /></td>
+                    <td colspan="2" align="center" valign="middle"><input name="Submit" type="submit" class="black_text" value="+ Add" /></td>
+                  </tr>
+                </table>       </td></form>
+      </tr>
+      <tr>
+        <th valign="top">Delimiter</th>
+        <td><select name="select5" class="bullet_links" id="select5">
+            <option value="Anodyne">_</option>
+            <option value="JPMC">.</option>
+            <option>-</option>
+            <option>:</option>
+          </select></td>
+      </tr>
+    </table>    </td>
+  <td valign="top"><table border="0">
+      <tr><form action="" method="" name="formname">
+        <td><input type="checkbox" onclick="codename()" name="checkboxname" value="ON">
+          Commercial payer </td>
+        <td><input type="text" disabled size="20" name="textname"></td>
+      </form></tr>
+      <tr>
+        <td><input type="checkbox" onclick="codename()" name="checkboxname" value="ON">
+          Patient pay</td>
+        <td><input type="text" size="20" name="textname2" /></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" name="checkbox233" value="checkbox" />
+          Pre-defined payer</td>
+        <td><input type="text" size="20" name="textname22" /></td>
+      </tr>
+      <tr>
+        <th>Patient pay EOB Grid </th>
+        <td><input name="radiobutton" type="radio" value="radiobutton" />
+          Nextgen format <br />
+          <input name="radiobutton" type="radio" value="radiobutton" />
+          Simplyfied Grid </td>
+      </tr>
+
+      <tr>
+        <th>Plan Type </th>
+        <td><input name="radiobutton" type="radio" value="radiobutton" />
+          837 overrides payer  specific<br />
+          <input name="radiobutton" type="radio" value="radiobutton" />
+          Payer specific only</td>
+      </tr>
+      <tr>
+        <th colspan="2">Claim Type </th>
+      </tr>
+      <tr>
+
+        <td colspan="2">
+
+          <table width="100%" border="0" align="center">
+            <tr>
+              <th>Payer - Grid Logic </th>
+              <td>&nbsp;</td>
+              <th> Payer - Apply 837 </th>
+            </tr>
+            <tr>
+              <td><div align="center">
+                  <select name="select7" size="5" multiple="multiple" class="dropdown">
+                    <option value="1">Tricare</option>
+                    <option value="3">Health Net</option>
+                    <option value="4">Oxford</option>
+                  </select>
+                </div>             </td>
+              <td align="center" valign="middle"><div align="center">
+                  <input name="button2" type="button"
+                         onclick="moveOptions(this.form.sel1, this.form.sel2);" value="--&gt;" />
+                  <br />
+                  <input name="button2" type="button"
+                         onclick="moveOptions(this.form.sel2, this.form.sel1);" value="&lt;--" />
+                </div></td>
+              <td><div align="center">
+                  <select name="select6" size="5" multiple="multiple" class="bullet_links">
+                    <option value="2">Medicaid</option>
+                  </select>
+                </div>             </td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <th>Deposite date as Service date </th>
+        <td><input type="checkbox" name="checkbox23" value="checkbox" /></td>
+      </tr>
+      <tr>
+        <th>Edit claim total</th>
+        <td><%= f.check_box :edit_claim_total %></td>
+      </tr>
+      <tr>
+        <th>Optional field (s) </th>
+        <td>
+          <div style="height:70px; overflow-y:scroll; ">
+              <%= f.check_box :check_date %> Check Date  <br />
+              <%= f.check_box :payee_name %> Payee name <br />
+              <%= f.check_box :claim_type %> Claim type <br />
+              <%= f.check_box :hcra %> HCRA code<br />
+              <%= f.check_box :drg_code %> DRG code<br />
+              <%= f.check_box :patient_type %> Patient type <br />
+              <%= f.check_box :payment_code %> Payment code <br />
+              <%= f.check_box :revenue_code %> Revenue code <br />
+              <%= f.check_box :group_code %> Group code <br />
+              <%= f.check_box :reference_code %> Reference code <br />
+              <%= f.check_box :service_date_from %> Service from date <br />
+              <%= f.check_box :late_fee_charge %>Late fee charge <br />
+              <%= f.check_box :claim_level_dos %>Claim Level DOS
+          </div>
+        </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="4" valign="top"><div align="right">
+        <%=  submit_tag "SUBMIT" , :class=>"button"%>
+      <%end%>
+    </div></td>
+</tr>
+</table>
+<br/>
+<!-- TODO: Handle in CSS -->
+<%=  link_to image_tag("arrow_undo.png"),:controller => "dashboard",:action => "index"%> </div>

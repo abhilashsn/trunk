@@ -1,0 +1,339 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: users
+#
+#  id                     :integer(11)   not null, primary key
+#  name                   :string(255)
+#  userid                 :string(255)
+#  password               :string(255)
+#  shift_id                  :string(255)
+#  remark                 :string(255)
+#  role                   :string(255)
+#  session                :string(255)
+#  rating                 :string(255)
+#  processing_rate_triad  :integer(11)   default(5)
+#  processing_rate_others :integer(11)   default(8)
+#  is_deleted             :boolean(1)
+#  total_fields           :integer(11)   default(0)
+#  total_incorrect_fields :integer(11)   default(0)
+#  accuracy               :integer(11)   default(100)
+#  eob_qa_checked         :integer(11)   default(0)
+#
+
+
+sunil:
+      id: 18
+      login: 'sunil.antony'
+      crypted_password:  <%= User.password_digest('123asdf','salt') %>
+      salt: 'salt'
+      auto_allocation_enabled: false
+  
+quentin:
+      id:                        1
+      login:                     quentin
+      name: 'quentin'
+      email:                     quentin@example.com
+      salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+      crypted_password:          9ed6a4c6b3ac84bb91f175cdeec23684f72d72c4 # 'monkey'
+      created_at:                <%= 5.days.ago.to_s :db  %>
+      login_status:    1
+      is_deleted: 0
+      auto_allocation_enabled: true
+          
+aaron:
+      id:                        2
+      login:                     aaron
+      email:                     aaron@example.com
+      salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
+      crypted_password:          0464e2b2e201d21a360fd5acea20c99bac8906d0 # 'monkey'
+      created_at:                <%= 1.days.ago.to_s :db %>
+      remember_token_expires_at: 
+      remember_token:            
+
+
+qa_person:
+      id:                        3
+      login:                     old_password_holder
+      name:                     qa_person
+      salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+      crypted_password:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+      created_at:                <%= 1.days.ago.to_s :db %>
+      login_status:    0
+
+
+
+admin:
+      id: 4
+      login: admin
+      email: admin@example.com
+      salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+      crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+      # activation_code: adminscode # only if you're activating new signups
+      created_at: <%= 1.days.ago.to_s :db %>
+  
+deleted_user:
+      id: 9
+      login: i_am_deleted
+      email: deleted_user@example.com
+      crypted_password:    be77e60e8eb3702a6dc61159bd1dc27b767c2376
+      salt:    1cd0863616b77f4890350672cb3af56ca6329f8a
+      created_at: <%= 1.days.ago.to_s :db %>
+      is_deleted: 1
+      login_status:    1
+    
+undeleted_user:
+      id: 10
+      login: i_am_not_deleted
+      email: undeleted@example.com
+      crypted_password:    be77e60e8eb3702a6dc61159bd1dc27b767c2376
+      salt:    1cd0863616b77f4890350672cb3af56ca6329f8a
+      created_at: <%= 1.days.ago.to_s :db %>
+      is_deleted: 0
+      login_status:    1
+    
+is_deleted_nil_user:
+      id: 11
+      login: i_am_undeleted
+      email: iundeleted@example.com
+      crypted_password:    be77e60e8eb3702a6dc61159bd1dc27b767c2376
+      salt:    1cd0863616b77f4890350672cb3af56ca6329f8a
+      created_at: <%= 1.days.ago.to_s :db %>
+      login_status:    1
+      
+processor_12:
+  id : 12
+  login: Proc-1
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status:
+  last_job_completed_at:
+  auto_allocation_enabled: false
+ 
+processor_13:
+  id : 13
+  login: Proc-2
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status:
+  last_job_completed_at:
+  auto_allocation_enabled: false
+  
+processor_14:
+  id : 14
+  login: Proc-3
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status:
+  last_job_completed_at:
+  auto_allocation_enabled: false
+  
+  
+qa_15:
+  id : 15
+  login: Proc-5
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 1
+  last_job_completed_at:
+
+processor_16:
+  id : 16
+  login: Proc-6
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 1
+  last_job_completed_at:
+
+processor_17:
+  id : 17
+  login: Proc-7
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 1
+
+processor_19:
+  id : 19
+  login: Proc-9
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 1
+
+processor_20:
+  id : 20
+  login: Proc-10
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-03-08 05:26:17
+  auto_allocation_enabled: false
+
+processor_21:
+  id : 21
+  login: Proc-11
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-03-08 05:26:17
+  auto_allocation_enabled: false
+
+processor_22:
+  id : 22
+  login: Proc-12
+  name: 'QA1'
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-03-08 05:26:17
+
+processor_23:
+  id : 23
+  login: Proc-13
+  name: "RTY"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:26:17
+  auto_allocation_enabled: 1
+
+processor_24:
+  id : 24
+  login: Proc-14
+  name: "ABC"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 04:26:17
+  auto_allocation_enabled: 1
+
+processor_25:
+  id : 25
+  login: Proc-15
+  name: "UIO"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_26:
+  id : 26
+  login: Proc-16
+  name: "DEF"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_27:
+  id : 27
+  login: Proc-17
+  name: "GHI"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 0
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_28:
+  id : 28
+  login: Proc-18
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 0
+
+processor_29:
+  id : 29
+  login: Proc-19
+  name: "LMN"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_30:
+  id : 30
+  login: Proc-20
+  name: "PQR"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_31:
+  id : 31
+  login: Proc-21
+  name: "UVW"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 1
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1
+
+processor_32:
+  id : 32
+  login: Proc-22
+  name: "ZYX"
+  email: processor@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1
+  created_at: <%= 1.days.ago.to_s :db %>
+  allocation_status: 0
+  login_status: 1
+  last_job_completed_at: 2012-04-18 05:25:17
+  auto_allocation_enabled: 1

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "RevRemit" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "RevRemit" %>">
+    <%= stylesheet_link_tag "basic", :media => "all" %>
+    <%= javascript_include_tag "basic" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div id="main" role="main">
+      <div class="container-fluid">
+        <div class="content">
+              <%= yield %>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+  </body>
+</html>

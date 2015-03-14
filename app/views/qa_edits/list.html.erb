@@ -1,0 +1,54 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<div id="login_main" style="background-color:#ECE9D8; overflow:scroll; height:270px; width:100%;">
+  <h1>ERROR SUMMARY</h1>
+  <table  style="background-color:#CCC;" width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+    <tr>
+      <th width="3%">No</th>
+      <th width="15%">Field Name</th>
+      <th>Previous Value</th>
+      <th>Current Value</th>
+     </tr>
+    <% @qa_edits.each_with_index do |qa_edit, index| %>
+       <tr>
+          <td>
+            <%= label :serial, :number, "#{index + 1}" %>
+          </td>
+          <td>
+            <% field_name = qa_edit.field_name
+            if field_name.to_s.end_with?('reason_code_id')
+              field_name = field_name.sub('_id', '')
+            end
+            field_name = '-' if field_name.blank?%>
+            <%= label :qa_edit, :field_name, "#{field_name}" %>
+          </td>
+          <td>
+            <% previous_value = qa_edit.previous_value
+            if !previous_value.blank? && qa_edit.field_name.to_s.end_with?('reason_code_id')
+              reason_code_record = qa_edit.get_reason_code previous_value
+              if !reason_code_record.blank?
+                previous_value = reason_code_record.reason_code
+              end
+            end
+            previous_value = '-' if previous_value.blank?
+          %>
+            <%= label :qa_edit, :previous_value, "#{previous_value}" %>
+          </td>
+          <td>
+            <% current_value = qa_edit.current_value
+            if !current_value.blank? && qa_edit.field_name.to_s.end_with?('reason_code_id')
+              reason_code_record = qa_edit.get_reason_code current_value
+              if !reason_code_record.blank?
+                current_value = reason_code_record.reason_code
+              end
+            end
+            current_value = '-' if current_value.blank?
+          %>
+            <%= label :qa_edit, :current_value, "#{current_value}" %>
+          </td>
+        </tr>
+      <%  end %>
+
+  </table>
+  <center> <input type="button" value="Close Window" onclick="window.close()"> </center>
+</div>

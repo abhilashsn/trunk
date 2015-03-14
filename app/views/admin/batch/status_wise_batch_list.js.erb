@@ -1,0 +1,189 @@
+<script language="Javascript">
+  bshowAlert = false;
+  var globalField;
+  function showUserMessages() {
+    if ($("search_field").value == "" && bshowAlert) {
+      switch($("criteria").value) {
+        case "Arrival Time":
+          document.getElementById("message1").innerHTML = "Please enter the batch date in format 'mm/dd/yy' (E.g. 07/27/10)"
+          break;
+        case "Batch Date":
+          document.getElementById("message1").innerHTML = "Please enter the batch date in format 'mm/dd/yy' (E.g. 07/27/10)"
+          break;
+        case "Client Code":
+          document.getElementById("message1").innerHTML = "Search options - 'PM','HX','SX' for Quadax"
+          break;
+        case "Estimated Completion Time":
+          document.getElementById("message1").innerHTML = "Please enter the arrival time in format 'mm/dd/yy HH:MM' (E.g. 07/27/10 15:41)"
+          break;
+        case "Turn Around Time":
+          document.getElementById("message1").innerHTML = "Please enter the batch date in format 'mm/dd/yy' (E.g. 07/27/10)"
+          break;
+        case "Batch Type":
+          document.getElementById("message1").innerHTML = "Search options - 'Payment','Correspondence'"
+          break;
+        case "Status":
+          document.getElementById("message1").innerHTML = "Search options - 'New','In Process','Completed','Pending'"
+          break;
+      }
+      $("search_field").focus();
+    }
+    if(!bshowAlert) {
+      bshowAlert = true;
+      $('criteria').focus();
+    }
+  }
+  function clearUserMessages() {
+    document.getElementById("message1").innerHTML = ""
+  }
+</script>
+<div id="ajax_container">
+<% unless flash[:notice].nil? %>
+  <div class="alert"><%= flash[:notice] %></div>
+<% end %>
+<div id="login_main">
+<h1>Listing batches</h1>
+<div class="light_info">
+  <%= form_tag :action => 'status_wise_batch_list' do %>
+  <% # TODO: Excluding 2 options - Completed EOBs and Estimated EOBs from the filter collection. Will be added on later stage %>
+    <%#= select_tag 'criteria',  options_for_select(['Batch Date', 'Facility', 'Batch ID', 'Batch Type', 'Arrival Time', 'Turn Around Time',
+        'Estimated Completion Time', 'Estimated EOBs', 'Completed EOBs', 'Status'].sort, @criteria.to_s) %>
+    <%= select_tag 'criteria',  optionize_custom(['Batch Date', 'Facility', 'Batch ID', 'Batch Type', 'Arrival Time', 'Turn Around Time',
+        'Estimated Completion Time', 'Status', 'Client Code'].sort,params[:criteria]) %>
+    <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+    <%= text_field_tag 'to_find', params[:to_find],  :size => '10', :onFocus => "return showUserMessages()", :onBlur => "return clearUserMessages()" %>
+    <%= submit_tag 'Filter', :class => 'button' %><div id="message1" style="font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-weight: bold;Color: #FF6600;text-decoration: none;"></div>
+  <% end %>
+</div>
+<%= show_legend({"white" => "New", "lightsteelblue2" => "In Process", "grey67" => "Pending", "darkseagreen" => "Completed", "palered" => "Output generated"}) unless @batches.blank? %>
+<br>
+<% unless @batches.blank? %>
+  <%= form_tag :action => 'update_client_comment' do %>
+<br/>
+ <div style="float:left"><%= will_paginate @batches, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]} %></div>
+ <br/>
+    <table width="100%">
+      <tr>
+        <th width="08%"> Batch Date </th>
+        <th width="17%"> Facility </th>
+        <th width="17%"> Client Code </th>
+        <th> Batch ID </th>
+        <th width="10%"> Batch Type </th>
+        <th width="10%"> Arrival Time </th>
+        <th width="10%"> Turn Around<br> Time </th>
+        <th width="15%"> Estimated Completion<br> Time </th>
+        <th width="15%"> Number of Checks </th>
+        <th width="15%"> Batch Amount </th>
+        <th> Completed<br> EOBs </th>
+        <th> Status </th>
+        <th> TAT Comment </th>
+        <th width="20%"> Comment </th>
+        <% if current_user.has_role?(:supervisor) %>
+          <th></th>
+        <% end %>
+      </tr>
+
+      <%  @batches.each do|batch| %>
+        <%
+        cls = ''
+        if !batch.comment.blank?
+          batch_status = "Pending"
+          cls = "grey67"
+        elsif batch.status == BatchStatus::NEW
+          batch_status = "New"
+          cls = "white"
+        elsif batch.status == BatchStatus::PROCESSING
+          batch_status = "In Process"
+          cls = "lightsteelblue2"
+        elsif (batch.status == BatchStatus::COMPLETED || batch.status == BatchStatus::OUTPUT_READY)
+          if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)
+            if OutputActivityLog.find_by_batch_id(batch.id) != nil
+                batch_status = "Output Generated"
+                cls = "palered"
+            else
+                batch_status = "Complete"
+                cls = "darkseagreen"
+            end
+          else
+            batch_status = "Complete"
+            cls = "darkseagreen"
+          end
+        end
+      %>
+
+        <%
+        @batch_id = batch.id
+      %>
+
+        <%  @id = batch.id %>
+        <tr>
+          <td nowrap class="<%= cls %>"><%= format_date(batch.date) %> </td>
+          <td nowrap class="<%= cls %>"><%= batch.facility.name%></td>
+          <td nowrap class="<%= cls %>"><%= batch.facility.sitecode%></td>
+          <td nowrap class="<%= cls %>"><%= batch.batchid %>&nbsp;&nbsp; </td>
+          <td nowrap class="<%= cls %>">
+            <% if batch.correspondence == true %>
+              Correspondence
+            <% else %>
+              Payment
+            <% end %>
+          </td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.arrival_time) %></td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.target_time) %></td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.estimated_completion_time) unless batch.estimated_completion_time.blank? %></td>
+          <td nowrap class="<%= cls %>"><%= batch.total_check_count %></td>
+          <td nowrap class="<%= cls %>"><%=( batch.total_check_amount.blank? ? "-" :(sprintf("%.2f",batch.total_check_amount)) )%></td>
+          <td nowrap class="<%= cls %>"><%= batch.get_completed_eobs %></td>
+          <td nowrap class="<%= cls %>"><%=  batch_status%></td>
+          <td nowrap class="<%= cls %>">
+            <div style="text-align:center;">
+            <% unless batch.tat_comment.blank? %>
+            <%= batch.tat_comment %>&nbsp;&nbsp;
+             <%= link_to image_tag("report_edit.png", :alt => "Edit", :title => "Edit", :border=>"0"),
+                  {:controller => '/admin/batch', :action => 'comments',
+                   :id => batch, :editable_field => 'tat_comment', :redirect_window => 'status_wise_batch_list'} %>|
+            <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+                {:controller => '/admin/batch',:action => "delete_batch_tat_comment",
+                 :id => batch.id, :redirect_window => 'status_wise_batch_list'},
+                 :remote => true) %>
+            <% else %>-
+            <% end %>
+            </div>
+        </td>
+          <td class="<%= cls %>">
+            <% if current_user.has_role?(:supervisor) %>
+                <textarea id="batch_comment" name="batch_comment[<%=batch.id%>]" cols="35" rows="1" class="black_text"><%= (batch.comment.blank? ? "" : batch.comment)%></textarea>
+            <% else %>
+              <%= (batch.comment.blank? ? "-" : batch.comment)%>
+            <% end %>
+          </td>
+          <% if current_user.has_role?(:supervisor) %>
+            <td><%= check_box :batch_to_delete, batch.id, :id => 'toggle' %> </td>
+          <% end %>
+        </tr>
+      <% end %>
+
+    </table>
+    <div style="float:left"><%=will_paginate @batches,:params => { 'search_field' => @search_field, 'compare' => @compare, 'criteria' => @criteria }%></div>
+    <br/><br/>
+    <% if current_user.has_role?(:supervisor) %>
+      <%= submit_tag "Update Comment", :class => 'button', :name => "option1" %>
+    <% end %>
+  <% end %>
+  <br/>
+<% else %>
+  <h4> No matching Batches found. </h4>
+<% end %>
+</div>
+</div>
+<%= javascript_tag do %>
+document.on('ajax:complete','#ajax_container', function(event,con){
+   con.update(event.memo.responseText);
+   Element.hide('spinner');
+})
+document.on('ajax:before','#ajax_container', function(event,con){
+   Element.show('spinner');
+
+})
+<% end %>
+

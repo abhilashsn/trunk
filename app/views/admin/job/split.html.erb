@@ -1,0 +1,22 @@
+<h1>Split job</h1>
+
+<%= form_tag :action => 'split_update', :id => @job, :from => @from, :payer => params[:payer] do %>
+<table>
+  <tr>
+    <th><label for="job_check_number">Check number</label></th>
+    <th><label for="job_tiff_number">Tiff number</label></th>
+    <!-- <th><label for="job_image_count">Image Count</label></th> -->
+    <th><label for="job_image_count">Estimated EOBs</label></th>
+  </tr>
+  <tr>
+    <td><%= @job.check_number %></td>
+    <td><%= text_field 'new_job', 'tiff_number'  %></td>
+    <!-- <td><%= text_field 'job', 'image_count'  %></td> -->
+    <td><%= text_field 'new_job', 'estimated_eob'  %></td>
+  </tr>
+</table>
+  <%= submit_tag 'Split', :class => 'button' %>
+<% end %>
+
+<br/> <!-- TODO: Handle in CSS -->
+<a href="javascript:history.go(-1)">Back</a>

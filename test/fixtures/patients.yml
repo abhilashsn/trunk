@@ -1,0 +1,27 @@
+patient_1:
+      id: 1
+      insurance_payment_eob_id: 7
+      address_one: 'GH YUY'
+      address_two: 'BN HJJ'
+      zip_code: 89898
+      city: 'BHJJJ'
+      state: 'NM'
+
+patient_2:
+      id: 2
+
+patient_3:
+      id: 3
+      address_one: 'ROSE GARDEN'
+      address_two: 'PO.7887'
+      city: 'NEWYORK'
+      state: 'NY'
+
+patient_4:
+      id: 4
+      insurance_payment_eob_id: 70
+      address_one: 'ROSE GARDEN'
+      address_two: 'PO.7887'
+      city: 'NEWYORK'
+      state: 'NY'
+      zip_code: 89898

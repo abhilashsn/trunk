@@ -1,0 +1,25 @@
+<div id="login_main">
+  <h1>Listing Payers</h1>
+  <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+    <div class="light_info">
+      <%= link_to 'Add Payer', :action => 'new' %>|
+      <%= link_to 'Import Payers From CSV File', :controller => '/admin/upload', :action => 'upload', :type => 'payer' %>|
+      <%= link_to 'Export Reasoncodes to CSV file', :controller => '/admin/batch', :action => 'reasoncode_csv', :type => 'payer' %>|
+      <%= link_to 'Export Payers To CSV File', :action => 'export_to_csv' %>|
+      <%= link_to 'Non Approved Payers', :action => 'list_new_payers' %>|
+      <%= link_to 'Import Payers From MICR Master CSV File', :controller => '/admin/upload', :action => 'upload', :type => 'micr_payer' %>
+    </div>
+ <% end %>
+    <% unless @approved_payers.blank? %>
+      <div class="light_info">
+        <%= form_tag :action => 'list_approved_payers', :method=>'get',:approved => 'true' do %>
+        <%= render :partial => "search_payer_records"%>
+        <% end %>
+      </div>
+      <%= will_paginate @approved_payers , :params => {:per_page => params[:per_page], :criteria => params[:criteria], :compare => params[:compare], :to_find => params[:to_find]}%>
+      <%= render :partial => 'list' %>
+    <% else %>
+      <h4>No Payers found.</h4>
+    <% end %>
+ 
+</div>

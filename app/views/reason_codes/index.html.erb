@@ -1,0 +1,130 @@
+<%= javascript_include_tag "ansi_remark_code" %>
+<h1>Reason Codes Management <span class="sub_title">-<%=@rccfsns.first.payer_name unless (@rccfsns.first.nil?) %></span> </h1>
+<% if !@rccfsns.blank? %>
+  <%= will_paginate @rccfsns%>
+<% else %>
+  <h4>No Reason codes found</h4>
+<% end %>
+<!--[form:payer]-->
+<table border="0" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" width="98%">
+  <tr>
+    <td valign="top"><span class="sec_title">Current Reason Code List </span>
+<%#= link_to image_tag("toggle.jpg", :border=>0),'#',:onclick => "toggleDisplay();", :style => "width:20;height:18;align:absmiddle" %>
+      <% if !@rccfsns.blank? && @rccfsns.size > 0 %>
+        <table width="100%">
+          <tr>
+            <th>Reason Code</th>
+            <th>Reason Code Description</th>
+            <th>Group Code - ANSI Code</th>
+            <th>Mapping Level</th>
+            <th>Client/Facility Info</th>
+            <% if $IS_PARTNER_BAC %>
+              <th>Client Code</th>
+            <% end %>
+            <th>ANSI Remark Code</th>
+            <th></th>
+          </tr>
+          <% for rccfsn in @rccfsns  %>
+            <% cross_walk_codes = rccfsn.get_codes_crosswalked %>
+            <tr>
+              <td><%= rccfsn.reason_code_name %></td>
+              <td style="width:30%"><%= rccfsn.reason_code_description %></td>
+              <td><%= "#{cross_walk_codes[:hipaa_group_code]} - " if cross_walk_codes[:hipaa_group_code].present?%> <%= cross_walk_codes[:hipaa_code] %></td>
+              <% cross_walk_level =  (rccfsn.id.present? ? rccfsn.try(:get_crosswalk_level) : "")%>
+              <% cross_walk_level = '' if rccfsn.id && cross_walk_codes.empty? && cross_walk_level=='GLOBAL' %>
+              <td><%= cross_walk_level%></td>
+              <td>
+                <% if (rccfsn.id && rccfsn.client_id.present?) %>
+                  <%= rccfsn.client.name %>
+                <% elsif (rccfsn.id && rccfsn.facility_id.present?) %>
+                  <%= rccfsn.facility.client.name %>/<%= rccfsn.facility.name %>
+                <% end %>
+              </td>
+              <% if $IS_PARTNER_BAC %>
+                <td><%= cross_walk_codes[:client_code] %></td>
+              <% end %>
+              <% reason_code_record = rccfsn.reason_code %>
+              <% remark_codes, remark_code_crosswalk_ids = [], [] %>
+              <% remark_codes, remark_code_crosswalk_ids = reason_code_record.get_remark_codes(rccfsn.client_id, rccfsn.facility_id) if reason_code_record %>
+              <td> <%= remark_codes.join(" ") %> </td>
+              <% remark_code_crosswalk_ids = remark_code_crosswalk_ids.join(',')%>
+              <td>
+                <% if (rccfsn.id )  %>
+                  <%= link_to (image_tag("report_edit.png", :alt => "Edit",:border=>"0")),
+                    :action => 'manage_codes',:payer_id=>rccfsn.payer_id,:rccfsn_id=>rccfsn.id,
+                    :reason_code_id=>rccfsn.reason_id, :remark_code_crosswalk_ids => remark_code_crosswalk_ids,
+                    :remark_code_crosswalked_facility_id => rccfsn.facility_id,
+                    :remark_code_crosswalked_client_id => rccfsn.client_id,
+                    :current_action => "index"%>&nbsp;&nbsp;
+                  <%= link_to image_tag("delete.png", :alt => "Delete Crosswalk"), {:controller=>"reason_code_crosswalks",:action => 'destroy',
+                    :id => rccfsn.id}, :confirm=>'Are you sure you want to delete this crosswalk ?' %>
+      <%#= image_tag("delete.png", :alt => "Destroy",:border=>"0",:onclick => 'javascript:alert("Sorry..This feature is currently disabled.")')%>
+                <% end %>
+                <%= link_to "New Crosswalk", :action => 'manage_codes',:payer_id=>rccfsn.payer_id,:reason_code_id=>rccfsn.reason_id, :current_action => "index", :from => 'new_crosswalk' %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% else %>
+        <h4>No Reason codes found</h4>
+      <% end %>
+      <br />
+    </td>
+    <td width="2" valign="top" bgcolor="#ECE9D8" ></td>
+    <td valign="top" id="toggleMe" width="20%" style="display:none">
+      <%= form_tag :controller => :reason_codes,:action => "create_reason_code_and_map_multiple_codes" do %>
+        <span class="sec_title">Add Reason codes and manage associated codes</span>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>Reason Code</th>
+            <td valign="top"><%= text_field :reason, :code,:class => "reason_code_text",
+                :onblur => "validateReasonCode(id);"%><br/></td>
+          </tr>
+          <tr>
+            <th>Reason Code Description</th>
+            <td valign="top"><%= text_area :reason_code, :description,
+                :class => "reason_code_text",:rows => "2" %><br/></td>
+          </tr>
+          <tr>
+            <th >HIPAA</th>
+            <th >Client</th>
+          </tr>
+          <tr>
+            <td valign="top"><%= text_field_with_auto_complete :hipaa, :code, :class => "reason_code_text"%><br/></td>
+            <td valign="top"><%= text_field_with_auto_complete :client, :code, :class => "reason_code_text"%></td>
+          </tr>
+        </table>
+
+        <br />
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+          <tr>
+            <th >ANSI</th>
+            <td rowspan="2" valign="bottom" ><%= tag("input", {
+                  :type => "button",
+                  :onclick => "insertOptionBefore3(count1++);",
+                  :value => "Add" },false) %></td>
+          </tr>
+          <%= hidden_field_tag "client_facility_payer_reasoncode",rccfsn.payer_id unless rccfsn.blank?%>
+          <%= hidden_field_tag "optional_ansi_remark_codes"%>
+          <tr>
+            <td valign="top"><%= text_field_with_auto_complete :ansi,:code, :class => "reason_code_text",:style => "width:98%"%></td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="top"><%=  select_tag "ansi_remark_codes",nil,:multiple => true,:size=>"8",:class => "ansi_code_text" %> </td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="top"><div align="right"> <%= tag("input", {
+                    :type => "button",
+                    :onclick => "removeOptionSelected3();",
+                    :value => "Delete" },false) %> </div></td>
+          </tr>
+        </table>
+
+        <div style="float:right; clear:both;"> <%= submit_tag "SAVE",
+          :onclick => "getTheOptionalValues();return getTheReasoncode();validateReasonCode('reason_code');" %> </div>
+      <%end%>
+    </td>
+  </tr>
+</table>
+
+<%= link_to image_tag("arrow_undo.png", :alt => "Cancel"),:controller=>'admin/payer', :action => "#{@back_page}" %>

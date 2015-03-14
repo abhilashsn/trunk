@@ -1,0 +1,68 @@
+
+<div id="login_main">
+  <h1>Report</h1>
+  <div class="light_info">
+    <label id="count">Search option:</label> <br /><br />
+    <%= form_tag :action => 'completed_eobs_report' do %>
+      <table>
+        <tr>
+          <td style="width: 323px;text-align: center;">
+            <strong>From</strong> <%= text_field_tag 'date_from', @date_from, :size => 10,:class => 'dropdown' %> <%= date_picker("date_from", "mdy", "/") %><%= spacer(2) %>
+            <strong>To</strong> <%= text_field_tag 'date_to', @date_to, :size => 10,:class => 'dropdown' %>  <%= date_picker("date_to", "mdy", "/") %><%= spacer(2) %>
+          </td>
+          <td style="width: 72px; text-align: center;"><%= submit_tag 'View', :class => 'button' %></td>
+        </tr>
+      </table>
+    <% end %>
+    <br />
+    <% unless @all_eobs.blank? %>
+      <% @total_eob = @count_eob = 0 %>
+      <% @total_svc = @count_svc = 0 %>
+      <% @total_norm_count_eob = @norm_count_eob = 0 %>
+      <% @total_norm_count_svc = @norm_count_svc = 0 %>
+      <div>
+        <label>Completed EOBs</label>
+        <table>
+          <tr>
+            <th>User Date</th>
+            <th>Completed EOBs</th>
+            <th>Completed SVC Count</th>
+            <th>Normalized EOB #</th>
+            <th>Normalized SVC #</th>
+          </tr>
+          <% @all_eobs.each_with_index do |ins_eob, index| %>
+            <% @total_eob += ins_eob.eob_count %>
+            <% @total_svc += ins_eob.svc_count %>
+            <% @total_norm_count_eob += ins_eob.normalized_eob_count.to_f %>
+            <% @total_norm_count_svc += ins_eob.normalized_svc_count.to_f %>
+            <% @count_eob += ins_eob.eob_count %>
+            <% @count_svc += ins_eob.svc_count %>
+            <% @norm_count_eob += ins_eob.normalized_eob_count.to_f %>
+            <% @norm_count_svc += ins_eob.normalized_svc_count.to_f %>
+            <% date = ins_eob.processing_completed %>
+            <% if (!(@all_eobs[index+1]) || (date != @all_eobs[index+1].processing_completed)) %>
+              <tr>
+                <td id="blue_text_td"><%= link_to ins_eob.processing_completed , "listing_my_jobs?processing_completed=#{ins_eob.processing_completed}" %></td>
+                <td><%= @count_eob %></td>
+                <td><%= @count_svc %></td>
+                <td><%= @norm_count_eob %></td>
+                <td><%= @norm_count_svc %></td>
+              </tr>
+              <% @count_eob = 0 %>
+              <% @count_svc = 0 %>
+              <% @norm_count_eob = 0 %>
+              <% @norm_count_svc = 0 %>
+            <% end %>
+          <% end %>
+          <tr>
+            <td>Grand Total</td>
+            <td><%= @total_eob %></td>
+            <td><%= @total_svc %></td>
+            <td><%= @total_norm_count_eob %></td>
+            <td><%= @total_norm_count_svc %></td>
+          </tr>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

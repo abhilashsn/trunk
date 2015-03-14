@@ -1,0 +1,3 @@
+<% if !@facilities.blank? %>
+<%= select_tag "plan_type_facility", ("<option value=''>--Select--</option>" + options_for_select(@facilities)).html_safe, :style=>"width: 300px;" , :class=> "plan_type_facility" %>
+<% end %>

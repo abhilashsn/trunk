@@ -1,0 +1,95 @@
+<%= form_tag :action => 'delete_users', :id => @users_to_delete do %>
+  <div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @users, :params => {:criteria => params[:criteria],:to_find => params[:to_find]}%>
+  </div>
+  <table>
+    <tr>
+      <th style="width: 173px">Name</th>
+      <th style="width: 155px">Userid</th>
+      <th style="width: 91px">Role</th>
+      <th style="width: 67px">Status</th>
+      <th style="width: 56px">Shift</th>
+      <th style="width: 87px">Accuracy(%) </th>
+       <th >Retrieval Permission(s) </th>
+      <th>Employee ID</th>
+      <th>Location</th>
+      <% if current_user.has_role?(:admin)%>
+        <th style="width: 20px"><input type="checkbox" name="all" title="Select All" onClick="checkAll(document.forms[1].toggle,this)"></th>
+      <% end %>
+      <th style="width: 26px"> &nbsp;</th>
+    </tr>
+    <% for user in @users %>
+     <%if user.image_permision=='1'%>
+                 <% @image = true%>
+                 <%else%>
+                    <% @image = false%>
+                  <%end%>
+                  <%if user.image_835_permision=='1'%>
+                  <%@image835 = true%>
+                  <%else%>
+                    <% @image835 = false%>
+                  <%end%>
+                  <%if user.image_grid_permision=='1'%>
+                  <%@imagegrid = true%>
+                  <%else%>
+                    <% @imagegrid = false%>
+                  <%end%>
+                  <%if user.claim_retrieval_permission == '1'%>
+                  <%@claimretrieval = true%>
+                  <%else%>
+                    <% @claimretrieval = false%>
+                  <%end%>
+                  
+                  
+      <tr>
+       
+<%role_user = user.roles_users%>
+<% if !(user.has_role?(:admin) && user.login == 'admin') %>
+ <td><%= user.name %></td>
+
+ 
+ 
+          <td>
+            <% if user.has_role?(:processor) && @current_user.has_role?(:admin)%>
+              <%= link_to user.login, :action => 'associate_facilities_to_users', :id => user %>
+            <%else%>
+              <%= user.login %>
+            <%end%>
+          </td>            
+          <td><%unless role_user.blank?%>
+                <%role_user.each do |ru|%>
+                    <%= ru.role_name %><br>
+                <%end%>
+              <%end%>
+          </td>
+        
+        <td><%= user.login_status ? 'ONLINE' : 'OFFLINE'%></td>
+       
+        <td>
+          <% if user.shift.nil? %>
+            NA
+          <% else %>
+            <%= user.shift.name %>
+          <% end %>
+        </td>
+        <td align=center><%= format_percentage(user.field_accuracy) %> | <%= format_percentage(user.eob_accuracy) %></td>
+       <td >Image <%= check_box 'user', 'image_permision',:checked=>@image,:disabled=>true %>
+   Image and 835<%= check_box 'user', 'image_835_permision',:checked=>@image835,:disabled=>true %>
+    Image and grid <%= check_box 'user', 'image_grid_permision',:checked=>@imagegrid,:disabled=>true %>
+    Claims <%= check_box 'user', 'claim_retrieval_permission', :checked => @claimretrieval,:disabled=>true %></td>
+    <td><% if user.employee_id.blank? %>-<% else %><%= user.employee_id %><% end %></td>
+    <td><% if user.location.blank? %>-<% else %><%= user.location %><% end %></td>
+    <% if current_user.has_role?(:admin)%>
+         <td><%= check_box :users_to_delete, user.id, :id => 'toggle' %></td>
+          <td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => user,:page => params[:page] %></td>
+    <% end %>
+   </tr>
+   <% end %>
+  <% end %>
+  </table>
+ 
+  <br/>
+     <% if current_user.has_role?(:admin)%>
+  <%= submit_tag 'Delete', :class => 'button', :onclick => "return(confirm('Users will be deleted. Are you sure?'))" %>
+<% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<h1>Editing ANSI Remark Code</h1>
+
+<%= form_tag :action => 'update', :id=>@ansi_remark_code.id do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit', :class => 'button' %>
+<% end %>
+
+<br><br>
+
+<%= link_to 'Back', :controller => '/ansi_remark_code', :action => 'index' %>

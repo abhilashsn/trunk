@@ -1,0 +1,18 @@
+<div id="login_main">
+  <h1>Listing users</h1>
+
+  <% if current_user.has_role?(:admin)%>
+    <div class="light_info">
+      <%= link_to 'New user', :action => 'new' %>
+    </div>
+  <% end %>
+  <div class="light_info">
+    <%= form_tag 'user', :method=>"get"  do %>
+      <%= select_tag 'criteria', optionize_custom(['Name', 'User ID', 'Role', 'Status'],params[:criteria])%> 
+      <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button'  %>
+    <% end %>
+  </div>
+
+  <%= render :partial => "users_list" %>
+</div>

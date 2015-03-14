@@ -1,0 +1,49 @@
+GENERAL:
+  NM101: /qualifier
+  SBR09: plan_type
+  SBR01: claim_type
+  CLM01: patient_account_number
+  CLM02: total_charges
+  CLM0501: facility_type_code
+  DTP03: service_from_date
+  SV102: charges
+  SV104: days_units
+  SV203: charges
+  SV205: days_units
+  SV20202: cpt_hcpcts
+  REF02: provider_control_number
+"GROUP_3PR":
+  NM103: payer_name
+  N301: payer_address
+  N401: payer_city
+  N402: payer_state
+  N403: payer_zipcode
+"GROUP_3IL":
+  NM109: insured_id
+  NM103: patient_last_name
+  NM104: patient_first_name
+  NM105: patient_middle_initial
+  NM103: subscriber_last_name
+  NM104: subscriber_first_name
+  NM105: subscriber_middle_initial
+"GROUP_3QC":
+  NM103: patient_last_name
+  NM104: patient_first_name
+  NM105: patient_middle_initial
+"GROUP_385":
+  NM108: /qualifier
+  NM103: billing_provider_organization_name
+"GROUP_382":
+  REF02: provider_ein
+  NM109: provider_npi
+  NM103: provider_last_name
+  NM104: provider_first_name
+  NM105: provider_middle_initial
+"GROUP_371":
+  REF02: provider_ein
+  NM109: provider_npi
+  NM103: provider_last_name
+  NM104: provider_first_name
+  NM105: provider_middle_initial
+"GROUP_3XX":
+  NM109: provider_tin

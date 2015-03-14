@@ -1,0 +1,37 @@
+<div id="login_main">
+  <%= form_tag :action => 'capitation_account_update', :id => @capitation_account do %>
+      <table>
+        <tr>
+          <td style="width: 278px"><label for="capitation_account_account">Account</label></td>
+          <td><%= text_field 'capitation_account', 'account', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_payment">Payment</label></td>
+          <td><%= text_field 'capitation_account', 'payment', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_checknumber">Checknumber</label></td>
+          <td><%= text_field 'capitation_account', 'checknumber', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_patient_first_name">Patient First Name</label></td>
+          <td><%= text_field 'capitation_account', 'patient_first_name', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_patient_last_name">Patient Last Name</label></td>
+          <td><%= text_field 'capitation_account', 'patient_last_name', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_patient_initial">Patient Initial</label></td>
+          <td><%= text_field 'capitation_account', 'patient_initial', :class => 'black_text' %></td>
+        </tr>
+        <tr>
+          <td><label for="capitation_account_patient_suffix">Patient Suffix</label></td>
+          <td><%= text_field 'capitation_account', 'patient_suffix', :class => 'black_text' %></td>
+        </tr>
+        <%= submit_tag 'Edit', :class => 'button' %>
+        
+      </table>
+  <% end %>
+</div>
+

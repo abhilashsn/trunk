@@ -1,0 +1,41 @@
+<div style="background-color:#CCC; width:100%;">
+    <strong><b></strong>
+</div>
+<%@patpay_mpi_start_time = Time.now.in_time_zone %>
+<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+  <% unless (@patpay_mpi_results.nil? or @patpay_mpi_results.blank?) %>
+    <th>
+        Account number
+    </th>
+    <th>
+        Lastname
+    </th>
+    <th>
+        Firstname
+    </th>
+    <div style="background-color:#CCC; width:98%; margin: 0 0 0 5px;" class="content">
+        <strong><%= will_paginate @patpay_mpi_results %></strong>
+    </div>
+  
+    <% for result in @patpay_mpi_results %>
+    <%@patpay_mpi_found_time = Time.now.in_time_zone %>
+    <tr  title = "Patient Name:<%=result.patient_last_name %> <%=result.patient_first_name %>, Account#:<%=result.patient_account_number %>">
+        <td align="left" valign="top" bgcolor="#ECE9D8" class="content">
+            <%=result.patient_account_number %>
+        </td>
+        <td align="left" valign="top" bgcolor="#ECE9D8" class="content">
+            <%=result.patient_last_name %>
+        </td>
+        <td align="left" valign="top" bgcolor="#ECE9D8" class="content">
+            <%=result.patient_first_name %>
+        </td>
+        <td width="20px">
+            <input type="radio" name="all" onClick='render_patpay_Mpi("<%=result.id%>","<%=@patpay_mpi_start_time%>","<%=@patpay_mpi_found_time%>","<%=Time.now%>")'>
+        </td>
+    </tr>
+    <% end %>
+    <% else %>
+      <h2>Given filter doesn't yield any MPI data to list!</h2>
+    <% end %>
+</table>
+</div>

@@ -1,0 +1,126 @@
+<%= stylesheet_link_tag "ext-all.css" %>
+<%= javascript_include_tag "ExtJs/adapter/ext/ext-base.js" %>
+<%= javascript_include_tag "ExtJs/ext-all.js" %>
+<%= javascript_include_tag "ExtJs/ext-all-debug.js" %>
+<%= javascript_include_tag "ExtJs/ext-utils.js" %> 
+<table width="100%" cellpadding="0" cellspacing="0" valign='top' style="border:#FFFFFF 1px solid;">
+  <tr>
+    <td valign='top' width="75%" bgcolor="#dfe8f6"><div id="eob-grid"></div></td>
+    <td valign='top' bgcolor="#dfe8f6" width="25%">
+      <%= form_tag({:action => 'search'},:id=>'e_options') do %>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('pat_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %> Patient Information</a>
+          </legend>
+          <div id='pat_info' style="width: 100%; padding:5px">
+            <table width='100%'>
+              <tr>
+                <td> Unique ID </td>
+                <td><%= text_field_tag 'unique_id', nil , :style => "width:80%;" ,:class => 'black_text' %></td>
+              </tr>
+              <tr>
+                <td width='50%'> Account Number</td>
+                <td> <%= text_field_tag 'accountnumber', nil ,:class => 'black_text',:style => "width:80%;" %></td>
+              </tr>
+              <tr>
+                <td> Last Name</td>
+                <td><%= text_field_tag 'pat_lastname', nil,:class => 'black_text', :style => "width:80%;"%> </td>
+              </tr>
+              <tr>
+                <td> First Name</td>
+                <td><%= text_field_tag 'pat_firstname', nil,  :style => "width:80%;",:class => 'black_text' %></td>
+              </tr>
+              <tr>
+                <td> Serviced From</td>
+                <td><%= text_field_tag 'service_from', @service_from, :style => "width:70%;",:class => 'black_text' %><%= date_picker("service_from", "ymd", "-") %> </td>
+              </tr>
+              <tr>
+                <td> Serviced To</td>
+                <td><%= text_field_tag 'service_to', @service_to, :style => "width:70%;",:class => 'black_text' %><%= date_picker("service_to", "ymd", "-") %></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('bat_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Batch Information</a>
+          </legend>
+          <div id='bat_info' style="width: 100%;padding:5px">
+            <table width='100%'>
+              <tr>
+                <td width='50%'> Batch ID</td>
+                <td>  <%= text_field_tag 'batchid', nil,  :style => "width:80%;", :class => 'black_text' %></td>
+              </tr>
+              <tr>
+                <td> Deposit From</td>
+                <td> <%= text_field_tag 'date_from', @date_from, :style => "width:70%;",:class => 'black_text'%><%= date_picker("date_from", "ymd", "-") %></td>
+              </tr>
+              <tr>
+                <td> Deposit To</td>
+                <td><%= text_field_tag 'date_to', @date_to, :style => "width:70%;",:class => 'black_text' %><%= date_picker("date_to", "ymd", "-") %></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('pay_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %> Payment Information</a>
+          </legend>
+          <div id='pay_info' style="width: 100%;padding:5px">
+            <table width='100%'>
+              <tr>
+                <td width='50%'> Amount Billed</td>
+                <td> <%= text_field_tag 'total_charge', nil,:class => 'black_text' ,:style=>"width:80%; text-align:right;"%>     </td>
+              </tr>
+              <tr>
+                <td> Amount Payment</td>
+                <td><%= text_field_tag 'total_amount_paid', nil,:class => 'black_text' ,:style=>"width:80%; text-align:right;"%> </td>
+              </tr>
+              <tr>
+                <td> Check Number</td>
+                <td><%= text_field_tag 'check_number', nil,  :style=>"width:80%;", :class => 'black_text' %></td>
+              </tr>
+              <tr>
+                <td> Check Amount</td>
+                <td> <%= text_field_tag 'check_amount', nil, :class => 'black_text' ,:style=>"width:80%; text-align:right;"%> </td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('lock_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %> Facility / EOB Type</a>
+          </legend>
+          <div id='lock_info' style="width: 100%;padding:5px">
+            <table width='100%'>
+              <tr>
+                <td width='50%'> Facility </td>
+                <td>  <%=select_tag 'facility', options_for_select(@facility_names,@facility_chosen),:class => 'black_text'%></td>
+              </tr>
+              <tr>
+                <td> EOB </td>
+                <td>
+                  <input type='radio' id='eob_type' name='eob_type' value='1'>PatPay
+                  <input type='radio' id='eob_type' name='eob_type' value='0' checked >Insurance
+                </td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+                  <%= hidden_field :filter, :flag,  :id => "filter_flag" , :value => 0 %>
+        <div style='text-align:center;padding:10px'>
+          <input type='button' value="Filter" onclick="setFilterFlag();">
+          <input type='reset' value="Clear">
+        </div>
+      <%end %>
+    </td>
+  </tr>
+</table>
+<script LANGUAGE="JavaScript">
+  function relative_url_root() {        return "<%= app_root -%>"  }
+</script>
+<%= javascript_include_tag "eobs" %> 

@@ -1,0 +1,68 @@
+<h1>Listing statuses</h1>
+<div class="light_info">  
+<%= link_to 'New status', :action => 'new' %>
+</div>
+
+<%= form_tag :action => 'delete_status', :id => @status_to_delete do %>
+
+<% if @status_pages.current.previous %> 
+  <%= link_to 'Prev', { :page => @status_pages.current.previous } %> 
+<% end %>
+
+<% if @status_pages.length > 1 %>
+  <% @status_pages.each do |page| %>
+   <% params[:controller] = 'status' %>
+   <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page)})%>
+  <% end %>
+<% end %>
+
+<% if @status_pages.current.next %> 
+  <%= link_to 'Next', { :page => @status_pages.current.next } if @status_pages.current.next %> 
+<% end %>
+<br>
+<br>
+<table>
+  <tr>
+  <% for column in Status.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for status in @statuses %>
+  <tr>
+  <% for column in Status.content_columns %>
+    <td><%=h status.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => status %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => status %></td>
+   <!-- <td><%= link_to 'Destroy', { :action => 'destroy', :id => status }, :confirm => 'Are you sure?' %></td>-->
+    <td><%= check_box :status_to_delete, status.id %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+<!--<%= link_to 'Previous page', { :page => @status_pages.current.previous } if @status_pages.current.previous %>
+<%= link_to 'Next page', { :page => @status_pages.current.next } if @status_pages.current.next %> -->
+
+<% if @status_pages.current.previous %> 
+  <%= link_to 'Prev', { :page => @status_pages.current.previous } %> 
+<% end %>
+
+<% if @status_pages.length > 1 %>
+  <% @status_pages.each do |page| %>
+   <% params[:controller] = 'status' %>
+   <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page)})%>
+  <% end %>
+<% end %>
+
+<% if @status_pages.current.next %> 
+  <%= link_to 'Next', { :page => @status_pages.current.next } if @status_pages.current.next %> 
+<% end %>
+<br />
+<br />
+
+
+<br />
+<%= submit_tag 'Delete', :onclick => "return(confirm('Are you sure?'))"%>
+<% end %>
+

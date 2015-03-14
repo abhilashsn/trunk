@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+#
+payer_excl1_has_payer_id:
+      payer_id: 41
+      facility_id: 90
+      micr_line_information_id: nil
+
+

@@ -1,0 +1,4691 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/revenuemed/revremit/!svn/ver/19491/trunk/db/migrate
+END
+20100423112500_add_predefined_payer_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100423112500_add_predefined_payer_to_facility_output_configs.rb
+END
+20110301091300_add_bac_columns_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110301091300_add_bac_columns_to_facilities.rb
+END
+20081231050732_create_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081231050732_create_hipaa_codes.rb
+END
+20130711040516_rename_column_hipaa_group_code_obsolete_in_reason_codes_clients_facilities_set_name.rb
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/revenuemed/revremit/!svn/ver/17403/trunk/db/migrate/20130711040516_rename_column_hipaa_group_code_obsolete_in_reason_codes_clients_facilities_set_name.rb
+END
+20110315091256_add_columns_to_mpi_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110315091256_add_columns_to_mpi_tables.rb
+END
+20130610092118_add_column_associate_claim_npi_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/17059/trunk/db/migrate/20130610092118_add_column_associate_claim_npi_to_clients.rb
+END
+20071125162426_add_hlsc_id_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125162426_add_hlsc_id_to_jobs.rb
+END
+20120920134832_change_bill_print_date_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/13520/trunk/db/migrate/20120920134832_change_bill_print_date_to_claim_file_informations.rb
+END
+20120210043459_rename_max_jobs_per_user_of_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/9810/trunk/db/migrate/20120210043459_rename_max_jobs_per_user_of_clients.rb
+END
+20100429093200_add_columns_to_facilities2.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100429093200_add_columns_to_facilities2.rb
+END
+20071123222426_create_eob_qa.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071123222426_create_eob_qa.rb
+END
+20121022123003_create_column_job_id_in_patient_pay_eobs_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/14098/trunk/db/migrate/20121022123003_create_column_job_id_in_patient_pay_eobs_table.rb
+END
+20110414141425_add_column_category_to_reason_codes_clients_facilities_payers_client_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110414141425_add_column_category_to_reason_codes_clients_facilities_payers_client_code.rb
+END
+20120326124222_add_auto_allocation_enabled_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/10630/trunk/db/migrate/20120326124222_add_auto_allocation_enabled_to_users.rb
+END
+20130610134806_add_column_claim_tooth_number_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/17007/trunk/db/migrate/20130610134806_add_column_claim_tooth_number_to_insurance_payment_eobs.rb
+END
+20111117061241_add_inbound_file_information_id_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/8376/trunk/db/migrate/20111117061241_add_inbound_file_information_id_to_claim_file_informations.rb
+END
+20110418071515_change_type_of_cut_number_in_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110418071515_change_type_of_cut_number_in_batches.rb
+END
+20130503110804_add_batch_type_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/16640/trunk/db/migrate/20130503110804_add_batch_type_to_batches.rb
+END
+20130617072620_add_column_reset_password_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/17066/trunk/db/migrate/20130617072620_add_column_reset_password_to_users.rb
+END
+20071121232426_batch_facility_to_relationship.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121232426_batch_facility_to_relationship.rb
+END
+20090312060144_remove_unwanted_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090312060144_remove_unwanted_tables.rb
+END
+20110509100152_add_by_cut_and_payerid_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110509100152_add_by_cut_and_payerid_to_facility_lookup_fields.rb
+END
+20130326120035_change_columns_for_era_checks.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/16221/trunk/db/migrate/20130326120035_change_columns_for_era_checks.rb
+END
+20120413071633_remove_index_on_set_name_id_unique_code_from_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/11080/trunk/db/migrate/20120413071633_remove_index_on_set_name_id_unique_code_from_reason_codes.rb
+END
+20090610111741_add_column_deleted_at_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111741_add_column_deleted_at_to_jobs.rb
+END
+20110324124605_add_active_indicator_to_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324124605_add_active_indicator_to_hipaa_codes.rb
+END
+20120320033947_add_ocr_enabled_flag_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/10448/trunk/db/migrate/20120320033947_add_ocr_enabled_flag_to_facilities.rb
+END
+20110425104603_add_column_balance_record_type_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110425104603_add_column_balance_record_type_to_insurance_payment_eob.rb
+END
+20121009071185_add_index_service_payment_eob_id_in_service_payment_eobs_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/revenuemed/revremit/!svn/ver/14184/trunk/db/migrate/20121009071185_add_index_service_payment_eob_id_in_service_payment_eobs_reason_codes.rb
+END
+20110704135752_add_column_reason_code_set_name_id_to_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110704135752_add_column_reason_code_set_name_id_to_reason_codes_clients_facilities_set_names.rb
+END
+20120217112328_add_qa_status_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/9973/trunk/db/migrate/20120217112328_add_qa_status_to_batches.rb
+END
+20120908093920_add_insurance_payment_eob_id_to_provider_adjustments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/13122/trunk/db/migrate/20120908093920_add_insurance_payment_eob_id_to_provider_adjustments.rb
+END
+20140117060640_create_config_settings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/19349/trunk/db/migrate/20140117060640_create_config_settings.rb
+END
+20071122192426_add_eob_per_hour_rate_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071122192426_add_eob_per_hour_rate_table.rb
+END
+20110811084542_set_active_indicator_to_true_by_default_in_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110811084542_set_active_indicator_to_true_by_default_in_reason_codes_clients_facilities_set_names.rb
+END
+20071124132426_alter_job_count.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124132426_alter_job_count.rb
+END
+20071123042426_add_default_contracted_tat.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071123042426_add_default_contracted_tat.rb
+END
+20130508160420_add_name_and_size_and_arrival_time_and_arrival_date_to_era.rb
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/revenuemed/revremit/!svn/ver/16625/trunk/db/migrate/20130508160420_add_name_and_size_and_arrival_time_and_arrival_date_to_era.rb
+END
+20100129185659_populate_details_for_facility1_or_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100129185659_populate_details_for_facility1_or_facility.rb
+END
+20090907055351_add_created_at_updated_at_to_client_images_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055351_add_created_at_updated_at_to_client_images_to_jobs.rb
+END
+20110906054203_create_table_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110906054203_create_table_inbound_file_informations.rb
+END
+20120307042227_add_column_location_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/10276/trunk/db/migrate/20120307042227_add_column_location_to_users.rb
+END
+20120925112924_removed_unused_fields_from_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/13582/trunk/db/migrate/20120925112924_removed_unused_fields_from_claim_service_informations.rb
+END
+20090205034633_add_processor_id_qa_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090205034633_add_processor_id_qa_id_to_insurance_payment_eobs.rb
+END
+20130307101957_create_crosswalks.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/15857/trunk/db/migrate/20130307101957_create_crosswalks.rb
+END
+20120330140536_add_index_on_micr_status.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/10751/trunk/db/migrate/20120330140536_add_index_on_micr_status.rb
+END
+20130620181609_add_claim_retrieval_permission_to_user.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/17173/trunk/db/migrate/20130620181609_add_claim_retrieval_permission_to_user.rb
+END
+20130307092823_create_insurance_payment_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/15823/trunk/db/migrate/20130307092823_create_insurance_payment_eras.rb
+END
+20071124162426_add_batchid_to_runners.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124162426_add_batchid_to_runners.rb
+END
+20121112194946_create_claim_validation_exceptions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/14526/trunk/db/migrate/20121112194946_create_claim_validation_exceptions.rb
+END
+20110624053456_create_image_types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110624053456_create_image_types.rb
+END
+20120807112601_add_claim_payid_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/12629/trunk/db/migrate/20120807112601_add_claim_payid_to_insurance_payment_eobs.rb
+END
+20120326114937_set_default_values_for_tat_and_internal_tat_in_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/10608/trunk/db/migrate/20120326114937_set_default_values_for_tat_and_internal_tat_in_clients.rb
+END
+20071125052426_add_column_in_jobs_for_super_qa_operation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071125052426_add_column_in_jobs_for_super_qa_operation.rb
+END
+20120131104141_alter_inbound_table_change_is_late_to_secondarystatus.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/9578/trunk/db/migrate/20120131104141_alter_inbound_table_change_is_late_to_secondarystatus.rb
+END
+20131209172016_add_unidentified_account_number_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/18950/trunk/db/migrate/20131209172016_add_unidentified_account_number_to_facilities.rb
+END
+20110426133453_change_provider_control_number_data_type_in_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110426133453_change_provider_control_number_data_type_in_claim_service_informations.rb
+END
+20071127112426_add_plan_type_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127112426_add_plan_type_to_payer.rb
+END
+20110324080528_add_new_fields_and_change_a_field_in_mpi_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/8898/trunk/db/migrate/20110324080528_add_new_fields_and_change_a_field_in_mpi_tables.rb
+END
+20100419102811_create_micr_line_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20100419102811_create_micr_line_informations.rb
+END
+20130430050534_add_column_fc_edit_permission_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/16870/trunk/db/migrate/20130430050534_add_column_fc_edit_permission_to_users.rb
+END
+20071124022426_add_default_eob_errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7863/trunk/db/migrate/20071124022426_add_default_eob_errors.rb
+END
+20071124192426_add_incomplete_count_tiff_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124192426_add_incomplete_count_tiff_to_jobs.rb
+END
+20090224075829_add_processor_id_qa_id_to_patient_pay.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090224075829_add_processor_id_qa_id_to_patient_pay.rb
+END
+20120119131739_associate_batches_inbound_file_information_and_facility_cut_relationships.rb
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/revenuemed/revremit/!svn/ver/9345/trunk/db/migrate/20120119131739_associate_batches_inbound_file_information_and_facility_cut_relationships.rb
+END
+20071127152426_add_billing_provider_organisation_name_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127152426_add_billing_provider_organisation_name_to_claim_informations.rb
+END
+20110425105649_create_balance_record_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110425105649_create_balance_record_configs.rb
+END
+20071127192426_add_mark_to_eob_and_chekinformation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127192426_add_mark_to_eob_and_chekinformation.rb
+END
+20121108053818_facility_specific_payees.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/14249/trunk/db/migrate/20121108053818_facility_specific_payees.rb
+END
+20131204051206_add_index_on_sub_job_id_to_client_images_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/18885/trunk/db/migrate/20131204051206_add_index_on_sub_job_id_to_client_images_to_jobs.rb
+END
+20120710050920_add_service_location_and_expected_payment_to_claim_service_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/revenuemed/revremit/!svn/ver/16524/trunk/db/migrate/20120710050920_add_service_location_and_expected_payment_to_claim_service_information.rb
+END
+20081231083626_add_address_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081231083626_add_address_to_facility.rb
+END
+20071127062426_add_tin_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127062426_add_tin_to_facility.rb
+END
+20101224062045_add_processor_input_fields_to_patient_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101224062045_add_processor_input_fields_to_patient_pay_eobs.rb
+END
+20131008135916_add_column_batch_upload_parser_id_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/18234/trunk/db/migrate/20131008135916_add_column_batch_upload_parser_id_to_facility.rb
+END
+20130315203946_remove_fields_from_era.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/15957/trunk/db/migrate/20130315203946_remove_fields_from_era.rb
+END
+20110923122401_add_new_columns_to_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/8127/trunk/db/migrate/20110923122401_add_new_columns_to_inbound_file_informations.rb
+END
+20120925160804_add_archived_claim_hash_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/13764/trunk/db/migrate/20120925160804_add_archived_claim_hash_to_insurance_payment_eob.rb
+END
+20071123002426_predefined_batch_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071123002426_predefined_batch_comments.rb
+END
+20090610111745_add_column_deleted_at_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111745_add_column_deleted_at_to_payers.rb
+END
+20121214110127_add_rms_grid_fields_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/14820/trunk/db/migrate/20121214110127_add_rms_grid_fields_to_insurance_payment_eobs.rb
+END
+20100428061931_add_is_deleted_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100428061931_add_is_deleted_to_facilities.rb
+END
+20110906142555_create_facility_cut_relationships.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110906142555_create_facility_cut_relationships.rb
+END
+20120124084658_add_status_and_upload_end_time_to_outboundfile.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/9438/trunk/db/migrate/20120124084658_add_status_and_upload_end_time_to_outboundfile.rb
+END
+20120229103701_alter_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/10153/trunk/db/migrate/20120229103701_alter_output_activity_logs.rb
+END
+20121115083349_create_sequences.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/14337/trunk/db/migrate/20121115083349_create_sequences.rb
+END
+20100426193341_rename_columns_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100426193341_rename_columns_facility_output_configs.rb
+END
+20130110112622_add_column_mismatch_transaction_to_check_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/15023/trunk/db/migrate/20130110112622_add_column_mismatch_transaction_to_check_information.rb
+END
+20100104105353_create_mpi_statistics_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20100104105353_create_mpi_statistics_reports.rb
+END
+20130712161832_create_facility_aliases.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/17495/trunk/db/migrate/20130712161832_create_facility_aliases.rb
+END
+20120319090314_add_plan_code_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/11033/trunk/db/migrate/20120319090314_add_plan_code_to_claim_informations.rb
+END
+20120827093619_remove_unused_fields_from_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/12897/trunk/db/migrate/20120827093619_remove_unused_fields_from_payers.rb
+END
+20071121142426_create_statuses.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121142426_create_statuses.rb
+END
+20100419114250_add_average_insurance_eob_processing_productivity_and_average_patient_pay_eob_processing_productivity_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100419114250_add_average_insurance_eob_processing_productivity_and_average_patient_pay_eob_processing_productivity_to_facility.rb
+END
+20120810061146_remove_check_information_id_fk_from_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/12818/trunk/db/migrate/20120810061146_remove_check_information_id_fk_from_reason_codes.rb
+END
+20121031091938_add_data_file_id_to_error_popup.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/14198/trunk/db/migrate/20121031091938_add_data_file_id_to_error_popup.rb
+END
+20090629053649_add_details_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053649_add_details_to_payers.rb
+END
+20071124042426_create_eob_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124042426_create_eob_reports.rb
+END
+20121122093312_add_field_name_to_eob_errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/14471/trunk/db/migrate/20121122093312_add_field_name_to_eob_errors.rb
+END
+20110802115313_load_npi_and_tin.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110802115313_load_npi_and_tin.rb
+END
+20071123212426_create_default_sampling_rate.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7857/trunk/db/migrate/20071123212426_create_default_sampling_rate.rb
+END
+20110419075721_change_value_from_lockboxcut_to_cut_in_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110419075721_change_value_from_lockboxcut_to_cut_in_facility_lookup_fields.rb
+END
+20130307092730_create_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/revenuemed/revremit/!svn/ver/15823/trunk/db/migrate/20130307092730_create_eras.rb
+END
+20120416111755_add_document_classification_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/11035/trunk/db/migrate/20120416111755_add_document_classification_to_insurance_payment_eobs.rb
+END
+20100502150733_add_date_received_by_insurer_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100502150733_add_date_received_by_insurer_to_insurance_payment_eob.rb
+END
+20091222044721_add_rx_code_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091222044721_add_rx_code_to_service_payment_eobs.rb
+END
+20110325112417_change_carrier_code_length_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110325112417_change_carrier_code_length_in_insurance_payment_eobs.rb
+END
+20130429112454_rename_hipaa_group_code_in_reason_code_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/revenuemed/revremit/!svn/ver/16584/trunk/db/migrate/20130429112454_rename_hipaa_group_code_in_reason_code_clients_facilities_set_names.rb
+END
+20110929070912_add_composite_index_to_reason_codes_on_unique_code_and_reason_code_set_name_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/revenuemed/revremit/!svn/ver/7897/trunk/db/migrate/20110929070912_add_composite_index_to_reason_codes_on_unique_code_and_reason_code_set_name_id.rb
+END
+20111209104225_add_description_to_user_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/8772/trunk/db/migrate/20111209104225_add_description_to_user_activity_logs.rb
+END
+20071122022426_add_session_to_user.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122022426_add_session_to_user.rb
+END
+20071129033430_add_column_revenue_code_and_quantity_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071129033430_add_column_revenue_code_and_quantity_to_claim_service_informations.rb
+END
+20110414071517_removing_contact_information_id_from_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110414071517_removing_contact_information_id_from_payers.rb
+END
+20081231072523_create_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20081231072523_create_reason_codes.rb
+END
+20110228131826_add_data_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110228131826_add_data_to_facility_lookup_fields.rb
+END
+20071126022426_create_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126022426_create_check_informations.rb
+END
+20110518113859_add_column_group_code_to_reason_codes_clients_facilities_payers_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110518113859_add_column_group_code_to_reason_codes_clients_facilities_payers_hipaa_codes.rb
+END
+20071122172426_add_manual_override_column_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122172426_add_manual_override_column_to_batches.rb
+END
+20120306124654_add_expected_claim_files_per_day_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/10277/trunk/db/migrate/20120306124654_add_expected_claim_files_per_day_to_facilities.rb
+END
+20120827160626_create_aba_dda_lookups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/12974/trunk/db/migrate/20120827160626_create_aba_dda_lookups.rb
+END
+20090907055352_add_created_at_updated_at_to_eob_qas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055352_add_created_at_updated_at_to_eob_qas.rb
+END
+20071122152426_insert_contracted_tat_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122152426_insert_contracted_tat_to_clients.rb
+END
+20120124085449_add_output_activity_log_id_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/9442/trunk/db/migrate/20120124085449_add_output_activity_log_id_to_claim_file_informations.rb
+END
+20111206053009_add_tat_comment_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/8644/trunk/db/migrate/20111206053009_add_tat_comment_to_batches.rb
+END
+20130322072431_add_payer_id_to_era_checks.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/16221/trunk/db/migrate/20130322072431_add_payer_id_to_era_checks.rb
+END
+20120827160609_create_ach_files.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/12974/trunk/db/migrate/20120827160609_create_ach_files.rb
+END
+20110321062553_change_provider_control_number_data_type_to_string_in_claim_service_information_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110321062553_change_provider_control_number_data_type_to_string_in_claim_service_information_table.rb
+END
+20101022061822_add_new_code_status_to_reason_codes_clients_facilities_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101022061822_add_new_code_status_to_reason_codes_clients_facilities_payers.rb
+END
+20130527093229_add_index_batch_id_and_ack_latest_count_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/16867/trunk/db/migrate/20130527093229_add_index_batch_id_and_ack_latest_count_to_output_activity_logs.rb
+END
+20120210104949_add_additional_fields_to_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/9826/trunk/db/migrate/20120210104949_add_additional_fields_to_inbound_file_informations.rb
+END
+20110926100129_add_single_daily_merged_cut_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110926100129_add_single_daily_merged_cut_to_facility_lookup_fields.rb
+END
+20071125192426_create_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071125192426_create_images_for_jobs.rb
+END
+20071125132426_create_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071125132426_create_error_popups.rb
+END
+20120606100535_add_column_payment_method_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/11749/trunk/db/migrate/20120606100535_add_column_payment_method_to_check_informations.rb
+END
+20120323134226_add_additional_fields_to_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10554/trunk/db/migrate/20120323134226_add_additional_fields_to_inbound_file_information.rb
+END
+20130321102731_change_column_default_of_client_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/16049/trunk/db/migrate/20130321102731_change_column_default_of_client_table.rb
+END
+20071126162426_add_eobid_to_eob_qas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126162426_add_eobid_to_eob_qas.rb
+END
+20100611103252_add_columns_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100611103252_add_columns_to_facility_output_configs.rb
+END
+20120620094041_create_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/11957/trunk/db/migrate/20120620094041_create_facilities_micr_informations.rb
+END
+20071128022426_add_code_type_revenue_code_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071128022426_add_code_type_revenue_code_to_service_payment_eobs.rb
+END
+20130206090849_create_cpt_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/15381/trunk/db/migrate/20130206090849_create_cpt_codes.rb
+END
+20101112061139_change_type_of_onbase_name_in_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101112061139_change_type_of_onbase_name_in_payers.rb
+END
+20091216101134_add_expected_payment_to_service_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091216101134_add_expected_payment_to_service_payment_eob.rb
+END
+20090610111744_add_column_deleted_at_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111744_add_column_deleted_at_to_check_informations.rb
+END
+20110902084906_change_column_type_of_correspondence_in_batches_to_boolean.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110902084906_change_column_type_of_correspondence_in_batches_to_boolean.rb
+END
+20071127132426_add_navicure_payerid_to_checkinformation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127132426_add_navicure_payerid_to_checkinformation.rb
+END
+20120314164449_add_column_processing_start_time_and_processing_end_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/revenuemed/revremit/!svn/ver/10409/trunk/db/migrate/20120314164449_add_column_processing_start_time_and_processing_end_time_to_batches.rb
+END
+20120705070654_add_column_output_payid_to_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/12160/trunk/db/migrate/20120705070654_add_column_output_payid_to_facilities_micr_informations.rb
+END
+20081126085009_add_parent_job_id_to_jobs_sub_job_id_to_client_images_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081126085009_add_parent_job_id_to_jobs_sub_job_id_to_client_images_to_jobs.rb
+END
+20110323044533_add_total_drg_amount_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110323044533_add_total_drg_amount_to_insurance_payment_eobs.rb
+END
+20120222063520_add_column_lockbox_name_to_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/10004/trunk/db/migrate/20120222063520_add_column_lockbox_name_to_inbound_file_informations.rb
+END
+20100813092948_create_patients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100813092948_create_patients.rb
+END
+20071127032426_add_processor_id_to_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127032426_add_processor_id_to_error_popups.rb
+END
+20130905053149_add_column_claim_file_information_id_to_insurance_payment_eobs_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/revenuemed/revremit/!svn/ver/17965/trunk/db/migrate/20130905053149_add_column_claim_file_information_id_to_insurance_payment_eobs_table.rb
+END
+20130116051421_add_payee_name_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/15036/trunk/db/migrate/20130116051421_add_payee_name_to_check_informations.rb
+END
+20130318060342_create_reasons.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/15983/trunk/db/migrate/20130318060342_create_reasons.rb
+END
+20130429115453_rename_denied_hipaa_group_code_in_reason_code_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/16584/trunk/db/migrate/20130429115453_rename_denied_hipaa_group_code_in_reason_code_clients_facilities_set_names.rb
+END
+20120330120050_add_index_on_payer_status.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/10751/trunk/db/migrate/20120330120050_add_index_on_payer_status.rb
+END
+20071126142426_create_claim_types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126142426_create_claim_types.rb
+END
+20120222112056_add_column_breached_time_and_arrival_date_to_throughput_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/10040/trunk/db/migrate/20120222112056_add_column_breached_time_and_arrival_date_to_throughput_reports.rb
+END
+20120217063704_add_column_output_835_posting_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/9949/trunk/db/migrate/20120217063704_add_column_output_835_posting_time_to_batches.rb
+END
+20120217062406_create_table_throughput_thresholds.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/9949/trunk/db/migrate/20120217062406_create_table_throughput_thresholds.rb
+END
+20101202151320_add_tiff_images_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101202151320_add_tiff_images_to_job.rb
+END
+20100428095229_add_payment_type_to_check_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100428095229_add_payment_type_to_check_information.rb
+END
+20120124134852_remove_deprecated_columns_from_reason_code_clients_facilites_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/revenuemed/revremit/!svn/ver/9449/trunk/db/migrate/20120124134852_remove_deprecated_columns_from_reason_code_clients_facilites_set_names.rb
+END
+20130430041947_create_table_twice_keying_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/16530/trunk/db/migrate/20130430041947_create_table_twice_keying_fields.rb
+END
+20130404040105_add_column_payee_type_format_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/16237/trunk/db/migrate/20130404040105_add_column_payee_type_format_to_insurance_payment_eobs.rb
+END
+20130319052725_add_column_orbo_account_number_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/15979/trunk/db/migrate/20130319052725_add_column_orbo_account_number_to_batches.rb
+END
+20120821050553_create_qa_edits.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/12838/trunk/db/migrate/20120821050553_create_qa_edits.rb
+END
+20130826065412_add_columns_adjustment_hipaa_code_ids_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/revenuemed/revremit/!svn/ver/17836/trunk/db/migrate/20130826065412_add_columns_adjustment_hipaa_code_ids_to_service_payment_eobs.rb
+END
+20071122092426_create_tat.rb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071122092426_create_tat.rb
+END
+20090911144139_create_archived_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090911144139_create_archived_claim_informations.rb
+END
+20110914053433_create_references_to_outbound_files_in_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110914053433_create_references_to_outbound_files_in_output_activity_logs.rb
+END
+20110324114548_add_website_to_contact_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324114548_add_website_to_contact_informations.rb
+END
+20100428143533_add_denied_and_denied_code_and_denied_groupcode_and_denied_code_description_to_service_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100428143533_add_denied_and_denied_code_and_denied_groupcode_and_denied_code_description_to_service_payment_eob.rb
+END
+20130502121913_add_ocr_job_auto_allocation_enabled_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/16574/trunk/db/migrate/20130502121913_add_ocr_job_auto_allocation_enabled_to_batches.rb
+END
+20110624054441_add_column_page_count_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110624054441_add_column_page_count_to_images_for_jobs.rb
+END
+20100429071413_populate_by_lockbox_cut_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100429071413_populate_by_lockbox_cut_to_facility_lookup_fields.rb
+END
+20130423223355_change_era_id_in_era_exception.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/16485/trunk/db/migrate/20130423223355_change_era_id_in_era_exception.rb
+END
+20110704070421_remove_image_type_from_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110704070421_remove_image_type_from_images_for_jobs.rb
+END
+20120217055717_create_table_throughput_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/10004/trunk/db/migrate/20120217055717_create_table_throughput_reports.rb
+END
+20130605124832_add_columns_to_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/17001/trunk/db/migrate/20130605124832_add_columns_to_job_activity_logs.rb
+END
+20110221140209_add_index_file_parser_type_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110221140209_add_index_file_parser_type_to_facility_lookup_fields.rb
+END
+20071121112426_create_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071121112426_create_batches.rb
+END
+20071121102426_create_facilities_and_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121102426_create_facilities_and_facility_output_configs.rb
+END
+20110914115254_add_estimated_time_to_inboundfile_and_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110914115254_add_estimated_time_to_inboundfile_and_output_activity_logs.rb
+END
+20110316110317_create_contact_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110316110317_create_contact_informations.rb
+END
+20090521103453_add835_generated_time_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090521103453_add835_generated_time_to_jobs.rb
+END
+20071122232426_add_comment_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122232426_add_comment_to_job.rb
+END
+20071128002426_add_start_time_end_time_to_insurance_patietpayeob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071128002426_add_start_time_end_time_to_insurance_patietpayeob.rb
+END
+20130715054806_add_column_initial_image_name_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/17446/trunk/db/migrate/20130715054806_add_column_initial_image_name_to_jobs.rb
+END
+20100429130250_add_claim_denied_reasoncode_and_claim_denied_groupcode_and_claim_denied_reasoncode_description_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100429130250_add_claim_denied_reasoncode_and_claim_denied_groupcode_and_claim_denied_reasoncode_description_to_insurance_payment_eob.rb
+END
+20071124092426_add_comment_for_qa_in_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124092426_add_comment_for_qa_in_jobs.rb
+END
+20120320033852_add_ocr_specific_columns_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/10448/trunk/db/migrate/20120320033852_add_ocr_specific_columns_to_jobs.rb
+END
+20110329070255_add_reasoncode_mapping_fields_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110329070255_add_reasoncode_mapping_fields_to_insurance_payment_eobs.rb
+END
+20120719085632_add_index_payer_id_and_facility_id_in_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/revenuemed/revremit/!svn/ver/12303/trunk/db/migrate/20120719085632_add_index_payer_id_and_facility_id_in_facilities_micr_informations.rb
+END
+20090512082905_add_image_page_no_to_patient_pays.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090512082905_add_image_page_no_to_patient_pays.rb
+END
+20071124232426_add_teamleader_to_user.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124232426_add_teamleader_to_user.rb
+END
+20090907055350_add_created_at_updated_at_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055350_add_created_at_updated_at_to_images_for_jobs.rb
+END
+20110517084518_add_operation_log_config_to_facility_config.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110517084518_add_operation_log_config_to_facility_config.rb
+END
+20100617125420_add_transaction_type_to_images_for_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100617125420_add_transaction_type_to_images_for_job.rb
+END
+20130115095716_add_column_lockbox_to_jobs_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/15025/trunk/db/migrate/20130115095716_add_column_lockbox_to_jobs_table.rb
+END
+20110301083611_add_active_column_to_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110301083611_add_active_column_to_ansi_remark_codes.rb
+END
+20091126094301_create_partners.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091126094301_create_partners.rb
+END
+20110316111120_add_drg_amount_and_contact_information_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110316111120_add_drg_amount_and_contact_information_id_to_insurance_payment_eobs.rb
+END
+20090629053715_add_details_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053715_add_details_to_images_for_jobs.rb
+END
+20130612084406_add_column_is_splitted_image_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/17031/trunk/db/migrate/20130612084406_add_column_is_splitted_image_to_images_for_jobs.rb
+END
+20130417120422_change_insurance_payment_era_column_name.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/16407/trunk/db/migrate/20130417120422_change_insurance_payment_era_column_name.rb
+END
+20090123053156_add_facility_type_and_policy_number_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090123053156_add_facility_type_and_policy_number_to_claim_informations.rb
+END
+20120910191602_add_deleted_to_claim_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/13761/trunk/db/migrate/20120910191602_add_deleted_to_claim_file_information.rb
+END
+20131216161726_remove_era_columns.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/19104/trunk/db/migrate/20131216161726_remove_era_columns.rb
+END
+20071122122426_add_comment_field_in_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122122426_add_comment_field_in_batches.rb
+END
+20130308084615_add_pr_reason_code_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/15863/trunk/db/migrate/20130308084615_add_pr_reason_code_id_to_insurance_payment_eobs.rb
+END
+20120710053238_change_group_code_to_not_null_in_client.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/12181/trunk/db/migrate/20120710053238_change_group_code_to_not_null_in_client.rb
+END
+20131023124600_add_column_key_to_twice_keying_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/18360/trunk/db/migrate/20131023124600_add_column_key_to_twice_keying_fields.rb
+END
+20090110084135_create_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090110084135_create_job_activity_logs.rb
+END
+20110707110437_modify_client_specific_grouping_in_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/8853/trunk/db/migrate/20110707110437_modify_client_specific_grouping_in_facility_lookup_fields.rb
+END
+20110304063721_add_parent_id_in_error_popus.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110304063721_add_parent_id_in_error_popus.rb
+END
+20140108181717_change_data_types_in_temp_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/19269/trunk/db/migrate/20140108181717_change_data_types_in_temp_jobs.rb
+END
+20120217090931_drop_table_throughput_report.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/9949/trunk/db/migrate/20120217090931_drop_table_throughput_report.rb
+END
+20110613142104_add_file_location_and_file_size_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110613142104_add_file_location_and_file_size_to_output_activity_logs.rb
+END
+20120821110940_add_start_time_of_svc_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/12859/trunk/db/migrate/20120821110940_add_start_time_of_svc_to_insurance_payment_eob.rb
+END
+20130307091148_create_era_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/15857/trunk/db/migrate/20130307091148_create_era_jobs.rb
+END
+20110316035255_add_payee_details_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110316035255_add_payee_details_to_claim_informations.rb
+END
+20130506155510_add_era_payer_name_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/16625/trunk/db/migrate/20130506155510_add_era_payer_name_to_payer.rb
+END
+20130612071522_change_column_default_value_in_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/17047/trunk/db/migrate/20130612071522_change_column_default_value_in_facilities.rb
+END
+20071122042426_add_jobs_indexes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122042426_add_jobs_indexes.rb
+END
+20110610080534_change_column_length_of_reason_code_and_reason_code_description_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110610080534_change_column_length_of_reason_code_and_reason_code_description_in_reason_codes.rb
+END
+20120123085222_remove_837_archive_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/11575/trunk/db/migrate/20120123085222_remove_837_archive_tables.rb
+END
+20071126072426_create_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/10658/trunk/db/migrate/20071126072426_create_claim_service_informations.rb
+END
+20110428074406_add_transaction_number_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110428074406_add_transaction_number_to_jobs.rb
+END
+20100528103016_add_client_specific_fields_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100528103016_add_client_specific_fields_to_jobs.rb
+END
+20120125065256_rename_payer_onbase_relations_table_and_add_new_columns.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/11006/trunk/db/migrate/20120125065256_rename_payer_onbase_relations_table_and_add_new_columns.rb
+END
+20090907055349_add_created_at_updated_at_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055349_add_created_at_updated_at_to_claim_service_informations.rb
+END
+20120223045526_change_column_type_breached_time_in_throughput_reports_breached_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/revenuemed/revremit/!svn/ver/10040/trunk/db/migrate/20120223045526_change_column_type_breached_time_in_throughput_reports_breached_informations.rb
+END
+20090609100217_add_claim_type_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090609100217_add_claim_type_to_claim_informations.rb
+END
+20121226064501_change_type_of_total_plan_coverage_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/15275/trunk/db/migrate/20121226064501_change_type_of_total_plan_coverage_in_insurance_payment_eobs.rb
+END
+20071123182426_create_client_status_histories.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071123182426_create_client_status_histories.rb
+END
+20130614152646_modify_role_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/17084/trunk/db/migrate/20130614152646_modify_role_names.rb
+END
+20130515045622_add_index_client_id_to_facilities_payers_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/16664/trunk/db/migrate/20130515045622_add_index_client_id_to_facilities_payers_informations.rb
+END
+20130204093405_add_tin_to_facility_lockbox_mappings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/15346/trunk/db/migrate/20130204093405_add_tin_to_facility_lockbox_mappings.rb
+END
+20130830162415_remove_foreign_key_from_era_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/17898/trunk/db/migrate/20130830162415_remove_foreign_key_from_era_jobs.rb
+END
+20100519110136_add_ansi_remark_code_id_to_reason_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100519110136_add_ansi_remark_code_id_to_reason_code.rb
+END
+20100129182924_populate_details_for_liberty_health_care_pharmacy.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100129182924_populate_details_for_liberty_health_care_pharmacy.rb
+END
+20110615062959_change_client_id_to_facility_id_for_rejection_comment.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110615062959_change_client_id_to_facility_id_for_rejection_comment.rb
+END
+20110917051248_add_estimated_load_end_time_to_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110917051248_add_estimated_load_end_time_to_inbound_file_informations.rb
+END
+20111121084552_add_xpeditor_document_number_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/8761/trunk/db/migrate/20111121084552_add_xpeditor_document_number_to_claim_informations.rb
+END
+20121009071142_add_composite_index_on_status_marked_for_delete_active_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/revenuemed/revremit/!svn/ver/13831/trunk/db/migrate/20121009071142_add_composite_index_on_status_marked_for_delete_active_in_reason_codes.rb
+END
+20120724070935_change_default_of_835_data_grouping_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/12357/trunk/db/migrate/20120724070935_change_default_of_835_data_grouping_fields.rb
+END
+20120719085635_add_835_data_grouping_fields_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/12344/trunk/db/migrate/20120719085635_add_835_data_grouping_fields_to_facility_output_configs.rb
+END
+20071121122426_create_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121122426_create_users.rb
+END
+20101022120237_change_datatype_in_capitation_account.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101022120237_change_datatype_in_capitation_account.rb
+END
+20110625112050_modify_nyu_specific_grouping_in_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110625112050_modify_nyu_specific_grouping_in_facility_lookup_fields.rb
+END
+20101130115839_add_split_parent_job_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101130115839_add_split_parent_job_id.rb
+END
+20120203124357_add_arrival_date_and_file_path_to_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/9672/trunk/db/migrate/20120203124357_add_arrival_date_and_file_path_to_inbound_file_information.rb
+END
+20130402101058_create_misc_segments_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/16221/trunk/db/migrate/20130402101058_create_misc_segments_eras.rb
+END
+20071122062426_create_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122062426_create_payers.rb
+END
+20111123132053_add_date_of_birth_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/8761/trunk/db/migrate/20111123132053_add_date_of_birth_to_claim_informations.rb
+END
+20071126172426_create_payerwise_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126172426_create_payerwise_check_informations.rb
+END
+20071123052426_add_job_status_and_qa_status_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071123052426_add_job_status_and_qa_status_to_job.rb
+END
+20120202114527_alter_batches_for_auto_job_allocation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/9831/trunk/db/migrate/20120202114527_alter_batches_for_auto_job_allocation.rb
+END
+20101018064409_create_reason_codes_clients_facilities_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101018064409_create_reason_codes_clients_facilities_payers.rb
+END
+20071124032426_create_eob_error_ref_in_eob_qa.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20071124032426_create_eob_error_ref_in_eob_qa.rb
+END
+20071123202426_create_sampling_rates.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071123202426_create_sampling_rates.rb
+END
+20110406115808_remove_bank_deposit_date_from_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110406115808_remove_bank_deposit_date_from_batches.rb
+END
+20071121182426_create_certifications.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071121182426_create_certifications.rb
+END
+20140115090626_add_new_job_creation_applicableto_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/19329/trunk/db/migrate/20140115090626_add_new_job_creation_applicableto_facilities.rb
+END
+20130529095451_change_location_and_employee_id_in_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/16928/trunk/db/migrate/20130529095451_change_location_and_employee_id_in_users.rb
+END
+20090123043011_add_facility_type_code_to_insurance_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090123043011_add_facility_type_code_to_insurance_eob.rb
+END
+20110321085006_create_meta_batch_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110321085006_create_meta_batch_informations.rb
+END
+20110912113431_remove_columns_from_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20110912113431_remove_columns_from_reason_codes.rb
+END
+20110829121621_add_columns_check_number_and_reason_code_set_name_id_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20110829121621_add_columns_check_number_and_reason_code_set_name_id_to_reason_codes.rb
+END
+20071126212426_add_column_charges_to_claim_service_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126212426_add_column_charges_to_claim_service_information.rb
+END
+20120323115938_add_ocr_report_related_fields_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/10549/trunk/db/migrate/20120323115938_add_ocr_report_related_fields_to_jobs.rb
+END
+20100513120120_add_output_format_csv_and_txt_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100513120120_add_output_format_csv_and_txt_to_facility_lookup_fields.rb
+END
+20111129132431_change_the_data_type_of_size_in_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/8566/trunk/db/migrate/20111129132431_change_the_data_type_of_size_in_inbound_file_information.rb
+END
+20131021091008_add_column_automate_output_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/18372/trunk/db/migrate/20131021091008_add_column_automate_output_to_facility.rb
+END
+20100419113137_create_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100419113137_create_facility_lookup_fields.rb
+END
+20121219064719_change_the_datatype_of_estimated_eob_in_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/14856/trunk/db/migrate/20121219064719_change_the_datatype_of_estimated_eob_in_jobs.rb
+END
+20071126182426_change_service_claim_adjustment_group_code_in_service_payment_eob_to_string.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126182426_change_service_claim_adjustment_group_code_in_service_payment_eob_to_string.rb
+END
+20090610111740_add_column_deleted_at_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111740_add_column_deleted_at_to_batches.rb
+END
+20110415112945_rename_columns_in_insurance_payment_and_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110415112945_rename_columns_in_insurance_payment_and_service_payment_eobs.rb
+END
+20071126122426_add_page_details_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126122426_add_page_details_to_jobs.rb
+END
+20121207051157_add_column_job_status_to_rejection_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/14704/trunk/db/migrate/20121207051157_add_column_job_status_to_rejection_comments.rb
+END
+20121029113612_add_index_ansi_remark_code_id_to_reason_codes_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/14166/trunk/db/migrate/20121029113612_add_index_ansi_remark_code_id_to_reason_codes_ansi_remark_codes.rb
+END
+20090116102336_add_capitaion_code_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090116102336_add_capitaion_code_to_payer.rb
+END
+20100314090914_edit_site_codes_navicure_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100314090914_edit_site_codes_navicure_facilities.rb
+END
+20130416055317_add_column_era_nic_id_to_era_checks.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/16390/trunk/db/migrate/20130416055317_add_column_era_nic_id_to_era_checks.rb
+END
+20120210043703_add_max_jobs_per_user_payer_wise_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/9814/trunk/db/migrate/20120210043703_add_max_jobs_per_user_payer_wise_to_clients.rb
+END
+20120319144033_add_enable_cr_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/10486/trunk/db/migrate/20120319144033_add_enable_cr_to_facilities.rb
+END
+20130211142051_add_file_meta_hash_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/15469/trunk/db/migrate/20130211142051_add_file_meta_hash_to_batches.rb
+END
+20110927085911_create_throughput_summary_report.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7652/trunk/db/migrate/20110927085911_create_throughput_summary_report.rb
+END
+20130118093312_add_uid_to_pat_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/15102/trunk/db/migrate/20130118093312_add_uid_to_pat_pay_eobs.rb
+END
+20130307100727_create_era_provider_adjustments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/15857/trunk/db/migrate/20130307100727_create_era_provider_adjustments.rb
+END
+20140107110513_add_column_is_claim_level_eob_to_balance_record_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/19287/trunk/db/migrate/20140107110513_add_column_is_claim_level_eob_to_balance_record_configs.rb
+END
+20120314165118_remove_column_batch_processing_start_time_and_batch_processing_end_time_from_report_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/revenuemed/revremit/!svn/ver/10409/trunk/db/migrate/20120314165118_remove_column_batch_processing_start_time_and_batch_processing_end_time_from_report_check_informations.rb
+END
+20100119104745_add_field_id_to_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100119104745_add_field_id_to_error_popups.rb
+END
+20100308094208_add_patient_id_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100308094208_add_patient_id_to_claim_informations.rb
+END
+20130704141643_add_interest_only_check_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/17329/trunk/db/migrate/20130704141643_add_interest_only_check_to_check_informations.rb
+END
+20120702112824_set_default_starting_page_number_in_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/12131/trunk/db/migrate/20120702112824_set_default_starting_page_number_in_job.rb
+END
+20120224120209_add_columns_for_output_posting_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/10084/trunk/db/migrate/20120224120209_add_columns_for_output_posting_to_output_activity_logs.rb
+END
+20120202092834_alter_users_for_job_allocation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/9668/trunk/db/migrate/20120202092834_alter_users_for_job_allocation.rb
+END
+20121008144212_add_index_job_id_in_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/13815/trunk/db/migrate/20121008144212_add_index_job_id_in_job_activity_logs.rb
+END
+20130429094445_add_foreign_key_constraints_to_era_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/16625/trunk/db/migrate/20130429094445_add_foreign_key_constraints_to_era_tables.rb
+END
+20130606095101_add_column_tooth_number_in_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/16999/trunk/db/migrate/20130606095101_add_column_tooth_number_in_service_payment_eobs.rb
+END
+20071123232426_create_eob_qa_statuses.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071123232426_create_eob_qa_statuses.rb
+END
+20071127072426_add_zipcode_state_city_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127072426_add_zipcode_state_city_to_payer.rb
+END
+20100416055716_add_patient_medistreams_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100416055716_add_patient_medistreams_id_to_insurance_payment_eobs.rb
+END
+20130207163927_add_npi_to_facility_lockbox_mappings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/15429/trunk/db/migrate/20130207163927_add_npi_to_facility_lockbox_mappings.rb
+END
+20071122202426_add_user_productivity_rating.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122202426_add_user_productivity_rating.rb
+END
+20071122132426_add_estimated_and_adjusted_eobs_plus_image_count_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122132426_add_estimated_and_adjusted_eobs_plus_image_count_to_job.rb
+END
+20120824051159_add_output_payid_to_facilities_payers_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/12877/trunk/db/migrate/20120824051159_add_output_payid_to_facilities_payers_informations.rb
+END
+20110712073634_add_column_unique_code_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110712073634_add_column_unique_code_to_reason_codes.rb
+END
+20120210105046_create_revremit_exceptions_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/9826/trunk/db/migrate/20120210105046_create_revremit_exceptions_table.rb
+END
+20140106070744_change_column_size_in_rejection_comment_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/19232/trunk/db/migrate/20140106070744_change_column_size_in_rejection_comment_table.rb
+END
+20121009071152_add_index_sub_job_id_in_reason_codes_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/13862/trunk/db/migrate/20121009071152_add_index_sub_job_id_in_reason_codes_jobs.rb
+END
+20120827160535_create_cr_transactions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/12974/trunk/db/migrate/20120827160535_create_cr_transactions.rb
+END
+20130102094551_drop_table_reason_codes_clients_facilities_set_names_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/revenuemed/revremit/!svn/ver/14931/trunk/db/migrate/20130102094551_drop_table_reason_codes_clients_facilities_set_names_hipaa_codes.rb
+END
+20100329113438_add_patient_pay_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100329113438_add_patient_pay_to_payer.rb
+END
+20110202101144_add_column_content_layout_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110202101144_add_column_content_layout_to_facility_output_configs.rb
+END
+20120329165230_add_indexes_for_payers_and_micr_line_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10705/trunk/db/migrate/20120329165230_add_indexes_for_payers_and_micr_line_informations.rb
+END
+20071124062426_add_payer_to_qa_checked_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20071124062426_add_payer_to_qa_checked_jobs.rb
+END
+20090629053625_add_details_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053625_add_details_to_service_payment_eobs.rb
+END
+20071124112426_add_indexes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124112426_add_indexes.rb
+END
+20120823045916_add_reason_code_set_name_id_and_client_id_to_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/12858/trunk/db/migrate/20120823045916_add_reason_code_set_name_id_and_client_id_to_error_popups.rb
+END
+20071126002426_add_time_taken_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126002426_add_time_taken_to_jobs.rb
+END
+20120831122651_add_columns_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/13508/trunk/db/migrate/20120831122651_add_columns_to_claim_service_informations.rb
+END
+20110902041050_add_index_to_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7897/trunk/db/migrate/20110902041050_add_index_to_reason_codes_clients_facilities_set_names.rb
+END
+20110927135941_add_output835_start_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7652/trunk/db/migrate/20110927135941_add_output835_start_time_to_batches.rb
+END
+20081217045806_add_default_roles.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20081217045806_add_default_roles.rb
+END
+20111102102004_add_sequence_cut_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/8125/trunk/db/migrate/20111102102004_add_sequence_cut_to_facility_lookup_fields.rb
+END
+20130516175927_add_client_code_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/16738/trunk/db/migrate/20130516175927_add_client_code_to_insurance_payment_eobs.rb
+END
+20071125232426_add_rejected_comments_on_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125232426_add_rejected_comments_on_jobs.rb
+END
+20130808115646_create_temp_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/18441/trunk/db/migrate/20130808115646_create_temp_jobs.rb
+END
+20120725073502_add_column_folder_name_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/12382/trunk/db/migrate/20120725073502_add_column_folder_name_to_facility_output_configs.rb
+END
+20120619095943_rename_column_reason_code_set_name_id_in_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/revenuemed/revremit/!svn/ver/11954/trunk/db/migrate/20120619095943_rename_column_reason_code_set_name_id_in_reason_codes_clients_facilities_set_names.rb
+END
+20121112192705_remove_role_from_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/14525/trunk/db/migrate/20121112192705_remove_role_from_users.rb
+END
+20121214111119_add_rms_grid_fields_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/14820/trunk/db/migrate/20121214111119_add_rms_grid_fields_to_service_payment_eobs.rb
+END
+20121120102548_add_weightage_column_to_facility_specific_payees.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/14415/trunk/db/migrate/20121120102548_add_weightage_column_to_facility_specific_payees.rb
+END
+20120628090052_add_time_stamps_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/12060/trunk/db/migrate/20120628090052_add_time_stamps_to_facility.rb
+END
+20111024084629_add_columns_to_payer_exclusion.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7953/trunk/db/migrate/20111024084629_add_columns_to_payer_exclusion.rb
+END
+20071126042426_create_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126042426_create_service_payment_eobs.rb
+END
+20121009071182_add_index_service_payment_eob_id_in_service_payment_eobs_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/13869/trunk/db/migrate/20121009071182_add_index_service_payment_eob_id_in_service_payment_eobs_ansi_remark_codes.rb
+END
+20131024121413_add_original_payer_id_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/18369/trunk/db/migrate/20131024121413_add_original_payer_id_to_payers.rb
+END
+20071122142426_add_contracted_tat_to_client.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122142426_add_contracted_tat_to_client.rb
+END
+20130731102914_add_payertin_to_job_tabel.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/17657/trunk/db/migrate/20130731102914_add_payertin_to_job_tabel.rb
+END
+20110704131910_rename_crosswalk_tables_and_columns.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110704131910_rename_crosswalk_tables_and_columns.rb
+END
+20130129112832_add_columns_to_reason_codes_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/15338/trunk/db/migrate/20130129112832_add_columns_to_reason_codes_ansi_remark_codes.rb
+END
+20110322090830_remove_drg_amount_from_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110322090830_remove_drg_amount_from_insurance_payment_eobs.rb
+END
+20120417043802_add_document_classification_to_patient_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/11048/trunk/db/migrate/20120417043802_add_document_classification_to_patient_pay_eobs.rb
+END
+20120614023847_add_starting_page_number_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/11877/trunk/db/migrate/20120614023847_add_starting_page_number_to_job.rb
+END
+20090610111746_add_column_deleted_at_to_reasoncodes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111746_add_column_deleted_at_to_reasoncodes.rb
+END
+20120308100250_change_status_for_jobs_and_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/10310/trunk/db/migrate/20120308100250_change_status_for_jobs_and_batches.rb
+END
+20071126052426_create_patient_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126052426_create_patient_pay_eobs.rb
+END
+20130305125932_alter_table_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/16367/trunk/db/migrate/20130305125932_alter_table_claim_informations.rb
+END
+20130102071253_remove_column_hipaa_group_code_from_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/14939/trunk/db/migrate/20130102071253_remove_column_hipaa_group_code_from_hipaa_codes.rb
+END
+20090316114740_add_provider_adjustment_amount_to_check_inforamtions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090316114740_add_provider_adjustment_amount_to_check_inforamtions.rb
+END
+20120719054730_add_unique_index_on_group_code_for_client.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/12297/trunk/db/migrate/20120719054730_add_unique_index_on_group_code_for_client.rb
+END
+20130305065256_add_tooth_code_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/16367/trunk/db/migrate/20130305065256_add_tooth_code_to_claim_service_informations.rb
+END
+20120913101729_add_changed_param_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/13578/trunk/db/migrate/20120913101729_add_changed_param_to_claim_informations.rb
+END
+20071122052426_create_documents.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122052426_create_documents.rb
+END
+20110322091151_add_drg_amount_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110322091151_add_drg_amount_to_service_payment_eobs.rb
+END
+20131205103105_add_column_payee_tin_to_facility_specific_payees.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/18905/trunk/db/migrate/20131205103105_add_column_payee_tin_to_facility_specific_payees.rb
+END
+20100514104621_add_output_formats_pc_print.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100514104621_add_output_formats_pc_print.rb
+END
+20120906083708_add_index_payer_and_reason_codes_clients_facilities_set_names_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/revenuemed/revremit/!svn/ver/13082/trunk/db/migrate/20120906083708_add_index_payer_and_reason_codes_clients_facilities_set_names_hipaa_codes.rb
+END
+20090211055938_add_payer_type_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090211055938_add_payer_type_to_check_informations.rb
+END
+20110530100131_add_pay_id_to_claim_information_in_mpi_data.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110530100131_add_pay_id_to_claim_information_in_mpi_data.rb
+END
+20130204105328_add_patient_responsibility_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/15353/trunk/db/migrate/20130204105328_add_patient_responsibility_to_service_payment_eobs.rb
+END
+20091004041933_add_index_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091004041933_add_index_to_claim_service_informations.rb
+END
+20131008135438_create_table_batch_upload_parser.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/18234/trunk/db/migrate/20131008135438_create_table_batch_upload_parser.rb
+END
+20071124152426_create_query_details.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124152426_create_query_details.rb
+END
+20130110060413_add_place_of_service_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/15017/trunk/db/migrate/20130110060413_add_place_of_service_to_insurance_payment_eobs.rb
+END
+20101028120350_rename_combine_payment_and_correspondence_in_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101028120350_rename_combine_payment_and_correspondence_in_facility_output_configs.rb
+END
+20110805062006_remove_deleted_at.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110805062006_remove_deleted_at.rb
+END
+20110830041639_change_status_length_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110830041639_change_status_length_in_reason_codes.rb
+END
+20130617074857_add_password_expire.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/17079/trunk/db/migrate/20130617074857_add_password_expire.rb
+END
+20071127012426_add_provider_npi_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127012426_add_provider_npi_to_claim_informations.rb
+END
+20120314034900_change_column_type_of_breached_time_in_throughput_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/10386/trunk/db/migrate/20120314034900_change_column_type_of_breached_time_in_throughput_reports.rb
+END
+20120322102527_add_user_date_to_client_reported_errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/10524/trunk/db/migrate/20120322102527_add_user_date_to_client_reported_errors.rb
+END
+20110718063207_add_other_output_config_type_to_facility_config.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110718063207_add_other_output_config_type_to_facility_config.rb
+END
+20071127082426_add_facility_npi_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127082426_add_facility_npi_to_facility.rb
+END
+20090929093924_add_provider_control_number_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090929093924_add_provider_control_number_to_claim_service_informations.rb
+END
+20110714064734_add_provider_phone_number_and_social_security_number_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110714064734_add_provider_phone_number_and_social_security_number_to_claim_informations.rb
+END
+20071124122426_create_user_payer_job_histories.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071124122426_create_user_payer_job_histories.rb
+END
+20081211043221_add_patient_type_to_insuraceeob_paymentcode_payment_code_allowance_capitatation_to_service_line.rb
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081211043221_add_patient_type_to_insuraceeob_paymentcode_payment_code_allowance_capitatation_to_service_line.rb
+END
+20090610111743_add_column_deleted_at_to_client_images_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111743_add_column_deleted_at_to_client_images_to_jobs.rb
+END
+20120330115821_add_index_on_parent_job_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/10751/trunk/db/migrate/20120330115821_add_index_on_parent_job_id.rb
+END
+20130107094905_create_table_insurance_payment_eobs_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/14984/trunk/db/migrate/20130107094905_create_table_insurance_payment_eobs_ansi_remark_codes.rb
+END
+20081201030201_add_column835_generated_time_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081201030201_add_column835_generated_time_to_batch.rb
+END
+20111018141559_add_mpi_search_type_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7810/trunk/db/migrate/20111018141559_add_mpi_search_type_to_facilities.rb
+END
+20110324115900_add_learn_date_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324115900_add_learn_date_to_reason_codes.rb
+END
+20090112082947_create_output_regenerated_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090112082947_create_output_regenerated_logs.rb
+END
+20130704065208_add_column_ssi_batch_number_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/17417/trunk/db/migrate/20130704065208_add_column_ssi_batch_number_to_batches.rb
+END
+20071126082426_add_batch_amount_deposit_date_lockbox_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126082426_add_batch_amount_deposit_date_lockbox_to_batch.rb
+END
+20091224131510_rename_rx_code_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091224131510_rename_rx_code_to_service_payment_eobs.rb
+END
+20131009084554_create_table_batch_output_statuses.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/18241/trunk/db/migrate/20131009084554_create_table_batch_output_statuses.rb
+END
+20111209061523_add_required_claim_types_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/8723/trunk/db/migrate/20111209061523_add_required_claim_types_to_facility_output_configs.rb
+END
+20120921151529_add_claim_end_date_to_claim_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/15125/trunk/db/migrate/20120921151529_add_claim_end_date_to_claim_information.rb
+END
+20110418093851_add_and_change_columns_in_reason_codes_clients_facilities_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110418093851_add_and_change_columns_in_reason_codes_clients_facilities_payers.rb
+END
+20071122182426_add_source_in_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122182426_add_source_in_batch.rb
+END
+20121121105411_set_default_value_for_payer_group_in_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/14597/trunk/db/migrate/20121121105411_set_default_value_for_payer_group_in_jobs.rb
+END
+20120331062636_remove_index_on_check_numberd_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/10762/trunk/db/migrate/20120331062636_remove_index_on_check_numberd_in_reason_codes.rb
+END
+20090629054532_add_details_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629054532_add_details_to_batches.rb
+END
+20111011130338_add_image_columns_to_images_for_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7732/trunk/db/migrate/20111011130338_add_image_columns_to_images_for_job.rb
+END
+20100611103139_add_supplemental_outputs_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100611103139_add_supplemental_outputs_to_facilities.rb
+END
+20120331062259_add_index_on_reason_code_set_name_id_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/10758/trunk/db/migrate/20120331062259_add_index_on_reason_code_set_name_id_in_reason_codes.rb
+END
+20130625073944_create_table_deleted_entities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/17272/trunk/db/migrate/20130625073944_create_table_deleted_entities.rb
+END
+20130618091449_add_ip_address_to_useractivity.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/17101/trunk/db/migrate/20130618091449_add_ip_address_to_useractivity.rb
+END
+20071126032426_create_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126032426_create_insurance_payment_eobs.rb
+END
+20100113115656_populate_partner.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7857/trunk/db/migrate/20100113115656_populate_partner.rb
+END
+20100429214028_add_micr_line_information_id_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100429214028_add_micr_line_information_id_to_check_informations.rb
+END
+20071123072426_add_updated_by_updated_at_created_by_created_at_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071123072426_add_updated_by_updated_at_created_by_created_at_to_batch.rb
+END
+20131016083036_add_column_supplemental_outputs_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/18347/trunk/db/migrate/20131016083036_add_column_supplemental_outputs_to_clients.rb
+END
+20130107084110_change_column_drg_code_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/14962/trunk/db/migrate/20130107084110_change_column_drg_code_in_insurance_payment_eobs.rb
+END
+20071121162426_create_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121162426_create_clients.rb
+END
+20120827072318_add_num_cre_errors_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/12888/trunk/db/migrate/20120827072318_add_num_cre_errors_to_users.rb
+END
+20090610111742_add_column_deleted_at_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111742_add_column_deleted_at_to_images_for_jobs.rb
+END
+20101222060606_change_default_value_of_is_deleted_in_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101222060606_change_default_value_of_is_deleted_in_users.rb
+END
+20071127122426_add_client_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127122426_add_client_to_payer.rb
+END
+20130508080438_create_facility_plan_types.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/16591/trunk/db/migrate/20130508080438_create_facility_plan_types.rb
+END
+20101018065012_create_reason_codes_clients_facilities_payers_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101018065012_create_reason_codes_clients_facilities_payers_hipaa_codes.rb
+END
+20130307095347_create_service_payment_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/15856/trunk/db/migrate/20130307095347_create_service_payment_eras.rb
+END
+20110120104116_add_default_patpay_payer_tin_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110120104116_add_default_patpay_payer_tin_to_facilities.rb
+END
+20130208070126_add_column_service_cdt_qualifier_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/15436/trunk/db/migrate/20130208070126_add_column_service_cdt_qualifier_to_service_payment_eobs.rb
+END
+20071127142426_add_navicurepayid_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127142426_add_navicurepayid_to_payers.rb
+END
+20110324121524_add_five_fields_to_reason_codes_clients_facilities_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324121524_add_five_fields_to_reason_codes_clients_facilities_payers.rb
+END
+20130509123502_change_processing_completed_data_type_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/16642/trunk/db/migrate/20130509123502_change_processing_completed_data_type_in_insurance_payment_eobs.rb
+END
+20100429212840_remove_check_information_id_from_micr_line_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20100429212840_remove_check_information_id_from_micr_line_informations.rb
+END
+20120210104904_add_file_arrival_threshold_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/9830/trunk/db/migrate/20120210104904_add_file_arrival_threshold_to_facilities.rb
+END
+20071122012426_add_sessions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122012426_add_sessions.rb
+END
+20110324105850_add_bac_specific_fields_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324105850_add_bac_specific_fields_to_payers.rb
+END
+20120206065254_changed_the_time_stamp_column_of_user_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/9697/trunk/db/migrate/20120206065254_changed_the_time_stamp_column_of_user_activity_logs.rb
+END
+20121026073223_create_environment_variables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/14131/trunk/db/migrate/20121026073223_create_environment_variables.rb
+END
+20110301085143_add_footnote_indicator_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7682/trunk/db/migrate/20110301085143_add_footnote_indicator_to_payers.rb
+END
+20120224115638_remove_outbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/10084/trunk/db/migrate/20120224115638_remove_outbound_file_information.rb
+END
+20071124212426_create_shifts.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071124212426_create_shifts.rb
+END
+20071125172426_alter_payer_id_start_datetime_end_datetime.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125172426_alter_payer_id_start_datetime_end_datetime.rb
+END
+20071128012426_add_column_images_for_job_id_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071128012426_add_column_images_for_job_id_to_jobs.rb
+END
+20131009072150_add_column_double_keying_for_837_fields_in_facilities_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/18250/trunk/db/migrate/20131009072150_add_column_double_keying_for_837_fields_in_facilities_table.rb
+END
+20090316114626_add_payer_tin_hcra_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090316114626_add_payer_tin_hcra_to_payers.rb
+END
+20071122032426_add_batches_indexes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122032426_add_batches_indexes.rb
+END
+20071125002426_add_batch_issue_attributes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125002426_add_batch_issue_attributes.rb
+END
+20100420100849_populate_facility_lookup_field.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100420100849_populate_facility_lookup_field.rb
+END
+20120224052030_add_column_order_number_to_throughput_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/10067/trunk/db/migrate/20120224052030_add_column_order_number_to_throughput_reports.rb
+END
+20091217113101_change_expected_payment_for_service_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091217113101_change_expected_payment_for_service_payment_eob.rb
+END
+20130415045627_create_service_level_adjustments_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/16381/trunk/db/migrate/20130415045627_create_service_level_adjustments_eras.rb
+END
+20110506061327_add_fields_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110506061327_add_fields_to_claim_file_informations.rb
+END
+20120323120548_add_total_edited_fields_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10549/trunk/db/migrate/20120323120548_add_total_edited_fields_to_insurance_payment_eobs.rb
+END
+20071121132426_create_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071121132426_create_jobs.rb
+END
+20130509155919_add_exception_status_to_era_check.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/16625/trunk/db/migrate/20130509155919_add_exception_status_to_era_check.rb
+END
+20110301090837_add_bac_columns_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110301090837_add_bac_columns_to_clients.rb
+END
+20071122162426_add_contracted_time_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122162426_add_contracted_time_to_batch.rb
+END
+20110429051520_add_columns_value_category_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110429051520_add_columns_value_category_to_facility_lookup_fields.rb
+END
+20110210051822_add_column_index_batch_number_and_batch_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110210051822_add_column_index_batch_number_and_batch_time_to_batches.rb
+END
+20110530114602_add_payer_indicator_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110530114602_add_payer_indicator_to_insurance_payment_eobs.rb
+END
+20071122072426_add_filetype_column_to_documents.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122072426_add_filetype_column_to_documents.rb
+END
+20071123012426_predefined_job_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/19336/trunk/db/migrate/20071123012426_predefined_job_comments.rb
+END
+20090907055346_add_created_at_updated_at_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055346_add_created_at_updated_at_to_payers.rb
+END
+20120309124646_change_the_data_type_of_expected_arrival_date_in_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/10329/trunk/db/migrate/20120309124646_change_the_data_type_of_expected_arrival_date_in_inbound_file_informations.rb
+END
+20110216100844_add_column_rejection_comment_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110216100844_add_column_rejection_comment_to_insurance_payment_eobs.rb
+END
+20121025064114_add_is_ocr_in_micr_and_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/14131/trunk/db/migrate/20121025064114_add_is_ocr_in_micr_and_payer.rb
+END
+20100503044416_add_carrier_code_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100503044416_add_carrier_code_to_insurance_payment_eobs.rb
+END
+20110218082519_create_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110218082519_create_claim_file_informations.rb
+END
+20071126062426_create_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/12932/trunk/db/migrate/20071126062426_create_claim_informations.rb
+END
+20130319214446_add_batchid_to_era.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/15996/trunk/db/migrate/20130319214446_add_batchid_to_era.rb
+END
+20071124102426_add_accuracy_in_eob_report.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124102426_add_accuracy_in_eob_report.rb
+END
+20120217062853_create_table_throughput_report_breached_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/9949/trunk/db/migrate/20120217062853_create_table_throughput_report_breached_informations.rb
+END
+20110720090833_add_column_custom_fields_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110720090833_add_column_custom_fields_to_clients.rb
+END
+20131129133420_create_eob_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/18900/trunk/db/migrate/20131129133420_create_eob_reason_codes.rb
+END
+20120910152426_remove_fileid_and_payerid_columns_from_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/13162/trunk/db/migrate/20120910152426_remove_fileid_and_payerid_columns_from_error_popups.rb
+END
+20090312050231_removing_unwanted_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20090312050231_removing_unwanted_fields.rb
+END
+20071124072426_add_payer_to_eob_qas_and_eob_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124072426_add_payer_to_eob_qas_and_eob_reports.rb
+END
+20100909044545_add_onbase_name_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100909044545_add_onbase_name_to_payers.rb
+END
+20071124012426_create_eob_errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124012426_create_eob_errors.rb
+END
+20110428070040_add_lockbox_cut_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110428070040_add_lockbox_cut_to_facility_lookup_fields.rb
+END
+20071127092426_add_provider_organisation_to_insurance_paymenteob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127092426_add_provider_organisation_to_insurance_paymenteob.rb
+END
+20120119094446_add_is_late_to_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/9326/trunk/db/migrate/20120119094446_add_is_late_to_inbound_file_information.rb
+END
+20110502054526_add_guid_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110502054526_add_guid_to_check_informations.rb
+END
+20121130053559_add_eligible_for_auto_allocation_and_eob_processed_to_facilities_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/revenuemed/revremit/!svn/ver/14663/trunk/db/migrate/20121130053559_add_eligible_for_auto_allocation_and_eob_processed_to_facilities_users.rb
+END
+20120222065949_add_trm_index_file_format_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/10011/trunk/db/migrate/20120222065949_add_trm_index_file_format_to_facility_lookup_fields.rb
+END
+20110104093243_add_column_image_page_to_number_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110104093243_add_column_image_page_to_number_to_insurance_payment_eobs.rb
+END
+20130204105228_add_total_patient_responsibility_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/revenuemed/revremit/!svn/ver/15353/trunk/db/migrate/20130204105228_add_total_patient_responsibility_to_insurance_payment_eobs.rb
+END
+20071127212426_add_time_taken_to_insuranceeob_patientpay.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127212426_add_time_taken_to_insuranceeob_patientpay.rb
+END
+20120202114403_alter_clients_users_for_auto_job_allocation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/9668/trunk/db/migrate/20120202114403_alter_clients_users_for_auto_job_allocation.rb
+END
+20120710051647_add_claim_adjudication_sequence_and_taxonomy_code_to_claim_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/revenuemed/revremit/!svn/ver/16524/trunk/db/migrate/20120710051647_add_claim_adjudication_sequence_and_taxonomy_code_to_claim_information.rb
+END
+20130116071435_add_multiple_invoice_related_columns_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/revenuemed/revremit/!svn/ver/15040/trunk/db/migrate/20130116071435_add_multiple_invoice_related_columns_to_insurance_payment_eobs.rb
+END
+20111206053813_create_user_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/8644/trunk/db/migrate/20111206053813_create_user_activity_logs.rb
+END
+20130326115506_change_columns_for_era_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/16221/trunk/db/migrate/20130326115506_change_columns_for_era_jobs.rb
+END
+20130415045556_create_claim_level_adjustments_eras.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/16381/trunk/db/migrate/20130415045556_create_claim_level_adjustments_eras.rb
+END
+20120305102542_change_column_default_of_allocation_status_in_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/10231/trunk/db/migrate/20120305102542_change_column_default_of_allocation_status_in_users.rb
+END
+20130826065053_add_columns_adjustment_hipaa_code_ids_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/17836/trunk/db/migrate/20130826065053_add_columns_adjustment_hipaa_code_ids_to_insurance_payment_eobs.rb
+END
+20100505145523_create_delayed_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100505145523_create_delayed_jobs.rb
+END
+20130627053959_add_column_associated_entity_updated_at_to_batches_and_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/17272/trunk/db/migrate/20130627053959_add_column_associated_entity_updated_at_to_batches_and_jobs.rb
+END
+20111115060327_add_replacement_reason_code_id_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/8327/trunk/db/migrate/20111115060327_add_replacement_reason_code_id_to_reason_codes.rb
+END
+20120222160503_remove_column_facility_lockbox_mappings_id_from_throughput_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/revenuemed/revremit/!svn/ver/10040/trunk/db/migrate/20120222160503_remove_column_facility_lockbox_mappings_id_from_throughput_reports.rb
+END
+20120109054148_create_deleted_image_details_temps.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/9120/trunk/db/migrate/20120109054148_create_deleted_image_details_temps.rb
+END
+20071121152426_create_default_batch_status.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/10051/trunk/db/migrate/20071121152426_create_default_batch_status.rb
+END
+20090112105747_create_facility_payer_relations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090112105747_create_facility_payer_relations.rb
+END
+20090423073529_create_providers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20090423073529_create_providers.rb
+END
+20110603110315_create_business_unit_indicator_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110603110315_create_business_unit_indicator_lookup_fields.rb
+END
+20071125202426_change_type_of_batchid_in_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125202426_change_type_of_batchid_in_batch.rb
+END
+20110223113315_change_provider_control_number_data_type_in_claim_service_information_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110223113315_change_provider_control_number_data_type_in_claim_service_information_table.rb
+END
+20131014122511_add_replacemet_payer_id_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/18369/trunk/db/migrate/20131014122511_add_replacemet_payer_id_to_payers.rb
+END
+20071122102426_add_payer_and_eobs_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122102426_add_payer_and_eobs_to_batch.rb
+END
+20120827054427_remove_table_facility_payer_relations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/12885/trunk/db/migrate/20120827054427_remove_table_facility_payer_relations.rb
+END
+20110324113848_add_payid_temp_to_micr_line_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324113848_add_payid_temp_to_micr_line_informations.rb
+END
+20130717062935_add_column_upmc_facility_id_in_facilities_npi_and_tins_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/17486/trunk/db/migrate/20130717062935_add_column_upmc_facility_id_in_facilities_npi_and_tins_table.rb
+END
+20121030095622_add_columns_for_nextgen_output_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/15125/trunk/db/migrate/20121030095622_add_columns_for_nextgen_output_to_facility_output_configs.rb
+END
+20101115100131_add_index_to_reason_code_and_description.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101115100131_add_index_to_reason_code_and_description.rb
+END
+20120924104441_remove_unused_fields_from_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/13581/trunk/db/migrate/20120924104441_remove_unused_fields_from_claim_informations.rb
+END
+20111019073932_add_columns_active_and_notify_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7837/trunk/db/migrate/20111019073932_add_columns_active_and_notify_to_reason_codes.rb
+END
+20120216185104_add_lockbox_number_and_future_batch_date.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/9946/trunk/db/migrate/20120216185104_add_lockbox_number_and_future_batch_date.rb
+END
+20071124142426_create_runner.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124142426_create_runner.rb
+END
+20090514054310_add_claim_from_date_claim_to_date_insurace_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090514054310_add_claim_from_date_claim_to_date_insurace_eob.rb
+END
+20120911092561_add_payid_and_payer_to_facility_payer_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/13307/trunk/db/migrate/20120911092561_add_payid_and_payer_to_facility_payer_information.rb
+END
+20120314035754_change_column_type_of_breached_time_in_throughput_report_breached_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/revenuemed/revremit/!svn/ver/10386/trunk/db/migrate/20120314035754_change_column_type_of_breached_time_in_throughput_report_breached_informations.rb
+END
+20090211110630_create_data_files.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090211110630_create_data_files.rb
+END
+20071122082426_change_content_field_size_for_documents.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122082426_change_content_field_size_for_documents.rb
+END
+20111024085157_remove_columns_from_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7953/trunk/db/migrate/20111024085157_remove_columns_from_facility.rb
+END
+20071127052426_change_type_of_patient_identification_code_qualifier.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127052426_change_type_of_patient_identification_code_qualifier.rb
+END
+20110104072040_add_eob_type_id_to_eob_qas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110104072040_add_eob_type_id_to_eob_qas.rb
+END
+20100502133025_add_claim_service_information_id_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100502133025_add_claim_service_information_id_to_service_payment_eobs.rb
+END
+20071127002426_add_claim_specific_groupcode_reasoncode.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127002426_add_claim_specific_groupcode_reasoncode.rb
+END
+20110609095514_add_output_group_cut_and_ext_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110609095514_add_output_group_cut_and_ext_to_facility_lookup_fields.rb
+END
+20121030054408_add_column_ocr_zip_file_name_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/14159/trunk/db/migrate/20121030054408_add_column_ocr_zip_file_name_to_batches.rb
+END
+20130118070355_add_field_qid_in_insurance_payment_eob_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/15102/trunk/db/migrate/20130118070355_add_field_qid_in_insurance_payment_eob_table.rb
+END
+20111129090329_add_expected_completion_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/8575/trunk/db/migrate/20111129090329_add_expected_completion_time_to_batches.rb
+END
+20110725072427_add_index_to_unique_code_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110725072427_add_index_to_unique_code_in_reason_codes.rb
+END
+20120831120156_add_columns_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/13485/trunk/db/migrate/20120831120156_add_columns_to_claim_informations.rb
+END
+20130711080111_add_apply_to_all_claims_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/17421/trunk/db/migrate/20130711080111_add_apply_to_all_claims_to_jobs.rb
+END
+20090211122341_add_filename_to_data_files.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090211122341_add_filename_to_data_files.rb
+END
+20101112093208_add_category_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101112093208_add_category_to_insurance_payment_eobs.rb
+END
+20111020090135_add2_columns_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7975/trunk/db/migrate/20111020090135_add2_columns_to_claim_file_informations.rb
+END
+20121115042258_add_column_payer_group_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/14319/trunk/db/migrate/20121115042258_add_column_payer_group_to_jobs.rb
+END
+20121004061730_add_column_check_number_and_payer_name_and_job_id_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/revenuemed/revremit/!svn/ver/13713/trunk/db/migrate/20121004061730_add_column_check_number_and_payer_name_and_job_id_to_reason_codes.rb
+END
+20121008143154_add_index_processor_id_and_processing_completed_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/revenuemed/revremit/!svn/ver/13814/trunk/db/migrate/20121008143154_add_index_processor_id_and_processing_completed_in_insurance_payment_eobs.rb
+END
+20100208045022_add_hipaa_code_to_facility_details.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100208045022_add_hipaa_code_to_facility_details.rb
+END
+20091216104058_add_total_expected_payment_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091216104058_add_total_expected_payment_to_insurance_payment_eob.rb
+END
+20110324052738_add_check_received_date_and_check_mailed_date_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324052738_add_check_received_date_and_check_mailed_date_to_check_informations.rb
+END
+20071122222426_create_batch_rejection_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122222426_create_batch_rejection_comments.rb
+END
+20121029093116_add_column_remark_code_crosswalk_flag_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/14166/trunk/db/migrate/20121029093116_add_column_remark_code_crosswalk_flag_to_reason_codes.rb
+END
+20131127042441_add_column_client_group_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/18832/trunk/db/migrate/20131127042441_add_column_client_group_to_facilities.rb
+END
+20110324125411_create_default_codes_for_adjustment_reasons.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324125411_create_default_codes_for_adjustment_reasons.rb
+END
+20110704123150_add_column_reason_code_set_name_id_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110704123150_add_column_reason_code_set_name_id_to_payers.rb
+END
+20110811105106_create_facilities_npi_and_tins.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7658/trunk/db/migrate/20110811105106_create_facilities_npi_and_tins.rb
+END
+20110629052530_create_service_payment_eobs_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110629052530_create_service_payment_eobs_reason_codes.rb
+END
+20140130052826_add_payee_npi_to_facility_specific_payees.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/19491/trunk/db/migrate/20140130052826_add_payee_npi_to_facility_specific_payees.rb
+END
+20101018065127_create_reason_codes_clients_facilities_payers_revenuemed_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101018065127_create_reason_codes_clients_facilities_payers_revenuemed_codes.rb
+END
+20071126012426_create_isa_identifiers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071126012426_create_isa_identifiers.rb
+END
+20071126222426_add_column_rendering_provider_name_and_facility_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126222426_add_column_rendering_provider_name_and_facility_to_claim_informations.rb
+END
+20110614103543_add_columns_subcategory_and_sort_order_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110614103543_add_columns_subcategory_and_sort_order_to_facility_lookup_fields.rb
+END
+20101026093134_change_payment_float_to_decimal.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101026093134_change_payment_float_to_decimal.rb
+END
+20071124202426_add_client_to_document.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20071124202426_add_client_to_document.rb
+END
+20100430181319_add_file_name_and_cut_number_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100430181319_add_file_name_and_cut_number_to_batches.rb
+END
+20110829121858_rename_column_new_code_status_to_status_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110829121858_rename_column_new_code_status_to_status_in_reason_codes.rb
+END
+20120327090126_add_default_to_the_enable_cr_column_in_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10627/trunk/db/migrate/20120327090126_add_default_to_the_enable_cr_column_in_facilities.rb
+END
+20130711114726_add_miscellaneous_adjustment_columns_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/revenuemed/revremit/!svn/ver/17420/trunk/db/migrate/20130711114726_add_miscellaneous_adjustment_columns_to_insurance_payment_eobs.rb
+END
+20130711115032_add_miscellaneous_adjustment_columns_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/17420/trunk/db/migrate/20130711115032_add_miscellaneous_adjustment_columns_to_service_payment_eobs.rb
+END
+20131016095118_create_client_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/18347/trunk/db/migrate/20131016095118_create_client_output_configs.rb
+END
+20120328084406_add_index_to_the_fm_report_related_tables.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/10647/trunk/db/migrate/20120328084406_add_index_to_the_fm_report_related_tables.rb
+END
+20100506094524_create_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100506094524_create_ansi_remark_codes.rb
+END
+20130516092851_add_lockbox_and_payee_type_format_to_facility_specific_payees.rb
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/revenuemed/revremit/!svn/ver/16738/trunk/db/migrate/20130516092851_add_lockbox_and_payee_type_format_to_facility_specific_payees.rb
+END
+20110323101836_create_facility_lockbox_mappings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110323101836_create_facility_lockbox_mappings.rb
+END
+20100428143617_add_total_denied_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100428143617_add_total_denied_to_insurance_payment_eob.rb
+END
+20130529162709_add_client_id_to_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/16970/trunk/db/migrate/20130529162709_add_client_id_to_inbound_file_information.rb
+END
+20131009090632_add_account_type_to_provider_adjustments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/18212/trunk/db/migrate/20131009090632_add_account_type_to_provider_adjustments.rb
+END
+20110511130810_load835_segments_and_options.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/8882/trunk/db/migrate/20110511130810_load835_segments_and_options.rb
+END
+20100208122513_add_patient_account_number_hyphen_format_to_facility_details.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100208122513_add_patient_account_number_hyphen_format_to_facility_details.rb
+END
+20110412102646_add_column_website_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110412102646_add_column_website_to_payers.rb
+END
+20090907055345_add_late_filing_charge_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055345_add_late_filing_charge_to_insurance_payment_eob.rb
+END
+20091130115158_create_clients_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20091130115158_create_clients_users.rb
+END
+20140115121853_add_column_is_correspondence_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/19323/trunk/db/migrate/20140115121853_add_column_is_correspondence_to_jobs.rb
+END
+20100513114013_add_facility_type_code_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100513114013_add_facility_type_code_to_insurance_payment_eobs.rb
+END
+20071129032426_add_column_drg_code_plan_type_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071129032426_add_column_drg_code_plan_type_to_claim_informations.rb
+END
+20130610104501_add_active_to_facilities_and_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/16998/trunk/db/migrate/20130610104501_add_active_to_facilities_and_clients.rb
+END
+20090910095114_add_claim_information_id_and_remove_claim_informations_id_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/revenuemed/revremit/!svn/ver/10658/trunk/db/migrate/20090910095114_add_claim_information_id_and_remove_claim_informations_id_to_claim_service_informations.rb
+END
+20121029101234_add_column_facility_id_to_reason_codes_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/revenuemed/revremit/!svn/ver/14166/trunk/db/migrate/20121029101234_add_column_facility_id_to_reason_codes_ansi_remark_codes.rb
+END
+20130513150656_add_source_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/16625/trunk/db/migrate/20130513150656_add_source_to_payer.rb
+END
+20120321043400_add_column_alternate_payer_name_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/10476/trunk/db/migrate/20120321043400_add_column_alternate_payer_name_to_check_informations.rb
+END
+20081202102853_add_payment_code_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081202102853_add_payment_code_to_payer.rb
+END
+20100429132923_create_payer_exclusions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100429132923_create_payer_exclusions.rb
+END
+20131008172342_add_account_type_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/18212/trunk/db/migrate/20131008172342_add_account_type_to_insurance_payment_eobs.rb
+END
+20110329072625_change_gateway_length_in_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7865/trunk/db/migrate/20110329072625_change_gateway_length_in_payers.rb
+END
+20110929070236_add_composite_index_to_reason_codes_jobs_on_parent_job_id_and_reason_code_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/revenuemed/revremit/!svn/ver/7652/trunk/db/migrate/20110929070236_add_composite_index_to_reason_codes_jobs_on_parent_job_id_and_reason_code_id.rb
+END
+20071124052426_add_payable_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124052426_add_payable_to_batch.rb
+END
+20110704120157_create_reason_code_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110704120157_create_reason_code_set_names.rb
+END
+20100729043544_add_estimated_completion_time_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100729043544_add_estimated_completion_time_to_batches.rb
+END
+20101111114041_create_service_payment_eobs_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101111114041_create_service_payment_eobs_ansi_remark_codes.rb
+END
+20130703123250_add_claim_start_date_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/17319/trunk/db/migrate/20130703123250_add_claim_start_date_to_claim_informations.rb
+END
+20110906060218_add_inbound_file_properties_id_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110906060218_add_inbound_file_properties_id_to_batch.rb
+END
+20120924212655_add_archive_claims_in_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/13762/trunk/db/migrate/20120924212655_add_archive_claims_in_to_facility.rb
+END
+20090312060442_change_datatype_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090312060442_change_datatype_fields.rb
+END
+20100506120756_add_provider_adjustment_qualifier_to_check_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100506120756_add_provider_adjustment_qualifier_to_check_information.rb
+END
+20110629052720_create_insurance_payment_eobs_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110629052720_create_insurance_payment_eobs_reason_codes.rb
+END
+20130611063431_add_devise_to_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/17060/trunk/db/migrate/20130611063431_add_devise_to_users.rb
+END
+20111019061050_add_client_id_to_claim_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/8761/trunk/db/migrate/20111019061050_add_client_id_to_claim_information.rb
+END
+20100116051909_populate_facility_details_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7811/trunk/db/migrate/20100116051909_populate_facility_details_to_facility.rb
+END
+20110606113826_add_nyu_specific_grouping_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110606113826_add_nyu_specific_grouping_to_facility_lookup_fields.rb
+END
+20131014114643_add_column_random_sampling_and_random_sampling_percentage_to_facilities_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/revenuemed/revremit/!svn/ver/18253/trunk/db/migrate/20131014114643_add_column_random_sampling_and_random_sampling_percentage_to_facilities_table.rb
+END
+20130313043724_create_facilities_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/15931/trunk/db/migrate/20130313043724_create_facilities_codes.rb
+END
+20130114081321_add_payee_npi_tin_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/15036/trunk/db/migrate/20130114081321_add_payee_npi_tin_to_check_informations.rb
+END
+20100301042643_change_state_of_mountainside.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100301042643_change_state_of_mountainside.rb
+END
+20090420080806_add_image_page_number_to_insurace_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090420080806_add_image_page_number_to_insurace_eob.rb
+END
+20130308060055_rename_flie_location_to_sftp_location.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/15833/trunk/db/migrate/20130308060055_rename_flie_location_to_sftp_location.rb
+END
+20110430075118_add_default_for_footnote_indicator_in_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110430075118_add_default_for_footnote_indicator_in_payers.rb
+END
+20100502132901_add_claim_information_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100502132901_add_claim_information_id_to_insurance_payment_eobs.rb
+END
+20120831060531_add_columns_to_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/13509/trunk/db/migrate/20120831060531_add_columns_to_claim_file_informations.rb
+END
+20071126132426_client_images_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071126132426_client_images_to_jobs.rb
+END
+20120719084815_add_index_facility_id_and_micr_id_in_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/revenuemed/revremit/!svn/ver/12302/trunk/db/migrate/20120719084815_add_index_facility_id_and_micr_id_in_facilities_micr_informations.rb
+END
+20120404060526_add_column_total_payement_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10859/trunk/db/migrate/20120404060526_add_column_total_payement_to_output_activity_logs.rb
+END
+20110228120650_change_batch_time_date_time_to_time.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110228120650_change_batch_time_date_time_to_time.rb
+END
+20110923111136_add_new_columns_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110923111136_add_new_columns_to_facilities.rb
+END
+20091006094401_add_details_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091006094401_add_details_to_facilities.rb
+END
+20110324123648_add_category_to_reason_codes_clients_facilities_payers_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324123648_add_category_to_reason_codes_clients_facilities_payers_hipaa_codes.rb
+END
+20130318125703_add_key_category_action_letter_date_to_insurance_payment_eobs_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/revenuemed/revremit/!svn/ver/15983/trunk/db/migrate/20130318125703_add_key_category_action_letter_date_to_insurance_payment_eobs_table.rb
+END
+20120627110817_remove_onbase_name_from_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/12169/trunk/db/migrate/20120627110817_remove_onbase_name_from_payers.rb
+END
+20100927093757_create_capitation_accounts.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100927093757_create_capitation_accounts.rb
+END
+20071123062426_alter_status_to_processor_status_in_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071123062426_alter_status_to_processor_status_in_job.rb
+END
+20071121172426_add_client_id_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20071121172426_add_client_id_to_facilities.rb
+END
+20121221105017_add_column_prepaid_reason_code_id_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/14872/trunk/db/migrate/20121221105017_add_column_prepaid_reason_code_id_to_service_payment_eobs.rb
+END
+20130521153310_add_ack_latest_count_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/16793/trunk/db/migrate/20130521153310_add_ack_latest_count_to_output_activity_logs.rb
+END
+20110608090005_add_micr_line_information_id_to_payer_exclusions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110608090005_add_micr_line_information_id_to_payer_exclusions.rb
+END
+20121101070805_add_hipaa_code_crosswalk_columns_to_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/revenuemed/revremit/!svn/ver/14226/trunk/db/migrate/20121101070805_add_hipaa_code_crosswalk_columns_to_reason_codes_clients_facilities_set_names.rb
+END
+20071126152426_add_default_claim_type.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071126152426_add_default_claim_type.rb
+END
+20071127022426_add_payid_to_checkinformations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127022426_add_payid_to_checkinformations.rb
+END
+20120921094217_add_column_in_claim_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/13763/trunk/db/migrate/20120921094217_add_column_in_claim_file_information.rb
+END
+20071125152426_add_file_id_in_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125152426_add_file_id_in_error_popups.rb
+END
+20090907055348_add_created_at_updated_at_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055348_add_created_at_updated_at_to_claim_informations.rb
+END
+20110502054815_add_guid_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110502054815_add_guid_to_insurance_payment_eobs.rb
+END
+20130603053246_add_is_excluded_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/16972/trunk/db/migrate/20130603053246_add_is_excluded_to_jobs.rb
+END
+20110412101903_removing_columns_from_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110412101903_removing_columns_from_payers.rb
+END
+20131008085858_create_twice_keying_fields_statistics.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/18302/trunk/db/migrate/20131008085858_create_twice_keying_fields_statistics.rb
+END
+20120330095637_add_details_column_to_reason_codes_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/10725/trunk/db/migrate/20120330095637_add_details_column_to_reason_codes_jobs.rb
+END
+20131015114836_add_column_default_blank_segments_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/18310/trunk/db/migrate/20131015114836_add_column_default_blank_segments_to_facilities.rb
+END
+20100106095449_add_eob_id_eob_type_to_mpi_statistics_reports.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100106095449_add_eob_id_eob_type_to_mpi_statistics_reports.rb
+END
+20130924103505_add_index_file_check_amount_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/18115/trunk/db/migrate/20130924103505_add_index_file_check_amount_to_check_informations.rb
+END
+20120627111157_add_instance_id_to_partner.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/12052/trunk/db/migrate/20120627111157_add_instance_id_to_partner.rb
+END
+20120417035037_rename_check_number_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/11293/trunk/db/migrate/20120417035037_rename_check_number_in_reason_codes.rb
+END
+20130312062346_add_medical_record_number_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/15869/trunk/db/migrate/20130312062346_add_medical_record_number_to_insurance_payment_eobs.rb
+END
+20111024125157_create_provider_adjustments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7964/trunk/db/migrate/20111024125157_create_provider_adjustments.rb
+END
+20110105094152_add_missing_user_related_fk.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7880/trunk/db/migrate/20110105094152_add_missing_user_related_fk.rb
+END
+20090112115158_add_newly_added_payer_to_reasoncode.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090112115158_add_newly_added_payer_to_reasoncode.rb
+END
+20090629053512_add_details_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053512_add_details_to_check_informations.rb
+END
+20121226064742_change_type_of_service_plan_coverage_in_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/revenuemed/revremit/!svn/ver/15275/trunk/db/migrate/20121226064742_change_type_of_service_plan_coverage_in_service_payment_eobs.rb
+END
+20120913101931_add_changed_param_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/13579/trunk/db/migrate/20120913101931_add_changed_param_to_claim_service_informations.rb
+END
+20110329064847_add_reasoncode_mapping_fields_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110329064847_add_reasoncode_mapping_fields_to_service_payment_eobs.rb
+END
+20071122212426_create_job_rejection_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122212426_create_job_rejection_comments.rb
+END
+20081231060249_create_revenuemed_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081231060249_create_revenuemed_codes.rb
+END
+20090114065728_add_payer_type_to_payer.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090114065728_add_payer_type_to_payer.rb
+END
+20071125092426_add_column_in_querydetails_for_tatreport.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125092426_add_column_in_querydetails_for_tatreport.rb
+END
+20120801041500_remove_output_payid_from_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/12547/trunk/db/migrate/20120801041500_remove_output_payid_from_facilities_micr_informations.rb
+END
+20110712091737_create_reason_codes_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110712091737_create_reason_codes_jobs.rb
+END
+20110516123707_create_rejection_comments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110516123707_create_rejection_comments.rb
+END
+20120920075748_change_bill_print_date_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/13580/trunk/db/migrate/20120920075748_change_bill_print_date_to_claim_informations.rb
+END
+20130222213042_add_line_number_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/16948/trunk/db/migrate/20130222213042_add_line_number_to_claim_service_informations.rb
+END
+20100813195237_add_default_payer_tin_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100813195237_add_default_payer_tin_to_facilities.rb
+END
+20130517114720_add_client_code_to_provider_adjustments.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/16738/trunk/db/migrate/20130517114720_add_client_code_to_provider_adjustments.rb
+END
+20071123082426_add_updated_by_updated_at_created_by_created_at_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071123082426_add_updated_by_updated_at_created_by_created_at_to_job.rb
+END
+20100923065545_create_old_passwords.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100923065545_create_old_passwords.rb
+END
+20101224052956_add_processor_input_fields_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101224052956_add_processor_input_fields_to_insurance_payment_eobs.rb
+END
+20110917063403_add_estimated_end_time_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110917063403_add_estimated_end_time_to_output_activity_logs.rb
+END
+20120221100710_add_transaction_id_to_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/9985/trunk/db/migrate/20120221100710_add_transaction_id_to_check_informations.rb
+END
+20130214101808_add_payee_details_to_facility_lockbox_mappings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/15530/trunk/db/migrate/20130214101808_add_payee_details_to_facility_lockbox_mappings.rb
+END
+20071125022426_create_user_client_job_histories.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071125022426_create_user_client_job_histories.rb
+END
+20120926110426_add_column_payer_claim_original_refernce_number_and_employers_identification_number_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/revenuemed/revremit/!svn/ver/15125/trunk/db/migrate/20120926110426_add_column_payer_claim_original_refernce_number_and_employers_identification_number_to_claim_informations.rb
+END
+20120330140720_add_index_on_sub_job_id_in_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/10751/trunk/db/migrate/20120330140720_add_index_on_sub_job_id_in_insurance_payment_eobs.rb
+END
+20100416054335_add_patient_medistreams_id_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100416054335_add_patient_medistreams_id_to_claim_informations.rb
+END
+20120911092551_add_eob_type_id_to_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/13189/trunk/db/migrate/20120911092551_add_eob_type_id_to_job_activity_logs.rb
+END
+20090629053553_add_details_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053553_add_details_to_jobs.rb
+END
+20101008151534_insert_asc_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101008151534_insert_asc_to_facility_lookup_fields.rb
+END
+20071121212426_add_completion_time_to_batch.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121212426_add_completion_time_to_batch.rb
+END
+20130226201259_create_web_service_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/revenuemed/revremit/!svn/ver/16573/trunk/db/migrate/20130226201259_create_web_service_logs.rb
+END
+20090518103303_add_new_record_to_roles.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7857/trunk/db/migrate/20090518103303_add_new_record_to_roles.rb
+END
+20091204050951_create_partners_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20091204050951_create_partners_users.rb
+END
+20101014150550_create_reason_codes_ansi_remark_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20101014150550_create_reason_codes_ansi_remark_codes.rb
+END
+20121212044501_change_column_eobs_per_page_to_varchar.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/14757/trunk/db/migrate/20121212044501_change_column_eobs_per_page_to_varchar.rb
+END
+20090807092947_add_eob_id_to_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090807092947_add_eob_id_to_job_activity_logs.rb
+END
+20130515040724_add_column_client_id_to_facilities_micr_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/16664/trunk/db/migrate/20130515040724_add_column_client_id_to_facilities_micr_informations.rb
+END
+20091130052000_alter_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091130052000_alter_facility.rb
+END
+20121009071172_add_index_insurance_payment_eob_id_in_patients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/13866/trunk/db/migrate/20121009071172_add_index_insurance_payment_eob_id_in_patients.rb
+END
+20121030060107_add_ocr_time_stamp_columns_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/14159/trunk/db/migrate/20121030060107_add_ocr_time_stamp_columns_to_jobs.rb
+END
+20110922064516_create_reconciliation_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7652/trunk/db/migrate/20110922064516_create_reconciliation_informations.rb
+END
+20110926142345_rename_column_of_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110926142345_rename_column_of_inbound_file_informations.rb
+END
+20110323123426_add_zip_file_name_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110323123426_add_zip_file_name_to_facility_output_configs.rb
+END
+20110430072606_add_column_lockbox_code_to_facility_lockbox_mappings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110430072606_add_column_lockbox_code_to_facility_lockbox_mappings.rb
+END
+20110418051913_add_check_number_to_reason_codes_clients_facilities_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110418051913_add_check_number_to_reason_codes_clients_facilities_payers.rb
+END
+20120823105555_change_facility_cut_time_to_datetime.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/12863/trunk/db/migrate/20120823105555_change_facility_cut_time_to_datetime.rb
+END
+20100920115044_add_bundled_procedure_code_to_service_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100920115044_add_bundled_procedure_code_to_service_payment_eob.rb
+END
+20090629053414_add_details_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090629053414_add_details_to_insurance_payment_eobs.rb
+END
+20090112081815_create_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090112081815_create_output_activity_logs.rb
+END
+20130708121942_add_alternate_payer_name_to_insurance_payment_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/17371/trunk/db/migrate/20130708121942_add_alternate_payer_name_to_insurance_payment_eob.rb
+END
+20100511153601_add_file_name_and_file_format_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100511153601_add_file_name_and_file_format_to_output_activity_logs.rb
+END
+20120424115554_add_batch_upload_check_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/11214/trunk/db/migrate/20120424115554_add_batch_upload_check_to_facilities.rb
+END
+20130924093129_add_column_actual_image_number_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/18107/trunk/db/migrate/20130924093129_add_column_actual_image_number_to_images_for_jobs.rb
+END
+20071121192426_add_facility_site_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071121192426_add_facility_site_code.rb
+END
+20110824092613_create_eobs_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110824092613_create_eobs_output_activity_logs.rb
+END
+20090528062908_create_facilities_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090528062908_create_facilities_users.rb
+END
+20130308085503_add_pr_reason_code_id_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/15863/trunk/db/migrate/20130308085503_add_pr_reason_code_id_to_service_payment_eobs.rb
+END
+20110913111846_create_table_outbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110913111846_create_table_outbound_file_information.rb
+END
+20131129063459_add_client_code_to_patient_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/18852/trunk/db/migrate/20131129063459_add_client_code_to_patient_pay_eobs.rb
+END
+20130204100832_create_table_claim_level_service_lines.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/15413/trunk/db/migrate/20130204100832_create_table_claim_level_service_lines.rb
+END
+20110906103401_add_total_charges_and_total_excluded_charges_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110906103401_add_total_charges_and_total_excluded_charges_to_batches.rb
+END
+20111019054557_add_file_name_corr_to_facility_output_config.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/7821/trunk/db/migrate/20111019054557_add_file_name_corr_to_facility_output_config.rb
+END
+20071122002426_batch_status_default_value.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071122002426_batch_status_default_value.rb
+END
+20100113132826_create_association_between_client_and_partner.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100113132826_create_association_between_client_and_partner.rb
+END
+20071127162426_add_modifiers_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127162426_add_modifiers_to_claim_service_informations.rb
+END
+20081217082753_add_payment_code_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081217082753_add_payment_code_to_payers.rb
+END
+20110819103809_create_table_client_reported_errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110819103809_create_table_client_reported_errors.rb
+END
+20120214111233_add_check_information_id_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/9921/trunk/db/migrate/20120214111233_add_check_information_id_to_reason_codes.rb
+END
+20121009071162_add_index_replacement_reason_code_id_in_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/13864/trunk/db/migrate/20121009071162_add_index_replacement_reason_code_id_in_reason_codes.rb
+END
+20071127102426_add_claim_policy_number_to_insurance_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127102426_add_claim_policy_number_to_insurance_eob.rb
+END
+20111019144840_add_payer_ids_to_include_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/revenuemed/revremit/!svn/ver/7875/trunk/db/migrate/20111019144840_add_payer_ids_to_include_to_facility.rb
+END
+20071127222426_add_image_type_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127222426_add_image_type_to_facility.rb
+END
+20071126232426_adding_column_specific_reasoncode_groupcode.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071126232426_adding_column_specific_reasoncode_groupcode.rb
+END
+20100419113546_add_columns_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100419113546_add_columns_to_facilities.rb
+END
+20120428063625_create_idle_processors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/11282/trunk/db/migrate/20120428063625_create_idle_processors.rb
+END
+20110324065300_add_four_fields_to_service_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324065300_add_four_fields_to_service_payment_eobs.rb
+END
+20120928091544_add_third_835_data_grouping_column_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/revenuemed/revremit/!svn/ver/13653/trunk/db/migrate/20120928091544_add_third_835_data_grouping_column_to_facility_output_configs.rb
+END
+20121221104843_add_column_prepaid_reason_code_id_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/14872/trunk/db/migrate/20121221104843_add_column_prepaid_reason_code_id_to_insurance_payment_eobs.rb
+END
+20110808063517_change_hipaa_code_description_length_in_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110808063517_change_hipaa_code_description_length_in_hipaa_codes.rb
+END
+20120627111544_add_enabled_for_user_dash_board_to_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/12052/trunk/db/migrate/20120627111544_add_enabled_for_user_dash_board_to_facility.rb
+END
+20071125012426_create_site_settings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/revenuemed/revremit/!svn/ver/7859/trunk/db/migrate/20071125012426_create_site_settings.rb
+END
+20100118073245_change_datatype_of_comment_to_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100118073245_change_datatype_of_comment_to_error_popups.rb
+END
+20091204113519_add_new_roles.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/revenuemed/revremit/!svn/ver/7860/trunk/db/migrate/20091204113519_add_new_roles.rb
+END
+20091010104940_add_image_number_to_images_for_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20091010104940_add_image_number_to_images_for_jobs.rb
+END
+20110324060922_add_eight_fields_to_insurance_payment_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110324060922_add_eight_fields_to_insurance_payment_eobs.rb
+END
+20120924130815_remove_unique_index_in_claim_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/13548/trunk/db/migrate/20120924130815_remove_unique_index_in_claim_file_information.rb
+END
+20130606140831_add_patient_type_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/16995/trunk/db/migrate/20130606140831_add_patient_type_to_claim_informations.rb
+END
+20100331094348_populate_payer_tin_in_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20100331094348_populate_payer_tin_in_payers.rb
+END
+20121112093305_change_fields_datatype_to_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/revenuemed/revremit/!svn/ver/15125/trunk/db/migrate/20121112093305_change_fields_datatype_to_claim_service_informations.rb
+END
+20130423220115_create_era_exceptions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/revenuemed/revremit/!svn/ver/16485/trunk/db/migrate/20130423220115_create_era_exceptions.rb
+END
+20120627055949_remove_reason_code_set_name_id_obsolete_from_reason_codes_clients_facilities_set_names.rb
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/revenuemed/revremit/!svn/ver/12168/trunk/db/migrate/20120627055949_remove_reason_code_set_name_id_obsolete_from_reason_codes_clients_facilities_set_names.rb
+END
+20120704072557_remove_onbase_name_from_facilities_payers_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/revenuemed/revremit/!svn/ver/12170/trunk/db/migrate/20120704072557_remove_onbase_name_from_facilities_payers_informations.rb
+END
+20071124082426_add_prev_status_to_eob_qas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124082426_add_prev_status_to_eob_qas.rb
+END
+20131030103529_add_columns_to_twice_keying_fields_statistics.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/revenuemed/revremit/!svn/ver/18486/trunk/db/migrate/20131030103529_add_columns_to_twice_keying_fields_statistics.rb
+END
+20110707122933_set_active_indicator_to_true_by_default_in_hipaa_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110707122933_set_active_indicator_to_true_by_default_in_hipaa_codes.rb
+END
+20090224082937_add_processing_completed_to_patient_pay.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090224082937_add_processing_completed_to_patient_pay.rb
+END
+20090911144444_create_archived_claim_service_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20090911144444_create_archived_claim_service_informations.rb
+END
+20071127042426_add_payid_to_payerwise_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071127042426_add_payid_to_payerwise_check_informations.rb
+END
+20111014071340_add_column_eobs_per_image_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7856/trunk/db/migrate/20111014071340_add_column_eobs_per_image_to_payers.rb
+END
+20110120100443_rename_facilities_default_payer_tin.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110120100443_rename_facilities_default_payer_tin.rb
+END
+20111006111233_add_column_existence_to_reason_codes_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/7652/trunk/db/migrate/20111006111233_add_column_existence_to_reason_codes_jobs.rb
+END
+20120704110113_add_column_batch_target_time_to_payers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/12156/trunk/db/migrate/20120704110113_add_column_batch_target_time_to_payers.rb
+END
+20071124182426_add_job_column.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071124182426_add_job_column.rb
+END
+20120628090553_add_time_stamps_to_client.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/12060/trunk/db/migrate/20120628090553_add_time_stamps_to_client.rb
+END
+20120326063743_add_is_nullfile_to_inbound_file_information.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/revenuemed/revremit/!svn/ver/10597/trunk/db/migrate/20120326063743_add_is_nullfile_to_inbound_file_information.rb
+END
+20120719052001_add_unique_index_on_sitecode_for_facility.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/revenuemed/revremit/!svn/ver/12297/trunk/db/migrate/20120719052001_add_unique_index_on_sitecode_for_facility.rb
+END
+20081215103704_create_roles.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081215103704_create_roles.rb
+END
+20110608044808_add_new_output_grouping_to_facility_lookup_fields.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110608044808_add_new_output_grouping_to_facility_lookup_fields.rb
+END
+20111011065311_add_column_enable_crosswalk_to_default_codes_for_adjustment_reasons.rb
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/revenuemed/revremit/!svn/ver/7750/trunk/db/migrate/20111011065311_add_column_enable_crosswalk_to_default_codes_for_adjustment_reasons.rb
+END
+20120206110222_add_indices_on_check_number.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/9704/trunk/db/migrate/20120206110222_add_indices_on_check_number.rb
+END
+20090109043915_add_new_code_status_to_reason_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090109043915_add_new_code_status_to_reason_code.rb
+END
+20131015064053_add_columns_to_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/revenuemed/revremit/!svn/ver/18271/trunk/db/migrate/20131015064053_add_columns_to_reason_codes.rb
+END
+20110511101629_change_field_attributes_in_claim_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110511101629_change_field_attributes_in_claim_file_informations.rb
+END
+20140120112043_add_is_output_payid_mandatory_to_clients.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/revenuemed/revremit/!svn/ver/19363/trunk/db/migrate/20140120112043_add_is_output_payid_mandatory_to_clients.rb
+END
+20071124002426_create_hlsc_qas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20071124002426_create_hlsc_qas.rb
+END
+20110218083218_add_file_claim_information_id_to_claim_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110218083218_add_file_claim_information_id_to_claim_informations.rb
+END
+20071122112426_add_payer_to_job.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071122112426_add_payer_to_job.rb
+END
+20090610111739_add_question_choice1_choice2_choice3_and_answer_fields_to_error_popups.rb
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090610111739_add_question_choice1_choice2_choice3_and_answer_fields_to_error_popups.rb
+END
+20090907055353_add_created_at_updated_at_to_patient_pay_eobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090907055353_add_created_at_updated_at_to_patient_pay_eobs.rb
+END
+20131025113555_create_log_table_for_payer_reason_code.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/18379/trunk/db/migrate/20131025113555_create_log_table_for_payer_reason_code.rb
+END
+20120215142351_add_lockbox_number_to_inbound_file_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/9924/trunk/db/migrate/20120215142351_add_lockbox_number_to_inbound_file_informations.rb
+END
+20110629070834_create_payer_onbase_relations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110629070834_create_payer_onbase_relations.rb
+END
+20120314103244_create_table_report_check_informations.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/revenuemed/revremit/!svn/ver/10396/trunk/db/migrate/20120314103244_create_table_report_check_informations.rb
+END
+20121203150649_add_column_facility_wise_auto_allocation_enabled_to_batches.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/revenuemed/revremit/!svn/ver/14690/trunk/db/migrate/20121203150649_add_column_facility_wise_auto_allocation_enabled_to_batches.rb
+END
+20130703064045_create_upmc_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/revenuemed/revremit/!svn/ver/17304/trunk/db/migrate/20130703064045_create_upmc_facilities.rb
+END
+20120813061423_add_column_incoming_image_type_to_facilities.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/revenuemed/revremit/!svn/ver/12712/trunk/db/migrate/20120813061423_add_column_incoming_image_type_to_facilities.rb
+END
+20090119053605_add_hcra_to_insurance_eob.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090119053605_add_hcra_to_insurance_eob.rb
+END
+20131030120100_rename_key_column_in_twice_keyings_to_group_no.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/revenuemed/revremit/!svn/ver/18714/trunk/db/migrate/20131030120100_rename_key_column_in_twice_keyings_to_group_no.rb
+END
+20090110084024_create_client_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20090110084024_create_client_activity_logs.rb
+END
+20081217045805_create_roles_users.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20081217045805_create_roles_users.rb
+END
+20071121202426_separate_processor_and_qa.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/revenuemed/revremit/!svn/ver/10044/trunk/db/migrate/20071121202426_separate_processor_and_qa.rb
+END
+20110406143851_drop_revenuemed_codes_and_associated_table_and_create_client_codes_and_associated_table.rb
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/revenuemed/revremit/!svn/ver/7993/trunk/db/migrate/20110406143851_drop_revenuemed_codes_and_associated_table_and_create_client_codes_and_associated_table.rb
+END
+20120124071906_add_queue_to_delayed_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/revenuemed/revremit/!svn/ver/9639/trunk/db/migrate/20120124071906_add_queue_to_delayed_jobs.rb
+END
+20121009071195_add_index_eob_id_in_job_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/13976/trunk/db/migrate/20121009071195_add_index_eob_id_in_job_activity_logs.rb
+END
+20110913095350_add_total_charges_and_excluded_charges_to_output_activity_logs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110913095350_add_total_charges_and_excluded_charges_to_output_activity_logs.rb
+END
+20120202114214_alter_clients_for_auto_job_allocation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/revenuemed/revremit/!svn/ver/9814/trunk/db/migrate/20120202114214_alter_clients_for_auto_job_allocation.rb
+END
+20130307054702_create_era_checks.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/revenuemed/revremit/!svn/ver/15856/trunk/db/migrate/20130307054702_create_era_checks.rb
+END
+20110205080854_add_column_quotes_configuration_to_facility_output_configs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20110205080854_add_column_quotes_configuration_to_facility_output_configs.rb
+END
+20071125212426_add_processor_comments_to_jobs.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/revenuemed/revremit/!svn/ver/7622/trunk/db/migrate/20071125212426_add_processor_comments_to_jobs.rb
+END
+20131208173658_add_column_active_in_eob_reason_codes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/revenuemed/revremit/!svn/ver/18927/trunk/db/migrate/20131208173658_add_column_active_in_eob_reason_codes.rb
+END

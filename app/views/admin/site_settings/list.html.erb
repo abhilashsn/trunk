@@ -1,0 +1,27 @@
+<h1>Listing site_settings</h1>
+
+<table>
+  <tr>
+  <% for column in SiteSetting.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for site_setting in @site_settings %>
+  <tr>
+  <% for column in SiteSetting.content_columns %>
+    <td><%=h site_setting.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => site_setting %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => site_setting %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => site_setting }, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @site_setting_pages.current.previous } if @site_setting_pages.current.previous %>
+<%= link_to 'Next page', { :page => @site_setting_pages.current.next } if @site_setting_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New site_setting', :action => 'new' %>

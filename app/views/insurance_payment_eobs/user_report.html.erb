@@ -1,0 +1,43 @@
+<%= javascript_include_tag "mpi_popup.js" %>
+<%= javascript_include_tag "insurance_payment_eob.js" %>
+
+<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+
+    <%if (current_user.has_role?(:qa)) %>
+    <tbody>
+      <tr valign="middle" bgcolor="#ECE9D8" class="content" ><th align="left">
+          <label >Current TAT of batch </label>
+         <td style = "text-align: left; height:20px"  ><%= @batch_tat_in_ist %> IST,</td></tr>
+
+      <tr><th align="left"> <label>Current shift EOB count actual/normalised </label></th>
+         <td style = "text-align: left; height:20px"  ><%=  @current_eob_count%> / <%= @normalized_eobs_count %> EOBs</td></tr>
+      <tr valign="middle" bgcolor="#ECE9D8" class="content" ><th align="left"> <label>Number of hours processing EOBs</label></th>
+         <td style = "text-align: left; height:20px"  ><%= @formatted_time %> HH:MM:SS</td></tr>
+      <tr> <th align="left"> <label>Hourly EOB count </label></th>
+         <td style = "text-align: left; height:20px"  ><%=@hourly_eob_count %></td></tr>
+    <%  else %>
+
+
+
+      <tr  valign="middle" bgcolor="#ECE9D8" class="content" ><th align="left"> <label > Current Batch TAT is</label></th>
+        <td style = "text-align: left; height:20px"  ><%= @batch_tat_in_ist%> IST</td></tr>
+      <tr><th align="left"> <label >Current shift EOB count (actual/Normalized)</label></th>
+        <td style = "text-align: left; height:20px"  > <%=  @eob_count%> / <%= @normalized_eobs_count %> EOBs</td></tr>
+      <tr valign="top" bgcolor="#ECE9D8" class="content"><th align="left"><label> Current shift SVC count (actual/Normalized)</label></th>
+         <td style = "text-align: left; height:20px"  > <%= @svc_count%> / <%= @normalized_svc_count %> svc</td></tr>
+      <tr > <th align="left"> <label > No of Hours processing EOBs </label></th>
+         <td style = "text-align: left; height:20px"  ><%= @formated_total_time%> HH:MM:SS</td></tr>
+      <tr valign="top" bgcolor="#ECE9D8" class="content"><th align="left"><label > Hourly Eob Count</label></th>
+         <td style = "text-align: left; height:20px"  ><%= @hourly_eob_count%></td></tr>
+      <tr><th align="left"> <label >Number of internal QA Errors</label></th>
+         <td style = "text-align: left; height:20px"  > <%= @error_count%></td></tr>
+       <tr valign="top" bgcolor="#ECE9D8" class="content"><th align="left"><label > Number of CRE errors for the salary period </label></th>
+         <td style = "text-align: left; height:20px"  ><%= current_user.num_cre_errors%></td></tr>
+    <%  end %>
+
+  </tbody>
+</table>
+  </div>
+<center>
+  <input type="button" value="Close" onclick = "closeReportPopUp()"  />
+</center>

@@ -1,0 +1,33 @@
+PAYMENT:
+    HEADER: true
+    BATCH:
+        batchid: 9
+        lockbox: 6
+        date: [ 7, date ]
+        bank_deposit_date: [ 7, date ]
+    JOB:
+        record_type: 11
+        check_number: 17
+        pages_to: 18
+    CHEQUE:
+        check_number: 17
+        check_amount: [ 14, float ]
+    MICR:
+        aba_routing_number: 15
+        payer_account_number: 16
+    IMAGE:
+        image_file_name: 0
+
+CORRESP:
+    HEADER: true
+    BATCH:
+        batchid: 9
+        lockbox: 6
+        date: [ 7, date ]
+        bank_deposit_date: [ 7, date ]
+    JOB:
+        record_type: 11
+        check_number: 17
+        pages_to: 18
+    IMAGE:
+        image_file_name: 0

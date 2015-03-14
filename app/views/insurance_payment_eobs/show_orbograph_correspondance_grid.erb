@@ -1,0 +1,211 @@
+<%= javascript_include_tag "show_eob_grid_consolidated" %>
+<%= hidden_field_tag :refresh_page, false %>
+<% readonly = make_correspondence_fields_readonly
+required = set_class_required %>
+<%= hidden_field_tag :readonly, readonly %>
+<%= form_tag({:controller=>:datacaptures,:action =>'orbo_correspondance_eob_save'},:id => 'form1',:name => 'form1', :method=>"post", :onKeyUp=>"highlight1(event)", :onClick=>"highlight1(event)")  do %>
+  <div id="topbar_grid" >
+    <table  class="check_info" width="99%" border="0" cellspacing="0" cellpadding="0">
+      <%= hidden_field_tag :user_id, (current_user.id if current_user)%>
+      <% if current_user
+        roles = current_user.roles
+        current_user_role = roles.first.name if roles
+      end %>
+      <%= hidden_field_tag :user_role, current_user_role %>
+      <tr style="height: 25px">
+        <%=hidden_field_tag(:page, params[:page]) %>
+        <%= hidden_field 'orbo_correspondance', 'start_time',:id => 'patient_time_taken',:value => Time.now.in_time_zone %>
+      <div style ="margin:0;padding:6.85em;display:inline">
+        <%= link_to 'Completed EOBs' ,{:controller => 'insurance_payment_eobs',:action => 'claimqa',:batch_id => params[:batch_id],:checknumber => params[:checknumber],:job_id => params[:job_id], :view =>"CompletedEOB" }, :target => "_blank", :class =>"submit_link" %>
+        <%= link_to "Add EOB",{:controller => "insurance_payment_eobs", :action => "claim",:job_id=>params[:job_id],:batch_id=>params[:batch_id], :view => "Add_EOB", :mode => params[:mode]},:target => "_blank", :class =>"submit_link_green" , :style => "margin-left:22px;"%>
+      </div>
+      <%= hidden_field_tag :job_id, params[:job_id], :id =>'job_id' %>
+      <%= is_role_processor %>
+      <%= hidden_field_tag "eob_count_value", @eobs_count_on_job %>
+      <input type = 'hidden' value ='<%= h @facility.image_type %>' id='image_type'/>
+      <input type ="hidden" id ="pages_from" value = "<%= h @job.pages_from %>"/>
+      <input type ="hidden" id ="pages_to" value = "<%= h @job.pages_to %>"/>
+      <%= grid_type %>
+      <th width="60px">
+        Image From
+      </th>
+      <td width="4px">
+        <%= text_field 'job','pages_from',:value=>@job.pages_from,:readonly=>true,:size=>4 %>
+      </td>
+      <th width="60px">
+        Image To
+      </th>
+      <td width="4px">
+        <%= text_field 'job','pages_to',:value=>@job.pages_to,:readonly=>true,:size=>4 %>
+      </td>
+      <%if(!@faciltiy_lockbox.blank?)
+        payee_name_value = @check_information.payee_name.blank? ? @faciltiy_lockbox.payee_name.to_s :  @check_information.payee_name
+      else
+        payee_name_value =  @check_information.payee_name.blank? ? @facility_name.to_s :  @check_information.payee_name
+      end %>
+      <th width="70">
+        Payee Name:
+      </th>
+      <td width="70">
+        <%= text_field 'checkinformation', 'payee_name',:id => 'payee_name',
+          :value=>payee_name_value, :tabindex=>"1" ,
+          :onblur => "changeToCapital('payee_name')",
+          :onchange => "alert('You have edited the payee name. Are you sure?')",
+          :size=>"40"
+      %>
+      </td>
+      <td style="padding-left:25px">
+        <input type="reset" class = "submit_link_green" value="Refresh" onclick = "hideRejectReason()" />
+      </td>
+
+      </tr>
+      <div id = "check_patient_info">
+        <div id="check_info" >
+          <table id="check_level" cellpadding="0" cellspacing="0" class="check_info">
+            <tr style="height: 25px">
+              <th width="14.6%" %>
+                  Payer Name (n)
+            </th>
+
+            <%@insurance_eob_unsaved_data.each do |patient| %>
+              <%= hidden_field 'orbo_correspondance', 'eob_id',
+                :class => "cont", :style => "width:60px",
+                :value => patient.id %>
+
+              <th width="26.6%" colspan="2">
+                Patient Name ( Last | First ) (p)
+              </th>
+
+              <th>
+                Patient A/C # (a)
+              </th>
+
+
+              <th width="6%">
+                Key (k)
+              </th>
+
+              <th width="9%">
+                Category Action (c)
+              </th>
+
+              <th width="9%">
+                Payment (t)
+              </th>
+
+              <th width="9%">
+                Letter Date (d)
+              </th>
+
+              <th>
+                Reason (r)
+              </th>
+            </tr>
+            <tr style="height: 25px">
+
+
+              <td>
+                <%= (text_field 'details', 'payer_name', :class => "fullwidth required",
+                  :id => 'ins_payer', :accesskey => "n", :tabindex => "2", :onblur=> "changeToCapital('ins_payer')") %>
+              </td>
+
+              <td>
+                <%= text_field 'insurancepaymenteob', 'patient_last_name',
+                  :id => 'patient_last_name_id', :style=>"float:left;",
+                  :accesskey => "p", :tabindex=> get_tabindex(readonly, "3"), :accesskey => "p",
+                  :value => (patient.patient_last_name), :readonly => readonly,
+                  :class => "#{set_patient_name_validation} fullwidth #{required}",
+                  :onblur=> "changeToCapital('patient_last_name_id')"
+              %>
+              </td>
+              <td>
+                <%= text_field 'insurancepaymenteob', 'patient_first_name',
+                  :id => 'patient_first_name_id',
+                  :tabindex => get_tabindex(readonly, "4") ,:accesskey => "p",
+                  :style=>"float:left; ", :readonly => readonly,
+                  :value => (patient.patient_first_name),
+                  :class => "#{set_patient_name_validation} fullwidth #{required}",
+                  :onblur => "changeToCapital('patient_first_name_id')" %>
+
+              </td>
+            <input type ="hidden" id ="fc_def_ac_num" value = "<%= h @facility.default_account_number %>"/>
+            <td> <%= (text_field 'insurancepaymenteob', 'patient_account_number',
+                :id => 'patient_account_id',
+                :class => "fullwidth required",
+                :tabindex => "1" ,:accesskey => "a" ,
+                :value => (patient.patient_account_number),
+                :onblur => "changeToCapital('patient_account_id'); getImagePage(); disablePageNumber();",
+                :accesskey => "a",
+                :ondblclick => "defaultPatientAccountNumber('fc_def_ac_num')").to_s.html_safe %>
+            </td>
+            <td style="text-align:center"> <%= (text_field 'details', 'key',  :class => "fullwidth #{required}",:tabindex => get_tabindex(readonly, "5") ,:accesskey => "k" ,
+                :id => 'cor_key',  :onblur => "changeToCapital('cor_key');", :readonly => readonly ) %>
+            </td>
+            <td> <%= (text_field 'details', 'category_action',  :class => "fullwidth required",:tabindex => "6" ,:accesskey => "c" ,
+                :id => 'category_action',  :onblur => "changeToCapital('category_action');") %>
+            </td>
+            <td> <%= (text_field 'insurancepaymenteob', 'total_amount_paid_for_claim',  :class => "fullwidth #{required}",
+                :tabindex => get_tabindex(readonly, "7") ,:accesskey => "t" ,:id => 'cor_payment',
+                :onblur => "changeToCapital('cor_payment');", :readonly => readonly ) %>
+            </td>
+            <td> <%= (text_field 'details', 'letter_date', :class => "datebox fullwidth required",
+                :tabindex => "8" ,:accesskey => "d" ,
+                :value => "MM/DD/YY",
+                :class => "cont required validate-date",
+                :onfocus => "removeDefaultDateValue(id)",
+                :onblur => "applyDateValidation(id)", :onchange => 'addSlashToDate(id)',
+                :id => 'letter_date') %>
+            </td>
+            <td>
+              <%= select_tag "reason[description]", options_for_select(@orbhograph_rejection_comment.sort << ['Other', 'Other'], '--'),
+                {:onchange => 'makeOrboCommentVisible()', :style => "width:auto;height:13px",
+                :class => "#{required}",:tabindex => get_tabindex(readonly, "9") ,:id => 'reason_description',
+                :disabled => readonly }%>
+              <%= text_field 'reason', 'comment_area',
+                :id => 'comment',
+                :style => "border : 1px solid; display :  none"   %>
+            </td>
+            </tr>
+            <tr>
+              <td colspan="9" style="border: solid 1px white; text-align:right;padding-top:5px;">
+                <%= hidden_field 'submit_button', 'flag', :id => 'submit_button_flag',:value => false %>
+                <%if patient.blank?
+                  image_page_no = ""
+                  image_page_to_number = ""
+                else
+                  image_page_no = patient.image_page_no
+                  image_page_to_number = patient.image_page_to_number
+                end %>
+                <div style="padding-left:87%;display:inline">
+                  <% unless @insurance_eob_unsaved_data.blank? %>
+                    <label for="image_page_no">
+                      &nbsp;&nbsp;EOB page:
+                    </label>
+                    <%= text_field 'insurancepaymenteob', 'image_page_no',
+                      :id => 'image_page_number', :value => image_page_no,
+                      :style => "border: 2px solid ;", :class=>"required gotopage" , :tabindex => "10"%>
+                    &nbsp;&nbsp;&nbsp;
+                  <% end %>
+                  <%= hidden_field 'insurancepaymenteob', 'image_page_to_number',
+                    :id => 'image_page_to_number', :value => image_page_to_number,
+                    :style => "border: 2px solid ;", :maxlength => "3" %>
+                  <%= submit_tag "SAVE EOB", :name => "option1", :tabindex => "11",:onclick => "  setImagePageToNumber(); return  orboCormustPassValidations(\"#{@client_name.to_s}\") && checkImagePageToNumberForProcView() &&   checkEobPage() && orboCorConfirmSave();",
+                    :class => "submit_save",:accesskey => "s", :id => 'submit_button' %>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </table>
+  <%end%>
+  </div>
+<%end%>
+
+<script type="text/javascript">
+  Event.observe(window, 'load', function(){
+    var valid = new Validation('form1');
+    window.document.form1.patient_account_id.focus();
+  });
+</script>

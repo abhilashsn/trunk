@@ -1,0 +1,45 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+
+<h1>File Upload</h1>
+<% if @user_has_access %>
+  <%= form_tag({:action => 'uploadFile'}, :multipart => true) do %>
+    <p>
+      <label for="upload_file">
+        Select File
+      </label>
+      : <%= file_field 'upload', 'datafile' %>
+    </p>
+    <%= submit_tag "Upload" %>
+  <%end %>
+<%end %>
+
+<div style="<%= style_for_file_upload_div %>" >
+  <%if !@documents.blank? %>
+    <%= form_tag({:action => 'delete_files'},:id => "my_form") do %>
+      <table width="50%">
+        <tr>
+          <th colspan=1 align="left">
+            File name
+          </th>
+          <%= sp_checkbox 'all', 0, @user_has_access, "th colspan=1 align='left'", :onclick => "checkAll('my_form')" %>
+        </tr>
+        <%= will_paginate @documents %>
+        <% for document in @documents %>
+          <tr>
+            <td>
+              <%= link_to document.file_name ,{:controller => "documentupload", :action => :show,
+                :filename => document.file_name},:target => "_blank" %>
+            </td>
+            <%= sp_checkbox 'files_to_delete', document.id, @user_has_access, "td", :id => 'toggle' %>
+          </tr>
+        <%end %>
+        <tr>
+          <%= sp_button "Delete", @user_has_access, "td colspan = 2" %>
+        </tr>
+      <%end %>
+    <%else %>
+      <h5>No files Uploaded</h5>
+    <%end %>
+  </table>
+</div>

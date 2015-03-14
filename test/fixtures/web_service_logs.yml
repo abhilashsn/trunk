@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service: MyString
+  query: MyString
+  response_code: 1
+  response_time: 1
+
+two:
+  service: MyString
+  query: MyString
+  response_code: 1
+  response_time: 1

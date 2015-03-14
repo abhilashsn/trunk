@@ -1,0 +1,250 @@
+facility_output_config_1:
+      id: 1
+      facility_id: 9
+      eob_type: 'Insurance EOB'
+
+facility_output_config_southcoast:
+      id: 2
+      facility_id: 10
+      file_name: "w1PQ082g_061209_CPO_7057_SOUTH COAST LOCKBOX PAYER"
+
+facility_output_config_op_log:
+      id: 3
+      facility_id: 16
+      report_type: "Operation Log"
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+               !map:HashWithIndifferentAccess
+               statement_number: true
+   
+facility_output_config_op_log:
+      id: 5
+      facility_id: 151
+      report_type: "Operation Log"
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+               !map:HashWithIndifferentAccess
+               payer_name: true
+               reject_reason: true
+
+facility_output_config_21:
+      id: 4
+      facility_id: 21
+      report_type: "Operation Log"
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+               !map:HashWithIndifferentAccess
+               payer_name: true
+
+facility_output_config_22:
+      id: 22
+      facility_id: 22
+      report_type: "Operation Log"
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+                !map:HashWithIndifferentAccess
+                payer_name: false
+
+facility_output_config_6:
+      id: 6
+      facility_id: 23
+      report_type: "Operation Log"
+      file_name: "GCBS_2342_Operation Log"
+      details:
+                !map:HashWithIndifferentAccess
+                statement_number: true
+
+facility_output_config_7:
+      id: 7
+      facility_id: 8
+      report_type: "Operation Log"
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+            !map:HashWithIndifferentAccess
+            statement_number: true
+
+facility_output_config_9: #Owner : Sunil
+      id: 9
+      facility_id: 11
+      eob_type: 'Insurance EOB'
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+      details:
+              !map:HashWithIndifferentAccess
+              statement_number: true
+              configurable_835: true
+              isa_06: 'Predefined Payer ID'
+              isa_segment: !map:HashWithIndifferentAccess
+                  '1': '00'
+                  '3': '00'
+                  '5': 'ZZ'
+                  '6': '[CPID From 837]'
+                  '7': 'ZZ'
+                  '8': '[Client TIN]'
+                  '11' : 'U'
+                  '12' : '00401'
+                  '13': '[Counter]'
+                  '14': '0'
+                  '15': 'P'
+                  '16': '&&'
+              trn_segment: !map:HashWithIndifferentAccess 
+                  '2': '[Batch ID]'
+                  '3': '[1 + Payer TIN]'
+              nm182_segment: !map:HashWithIndifferentAccess
+                  '2': '1'
+                  '3': '[Provider Last Name]'
+                  '4': '[Provider First Name]'
+                  '5': '[Provider Middle Initial]'
+                  '7': '[Provider Suffix]'
+                  '9': '[Patient First Name]'
+              svc_segment: !map:HashWithIndifferentAccess 
+                  '5': '[True]'
+              n3pr_segment: !map:HashWithIndifferentAccess
+                  '01': "[Payer Address]"
+              n4pr_segment: !map:HashWithIndifferentAccess
+                  '01': "[Payer City]"
+                  '02': "[Payer State]"
+                  '03': "[Payer ZipCode]"
+              amtb6_segment:
+                  '2': '[Supplemental Amount]'
+              reftj_segment:
+                  '1': 'TJ'
+                  '2': "[Legacy Provider Number]"
+              lx_segment:
+                  '1': "2"
+              amti_segment:
+                   '2': "[Monetary Amount(Interest)]"
+              nm1il_segment:
+                   '8': "MI"
+                   '9': "[Member ID]"
+              cas_segment:
+                   '1': '1'
+                   '2': '2'
+                   '4': '4'
+              refck_segment:
+                    '1': 'CK'
+                    '2': '[Provider TIN]'
+              refev_segment:
+                    '2': '[Check Image ID]'
+              reff8_segment:
+                     '2': '[Image Page Name]'
+              nm1pr_segment:
+                     '1': 'PR'
+                     '2': '02'
+                     '3': '[Corrected Priority Payer Name]'
+                     '8': '08'
+                     '9': '[Rendering Provider Identifier]'
+              dtm151_segment:
+                     '2': '[Service To Date]'
+              dtm150_segment:
+                     '2': '[Service Date]'
+              refsi_segment:
+                     '1': 'SI'
+                     '2': '[Submitter Identification Number]'
+              amtau_segment:
+                     '2': '[Claim Level Allowed Amount]'
+              dtm233_segment:
+                     '2': '[Service To Date]'
+              configurable_segments: !map:HashWithIndifferentAccess
+                  "isa": true
+                  "trn": true
+                  "nm182": true
+                  "svc": true
+                  "n3pr": true
+                  "n4pr": true
+                  "reftj": true
+                  "lx": true
+                  "amti": true
+                  "nm1il": true
+                  "cas": true
+                  "refck": true
+                  "refev": true
+                  "reff8": true
+                  "nm1pr": true
+                  "dtm151": true
+                  "dtm150": true
+                  "refsi": true
+                  "amtau": true
+                  "dtm233": true
+
+facility_output_20:
+      id: 20
+      facility_id: 20
+      grouping: "SITE SPECIFIC"
+      format: "835"
+
+facility_output_21:
+      id: 21
+      facility_id: 205
+      grouping: "SITE SPECIFIC"
+      format: "835"
+
+facility_output_223:
+      id: 223
+      facility_id: 206
+      grouping: "SITE SPECIFIC"
+      format: "835"
+
+facility_output_224:
+      id: 224
+      facility_id: 208
+      grouping: "SITE SPECIFIC"
+      format: "TXT"
+
+
+facility_output_225:   #Owner :Dhanya
+      id: 225
+      facility_id: 228
+      grouping: "SINGLE DAILY MERGED CUT"
+      format: "TXT"
+
+facility_config_226:
+      id: 226
+      facility_id: 94
+      details:
+              !map:HashWithIndifferentAccess
+              interest_amount: "Add Interest With Payment"
+
+facility_config_227:
+      id: 227
+      facility_id: 95
+      details:
+              !map:HashWithIndifferentAccess
+              interest_amount: "Interest In PLB"
+
+patpay_output_config_10:
+      id: 10
+      facility_id: 11
+      eob_type: Patient Payment
+      report_type: Output
+      file_name: "PM_PATHOLOGY MEDICAL SERVICES_2342_Operation Log"
+
+facility_output_config_quadax:
+      id: 301
+      facility_id: 16
+      details:
+               !map:HashWithIndifferentAccess
+                ref_ev          : true
+
+facility_output_config_11:
+      id: 11
+      facility_id: 15
+      eob_type:   'Insurance EOB'
+      details:
+               !map:HashWithIndifferentAccess
+                convert_tiff_to_jpeg          : false
+
+facility_output_config_12:
+      id: 12
+      facility_id: 213
+      eob_type:   'Insurance EOB'
+      details:
+               !map:HashWithIndifferentAccess
+                convert_tiff_to_jpeg          : false
+
+facility_output_config_13:
+      id: 13
+      facility_id: 212
+      eob_type:   'Insurance EOB'
+      details:
+               !map:HashWithIndifferentAccess
+                convert_tiff_to_jpeg          : false

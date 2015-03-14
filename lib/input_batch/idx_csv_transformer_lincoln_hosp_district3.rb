@@ -1,0 +1,3 @@
+class InputBatch::IdxCsvTransformerLincolnHospDistrict3< InputBatch::IdxCsvNavicureBasicParser
+
+end

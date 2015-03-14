@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+
+    <p>
+    <b>ERROR:</b> Validation error.<br>
+    <% if @trigger == "fileinfo" %>
+      <b>Reason:</b> "The ACH file is a duplicate of a previously processed file - <font color="red"><%= @file_name %></font>.<br>
+    <% else %>
+      <b>Reason:</b> "The ACH file is a probable duplicate of a previously processed file - <font color="red"><%= @file_name %></font>. Please manually verify.<br>
+    <% end %>
+    <b>File location:</b> <%= @file_location %><br>
+    </p>
+  </body>
+</html>

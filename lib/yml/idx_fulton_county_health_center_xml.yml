@@ -1,0 +1,18 @@
+ITERATORS:
+  IHEADER: /ProcessVolume/Bank/Lockbox/Block
+  IBAT: Batch
+  IJOB: Txn
+  ICHK: CheckItem
+  IEOB: Document
+BATCH:
+  date: "@DepositDate"
+  bank_deposit_date: "@DepositDate"
+JOB:
+  check_number: "@CheckID"
+CHEQUE:
+  check_number: "@CheckID"
+  check_amount: ["@Amount", float ]
+MICR:
+  aba_routing_number: "@RT"
+  payer_account_number: "@Account"
+

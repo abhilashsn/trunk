@@ -1,0 +1,91 @@
+#<%csv = CSV.read(index_file, :col_sep => ',')%>
+#<% working_dir = Dir.getwd() %>
+#<% Dir.chdir(File.dirname(index_file)) %>
+#<% corresp_image_folder =  File.directory?("corr")?  'corr/' : 'images/' %>
+#<% Dir.chdir(working_dir) %>
+
+PARSER: 'csv'
+COL_SEP: ','
+BANK_OF_AMERICA:
+   PAYMENT:
+        HEADER_ROW: 3
+        BATCH:
+            lockbox: 4
+            date: [ 5, date ]
+            bank_deposit_date: [ 5, date ]
+            index_batch_number: 7
+            batch_time: 6
+        JOB:
+            check_number: 13
+            transaction_number: 3   
+            details: 
+                 envelope_sequence: 1
+                 envelope_number: 2
+                 batch_item_sequence: 8
+        CHEQUE:
+            check_number: 13
+            check_amount: [ 10, float ]
+            details:
+                 check_sequence: 9
+        MICR: 
+            aba_routing_number: 11
+            payer_account_number: 12
+        IMAGE:
+            image_folder: 'images/'
+            #<%name = csv[2].compact.length == 17 ? 14 : 15%>
+            image_file_name: [<%=name%>]
+
+   CORRESP:
+        HEADER_ROW: 1
+        BATCH:
+            lockbox: 2
+        JOB:
+            check_number:  
+            transaction_number: 3
+            details:
+                envelope_number: 1
+        IMAGE:
+            image_folder: <%=corresp_image_folder%>
+            image_file_name: [5]
+GENERAL:
+   PAYMENT:
+        HEADER_ROW: 3
+        BATCH:
+            batchid: 7
+            lockbox: 4
+            date: [ 5, date ]
+            bank_deposit_date: [ 5, date ]
+            index_batch_number: 7
+            batch_time: 6
+        JOB:
+            check_number: 13
+            transaction_number: 3
+            details:
+                 envelope_sequence: 1
+                 envelope_number: 2
+                 batch_item_sequence: 8
+        CHEQUE:
+            check_number: 13
+            check_amount: [ 10, float ]
+            details:
+                 check_sequence: 9
+        MICR:
+            aba_routing_number: 11
+            payer_account_number: 12
+        IMAGE:
+            image_folder: 'images/'
+            #<%name = csv[2].length == 17 ? 14 : 15%>
+            image_file_name: [<%=name%>]
+
+   CORRESP:
+        HEADER_ROW: 1
+        BATCH:
+            lockbox: 2
+        JOB:
+            check_number:
+            transaction_number: 3
+            details:
+                envelope_number: 1
+        IMAGE:
+            image_folder: <%=corresp_image_folder%>
+            image_file_name: [5]

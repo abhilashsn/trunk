@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+      The 837 file "<b><%= @file_name %></b>" which arrived at <b><%= @claim_file_info.arrival_time.strftime("%m/%d/%Y %H:%M:%S") %></b> has the following claims which cannot be associated to any of PDS' facilities.
+      <br>
+      <% @inactive_claims.each_with_index do |claim, index| %>
+      <%= index+1 %>) <%= claim[0] %> - <%= claim[1] %> - <%= claim[2] %>
+      <br>
+      <% end %>
+    </p>
+  </body>
+</html>

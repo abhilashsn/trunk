@@ -1,0 +1,101 @@
+activity_log_1:
+  id: 1
+  user_id: 4
+  role: admin
+  activity: TAT Comments Created
+  description: TAT missed due to power failure
+  entity_name: BATCH
+  entity_id: 1
+  performed_at: <%= 1.days.ago.to_s :db %>
+  
+activity_log_2:
+  id: 2
+  user_id: 4
+  role: admin
+  activity: TAT Comments Edited
+  description: TAT missed due to network disconnection
+  entity_name: BATCH
+  entity_id: 1
+  performed_at: <%= 1.days.ago.to_s :db %>
+  
+activity_log_3:
+  id: 3
+  user_id: 12
+  role: processor
+  activity: Logged in
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= 2.days.ago.to_s :db %>
+  
+activity_log_4:
+  id: 4
+  user_id: 12
+  role: processor
+  activity: Logged out
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= 2.days.ago.to_s :db %>
+  
+activity_log_5:
+  id: 5
+  user_id: 12
+  role: processor
+  activity: Logged in
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= 1.days.ago.to_s :db %>
+  
+activity_log_6:
+  id: 6
+  user_id: 12
+  role: processor
+  activity: Logged out
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= 1.days.ago.to_s :db %>
+
+activity_log_7:
+  id: 7
+  user_id: 20
+  role: processor
+  activity: Logged in
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= Date.today%>
+  
+activity_log_8:
+  id: 8
+  user_id: 20
+  role: processor
+  activity: Logged out
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= Date.today%>
+
+activity_log_9:
+  id: 9
+  user_id: 21
+  role: processor
+  activity: Logged in
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= Date.today%>
+
+activity_log_9:
+  id: 9
+  user_id: 22
+  role: qa
+  activity: Logged in
+  description: 
+  entity_name:
+  entity_id: 
+  performed_at: <%= Date.today%>
+
+  

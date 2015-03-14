@@ -1,0 +1,42 @@
+
+
+
+<%= render "shared/error_messages", :target => @user %>  
+<!-- %= error_messages_for 'user' % -->
+
+<!--[form:user]-->
+<table>
+  <tr>
+    <td style="width: 278px"><label for="user_name">Name</label></td><td><%= text_field 'user', 'name',:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_userid">User ID</label></td><td><%= text_field 'user', 'userid',:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_password">Password</label></td><td><%= password_field 'user', 'password',:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_shift">Shift</label></td><td><%= select_tag 'shift', options_for_select(@shifts, @selected),:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_role">Role</label></td><td><%= select 'user', 'role', ['Admin','Supervisor', 'Super QA', 'QA', 'Processor', 'HLSC', 'TL','Client'],:class => 'black_text' %></td>    
+  </tr>
+  <tr>
+<td><label for="user_role">Retrieval Permission(s)</label></td>
+    <td colspan="2"><label for="batch_correspondence">Image </label><%= check_box 'user', 'image_permision' %>
+    <label for="batch_system_issue">Image and 835 </label><%= check_box 'user', 'image_835_permision' %>
+    <label for="batch_policy_issue">Image and grid </label><%= check_box 'user', 'image_grid_permision' %>
+    <label for="claim_retrieval"> | Claims </label><%= check_box 'user', 'claim_retrieval_permission' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_accuracy"> Accuracy %</label></td><td><%= text_field 'user', 'field_accuracy',:class => 'black_text' %></td>
+  </tr>
+  
+  <tr>
+    <td><label for="user_total_eobs">Total EOBs</label></td><td><%= text_field 'user', 'total_eobs',:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="user_rejected_eobs">Rejected EOBs</label></td><td><%= text_field 'user', 'rejected_eobs',:class => 'black_text' %></td>
+  </tr>
+</table>
+<!--[eoform:user]-->

@@ -1,0 +1,1480 @@
+<div style="height:60%; width:99%; float:left; overflow:scroll; clear:both;" onmouseover="setPointerAboveImage();" onmouseout="resetPointerAboveImage();">
+  <%= javascript_include_tag "view_835_consolidated" %>
+  <%= stylesheet_link_tag 'window' %>
+  <%= stylesheet_link_tag 'alphacube' %>
+  <script LANGUAGE="JavaScript">
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    imagedisply('<%=@single_page_tiff_files%>', '<%=@multi_page_tiff_file%>', '<%=@page_number%>', '<%=@image_count_in_a_job%>', '<%=@enable_applet_controls%>')
+    var rcode_window = new Window("rcode_win", {className: "alphacube", top:40, left:0, width:400, height:100, title:"Reason Codes",
+      maximizable: false, minimizable: true});
+    var claim_level_service_lines_window = new Window("claim_level_service_lines_win", {
+      className : "alphacube",
+      top : 40,
+      left : 0,
+      width : 600,
+      height : 150,
+      title : "Claim Level Service Details",
+      maximizable : false,
+      minimizable : true
+    });
+    Event.observe(window, 'load', function() {
+      // If the EOB capturing is a Claim Level EOB type then hide all the service lines. Only the Totals should be shown.
+      if($('reason_code_grid_container')) {
+        rcode_window.setContent("reason_code_grid_container");
+        rcode_window.setLocation(550, 100);
+      }
+      if($('claim_level_service_lines_container')) {
+        claim_level_service_lines_window.setContent("claim_level_service_lines_container");
+        claim_level_service_lines_window.setLocation(400, 100);
+      }
+    });
+  </script>
+</div>
+<div id="topbar_grid" style="height:35%; width:99%; float:left; overflow:scroll; clear:both;">
+  <% if params[:from] == 'processor_reports' %>
+    <input type = "button" tabindex = "41" name = "button2" class = "title_link popping_up_link" value = "ERROR SUMMARY" onclick ="showQaEdit(<%=params[:eob_id]%>)" style="background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;" />
+  <% end %>
+  <%if not @eobinformation.blank? %>
+    <%= link_to "PROVIDER ADJUSTMENT SUMMARY", {:controller => 'insurance_payment_eobs',:action => 'show_eob_grid',},
+      {:target => "myiframe",:onclick=>"popup_prov_adjustment_summary(#{@checkinformation.job_id}); return false;",
+      :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;", :class => "title_link popping_up_link"} %>
+    <% if params[:from] == 'processor_reports' %>
+      <input type = "button" tabindex = "41" name = "button2" class = "title_link popping_up_link" value = "REASON CODE GRID" onclick ="showRCGrid()" style="background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;"/>
+    <% end %>
+    <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" style="border-collapse:collapse; font-size:11px;" class="check_info">
+      <tr>
+        <%= hidden_field :eob, :type, :value => 'insurance' %>
+        <%= sp_label 'PAYMENT METHOD', !@facility.details[:transaction_type], 'th width="12.25%"' %>
+        <%= hide_and_seek_label :checkinformation, :payment_method, @checkinformation.payment_method,
+          !@facility.details[:transaction_type], 'td width="12.25%"',
+          :class => "#{highlight_color_for_fields_in_insurance_eobs('payment_method', params[:eob_id])}" %>
+        <th width = "12.25%">
+          CHECK NUMBER
+        </th>
+        <%= hide_and_seek_label :checkinformation, :check_number, @checkinformation.check_number.to_s,
+          true, 'td width="12.25%"', :class => "#{highlight_color_for_fields_in_insurance_eobs('check_number', params[:eob_id])}" %>
+        <th width = "12.25%">
+          CHECK DATE
+        </th>
+        <%= hide_and_seek_label :checkinformation, :check_date, (@checkinformation.check_date.blank?) ? "" : @checkinformation.check_date.strftime("%m/%d/%Y"),
+          true, 'td width="12.25%"', :class => "#{highlight_color_for_fields_in_insurance_eobs('check_date', params[:eob_id])}" %>
+        <th width = "12.25%">
+          CHECK AMOUNT
+        </th>
+        <%= hide_and_seek_label :checkinformation, :check_amount, sprintf("$%.2f", @checkinformation.check_amount.to_f),
+          true, 'td width = "11.25%" align="right" style="border-left:none;"',
+          :class => "#{highlight_color_for_fields_in_insurance_eobs('check_amount', params[:eob_id])}" %>
+        <%= sp_label 'DATE CHECK RECEIVED', @facility.details[:check_received_and_mailed_date], 'th' %>
+        <%= hide_and_seek_label :checkinformation, :check_received_date, @checkinformation.check_received_date.blank? ? "" : @checkinformation.check_received_date.strftime("%m/%d/%Y"),
+          @facility.details[:check_received_and_mailed_date], 'td',
+          :class => "#{highlight_color_for_fields_in_insurance_eobs('check_received_date', params[:eob_id])}" %>
+        <%= sp_label 'DATE CHECK MAILED', @facility.details[:check_received_and_mailed_date], 'th' %>
+        <%= hide_and_seek_label :checkinformation, :check_mailed_date, @checkinformation.check_mailed_date.blank? ? "" : @checkinformation.check_mailed_date.strftime("%m/%d/%Y"),
+          @facility.details[:check_received_and_mailed_date], 'td width = "11.25%" align="right" style="border-left:none;"',
+          :class => "#{highlight_color_for_fields_in_insurance_eobs('check_mailed_date', params[:eob_id])}" %>
+        <th width = "15%">
+          Payee Name
+        </th>
+        <td> <%= text_field 'checkinforamation', 'payee_name',:id => 'payee_name',
+          :value=>@checkinformation.payee_name%></td>
+        <th width = "15%">
+          Payee NPI
+        </th>
+        <td> <%= text_field 'checkinforamation', 'payee_npi',:id => 'payee_name',
+          :value=>@checkinformation.payee_npi%></td>
+        <th width = "15%">
+          Payee TIN
+        </th>
+        <td> <%= text_field 'checkinforamation', 'payee_tin',:id => 'payee_name',
+          :value=>@checkinformation.payee_tin%></td>
+      </tr>
+    </table>
+    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0"  class="check_info" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+      <tr>
+        <td>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0"  style="border-collapse:collapse;">
+            <tr>
+              <td valign="top" >
+                <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                  <tr>
+                    <th align="left" width="50%">
+                      &nbsp;&nbsp; Payer Name
+                    </th>
+                    <%= hide_and_seek_label :payer, :payer, @payer.payer,
+                      true, 'td align="left" width="64%"', :class => "#{highlight_color_for_fields_in_insurance_eobs('payer', params[:eob_id])}" %>
+                  </tr>
+                  <tr>
+                    <th align="left" >
+                      &nbsp;&nbsp; Payer Address 1
+                    </th>
+                    <%= hide_and_seek_label :payer, :pay_address_one, @payer.pay_address_one,
+                      true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('pay_address_one', params[:eob_id])}" %>
+                  </tr>
+                  <tr>
+                    <th align="left" >
+                      &nbsp;&nbsp; Payer Address 2
+                    </th>
+                    <%= hide_and_seek_label :payer, :pay_address_two, @payer.pay_address_two,
+                      true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('pay_address_two', params[:eob_id])}" %>
+                  </tr>
+
+                  <tr>
+                    <th align="left" >
+                      &nbsp;&nbsp; Payer City, State, Zip
+                    </th>
+                    <td>
+                      <% if params[:from] == 'processor_reports' %>
+                        <%= sp_text_field :payer, :payer_city, true, nil,
+                          :value => @payer.payer_city, :readonly => true,
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_city', params[:eob_id])}",
+                          :size => @payer.payer_city.blank? ? 1 : @payer.payer_city.length %>
+                        <%= sp_text_field :payer, :payer_state, true, nil,
+                          :value => @payer.payer_state, :readonly => true,
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_state', params[:eob_id])}",
+                          :size => @payer.payer_state.blank? ? 1 : @payer.payer_state.length %>
+                        <%= sp_text_field :payer, :payer_zip, true, nil,
+                          :value => @payer.payer_zip, :readonly => true,
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_zip', params[:eob_id])}",
+                          :size => @payer.payer_zip.blank? ? 1 : @payer.payer_zip.length %>
+
+                      <% else %>
+                        <% payer_address_line = [@payer.payer_city.to_s, @payer.payer_state.to_s, @payer.payer_zip.to_s].join(', ') %>
+                        <%= hide_and_seek_label :eob_information, :payer_address_line,  (payer_address_line.blank? ? '-' : payer_address_line), true, nil %>
+                      <% end %>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+
+              <td valign="top" >
+                <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                  <tr>
+                    <%= sp_label 'ABA Routing Number', @facility.details[:micr_line_info], 'th align="left"  width="60%"' %>
+                    <% routing_number, account_number = '-', '-'
+                    if @micr_line_information
+                      if !@micr_line_information.aba_routing_number.blank?
+                        routing_number = @micr_line_information.aba_routing_number
+                      end
+                      if !@micr_line_information.payer_account_number.blank?
+                        account_number = @micr_line_information.payer_account_number
+                      end
+                    end %>
+                    <%= hide_and_seek_label :micr_line_information, :aba_routing_number, routing_number,
+                      @facility.details[:micr_line_info], 'td align="left"', :class => "#{highlight_color_for_fields_in_insurance_eobs('aba_routing_number', params[:eob_id])}" %>
+                  </tr>
+                  <tr>
+                    <%= sp_label 'Payer Account Number', @facility.details[:micr_line_info], 'th align="left"  width="60%"' %>
+                    <%= hide_and_seek_label :micr_line_information, :payer_account_number, account_number,
+                      @facility.details[:micr_line_info], 'td align="left"', :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_account_number', params[:eob_id])}" %>
+                  </tr>
+                  <tr>
+                    <th align="left" >
+                      &nbsp;&nbsp; Payer Type
+                    </th>
+                    <% if @payer.payer_type == 'PatPay'
+                      payer_type = @payer.payer_type
+                    else
+                      payer_type = 'Insurance'
+                    end %>
+                    <%= hide_and_seek_label :payer, :payer_type,  payer_type,
+                      true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_type', params[:eob_id])}" %>
+                  </tr>
+                </table>
+              </td>
+
+
+              <td width="50%" valign="top" bgcolor="#ECE9D8" class="content">
+                <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                  <tr>
+                    <th align="left" width="35%">
+                      &nbsp;&nbsp;Facility Name
+                    </th>
+                    <td width="64%">
+                      &nbsp;&nbsp;<%= @facility.name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="left">
+                      &nbsp;&nbsp;Facility Address 1
+                    </th>
+                    <td>
+                      &nbsp;&nbsp;<%= @facility.address_one %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="left">
+                      &nbsp;&nbsp;Facility Address 2
+                    </th>
+                    <td>
+                      &nbsp;&nbsp;<%= @facility.address_two %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="left">
+                      &nbsp;&nbsp;Facility City, State, Zip
+                    </th>
+                    <td>
+                      &nbsp;&nbsp;<%= @facility.city %>&nbsp;&nbsp;<%= @facility.state %>&nbsp;&nbsp;<%= @facility.zip_code %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" >
+            <tr>
+              <td>
+                <%= will_paginate @informations %>
+              </td>
+            </tr>
+          </table>
+
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+            <tr>
+              <% for eob_information in @informations %>
+                <%= hidden_field :eob, :id, :value => eob_information.id %>
+                <% is_claim_level_eob = false %>
+                <% is_claim_level_eob = (eob_information.category == "claim") %>
+                <td valign="top" class="content" width="33%">
+                  <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                    <tr>
+                      <th align="left" width="40%">
+                        <strong>&nbsp;&nbsp;Patient Name</strong>
+                      </th>
+                      <td>
+                        <% if params[:from] == 'processor_reports' %>
+      <%# In order to give highlight for QA edited fields,
+      the name are to be printed in different tags(rails helpers).
+      When the label tag was used, it has a feature that
+      if the value is blank ('' or ' ' or nil) then it will print the name of the label.
+      In order to circumvent this technical problem the readonly textfields are used. %>
+                          <%= sp_text_field :eob_information, :last_name, true, nil,
+                            :value => eob_information.patient_last_name, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_last_name', params[:eob_id])}",
+                            :size => eob_information.patient_last_name.blank? ? 1 : eob_information.patient_last_name.length %>
+                          <%= sp_text_field :eob_information, :suffix, true, nil,
+                            :value => eob_information.patient_suffix, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_suffix', params[:eob_id])}",
+                            :size => eob_information.patient_suffix.blank? ? 1 : eob_information.patient_suffix.length %>
+                          <%= sp_text_field :eob_information, :first_name, true, nil,
+                            :value => eob_information.patient_first_name, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_first_name', params[:eob_id])}",
+                            :size => eob_information.patient_first_name.blank? ? 1 : eob_information.patient_first_name.length %>
+                          <%= sp_text_field :eob_information, :middle_initial, true, nil,
+                            :value => eob_information.patient_middle_initial, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_middle_initial', params[:eob_id])}",
+                            :size => eob_information.patient_middle_initial.blank? ? 1 : eob_information.patient_middle_initial.length %>
+                        <% else %>
+                          <% patient_name =  [eob_information.patient_first_name.to_s,eob_information.patient_middle_initial.to_s,
+                            eob_information.patient_last_name.to_s, eob_information.patient_suffix.to_s].join(' ') %>
+                          <%= hide_and_seek_label :eob_information, :patient_name,  (patient_name.blank? ? '-' : patient_name), true, nil %>
+                        <% end %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th align="left">
+                        <strong>&nbsp;&nbsp;Patient Account Number</strong>
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :patient_account_number,  (eob_information.patient_account_number.blank? ? '-' : eob_information.patient_account_number),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_account_number', params[:eob_id])}" %>
+                    </tr>
+                    <%  if @facility.details[:number] == 'claim' %>
+                      <tr>
+                        <th align="left">
+                          <strong>&nbsp;&nbsp;Claim Number</strong>
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :claim_number,  (eob_information.claim_number.blank? ? '-' : eob_information.claim_number),
+                          @facility.details[:number] == 'claim', 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('claim_number', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <tr>
+                      <th align="left">
+                        <strong>&nbsp;&nbsp;Claim Type</strong>
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :claim_type,  (eob_information.claim_type.blank? ? '-' : eob_information.claim_type),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('claim_type', params[:eob_id])}" %>
+                    </tr>
+                    <tr>
+                      <th align="left">
+                        <strong>&nbsp;&nbsp;MPI Used ?</strong>
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :mpi_used,  (eob_information.claim_information_id.blank? ? 'No' : 'Yes'),
+                        true, 'td' %>
+                    </tr>
+                    <tr>
+                      <th align="left" >
+                        &nbsp;&nbsp; Plan Code
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :plan_type,  (eob_information.plan_type.blank? ? '-' : eob_information.plan_type),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('plan_type', params[:eob_id])}" %>
+                    </tr>
+                    <%  if @facility.details[:secondary_plan_code] %>
+                      <tr>
+                        <th align="left" >
+                          &nbsp;&nbsp; Secondary Plan Code
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :secondary_plan_code,  (eob_information.secondary_plan_code.blank? ? '-' : eob_information.secondary_plan_code),
+                          @facility.details[:secondary_plan_code], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('secondary_plan_code', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <%  if @facility.details[:tertiary_plan_code] %>
+                      <tr>
+                        <th align="left" >
+                          &nbsp;&nbsp; Tertiary Plan Code
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :tertiary_plan_code,  (eob_information.tertiary_plan_code.blank? ? '-' : eob_information.tertiary_plan_code),
+                          @facility.details[:tertiary_plan_code], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('tertiary_plan_code', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <%  if @facility.details[:state_use_only] %>
+                      <tr>
+                        <th align="left" >
+                          &nbsp;&nbsp; State Use Only(Medicaid)
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :state_use_only,  (eob_information.state_use_only.blank? ? '-' : eob_information.state_use_only),
+                          @facility.details[:state_use_only], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('state_use_only', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                  </table>
+                </td>
+                <td valign="top" class="content" width="33%">
+                  <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                    <tr>
+                      <th align="left" width="20%">
+                        &nbsp;&nbsp;Subscriber Name
+                      </th>
+                      <td width="20%">
+                        <% if params[:from] == 'processor_reports' %>
+                          <%= sp_text_field :eob_information, :subscriber_last_name, true, nil,
+                            :value => eob_information.subscriber_last_name, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('subscriber_last_name', params[:eob_id])}",
+                            :size => eob_information.subscriber_last_name.blank? ? 1 : eob_information.subscriber_last_name.length %>
+                          <%= sp_text_field :eob_information, :subscriber_suffix, true, nil,
+                            :value => eob_information.subscriber_suffix, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('subscriber_suffix', params[:eob_id])}",
+                            :size => eob_information.subscriber_suffix.blank? ? 1 : eob_information.subscriber_suffix.length %>
+                          <%= sp_text_field :eob_information, :subscriber_first_name, true, nil,
+                            :value => eob_information.subscriber_first_name, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('subscriber_first_name', params[:eob_id])}",
+                            :size => eob_information.subscriber_first_name.blank? ? 1 : eob_information.subscriber_first_name.length %>
+                          <%= sp_text_field :eob_information, :subscriber_middle_initial, true, nil,
+                            :value => eob_information.subscriber_middle_initial, :readonly => true,
+                            :class => "#{highlight_color_for_fields_in_insurance_eobs('subscriber_middle_initial', params[:eob_id])}",
+                            :size => eob_information.subscriber_middle_initial.blank? ? 1 : eob_information.subscriber_middle_initial.length %>
+                        <% else %>
+                          <% subscriber_name =  [eob_information.subscriber_first_name.to_s,eob_information.subscriber_middle_initial.to_s,
+                            eob_information.subscriber_last_name.to_s,eob_information.subscriber_suffix.to_s,].join(' ') %>
+                          <%= hide_and_seek_label :eob_information, :subscriber_name,  (subscriber_name.blank? ? '-' : subscriber_name), true, nil %>
+                        <% end %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th align="left">
+                        &nbsp;&nbsp;Member ID
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :subscriber_identification_code,
+                        (eob_information.subscriber_identification_code.blank? ? '-' : eob_information.subscriber_identification_code),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('subscriber_identification_code', params[:eob_id])}" %>
+                    </tr>
+
+                    <%  if @facility.details[:medical_record_number] %>
+                      <tr>
+                        <th align="left" >
+                          &nbsp;&nbsp;MRN
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :medical_record_number,  (eob_information.medical_record_number.blank? ? '-' : eob_information.medical_record_number),
+                          @facility.details[:medical_record_number], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('medical_record_number', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+
+                    <tr>
+                      <th align="left">
+                        &nbsp;&nbsp;Social Security Number
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :patient_identification_code,
+                        (eob_information.patient_identification_code.blank? ? '-' : eob_information.patient_identification_code),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('patient_identification_code', params[:eob_id])}" %>
+                    </tr>
+                    <tr>
+                      <th align="left">
+                        &nbsp;&nbsp;Policy Number
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :insurance_policy_number,
+                        (eob_information.insurance_policy_number.blank? ? '-' : eob_information.insurance_policy_number),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('insurance_policy_number', params[:eob_id])}" %>
+                    </tr>
+                    <tr>
+                      <th align="left">
+                        &nbsp;&nbsp;Interest amount
+                      </th>
+                      <%= hide_and_seek_label :eob_information, :claim_interest,
+                        (eob_information.claim_interest.blank? ? '-' : sprintf("$%.2f", eob_information.claim_interest.to_f)),
+                        true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('claim_interest', params[:eob_id])}" %>
+                    </tr>
+                    <%  if @facility.details[:over_payment_recovery]  %>
+                      <tr>
+                        <th align="left">
+                          <strong>&nbsp;&nbsp;Overpayment Recovery</strong>
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :over_payment_recovery,
+                          (eob_information.over_payment_recovery.blank? ? '-' : eob_information.over_payment_recovery),
+                          @facility.details[:over_payment_recovery], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('over_payment_recovery', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <%  if @facility.details[:carrier_code]  %>
+                      <tr>
+                        <th align="left">
+                          <strong>&nbsp;&nbsp;Carrier Code</strong>
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :carrier_code,
+                          (eob_information.carrier_code.blank? ? '-' : eob_information.carrier_code),
+                          @facility.details[:carrier_code], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('carrier_code', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <%  if @facility.details[:number] == 'control' %>
+                      <tr>
+                        <th align="left">
+                          <strong>&nbsp;&nbsp;Control Number</strong>
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :claim_number,
+                          (eob_information.claim_number.blank? ? '-' : eob_information.claim_number),
+                          @facility.details[:number] == 'control', 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('claim_number', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <%  if @facility.details[:payer_control_number] %>
+                      <tr>
+                        <th align="left">
+                          <strong>&nbsp;&nbsp;Payer Control Number</strong>
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :payer_control_number,
+                          (eob_information.payer_control_number.blank? ? '-' : eob_information.payer_control_number),
+                          @facility.details[:payer_control_number], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_control_number', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                  </table>
+                </td>
+                <td valign="top" class="content" width="33%">
+                  <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+                    <%  if @facility.details[:marital_status] %>
+                      <tr>
+                        <th align="left" width="35%">
+                          &nbsp;&nbsp;Marital Status
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :marital_status,
+                          (eob_information.marital_status.blank? ? '-' : eob_information.marital_status),
+                          @facility.details[:marital_status], 'td width="50%"', :class => "#{highlight_color_for_fields_in_insurance_eobs('marital_status', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+
+                    <%  if @facility.details[:fund] %>
+                      <tr>
+                        <th align="left" width="35%">
+                          &nbsp;&nbsp;Fund
+                        </th>
+                        <%= hide_and_seek_label :eob_information, :fund,
+                          (eob_information.fund.blank? ? '-' : sprintf("$%.2f", eob_information.fund.to_f)),
+                          @facility.details[:fund], 'td width="64%" align="right"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('fund', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <tr>
+                      <%= sp_label 'Image Type', true, 'th align="left" width="35%"'%>
+                      <% image_types = eob_information.image_types
+                      if !image_types.blank?
+                        image_type_record = image_types.first
+                        if !image_type_record.blank?
+                          image_type = image_type_record.image_type
+                        end
+                      end %>
+                      <%= hide_and_seek_label :eob, :image_type,
+                        (image_type.blank? ? '-' : image_type),
+                        true, 'td width="64%"',
+                        :class => "#{highlight_color_for_fields_in_insurance_eobs('image_type', params[:eob_id])}" %>
+                    </tr>
+                    <%  if @show_patpay_statement_fields %>
+                      <tr>
+                        <%= sp_label 'Format', @show_patpay_statement_fields, 'th align="left" width="70%"'%>
+                        <%= hide_and_seek_label :eob, :payee_type_format,
+                          (eob_information.payee_type_format.blank? ? '-' : eob_information.payee_type_format),
+                          @show_patpay_statement_fields, 'td width="70%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('payee_type_format', params[:eob_id])}" %>
+                      </tr>
+                      <tr>
+                        <%= sp_label 'Pt Statement?', @show_patpay_statement_fields, 'th align="left" width="70%"'%>
+                        <%= hide_and_seek_label :eob, :statement_applied,
+                          (eob_information.statement_applied == true ? 'Yes' : 'No'),
+                          @show_patpay_statement_fields, 'td width="70%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('statement_applied', params[:eob_id])}" %>
+                      </tr>
+                      <tr>
+                        <%= sp_label 'Multiple Account# ?', @show_patpay_statement_fields, 'th align="left" width="70%"'%>
+                        <%= hide_and_seek_label :eob, :multiple_invoice_applied,
+                          (eob_information.multiple_invoice_applied == true ? 'Yes' : 'No'),
+                          @show_patpay_statement_fields, 'td width="70%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('multiple_invoice_applied', params[:eob_id])}" %>
+                      </tr>
+                      <tr>
+                        <%= sp_label 'Multiple Statement?', @show_patpay_statement_fields, 'th align="left" width="70%"'%>
+                        <%= hide_and_seek_label :eob, :multiple_statement_applied,
+                          (eob_information.multiple_statement_applied == true ? 'Yes' : 'No'),
+                          @show_patpay_statement_fields, 'td width="70%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('multiple_statement_applied', params[:eob_id])}" %>
+                      </tr>
+                      <tr>
+                        <%= sp_label 'Payee Type', @show_patpay_statement_fields, 'th align="left" width="70%"'%>
+                        <%= hide_and_seek_label :eob, :statement_receiver,
+                          (eob_information.statement_receiver.blank? ? '-' : eob_information.statement_receiver),
+                          @show_patpay_statement_fields, 'td width="70%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('statement_receiver', params[:eob_id])}" %>
+                      </tr>
+                    <% end %>
+                    <tr>
+                      <%= sp_label 'POS', @facility.details[:place_of_service], 'th align="left" width="35%"'%>
+                      <%= hide_and_seek_label :eob_information, :place_of_service,
+                        (eob_information.place_of_service.blank? ? '-' : "%02d" % eob_information.place_of_service),
+                        @facility.details[:place_of_service], 'td width="64%"',
+                        :class => "#{highlight_color_for_fields_in_insurance_eobs('place_of_service', params[:eob_id])}" %>
+                    </tr>
+                    <% if @facility.details[:document_classification] %>
+                      <tr>
+                        <%= sp_label 'Document Classification', @facility.details[:document_classification], 'th align="left" width="35%"'%>
+                        <%= hide_and_seek_label :eob_information, :document_classification,
+                          (eob_information.document_classification.blank? ? '-' : eob_information.document_classification),
+                          @facility.details[:document_classification], 'td width="64%"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('document_classification', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <% if @facility.details[:drg_code] %>
+                      <tr>
+                        <%= sp_label 'DRG Code', @facility.details[:drg_code], 'th align="left" width="35%"'%>
+                        <%= hide_and_seek_label :eob_information, :drg_code,
+                          (eob_information.drg_code.blank? ? '-' : eob_information.drg_code),
+                          @facility.details[:drg_code], 'td width="64%" align="right"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('drg_code', params[:eob_id])}" %>
+                      </tr>
+                    <%  end %>
+                    <% if @facility.details[:transaction_type] %>
+                      <tr>
+                        <%= sp_label 'Transaction Type', @facility.details[:transaction_type], 'th align="left" width="35%"'%>
+                        <% transaction_type = eob_information.check_information.job.retrieve_transaction_type(eob_information) %>
+                        <%= hide_and_seek_label :eob_information, :images_for_job,
+                          (transaction_type.blank? ? '-' : transaction_type),
+                          @facility.details[:transaction_type], 'td width="64%" align="right"',
+                          :class => "#{highlight_color_for_fields_in_insurance_eobs('transaction_type', params[:eob_id])}" %>                      </tr>
+                </tr>
+              <%  end %>
+              <% if @facility.details[:re_pricer_info] %>
+                <tr>
+                  <%= sp_label 'Re-pricer Info' , @facility.details[:re_pricer_info] && @facility.client.name.upcase.strip == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER", 'th align="left" width="35%"'%>
+                  <%= sp_label 'Class of Contract' , @facility.details[:re_pricer_info] && @facility.client.name.upcase.strip != "UNIVERSITY OF PITTSBURGH MEDICAL CENTER", 'th align="left" width="35%"'%>
+                  <%= hide_and_seek_label :eob_information, :alternate_payer_name,
+                    (eob_information.alternate_payer_name),
+                    @facility.details[:re_pricer_info], 'td width="64%"',
+                    :class => "#{highlight_color_for_fields_in_insurance_eobs('alternate_payer_name', params[:eob_id])}" %>                      </tr>
+          </tr>
+        <%  end %>
+      </table>
+    </td>
+    </tr>
+
+
+    <tr>
+      <td valign="top" class="content" width="40%">
+        <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+          <tr>
+            <th align="left" width="49%">
+              &nbsp;&nbsp;Provider Name
+            </th>
+            <td>
+              <% if params[:from] == 'processor_reports' %>
+                <%= sp_text_field :eob_information, :rendering_provider_last_name, true, nil,
+                  :value => eob_information.rendering_provider_last_name, :readonly => true,
+                  :class => "#{highlight_color_for_fields_in_insurance_eobs('rendering_provider_last_name', params[:eob_id])}",
+                  :size => eob_information.rendering_provider_last_name.blank? ? 1 : eob_information.rendering_provider_last_name.length %>
+                <%= sp_text_field :eob_information, :rendering_provider_suffix, true, nil,
+                  :value => eob_information.rendering_provider_suffix, :readonly => true,
+                  :class => "#{highlight_color_for_fields_in_insurance_eobs('rendering_provider_suffix', params[:eob_id])}",
+                  :size => eob_information.rendering_provider_suffix.blank? ? 1 : eob_information.rendering_provider_suffix.length %>
+                <%= sp_text_field :eob_information, :rendering_provider_first_name, true, nil,
+                  :value => eob_information.rendering_provider_first_name, :readonly => true,
+                  :class => "#{highlight_color_for_fields_in_insurance_eobs('rendering_provider_first_name', params[:eob_id])}",
+                  :size => eob_information.rendering_provider_first_name.blank? ? 1 : eob_information.rendering_provider_first_name.length %>
+                <%= sp_text_field :eob_information, :rendering_provider_middle_initial, true, nil,
+                  :value => eob_information.rendering_provider_middle_initial, :readonly => true,
+                  :class => "#{highlight_color_for_fields_in_insurance_eobs('rendering_provider_middle_initial', params[:eob_id])}",
+                  :size => eob_information.rendering_provider_middle_initial.blank? ? 1 : eob_information.rendering_provider_middle_initial.length %>
+
+              <% else %>
+                <% provider_name = [eob_information.rendering_provider_last_name.to_s, eob_information.rendering_provider_suffix.to_s,
+                  eob_information.rendering_provider_first_name.to_s, eob_information.rendering_provider_middle_initial.to_s].join(' ') %>
+                <%= hide_and_seek_label :eob_information, :provider,  (provider_name.blank? ? '-' : provider_name), true, nil %>
+              <% end %>
+            </td>
+          </tr>
+          <% client = @facility.client.name
+          if client.upcase == "GOODMAN CAMPBELL" || client.upcase == "QUADAX" %>
+            <tr>
+              <th align="left">
+                &nbsp;&nbsp;Rejection Comment
+              </th>
+              <%= hide_and_seek_label :eob_information, :rejection_comment,
+                (eob_information.rejection_comment.blank? ? '-' : eob_information.rejection_comment),
+                true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('rejection_comment', params[:eob_id])}" %>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+      <td valign="top" class="content" width="40%">
+        <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="content" style="border-collapse:collapse;">
+          <tr>
+            <th align="left" width="49%">
+              &nbsp;&nbsp;Provider NPI
+            </th>
+            <%= hide_and_seek_label :eob_information, :provider_npi,
+              (eob_information.provider_npi.blank? ? '-' : eob_information.provider_npi),
+              true, 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('provider_npi', params[:eob_id])}" %>
+          </tr>
+          <% if @facility.details[:payer_indicator]%>
+            <tr>
+              <th align="left">
+                &nbsp;&nbsp;Payer Indicator
+              </th>
+              <%= hide_and_seek_label :eob_information, :payer_indicator,
+                (eob_information.payer_indicator.blank? ? '-' : eob_information.payer_indicator),
+                @facility.details[:payer_indicator], 'td', :class => "#{highlight_color_for_fields_in_insurance_eobs('payer_indicator', params[:eob_id])}" %>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+    </table>
+
+    <tr>
+      <td height="1">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%@serviceline = ServicePaymentEob.set_crosswalked_codes(eob_information.id, @payer, @client, @facility)%>
+        <%svc_level_eob_condn = !@serviceline.blank?%>
+        <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#156b8c" class="service_line" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:10px;">
+          <tr>
+            <% if @facility.details[:service_date_from] %>
+              <th colspan="2" valign="top" bgcolor="#DAD3B1">
+                <div align="center">
+                  <strong>DATE OF SERVICE</strong>
+                </div>
+              </th>
+            <% end %>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <%= sp_label 'CPT', svc_level_eob_condn, 'strong'%>
+              </div>
+            </th>
+            <% if @facility.details[:bundled_procedure_code] %>
+              <th rowspan="2" valign="top" >
+                <div align="center">
+                  <%= sp_label 'BUNDLED CPT', @facility.details[:bundled_procedure_code] && svc_level_eob_condn, 'strong'%>
+                </div>
+              </th>
+            <% end %>
+            <% if @facility.details[:revenue_code] %>
+              <th rowspan="2" valign="top" >
+                <div align="center">
+                  <%= sp_label 'REV CODE', @facility.details[:revenue_code] && svc_level_eob_condn, 'strong'%>
+                </div>
+              </th>
+            <% end %>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <%= sp_label 'UNITS', svc_level_eob_condn, 'strong'%>
+              </div>
+            </th>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <%= sp_label 'MODIFIER', svc_level_eob_condn, 'strong'%>
+              </div>
+            </th>
+            <% if @facility.details[:remark_code] %>
+              <th rowspan="2" valign="top" >
+                <div align="center">
+                  <%= sp_label 'REMARK CODES', svc_level_eob_condn || eob_information.category == 'claim' , 'strong'%>
+                </div>
+              </th>
+            <% end %>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>CHARGES</strong>
+              </div>
+            </th>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>ALLOWED
+                  <br>
+                  AMOUNT
+                </strong>
+              </div>
+            </th>
+            <%= sp_label 'PLAN <br> COVERAGE', @facility.details[:plan_coverage] , "th rowspan='2' valign='top'" %>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>PAYMENT</strong>
+              </div>
+            </th>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>NON COVERED</strong>
+              </div>
+            </th>
+            <%= sp_label (denied_label(@facility.client.name)).upcase, @facility.details[:denied], "th rowspan='2' valign='top'" %>
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>DISCOUNT</strong>
+              </div>
+            </th>
+
+            <%= sp_label 'PBID', @facility.details[:pbid] && svc_level_eob_condn, "th rowspan='2' valign='top'" %>
+            <%= sp_label 'Retention Amt', @facility.details[:retention_fee] && svc_level_eob_condn, "th rowspan='2' valign='top'" %>
+            <%= sp_label 'Line Item No', @facility.details[:line_item] && svc_level_eob_condn, "th rowspan='2' valign='top'" %>
+
+            <%  if @facility.details[:patient_responsibility]%>
+              <th colspan = "4" valign="top" >
+              <%else%>
+              <th colspan = "3" valign="top" >
+              <% end%>
+              <div align="center">
+                <strong>PATIENT RESPONSIBILITY</strong>
+              </div>
+            </th>
+
+            <%= sp_label 'PREPAID', @facility.details[:prepaid], "th rowspan='2' valign='top'" %>
+
+            <th rowspan="2" valign="top" >
+              <div align="center">
+                <strong>PRIMARY PAYER
+                  <br>
+                  PAYMENT
+                </strong>
+              </div>
+            </th>
+            <th rowspan="2" valign="top" >
+              CONTRACTUAL
+              <br>
+              ADJUSTMENT
+            </th>
+            <% if @facility.details[:miscellaneous_adjustment_fields]%>
+              <th colspan = "3" valign="top" >
+                <div align="center">
+                  <strong>MISCELLANEOUS</strong>
+                </div>
+              </th>
+            <% end%>
+            <%= sp_label 'Payment Status Code', @facility.details[:payment_status_code] && svc_level_eob_condn, "th rowspan='2' valign='top'" %>
+            <%= sp_label 'REF #', @facility.details[:reference_code] && svc_level_eob_condn, "th rowspan='2' valign='top'" %>
+          </tr>
+          <tr>
+            <% if @facility.details[:service_date_from] %>
+              <th align="center" valign="top" >
+                FROM
+              </th>
+              <th align="center" valign="top" >
+                TO
+              </th>
+            <% end %>
+            <th align="center" valign="top" >
+              <strong>CO-INSURANCE</strong>
+            </th>
+            <th valign="top" >
+              <div align="center">
+                <strong>DEDUCTIBLE</strong>
+              </div>
+            </th>
+            <th valign="top" >
+              <div align="center">
+                <strong>CO-PAY</strong>
+              </div>
+            </th>
+            <%if @facility.details[:patient_responsibility]%>
+              <th valign="top" >
+                <div align="center">
+                  <strong>TOTAL PATIENT
+                    <br>
+                    RESPONSIBILITY
+                  </strong>
+                </div>
+              </th>
+            <%end%>
+            <%  if @facility.details[:miscellaneous_adjustment_fields]%>
+              <th align="center" valign="top" >
+                <strong>ADJ-ONE</strong>
+              </th>
+              <th align="center" valign="top" >
+                <strong>ADJ-TWO</strong>
+              </th>
+              <th align="center" valign="top" >
+                <strong>BALANCE</strong>
+              </th>
+            <% end%>
+          </tr>
+
+          <%@serviceline.each do |service| %>
+            <tr style="vertical-align:top;">
+              <% if @facility.details[:service_date_from] %>
+                <% if !service.date_of_service_from.blank?
+                  from_date = service.date_of_service_from.strftime("%m/%d/%Y")
+                end
+                if !service.date_of_service_to.blank?
+                  to_date = service.date_of_service_to.strftime("%m/%d/%Y")
+                end
+              end %>
+              <%= hide_and_seek_label :service, :date_of_service_from,
+                (from_date.blank? ? '-' : from_date),
+                @facility.details[:service_date_from], 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('date_of_service_from', service.id)}" %>
+              <%= hide_and_seek_label :service, :date_of_service_to,
+                (to_date.blank? ? '-' : to_date),
+                @facility.details[:service_date_from], 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('date_of_service_to', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_procedure_code,
+                (service.service_procedure_code.blank? ? '-' : service.service_procedure_code),
+                true, 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_procedure_code', service.id)}" %>
+              <%= hide_and_seek_label :service, :bundled_procedure_code,
+                (service.bundled_procedure_code.blank? ? '-' : service.bundled_procedure_code),
+                @facility.details[:bundled_procedure_code], 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('bundled_procedure_code', service.id)}" %>
+              <%= hide_and_seek_label :service, :revenue_code,
+                (service.revenue_code.blank? ? '-' : service.revenue_code),
+                @facility.details[:revenue_code], 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('revenue_code', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_quantity,
+                (service.service_quantity.blank? ? '-' : service.service_quantity),
+                true, 'td align="center"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_quantity', service.id)}" %>
+
+              <td align="center">
+                <%= hide_and_seek_label :service, :service_modifier1,
+                  (service.service_modifier1.blank? ? '-' : service.service_modifier1),
+                  true, nil, :class => "#{highlight_color_for_fields_in_service_lines('service_modifier1', service.id)}" %>
+                <%= hide_and_seek_label :service, :service_modifier2,
+                  (service.service_modifier2.blank? ? '-' : service.service_modifier2),
+                  true, nil, :class => "#{highlight_color_for_fields_in_service_lines('service_modifier2', service.id)}" %>
+                <%= hide_and_seek_label :service, :service_modifier3,
+                  (service.service_modifier3.blank? ? '-' : service.service_modifier3),
+                  true, nil, :class => "#{highlight_color_for_fields_in_service_lines('service_modifier3', service.id)}" %>
+                <%= hide_and_seek_label :service, :service_modifier4,
+                  (service.service_modifier4.blank? ? '-' : service.service_modifier4),
+                  true, nil, :class => "#{highlight_color_for_fields_in_service_lines('service_modifier4', service.id)}" %>
+              </td>
+              <%= sp_label "#{(service.get_remark_codes.join(':'))}", @facility.details[:remark_code], 'td align="center"' %>
+
+              <%= hide_and_seek_label :service, :service_procedure_charge_amount,
+                (service.service_procedure_charge_amount.blank? ? '-' : sprintf("$%.2f",service.service_procedure_charge_amount.to_f)),
+                true, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_procedure_charge_amount', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_allowable,
+                (service.service_allowable.blank? ? '-' : sprintf("$%.2f",service.service_allowable.to_f)),
+                true, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_allowable', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_plan_coverage,
+                (service.service_plan_coverage.blank? ? '-' : service.service_plan_coverage),
+                @facility.details[:plan_coverage], 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_plan_coverage', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_paid_amount,
+                (service.service_paid_amount.blank? ? '-' : sprintf("$%.2f",service.service_paid_amount.to_f)),
+                true, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_paid_amount', service.id)}" %>
+              <td align="right">
+                <%= hide_and_seek_label :service, :service_no_covered,
+                  (service.service_no_covered.blank? ? '-' : sprintf("$%.2f",service.service_no_covered.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('service_no_covered', service.id)}" %>
+                <%= hide_and_seek_label :service, :noncovered_reason_code,
+                  (service.noncovered_crosswalked_codes.blank? ? '-' : service.noncovered_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('noncovered_reason_code_id', service.id)}" %>
+
+
+
+              </td>
+              <%  if @facility.details[:denied] %>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :denied,
+                    (service.denied.blank? ? '-' : sprintf("$%.2f",service.denied.to_f)),
+                    @facility.details[:denied], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('denied', service.id)}" %>
+                  <%= hide_and_seek_label :service, :denied_reason_code,
+                    (service.denied_crosswalked_codes.blank? ? '-' : service.denied_crosswalked_codes),
+                    @facility.details[:denied], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('denied_reason_code_id', service.id)}" %>
+                </td>
+              <%  end %>
+
+              <td align="right">
+                <%= hide_and_seek_label :service, :service_discount,
+                  (service.service_discount.blank? ? '-' : sprintf("$%.2f",service.service_discount.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('service_discount', service.id)}" %>
+                <%= hide_and_seek_label :service, :discount_reason_code,
+                  (service.discount_crosswalked_codes.blank? ? '-' : service.discount_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('discount_reason_code_id', service.id)}" %>
+
+              </td>
+              <%= hide_and_seek_label :service, :pbid,
+                (service.pbid.blank? ? '-' : sprintf("$%.2f",service.pbid.to_f)),
+                @facility.details[:pbid] && svc_level_eob_condn, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('pbid', service.id)}" %>
+              <%= hide_and_seek_label :service, :retention_fees,
+                (service.retention_fees.blank? ? '-' : sprintf("$%.2f",service.retention_fees.to_f)),
+                @facility.details[:retention_fee] && svc_level_eob_condn, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('retention_fees', service.id)}" %>
+              <%= hide_and_seek_label :service, :line_item_number,
+                (service.line_item_number.blank? ? '-' : service.line_item_number),
+                @facility.details[:line_item] && svc_level_eob_condn, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('line_item_number', service.id)}" %>
+              <td align="right">
+                <%= hide_and_seek_label :service, :service_co_insurance,
+                  (service.service_co_insurance.blank? ? '-' : sprintf("$%.2f",service.service_co_insurance.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('service_co_insurance', service.id)}" %>
+                <%= hide_and_seek_label :service, :coinsurance_reason_code,
+                  (service.coinsurance_crosswalked_codes.blank? ? '-' : service.coinsurance_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('coinsurance_reason_code_id', service.id)}" %>
+              </td>
+              <td align="right">
+                <%= hide_and_seek_label :service, :service_deductible,
+                  (service.service_deductible.blank? ? '-' : sprintf("$%.2f",service.service_deductible.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('service_deductible', service.id)}" %>
+                <%= hide_and_seek_label :service, :deductible_reason_code,
+                  (service.deductible_crosswalked_codes.blank? ? '-' : service.deductible_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('deductible_reason_code_id', service.id)}" %>
+              </td>
+              <td align="right">
+                <%= hide_and_seek_label :service, :service_co_pay,
+                  (service.service_co_pay.blank? ? '-' : sprintf("$%.2f",service.service_co_pay.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('service_co_pay', service.id)}" %>
+                <%= hide_and_seek_label :service, :copay_reason_code,
+                  (service.copay_crosswalked_codes.blank? ? '-' : service.copay_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('copay_reason_code_id', service.id)}" %>
+              </td>
+              <%  if @facility.details[:patient_responsibility] %>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :patient_responsibility,
+                    (service.patient_responsibility.blank? ? '-' : sprintf("$%.2f",service.patient_responsibility.to_f)),
+                    @facility.details[:patient_responsibility], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('patient_responsibility', service.id)}" %>
+                  <%= hide_and_seek_label :service, :pr_reason_code,
+                    (service.pr_crosswalked_codes.blank? ? '-' : service.pr_crosswalked_codes),
+                    @facility.details[:patient_responsibility], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('pr_reason_code_id', service.id)}" %>
+                </td>
+              <%  end %>
+              <%  if @facility.details[:prepaid] %>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :prepaid,
+                    (service.service_prepaid.blank? ? '-' : sprintf("$%.2f",service.service_prepaid.to_f)),
+                    @facility.details[:prepaid], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('service_prepaid', service.id)}" %>
+                  <%= hide_and_seek_label :service, :prepaid_reason_code,
+                    (service.prepaid_crosswalked_codes.blank? ? '-' : service.prepaid_crosswalked_codes),
+                    @facility.details[:prepaid], nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('prepaid_reason_code_id', service.id)}" %>
+                </td>
+              <%  end %>
+              <td align="right">
+                <%= hide_and_seek_label :service, :primary_payment,
+                  (service.primary_payment.blank? ? '-' : sprintf("$%.2f",service.primary_payment.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('primary_payment', service.id)}" %>
+                <%= hide_and_seek_label :service, :primary_payment_reason_code,
+                  (service.primary_payment_crosswalked_codes.blank? ? '-' : service.primary_payment_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('primary_payment_reason_code_id', service.id)}" %>
+              </td>
+              <td align="right">
+                <%= hide_and_seek_label :service, :contractual_amount,
+                  (service.contractual_amount.blank? ? '-' : sprintf("$%.2f",service.contractual_amount.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('contractual_amount', service.id)}" %>
+                <%= hide_and_seek_label :service, :contractual_reason_code,
+                  (service.contractual_crosswalked_codes.blank? ? '-' : service.contractual_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_service_lines('contractual_reason_code_id', service.id)}" %>
+              </td>
+              <% if @facility.details[:miscellaneous_adjustment_fields] %>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :miscellaneous_one,
+                    (service.miscellaneous_one_adjustment_amount.blank? ? '-' : sprintf("$%.2f",service.miscellaneous_one_adjustment_amount.to_f)),
+                    true, nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('service.miscellaneous_one_adjustment_amount', service.id)}" %>
+                  <%= hide_and_seek_label :service, :miscellaneous_one_reason_code,
+                    (service.miscellaneous_one_crosswalked_codes.blank? ? '-' : service.miscellaneous_one_crosswalked_codes),
+                    true, nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('miscellaneous_one_reason_code_id', service.id)}" %>
+                </td>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :miscellaneous_two,
+                    (service.miscellaneous_two_adjustment_amount.blank? ? '-' : sprintf("$%.2f",service.miscellaneous_two_adjustment_amount.to_f)),
+                    true, nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('service.miscellaneous_two_adjustment_amount', service.id)}" %>
+                  <%= hide_and_seek_label :service, :miscellaneous_two_reason_code,
+                    (service.miscellaneous_two_crosswalked_codes.blank? ? '-' : service.miscellaneous_two_crosswalked_codes),
+                    true, nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('miscellaneous_two_reason_code_id', service.id)}" %>
+                </td>
+                <td align="right">
+                  <%= hide_and_seek_label :service, :miscellaneous_balance,
+                    (service.miscellaneous_balance.blank? ? '-' : sprintf("$%.2f",service.miscellaneous_balance.to_f)),
+                    true, nil,
+                    :class => "#{highlight_color_for_fields_in_service_lines('service.miscellaneous_balance', service.id)}" %>
+                  <%= '-'  %>
+                  <%= '-'  %>
+                </td>
+              <% end %>
+              <%= hide_and_seek_label :service, :payment_status_code,
+                (service.payment_status_code.blank? ? '-' : service.payment_status_code),
+                @facility.details[:payment_status_code] && svc_level_eob_condn, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('payment_status_code', service.id)}" %>
+              <%= hide_and_seek_label :service, :service_provider_control_number,
+                (service.service_provider_control_number.blank? ? '-' : service.service_provider_control_number),
+                @facility.details[:reference_code] && svc_level_eob_condn, 'td align="right"',
+                :class => "#{highlight_color_for_fields_in_service_lines('service_provider_control_number', service.id)}" %>
+            </tr>
+          <%end %>
+          <tr>
+            <% if @facility.details[:service_date_from] %>
+              <% if !eob_information.claim_from_date.blank?
+                claim_from_date = eob_information.claim_from_date.strftime("%m/%d/%Y")
+              end
+              if !eob_information.claim_to_date.blank?
+                claim_to_date = eob_information.claim_to_date.strftime("%m/%d/%Y")
+              end
+            end %>
+            <%= hide_and_seek_label :eob_information, :claim_from_date,
+              (claim_from_date.blank? ? '-' : claim_from_date),
+              @facility.details[:service_date_from], 'td align="center"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('claim_from_date', eob_information.id, eob_information.category)}" %>
+            <%= hide_and_seek_label :eob_information, :claim_to_date,
+              (claim_to_date.blank? ? '-' : claim_to_date),
+              @facility.details[:service_date_from], 'td align="center"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('claim_to_date', eob_information.id, eob_information.category)}" %>
+            <% colspan_length = 2
+            colspan_length += 1 if @facility.details[:revenue_code]
+            colspan_length += 1 if @facility.details[:bundled_procedure_code]
+          %>
+            <td colspan="<%= colspan_length %>" bgcolor="#CFC69A">
+              &nbsp;
+            </td>
+            <td bgcolor="#CFC69A">
+              <div align="right">
+                <strong>TOTAL:&nbsp;</strong>
+              </div>
+            </td>
+            <%  remark_code_label = (eob_information.category == 'claim' && @facility.details[:remark_code]) ? (eob_information.get_remark_codes.join(':')) : '' %>
+            <%= sp_label "#{remark_code_label}", @facility.details[:remark_code], 'td align="center"' %>
+            <%= hide_and_seek_label :eob_information, :total_submitted_charge_for_claim,
+              (eob_information.total_submitted_charge_for_claim.blank? ? '-' : sprintf("$%.2f",eob_information.total_submitted_charge_for_claim.to_f)),
+              true, 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_submitted_charge_for_claim', eob_information.id, eob_information.category)}" %>
+            <%= hide_and_seek_label :eob_information, :total_allowable,
+              (eob_information.total_allowable.blank? ? '-' : sprintf("$%.2f",eob_information.total_allowable.to_f)),
+              true, 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_allowable', eob_information.id, eob_information.category)}" %>
+            <%= hide_and_seek_label :eob_information, :total_plan_coverage,
+              (eob_information.total_plan_coverage.blank? ? '-' : eob_information.total_plan_coverage),
+              @facility.details[:plan_coverage], 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_plan_coverage', eob_information.id, eob_information.category)}" %>
+            <%= hide_and_seek_label :eob_information, :total_amount_paid_for_claim,
+              (eob_information.total_amount_paid_for_claim.blank? ? '-' : sprintf("$%.2f",eob_information.total_amount_paid_for_claim.to_f)),
+              true, 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_amount_paid_for_claim', eob_information.id, eob_information.category)}" %>
+
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_non_covered,
+                (eob_information.total_non_covered.blank? ? '-' : sprintf("$%.2f",eob_information.total_non_covered.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_non_covered', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :noncovered_reason_code,
+                (eob_information.noncovered_crosswalked_codes.blank? ? '-' : eob_information.noncovered_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('noncovered_reason_code_id', eob_information.id, eob_information.category)}" %>
+
+            </td>
+            <%  if @facility.details[:denied] %>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :total_denied,
+                  (eob_information.total_denied.blank? ? '-' : sprintf("$%.2f",eob_information.total_denied.to_f)), @facility.details[:denied], nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_denied', eob_information.id, eob_information.category)}" %>
+                <%= hide_and_seek_label :eob_information, :denied_reason_code,
+                  (eob_information.denied_crosswalked_codes.blank? ? '-' : eob_information.denied_crosswalked_codes),
+                  @facility.details[:denied] && eob_information.category == "claim", nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('denied_reason_code_id', eob_information.id, eob_information.category)}" %>
+
+              </td>
+            <% end %>
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_discount,
+                (eob_information.total_discount.blank? ? '-' : sprintf("$%.2f",eob_information.total_discount.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_discount', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :discount_reason_code,
+                (eob_information.discount_crosswalked_codes.blank? ? '-' : eob_information.discount_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('discount_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <%= hide_and_seek_label :eob_information, :total_pbid,
+              (eob_information.total_pbid.blank? ? '-' : sprintf("$%.2f",eob_information.total_pbid.to_f)),
+              @facility.details[:pbid] && svc_level_eob_condn, 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_pbid', eob_information.id, eob_information.category)}" %>
+            <%= hide_and_seek_label :eob_information, :total_retention_fees,
+              (eob_information.total_retention_fees.blank? ? '-' : sprintf("$%.2f",eob_information.total_retention_fees.to_f)),
+              @facility.details[:retention_fee] && svc_level_eob_condn, 'td bgcolor="#CFC69A" align="right"',
+              :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_retention_fees', eob_information.id, eob_information.category)}" %>
+            <%= sp_label "", @facility.details[:line_item] && svc_level_eob_condn, 'td bgcolor="#CFC69A"' %>
+
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_co_insurance,
+                (eob_information.total_co_insurance.blank? ? '-' : sprintf("$%.2f",eob_information.total_co_insurance.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_co_insurance', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :coinsurance_reason_code,
+                (eob_information.coinsurance_crosswalked_codes.blank? ? '-' : eob_information.coinsurance_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('coinsurance_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_deductible,
+                (eob_information.total_deductible.blank? ? '-' : sprintf("$%.2f",eob_information.total_deductible.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_deductible', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :deductible_reason_code,
+                (eob_information.deductible_crosswalked_codes.blank? ? '-' : eob_information.deductible_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('deductible_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_co_pay,
+                (eob_information.total_co_pay.blank? ? '-' : sprintf("$%.2f",eob_information.total_co_pay.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_co_pay', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :copay_reason_code,
+                (eob_information.copay_crosswalked_codes.blank? ? '-' : eob_information.copay_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('copay_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <%  if @facility.details[:patient_responsibility] %>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :total_patient_responsibility,
+                  (eob_information.total_patient_responsibility.blank? ? '-' :
+                    sprintf("$%.2f",eob_information.total_patient_responsibility.to_f)),
+                  @facility.details[:patient_responsibility], nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_patient_responsibility',
+                eob_information.id, eob_information.category)}" %>
+                <%= hide_and_seek_label :eob_information, :patient_responsibility_reason_code,
+                  (eob_information.pr_crosswalked_codes.blank? ? '-' : eob_information.pr_crosswalked_codes),
+                  @facility.details[:patient_responsibility] && eob_information.category == "claim", nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('pr_reason_code_id', eob_information.id, eob_information.category)}" %>
+              </td>
+            <% end %>
+
+            <%  if @facility.details[:prepaid] %>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :total_prepaid,
+                  (eob_information.total_prepaid.blank? ? '-' : sprintf("$%.2f",eob_information.total_prepaid.to_f)), @facility.details[:prepaid], nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_prepaid', eob_information.id, eob_information.category)}" %>
+                <%= hide_and_seek_label :eob_information, :prepaid_reason_code,
+                  (eob_information.prepaid_crosswalked_codes.blank? ? '-' : eob_information.prepaid_crosswalked_codes),
+                  @facility.details[:prepaid] && eob_information.category == "claim", nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('prepaid_reason_code_id', eob_information.id, eob_information.category)}" %>
+
+              </td>
+            <% end %>
+
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_primary_payer_amount,
+                (eob_information.total_primary_payer_amount.blank? ? '-' : sprintf("$%.2f",eob_information.total_primary_payer_amount.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_primary_payer_amount', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :primary_payment_reason_code,
+                (eob_information.primary_payment_crosswalked_codes.blank? ? '-' : eob_information.primary_payment_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('primary_payment_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <td bgcolor="#CFC69A" align="right">
+              <%= hide_and_seek_label :eob_information, :total_contractual_amount,
+                (eob_information.total_contractual_amount.blank? ? '-' : sprintf("$%.2f",eob_information.total_contractual_amount.to_f)), true, nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('total_contractual_amount', eob_information.id, eob_information.category)}" %>
+              <%= hide_and_seek_label :eob_information, :contractual_reason_code,
+                (eob_information.contractual_crosswalked_codes.blank? ? '-' : eob_information.contractual_crosswalked_codes),
+                eob_information.category == "claim", nil,
+                :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('contractual_reason_code_id', eob_information.id, eob_information.category)}" %>
+            </td>
+            <% if @facility.details[:miscellaneous_adjustment_fields] %>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :miscellaneous_one_adjustment_amount,
+                  (eob_information.miscellaneous_one_adjustment_amount.blank? ? '-' : sprintf("$%.2f",eob_information.miscellaneous_one_adjustment_amount.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('miscellaneous_one_adjustment_amount', eob_information.id, eob_information.category)}" %>
+                <%= hide_and_seek_label :eob_information, :miscellaneous_one_reason_code,
+                  (eob_information.miscellaneous_one_crosswalked_codes.blank? ? '-' : eob_information.miscellaneous_one_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('miscellaneous_one_reason_code_id', eob_information.id, eob_information.category)}" %>
+              </td>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :miscellaneous_two_adjustment_amount,
+                  (eob_information.miscellaneous_two_adjustment_amount.blank? ? '-' : sprintf("$%.2f",eob_information.miscellaneous_two_adjustment_amount.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('miscellaneous_two_adjustment_amountt', eob_information.id, eob_information.category)}" %>
+                <%= hide_and_seek_label :service, :miscellaneous_two_reason_code,
+                  (eob_information.miscellaneous_two_crosswalked_codes.blank? ? '-' : eob_information.miscellaneous_two_crosswalked_codes),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('miscellaneous_two_reason_code_id', eob_information.id, eob_information.category)}" %>
+              </td>
+              <td bgcolor="#CFC69A" align="right">
+                <%= hide_and_seek_label :eob_information, :miscellaneous_balance,
+                  (eob_information.miscellaneous_balance.blank? ? '-' : sprintf("$%.2f",eob_information.miscellaneous_balance.to_f)),
+                  true, nil,
+                  :class => "#{highlight_color_for_fields_in_claim_level_insurance_eobs('miscellaneous_balance', eob_information.id, eob_information.category)}" %>
+                <%= '-'  %>
+                <%= '-'  %>
+              </td>
+            <% end %>
+            <%= sp_label "", @facility.details[:payment_status_code] && svc_level_eob_condn, 'td bgcolor="#CFC69A"' %>
+            <%= sp_label "", @facility.details[:reference_code] && svc_level_eob_condn, 'td bgcolor="#CFC69A"' %>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+    <% if @facility.details[:claim_level_service_lines] %>
+      <div>
+        <% if eob_information.category == "claim"
+          @claim_level_service_lines = eob_information.claim_level_service_lines
+        end %>
+        <input type="button" name="claim_level_svc_line" value="Claim Level Service Details" id = "claim_level_svc_line" class = "submit_link_green" onclick = "toggleClaimLevelSvcWindow();" />
+      </div>
+    <% end %>
+
+    <div id="claim_level_service_lines_div" style="display:none;">
+      <%= render :partial => "insurance_payment_eobs/claim_level_service_lines" %>
+    </div>
+
+  <%end %><%end %>
+
+<% if !(@orbo_correspondance_eob_saved_data).blank? %>
+  <br><br>
+  <div>
+    <strong><%= will_paginate @informations %></strong>
+  </div>
+  <br>
+  <div id = "check_patient_info">
+    <div id="check_info" >
+      <table id="check_level" cellpadding="0" cellspacing="0" class="check_info">
+        <tr style="height: 25px">
+          <th>
+            Payee Name
+          </th>
+          <th width="14.6%" >
+            Payer Name
+          </th>
+          <th width="26.6%">
+            Patient Name
+          </th>
+
+          <th>
+            Patient A/C #
+          </th>
+
+
+          <th width="5.15%">
+            Key
+          </th>
+
+          <th width="9%">
+            Category Action
+          </th>
+
+          <th width="9%">
+            Payment
+          </th>
+
+          <th width="9%">
+            Letter Date
+          </th>
+
+          <th>
+            Reason
+          </th>
+        </tr>
+        <%@informations.each do |patient| %>
+          <tr style="height: 25px">
+            <td>
+              <center><%=@checkinformation.payee_name%></center>
+            </td>
+            <td>
+
+              <center><%=patient.details['payer_name']%></center>
+            </td>
+
+            <td>
+              <center> <%=patient.patient_last_name%>&nbsp;<%=  patient.patient_first_name%></center>
+            </td>
+
+            <td>
+              <center> <%=patient.patient_account_number%></center>
+
+            </td>
+            <td>
+              <center> <%= patient.details['key'] %></center>
+            </td>
+            <td> <center> <%=  patient.details['category_action'] %></center>
+            </td>
+            <td> <center> <%= patient.total_amount_paid_for_claim%></center>
+            </td>
+            <td> <center> <%= patient.details['letter_date'].strftime("%m/%d/%y") unless (patient.details['letter_date'].blank?) %></center>
+            </td>
+            <td>  <center><%=patient.details['reason'] %></center>
+            </td>
+          <%end%>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+
+<%end%>
+
+<%if !@patinfo.blank? and @eobinformation.blank? %>
+  <%= hidden_field :eob, :type, :value => 'nextgen' %>
+  <br><br>
+  <div>
+    <strong><%= will_paginate @informations %></strong>
+  </div>
+  <br>
+  <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse">
+    <tr>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>ACCOUNT # </strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>STATEMENT DATE</strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>PAY THIS AMOUNT</strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>CHECK AMOUNT</strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>SHOW AMOUNT PAID HERE</strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>CHECK NUMBER</strong>
+        </div>
+      </td>
+      <td valign="top" bgcolor="#DAD3B1">
+        <div align="center">
+          <strong>PATIENT NAME</strong>
+          <br>
+          [Lastname:Suffix:Firstname:Middleinitial]
+        </div>
+      </td>
+    </tr>
+    <% for patientpay in @informations %>
+      <%= hidden_field :eob, :id, :value => patientpay.id %>
+      <%if !patientpay.statement_amount.blank?
+        @statementamount = sprintf("$%.2f",  patientpay.statement_amount)
+      else
+        @statementamount = "$0.00"
+      end %>
+      <%if (!@checkinformation.check_amount.blank? && !@checkinformation.blank?)
+        @chkamt = sprintf("$%.2f", @checkinformation.check_amount)
+      else
+        @chkamt = "$0.00"
+      end %>
+      <%if !patientpay.stub_amount.blank?
+        @stubamt = sprintf("$%.2f", patientpay.stub_amount)
+      else
+        @stubamt = "$0.00"
+      end %>
+      <tr>
+        <%= hide_and_seek_label :patientpay, :account_number,
+          (patientpay.account_number.blank? ? '-' : patientpay.account_number), true, 'td',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('account_number', params[:eob_id])}" %>
+        <%= hide_and_seek_label :patientpay, :transaction_date,
+          (patientpay.transaction_date.blank? ? '-' : patientpay.transaction_date.strftime("%m/%d/%Y")), true, 'td',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('transaction_date', params[:eob_id])}" %>
+        <%= hide_and_seek_label :patientpay, :statement_amount,
+          (patientpay.statement_amount.blank? ? '$0.00' : @statementamount), true, 'td align="right"',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('statement_amount', params[:eob_id])}" %>
+        <%= hide_and_seek_label :checkinformation, :check_amount,
+          (@checkinformation.check_amount.blank? ? '$0.00' : @chkamt), true, 'td align="right"',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('check_amount', params[:eob_id])}" %>
+        <%= hide_and_seek_label :patientpay, :stub_amount,
+          (patientpay.stub_amount.blank? ? '$0.00' : @stubamt), true, 'td align="right"',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('stub_amount', params[:eob_id])}" %>
+        <%= hide_and_seek_label :checkinformation, :check_number,
+          (@checkinformation.check_number.blank? ? '-' : @checkinformation.check_number), true, 'td align="right"',
+          :class => "#{highlight_color_for_fields_in_nextgen_eobs('check_number', params[:eob_id])}" %>
+        <td>
+          <% if params[:from] == 'processor_reports' %>
+            <%= sp_text_field :patientpay, :patient_last_name, true, nil,
+              :value => patientpay.patient_last_name, :readonly => true,
+              :class => "#{highlight_color_for_fields_in_nextgen_eobs('patient_last_name', params[:eob_id])}",
+              :size => patientpay.patient_last_name.blank? ? 1 : patientpay.patient_last_name.length %>
+            <%= sp_text_field :patientpay, :patient_suffix, true, nil,
+              :value => patientpay.patient_suffix, :readonly => true,
+              :class => "#{highlight_color_for_fields_in_nextgen_eobs('patient_suffix', params[:eob_id])}",
+              :size => patientpay.patient_suffix.blank? ? 1 : patientpay.patient_suffix.length %>
+            <%= sp_text_field :patientpay, :patient_first_name, true, nil,
+              :value => patientpay.patient_first_name, :readonly => true,
+              :class => "#{highlight_color_for_fields_in_nextgen_eobs('patient_first_name', params[:eob_id])}",
+              :size => patientpay.patient_first_name.blank? ? 1 : patientpay.patient_first_name.length %>
+            <%= sp_text_field :patientpay, :patient_middle_initial, true, nil,
+              :value => patientpay.patient_middle_initial, :readonly => true,
+              :class => "#{highlight_color_for_fields_in_nextgen_eobs('patient_middle_initial', params[:eob_id])}",
+              :size => patientpay.patient_middle_initial.blank? ? 1 : patientpay.patient_middle_initial.length %>
+
+          <% else %>
+            <% patient_name = [patientpay.patient_last_name.to_s, patientpay.patient_suffix.to_s,
+              patientpay.patient_first_name.to_s, patientpay.patient_middle_initial.to_s].join(' ') %>
+            <%= hide_and_seek_label :patientpay, :patient_name,  (patient_name.blank? ? '-' : patient_name), true, nil %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<%end %>
+
+</div>
+
+&nbsp;&nbsp;<b class="content">
+  <% if params[:from] == 'processor_reports' %>
+    <%= link_to 'Back  ', :controller => 'report', :action => "listing_my_jobs"  %>
+
+  <% else %>
+    <%= link_to 'Back  ',:controller => 'archive',:action => "search",:pat_lastname=>session[:patlast],:pat_firstname=>session[:patfirst],:accountnumber=>session[:pataccountnumber],:service_from=>session[:servicefrom],:service_to=>session[:serviceto],:check_number=>session[:check_number_value],:date_from=>session[:deposit_from_date],:date_to => session[:deposit_to_date],:facility=>session[:facility_chosen],:option1=>"Filter"  %>
+  <% end %>
+</b>
+<% if !@eobinformation.blank? && params[:from] == 'processor_reports'%>
+  <div id = "reason_code_grid">
+    <% @report_view = 'non_report'
+    @report_view = 'report'  if params[:from] == 'processor_reports' %>
+    <%= render :partial => "reason_code_informations/list", :target => @reason_codes %>
+  </div>
+<% end %>

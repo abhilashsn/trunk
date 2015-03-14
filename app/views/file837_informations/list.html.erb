@@ -1,0 +1,51 @@
+<%= javascript_include_tag "report" %>
+<%= javascript_include_tag "file_837_info" %>
+<div id="login_main">
+  <h1>837 File Arrival Report</h1>
+  <div class="light_info">
+    <%= link_to "Export CSV", params.merge(:action => "list", :format => :csv) %>
+  </div>
+  <div class="light_info">
+    <%= form_tag :action => 'list' do %>
+      <table>
+        <tr>
+          <th>Arrival Date</th>
+          <td>
+            <strong>From:</strong>
+            <%= text_field_tag 'arrival_date_from', params[:arrival_date_from], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_from", "mdy", "/") %>
+          </td>
+          <td>
+            <strong>To:</strong>
+            <%= text_field_tag 'arrival_date_to', params[:arrival_date_to], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_to", "mdy", "/") %>
+          </td>
+        </tr>
+        <tr>
+          <th>Client Code</th>
+          <td><%= text_field_tag 'client_code', params[:client_code], :size => '14' %></td>
+          <th>Zip File Name</th>
+          <td><%= text_field_tag 'zip_file_name', params[:zip_file_name], :size => '14' %></td>
+        </tr>
+        <tr>
+          <th>837 File Name</th>
+          <td><%= text_field_tag 'file_name_837', params[:file_name_837], :size => '14' %></td>
+          <th>Status</th>
+          <td><%= text_field_tag 'status', params[:status], :size => '14' %></td>
+        </tr>
+      </table>
+      <%= submit_tag 'Filter', :class => 'button' %>
+      <div id="message1" style="font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-weight: bold;Color: #FF6600;text-decoration: none;"></div>
+      <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border => "0",
+        :id => "spinner", :style => "display: none;" ) %>
+    <% end %>
+  </div>
+  <div class="light_info">
+    <%= form_tag :action => 'search' do %>
+      <%= text_field_tag 'search_input', params[:search_input], :size => '14' %> 
+      <%= submit_tag 'Search', :class => 'button', :onclick => "searchPopup();return false"%>
+    <% end %>
+  </div>
+
+  <div id="table">
+    <%= render :partial => "file_837_report" %>
+  </div>
+</div>

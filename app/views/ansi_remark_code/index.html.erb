@@ -1,0 +1,28 @@
+<div class="light_info">
+  <%= link_to 'New ANSI Remark Code', :controller => '/ansi_remark_code', :action => 'new' %>||
+  <%= link_to 'Import ANSI Remark Code from CSV file', :controller => '/reason_code_upload', :action => 'upload', :type => 'ansi_remark'%>
+</div>
+
+<h1>Listing ANSI Remark Codes</h1>
+<table>
+  <tr>
+    <th style="width: 144px">ANSI Remark Adjustment Code</th>
+    <th style="width: 338px">ANSI Remark Code Description</th>
+    <th style="width: 20px"><input type="checkbox" name="all" onClick="checkAll(document.forms[1].toggle,this)"></th>
+    <th style="width: 109px"> &nbsp;</th>
+  </tr>
+
+  <% for ansi_remark_code in @ansi_remark_codes %>
+    <tr>
+      <td><%= ansi_remark_code.adjustment_code %></td>
+      <td><%= ansi_remark_code.adjustment_code_description %></td>
+      <td><%= check_box :hipaa_to_delete,ansi_remark_code.id, :id => 'toggle' %></td>
+      <td><%= link_to image_tag("report_edit.png", :alt => "Edit", :border => "0"), :action => 'edit', :id => ansi_remark_code.id %></td>
+      <td><%= link_to image_tag("delete.png", :alt => "Destroy", :border => "0"), :action => 'destroy', :id => ansi_remark_code.id %></td>
+    </tr>
+  <% end %>
+    <%= will_paginate @ansi_remark_codes %>
+  </table>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :controller => 'dashboard', :action => 'index' %>
+
+

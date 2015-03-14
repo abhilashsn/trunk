@@ -1,0 +1,169 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: clients
+#
+#  id             :integer(11)   not null, primary key
+#  name           :string(255)
+#  tat            :integer(11)
+#  contracted_tat :integer(11)   default(20)
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: clients
+#
+#  id             :integer(11)   not null, primary key
+#  name           :string(255)
+#  tat            :integer(11)
+#  contracted_tat :integer(11)   default(20)
+#
+        
+Apria:
+      id: 1
+      name: Apria
+      tat: 48
+      partner_id: 1
+      internal_tat: 24
+      group_code: 'AP'
+
+Liberty:
+      id: 2
+      name: Liberty
+      tat: 12
+      group_code: 'LIB'
+
+Triad:
+      id: 3
+      name: Triad
+      tat: 12
+      group_code: 'TRI'
+
+client01:
+      id: 4
+      name: apria
+      tat: 12
+      contracted_tat: 10
+      group_code: 'APR'
+
+client2:
+      id: 5
+      name: Quadax
+      group_code: 'QUAD'
+
+client_1:
+      id: 6
+      name: client_1
+      group_code: 'C1'
+
+client_navicure:
+      id: 8
+      name: w1PQ082g
+      group_code: 'NAVG'
+
+client3:
+      id: 9
+      name: 'QUADAX'
+      group_code: 'QU'
+
+client4:
+      id: 10
+      name: 'QUADAX'
+      partner_id: 2
+      group_code: 'QUX'
+
+client5:
+      id: 11
+      name: 'NAVICURE'
+      group_code: 'NAV'
+
+client6:
+      id: 12
+      name: 'Goodman Campbell'
+      group_code: 'GC'
+
+hlsc:
+      id: 13
+      name: HLSC
+      partner_id: 1
+      group_code: 'HLSC'
+
+client7:
+      id: 14
+      name: Client 7
+      partner_id: 2
+      group_code: 'C7'
+
+client_15:
+      id: 15
+      name: 'ISTREAMS'
+      group_code: 'IST'
+
+client_16:
+      id: 16
+      name: Client_NOR
+      group_code: 'CNOR'
+
+client_17:
+      id: 17
+      name: Medistreams
+      group_code: 'MEDI'
+
+client_18:
+  id:                       18
+  name:                     'XXX'
+  partener_bank_group_code: 'HJ'
+  tat:                       13
+  internal_tat:              89
+  group_code:               'JK'
+  max_eobs_per_job:          5
+  max_jobs_per_user_payer_wise:  5
+  max_jobs_per_user_client_wise: 5
+  group_code: 'XXX'
+
+client_19:
+      id: 19
+      name: 'Centric Health Finance'
+      group_code: 'CHF'
+
+client_20:
+      id: 20
+      name: 'UTM'
+      group_code: 'UTM'
+
+client_21:
+   id: 21
+   name: Client 21
+   max_eobs_per_job:
+   max_jobs_per_user_client_wise:
+   group_code: 'C21'
+
+client_22:
+   id: 22
+   name: Client 22
+   max_eobs_per_job:
+   max_jobs_per_user_client_wise:
+   group_code: 'C22'
+
+client_23:
+   id: 23
+   name: Client 23
+   group_code: 'C23'
+   max_eobs_per_job:
+   max_jobs_per_user_client_wise:
+
+client_24:
+   id: 24
+   name: Client 24
+   group_code: 'C24'
+   max_eobs_per_job:
+   max_jobs_per_user_client_wise:
+
+client_25:
+   id: 25
+   name: Client 25
+   group_code: 'C25'
+   max_eobs_per_job:
+   max_jobs_per_user_client_wise:
+     

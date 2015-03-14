@@ -1,0 +1,19 @@
+<h1>Editing Reasoncode Description</h1>
+
+<%= form_tag :action => 'update_reasoncode_description',:id => params[:id],:payer_id => @payer_id do %>
+  
+  
+      Reasoncode Description:
+      <br/>
+       <%if @reason_code.reason_code_description.blank?%>
+        <textarea name="reason_code_description" cols="50" rows="3"  class="black_text">
+         </textarea>
+       <%else%>
+          <textarea name="reason_code_description" cols="50" rows="3"  class="black_text"><%=@reason_code.reason_code_description%></textarea>
+        <%end%>
+                        
+     <br>
+    <%= submit_tag "Update", :class => 'button' %>
+ 
+<% end %>
+

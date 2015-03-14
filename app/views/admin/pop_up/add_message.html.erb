@@ -1,0 +1,162 @@
+<%= javascript_include_tag "animatedcollapse" %>
+<%= javascript_include_tag "popup" %>
+<script type="text/javascript">
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+  window.onload=function(){
+    document.getElementById("twice_keying_create_div").style.display="none";
+    document.getElementById("alertpop").style.display="none";
+    
+    if('<%= @mode %>' == "twice_keying"){
+      document.getElementById("twice_keying_create_div").style.display="";
+    }
+    else if('<%= @mode %>' == "popup_alert"){
+      document.getElementById("alertpop").style.display="";
+    }
+  }
+  animatedcollapse.addDiv('alertpop', 'fade=0,speed=400,group=pets,persist=1,hide=1')
+  animatedcollapse.addDiv('twice_keying_create_div', 'fade=0,speed=400,group=pets,persist=1,hide=1');
+  animatedcollapse.init();
+</script>
+
+<div id="login_main">
+  <h1>Alert Administration</h1>
+
+  <%if params[:job].nil?
+    @facility=params[:facility]
+  else
+    @facility=params[:job]
+  end %>
+
+  <%= form_tag({:action => 'create_alerts', :mode => 'popup_alert'}, :multipart => true) do %>
+
+    <fieldset>
+      <legend style="font-family: Arial; font-size: 12px">
+        <a href="javascript:animatedcollapse.toggle('alertpop')">Alert Message Creation</a>
+      </legend>
+      <div id="alertpop" style="width: 100%; display:none">
+        <table>
+          <tr>
+            <th width="10%">
+              Select Payer <span class="alert"></span>
+            </th>
+            <th width="20%">
+              Select Client<span class="alert"> *</span>
+            </th>
+            <th width="20%">
+              Select Payee (Facility)<span class="alert"></span>
+            </th>
+            <th width="10%">
+              Processor Name<span class="alert"></span>
+            </th>
+            <th width="10%">
+              Duration<span class="alert"> *</span>
+            </th>
+            <th width="20%">
+              Field Name<span class="alert"> *</span>
+            </th>
+            <th width="10%">
+              Message for the Processor<span class="alert"> *</span>
+            </th>
+            <th width="10%">
+              Documents(Optional)<span class="alert"></span>
+            </th>
+          </tr>
+          <tr>
+            <td style="text-align:center">
+              <% if params[:mode] == 'popup_alert' && @payer%>
+                <textarea name='payer' readonly='true' cols="15" rows="5" class = "black_text">
+                  <%=@payer.payer %>
+                </textarea>
+                <%=hidden_field_tag :payer_id, @payer.id unless @payer.blank? %>
+              <%end %>
+              <%= link_to 'Select Payer', :controller => 'pop_up', :action => 'select_payer', :previous_page => 'add_message', :mode => 'popup_alert' %>
+            </td>
+
+            <td>
+              <%= select_tag 'client', ("<option value=''>--Select--</option>" + options_for_select(@clients, @selected_client)).html_safe,
+                :onchange => "getFacilitiesByClientForAlert(this.value, 'facility_span');",
+                :id => 'client_ids' %>
+            </td>
+            <td>
+              <span id = "facility_span"></span>
+            </td>
+            <td>
+              <ul class = "checklist" id = "user_ids" name = "user[id][]" style = "width:150px;">
+                <% o = 0 %>
+                <% @users.each do |user| %>
+                  <% o = o + 1 %>
+                  <li>
+                    <label for = "o<%= o %>">
+                      <input id = "o<%= o %>" name = "user[id][]" type = "checkbox" value = "<%=user.id%>"><%=user.login %>
+                    </label>
+                  </li><% end %>
+              </ul>
+            </td>
+            <td>
+              <%= select_tag 'duration', options_for_select(@duration, @selected_duration),:class => "black_text" %>
+            </td>
+            <td>
+              <%= select_tag 'field_name', options_for_select(@field_names_hash.invert.sort, @selected_field_name), :id => 'field_name_id'%>
+            </td>
+            <td>
+              <%=text_area_tag 'comment', @comment%>
+            </td>
+            <%=hidden_field_tag :data_file_id %>
+            <td>
+              <input type='button' value="Select Document" onclick= "uploadDocument()" >
+
+              <%=text_area_tag 'document_name'%>
+            </td>
+
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Question<span class="alert"></span></th>
+            <th>Choices<span class="alert"></span></th>
+            <th>Answer<span class="alert"></span></th>
+          </tr>
+          <tr>
+            <td>
+              <%=text_area_tag 'question', @question, :id => 'question_id'%>
+            </td>
+            <td>
+              1.<%=text_field_tag 'choice1', @choice1, :id => 'choice1_id' %> 2.<%=text_field_tag 'choice2', @choice2, :id => 'choice2_id' %> 3.<%=text_field_tag 'choice3', @choice3, :id => 'choice3_id' %>
+            </td>
+            <td>
+              <%=select_tag "answer", options_for_select(@choices, @selected_choice).html_safe, :id => 'answer_id' %>
+            </td>
+          </tr>
+        </table>
+        <%= submit_tag "Submit", :class => 'button', :name => "option2",
+          :action => 'create_alerts',
+          :onclick => "return validateQuestion();"%>
+      <% end %>
+
+    </div>
+  </fieldset>
+
+  <div id="alert_list_div" style="width: 100%; font-family: Arial; font-size: 12px; color:#0066ff">
+    <%= link_to "Alert List", {:action => "alert_list"},
+      :target => "_blank", :style => "font-size: 14px;" %> &nbsp; [Active = <%= @active_error_popup_records || 0 %> &nbsp;&nbsp;&nbsp;&nbsp; Inactive = <%= @inactive_error_popup_records || 0 %>]
+  </div>
+</div>
+
+
+<div id="login_main">
+  <h1>Double Keying Administration</h1>
+  <%= render :partial => 'admin/twice_keying_fields/create_twice_keying' %>
+
+  <div id="twice_keying_list_div" style="width: 100%; font-family: Arial; font-size: 12px; color:#0066ff">
+
+    <%= link_to "Double Keying List", {:controller => "admin/twice_keying_fields", :action => "list"},
+      :target => "_blank", :style => "font-size: 14px;" %> &nbsp; [Active = <%= @active_twice_keying_field_records || 0 %> &nbsp;&nbsp;&nbsp;&nbsp; Inactive = <%= @inactive_twice_keying_field_records || 0 %>]
+  </div>
+
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/dashboard' %>
+</div>

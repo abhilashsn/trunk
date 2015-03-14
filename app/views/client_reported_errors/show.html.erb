@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Site code:</b>
+  <%= @client_reported_error.site_code %>
+</p>
+
+<p>
+  <b>User date:</b>
+  <%= @client_reported_error.user_date %>
+</p>
+
+<p>
+  <b>Batch date:</b>
+  <%= @client_reported_error.batch_date %>
+</p>
+
+<p>
+  <b>Eob count:</b>
+  <%= @client_reported_error.eob_count %>
+</p>
+
+<p>
+  <b>Error count:</b>
+  <%= @client_reported_error.error_count %>
+</p>
+
+
+<%= link_to 'Back', client_reported_errors_path %>

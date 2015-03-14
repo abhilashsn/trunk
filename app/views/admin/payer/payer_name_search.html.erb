@@ -1,0 +1,110 @@
+<%= javascript_include_tag  "payer" %>
+<div style="width: 500px; margin:10px 0 0 10px; padding:5px; ">
+  <%= form_tag({:controller => "payer", :action => "payer_name_search"}, :method => "get")%>
+  <table>
+    <tr>
+      <td style="width: 278px"><label for="payer_name">Payer Name </label></td><td><%= text_field '', 'payer_name',:class => 'black_text',:size => 25   %></td>
+      <td><label for="address1">Address 1 </label></td><td><%= text_field '', 'address1',:class => 'black_text',:size => 25 %></td>
+      <td><label for="address2">Address 2 </label></td><td><%= text_field '', 'address2',:class => 'black_text',:size => 25 %></td>
+    </tr>
+    <tr> 
+      <td><label for="city">City </label></td><td><%= text_field '', 'city',:class => 'black_text' ,:size => 25%></td>
+      <td><label for="state">State </label></td><td><%= text_field '', 'state',:class => 'black_text',:size => 25 %></td>
+      <td><label for="zip">Zip</label></td><td><%= text_field '', 'zip',:class => 'black_text', :size => 25%></td>
+    </tr>
+    <%=hidden_field_tag :new_or_id, params[:new_or_id] %>
+    <%=hidden_field_tag :payer_id, params[:payer_id] %>
+
+  </table>
+  <%= submit_tag("search",:onclick => " return validatePayerName ()")%>
+  &nbsp;&nbsp;<input type="button" value="Close" onclick = "closePayerNamePopup()"  />
+
+</div>
+<% if !(@matching_payers.nil?)%>
+  <div>
+   
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @matching_payers%>
+  </div>
+    <table width="100%">
+      <tr>
+        <th width="40%">
+          PAYER ID
+        </th>
+        <th width="40%">
+          PAYER Name
+        </th>
+        <th width="60%">
+          ABA Routing #
+        </th>
+        <th width="40%">
+          Payer Account #
+        </th>
+        <th width="40%">
+          Address One
+        </th>
+        <th width="40%">
+          Address Two
+        </th>
+        <th width="40%">
+          City
+        </th>
+        <th width="40%">
+          State
+        </th>
+        <th width="40%">
+          Zip
+        </th>
+        <th width="40%">
+          Footnote Indicator
+        </th>
+        <th width="40%">
+          RC Set name
+        </th>
+        <th width="40%">
+          Payer Type
+        </th>
+         <% if(params[:new_or_id] != 'true')%>
+          <th width="40%">
+            Action 1
+          </th>
+      <%end%>
+        <th width="40%">
+          Action 2
+        </th>
+
+      </tr>
+      <tr>
+        <%@matching_payers.each do |payer|%>
+          <td>
+            <%= payer.supply_payid%>
+          </td>
+          <td>
+            <%= payer.payer%>
+          </td>
+         
+          <td><%= display(payer.aba_routing_number) %></td>
+          <td><%= display(payer.payer_account_number) %></td>
+          <td><%= display(payer.pay_address_one) %></td>
+          <td><%= display(payer.pay_address_two) %></td>
+          <td><%= display(payer.payer_city) %></td>
+          <td><%= display(payer.payer_state) %></td>
+          <td><%= display(payer.payer_zip) %></td>
+          <td><%= (payer.footnote_indicator ? "YES": "NO") %></td>
+          <td><%= display(payer.rc_set_name) %></td>
+          <td><%= (format_payer_type(payer.payer_type)) %></td>
+           <% if(params[:new_or_id] != 'true')%>
+
+            <td>
+              <%= link_to 'Map this Payer', '',:onclick => "return validateFootnote('#{payer.footnote_indicator}') && mapWithThisPayer('#{payer.id}')" %>
+            </td>
+          <%end%>
+          <td>
+            <%= link_to 'Use this PayID', '',:onclick => "return validateFootnote('#{payer.footnote_indicator}') && useThisPayId('#{payer.payid}','#{payer.rc_set_name}')" %>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+
+  </div>
+<%end%>

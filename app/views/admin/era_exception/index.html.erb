@@ -1,0 +1,80 @@
+<h1> ERA Exceptions </h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'index' do %>
+  <table>
+    <tr>
+      <th>Arrival Date</th>
+      <td>
+        <strong>From:</strong>
+        <%= text_field_tag 'arrival_date_from', params[:arrival_date_from], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_from", "mdy", "/") %>
+      </td>
+      <td>
+        <strong>To:</strong>
+        <%= text_field_tag 'arrival_date_to', params[:arrival_date_to], :size => '10', :class => 'dropdown' %><%= date_picker("arrival_date_to", "mdy", "/") %>
+      </td>
+    </tr>
+    <tr>
+      <th>Filename</th>
+      <td><%= text_field_tag 'filename', params[:filename], :size => '14' %></td>
+      <th>Site Name</th>
+      <td><%= text_field_tag 'site_name', params[:site_name], :size => '10' %></td>
+    <tr>
+    <tr>
+      <th>Check Number</th>
+      <td><%= text_field_tag 'check_number', params[:check_number], :size => '10' %></td>
+      <th>Payer Name</th>
+      <td><%= text_field_tag 'payer_name', params[:payer_name], :size => '10' %></td>
+    <tr>
+      <th>Exception</th>
+      <td><%= select_tag(:exception, options_for_select(['Unidentified Payer', 'Unidentified Site', 'Both'], :selected => params[:exception]), :include_blank => true) %></td>
+      <th>Payer ID</th>
+      <td><%= text_field_tag 'payer_id', params[:payer_id], :size => '10' %></td>
+    </tr>
+  </table>
+  <%= submit_tag 'Filter', :class => 'button' %>
+  <% end%>
+</div>
+
+<% unless @era_checks.blank? %>
+  <div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @era_checks %>
+  </div><br/>
+  <table style="width:100%">
+    <tr>
+      <th>ERA File Arrival Date</th>
+      <th>ERA Filename</th>
+      <th>Check Number</th>
+      <th>Check Amount</th>
+      <th>Exception</th>
+      <th>Site NPI</th>
+      <th>Site TIN</th>
+      <th>Site Name</th>
+      <th>Payer ID</th>
+      <th>Payer Plan ID</th>
+      <th>Payer TIN</th>
+      <th>Payer Name</th>
+      <th>Approve/Reject</th>
+    </tr>
+    <% for era_check in @era_checks
+       %>
+    <tr>
+      <td><%= era_check.era.arrival_date %> </td>
+      <td><%= era_check.era.name %> </td>
+      <td><%= era_check.check_number %> </td>
+      <td>$<%= era_check.check_amount %> </td>
+      <td><%= era_check.exception_status %> </td>
+      <td><%= era_check.era_jobs.first.payee_npi %> </td>
+      <td><%= era_check.era_jobs.first.payee_tin %> </td>
+      <td><%= era_check.era_jobs.first.payee_name %> </td>
+      <td><%= era_check.era_payid %> </td>
+      <td><%= era_check.payer_npi %> </td>
+      <td><%= era_check.trn_payer_company_identifier %> </td>
+      <td><%= era_check.payer_name %> </td>
+      <td><%= link_to 'Verify', {action: 'approval', chk_id: era_check} %></td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <h4> No ERA Exceptions. </h4>
+<% end %>

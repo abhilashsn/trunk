@@ -1,0 +1,21 @@
+<h1>Editing Codes</h1>
+
+<%= form_tag :action => 'change_code' do %> 
+  <table>
+    <tr>
+      <th>Client Code</th><td><%= text_field_with_auto_complete :client_code, :adjustment_code %></td></tr>
+    <tr><th>HIPAA code</th><td><%= text_field_with_auto_complete :hipaa_code, :hipaa_adjustment_code %></td></tr>
+    <tr>
+      <th>ANSI Remark Code</th>
+      <td>
+        <%= text_field_with_auto_complete :ansi_remark_code, :adjustment_code, :value=> @ansi_remark_code %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <%= submit_tag "Update", :class => 'button' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', :controller => 'admin/facility' ,:action=>'facility_reasoncode',:id=>@facility_id %>
+

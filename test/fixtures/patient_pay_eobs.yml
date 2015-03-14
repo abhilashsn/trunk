@@ -1,0 +1,44 @@
+patient_pay_eob1:
+      id: 1
+      account_number: '1597354682'
+      transaction_date: '2010-02-04'
+      stub_amount: 27.66
+      statement_amount: 7.66
+      patient_last_name: 'ddd'
+      patient_first_name: 'ggg'
+      patient_middle_initial: 'h'
+      patient_suffix: ''
+
+patient_pay_eob2:
+      id: 2
+      check_information_id: 4
+      account_number: '78787878'
+      transaction_date: '2010-02-04'
+      statement_amount: 34.22
+      stub_amount: 27.66
+      patient_last_name: 'AAA'
+      patient_first_name: 'DD'
+      patient_middle_initial: 'F'
+      patient_suffix: 'ER'
+
+patient_pay_eob3:
+   id: 3
+   check_information_id: 66
+   image_page_no: 7
+
+patient_pay_eob_4:
+    id: 4
+    check_information_id: 66
+    image_page_no: 7
+
+patient_pay_eob_5:
+    id: 5
+    check_information_id: 68
+    image_page_no: 3
+
+patient_pay_eob_6:
+    id: 6
+    check_information_id: 106
+    stub_amount: 30.00
+    image_page_no: 3
+      

@@ -1,0 +1,59 @@
+/* CSS Document */
+#naviheader {
+    height: 108px;
+    width: 100%;
+    background-image: url(navi_topbg.gif);
+    background-repeat: repeat-x;
+}
+
+#navilogo {
+    height: 70px;
+    width: 205px;
+    margin: 18px 0 0 10px;
+    background-image: url(navi_logo.jpg);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+#navibar {
+    height: 28px;
+    width: 100%;
+    background-image: url(navi_bar_bg.jpg);
+    background-repeat: repeat-x;
+    clear: both;
+}
+
+#navimiddle {
+    margin: 10px;
+    clear: both;
+    border: #999999 solid 1px;
+}
+
+#navifooter {
+    height: 80px;
+    width: 100%;
+    clear: both;
+    background-color: #b7c1cd;
+	 margin-top:20px;
+}
+
+#navipowered {
+    height: 57px;
+    width: 96px;
+    margin: 10px 10px 0 0;
+    background-image: url(powered.jpg);
+    background-repeat: no-repeat;
+    float: right;
+}
+
+#navicopyrights {
+    width: 50%;
+    margin: 20px 0 0 10px;
+    float: left;
+}
+
+.navitext {
+    font-family: "Trebuchet MS", Arial;
+    font-size: 11px;
+    color: #242f3e;
+}

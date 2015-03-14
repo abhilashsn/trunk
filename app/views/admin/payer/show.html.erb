@@ -1,0 +1,8 @@
+<% for column in Payer.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @payer.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @payer %> |
+<%= link_to 'Back', :action => 'index' %>

@@ -1,0 +1,6 @@
+<%=render :partial => 'list'%>
+<%if @user.role == 'Supervisor'%>
+<%= link_to 'Back', :action => 'add_view_docs'%>
+<%else%>
+<%= link_to 'Back', :controller => '../dashboard', :action => 'index' %>
+<%end%>

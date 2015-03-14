@@ -1,0 +1,10 @@
+<%if (params[:approved] == 'true')%>
+<%  options_for_select = approved_payer_search_list%>
+<% else %>
+<%  options_for_select = non_approved_payer_search_list%>
+<%end%>
+
+<%= select_tag 'criteria',  optionize_custom(options_for_select,params[:criteria]) %>
+<%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+<%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+<%= submit_tag 'Filter', :class => 'button'%>

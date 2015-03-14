@@ -1,0 +1,29 @@
+<div id="login_main">
+<h1>Team Members</h1>
+
+<% unless @members.blank? %>
+  <table>
+    <tr>
+      <th ROWSPAN=2>User ID</th>
+      <th ROWSPAN=2>Accuracy %</th>
+      <th COLSPAN=3>Last 12 Hrs </th>
+    </tr>
+    <tr>
+      <th>Jobs Allocated</th>
+      <th>Jobs Completed</th>
+      <th>EOBs Completed</th>
+    </tr>
+    <% @members.each do |user| %>
+    <tr>
+      <td><%= link_to user.login, :controller => 'job', :action => 'user_jobs', :user => user, :hours => 24 %></td>
+      <td><%= user.field_accuracy %></td>
+      <td align=right><%= user.allocated_jobs %></td>
+      <td align=right><%= user.completed_jobs %></td>
+      <td align=right><% if user.completed_eobs.nil? %>0<% else %><%= user.completed_eobs %><% end %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% else  %>
+    <h4> No Information available.</h4>
+  <% end %>
+</div>

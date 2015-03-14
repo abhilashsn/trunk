@@ -1,0 +1,30 @@
+
+<div class="light_info"><%= link_to 'New Client Code', :controller => '/client_codes', :action => 'new' %>||<%= link_to 'Import Client Code from CSV file', :controller => '/reason_code_upload', :action => 'upload', :type => 'client'%></div>
+<h1>Listing Client codes</h1>
+<%= form_tag("",:id => "my_form") do %>
+
+<table>
+    <tr>
+      <th style="width: 301px">Client Group code</th>
+      <th style="width: 144px">Client Adjustmentcode</th>
+      <th style="width: 338px">Client code Description</th>
+      <th style="width: 20px"><input type="checkbox" name="all" onClick="checkAll('my_form')"></th>
+      <th style="width: 109px"> &nbsp;</th>    
+</tr>
+    
+  <% for client_code in @client_codes %>
+      <tr>
+        <td><%= client_code.group_code %></td>
+        <td><%= client_code.adjustment_code %></td>
+        <td><%= client_code.adjustment_code_description %></td>
+        <td><%= check_box :client_code_to_delete,client_code.id, :id => "toggle" %></td>
+        <td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => client_code %></td>
+        <td><%= link_to image_tag("delete.png", :alt => "Destroy",:border=>"0"), :action => 'destroy_code', :id => client_code %></td>
+      </tr>
+   <% end %>
+   <%= will_paginate @client_codes %>
+</table>
+ <% end %>
+<br />
+
+

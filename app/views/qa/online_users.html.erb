@@ -1,0 +1,27 @@
+<h1>Online Processors</h1>
+<%= create_pagination(@user_pages,'qa',params[:page]) %>
+<% unless @users.empty? %>
+<table class="sortable" id="batch_user">
+    <tr>
+      <th><%= link_to 'Name' , :action => 'list', :order => 'name' %></th>
+      <th><%= link_to 'UserID' , :action => 'list', :order => 'userid' %></th>
+      <th><%= link_to 'Shift' , :action => 'list', :order => 'shift' %></th>
+      <th><%= link_to 'Role' , :action => 'list', :order => 'remark' %></th>
+      <th><%= link_to 'Status' , :action => 'list', :order => 'status' %></th>
+      <th><%= link_to 'Remark' , :action => 'list', :order => 'remark' %></th>    
+    </tr>  
+  <% for user in @users %>
+    <tr>
+      <td><%= link_to user.name , :action =>'jobs_for_onlineusers', :id => user ,:name => user.userid %></td>
+      <td><%= user.userid %></td>
+      <td><%= user.shift %></td>
+      <td><%= user.role %></td>
+      <td><%= user.status %></td>
+      <td><%= user.remark %></td>
+  <% end %>
+  </table>
+<%= create_pagination(@user_pages,'qa',params[:page]) %>
+
+<% else %>
+<h4>No processor is online!</h4>
+<% end %>

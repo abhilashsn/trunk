@@ -1,0 +1,46 @@
+<div id="login_main">
+  <h1>Select Processor </h1>
+  <% if @users.length > 0 %>
+    <table class="sortable" id="job_processor">
+      <tr>
+        <th>User ID</th>
+        <th>Shift</th>
+        <th>Accuracy(%)</th>
+        <th>Jobs Allocated</th>
+        <th>Remark</th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <% if(!user.is_deleted || user.is_deleted == nil)%>
+          <tr>
+            <td><%= user.login %></td>
+            <td><%=user.shift_name %></td>
+            <td><%= format_percentage(user.field_accuracy) %> | <%= format_percentage(user.eob_accuracy) %></td>
+            <td align='right'><%= user.jobs_processing  %></td>
+            <%if(user.jobs_processing == 0) %>
+              <td>FREE</td>
+            <%else%>
+              <td>OCCUPIED</td>
+            <%end%>
+            <!-- code that displays all experience for all clients selected under User administration
+            <td align='center'>
+            </td> -->
+            <td><%= link_to 'Allocate Processor', :action => 'assign', :jobs => @jobs,
+              :user => user, :page => params[:page], :back_page => params[:back_page],
+              :payer => params[:payer], :from => params[:from], :tab => params[:tab] %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% else  %>
+    <h4> No Processor created/online.</h4>
+  <% end %>
+
+  <%  if params[:from] == 'payer' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back",:border=>"0"), :action => 'allocate_payer_jobs' ,:back_page=>params[:back_page], :payer => params[:payer] %>
+  <% elsif params[:from] == 'user' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back",:border=>"0"), :action => 'user_jobs', :back_page=>params[:back_page], :user => params[:jobs_of_user] %>
+  <% else %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back",:border=>"0"), :action => 'allocate' ,:back_page=>params[:back_page] %>
+  <% end %>
+</div>

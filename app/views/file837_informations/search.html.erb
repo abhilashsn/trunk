@@ -1,0 +1,55 @@
+<% if !@claim_informations.blank? %>
+<table>
+  <tr>
+      <th style="width: 180px">
+          Account Number
+      </th>
+      <th style="width: 180px">
+          Last Name
+      </th>
+      <th style="width: 180px">
+          First Name
+      </th>
+      <th style="width: 100px">
+          Total Charges
+      </th>
+      <th style="width: 180px">
+          Service Date
+      </th>
+      <th style="width: 100px">
+          SVC Count
+      </th>
+      <th style="width: 180px">
+          File Name
+      </th>
+  </tr>
+  <% for claim_information in @claim_informations %>
+    <tr>
+      <td>
+        <%= claim_information.patient_account_number %>
+      </td>
+      <td>
+        <%= claim_information.patient_last_name %>
+      </td>
+      <td>
+        <%= claim_information.patient_first_name %>
+      </td>
+      <td>
+        <%= claim_information.total_charges %>
+      </td>
+      <td>
+        <%= select_tag(:service_date, options_from_collection_for_select(claim_information.claim_service_informations,"id","service_from_date")) %>
+      </td>
+      <td>
+        <%= claim_information.claim_service_informations.count %>
+      </td>
+      <td>
+        <%= claim_information.claim_file_information.blank? ? "" : claim_information.claim_file_information.name %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate @claim_informations %>
+<% else %>
+  <h4>Claim Information Not Found. </h4>
+<% end %>

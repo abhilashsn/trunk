@@ -1,0 +1,42 @@
+/* CSS Document */
+
+.login { /* ------- Login----------*/
+	width: 265px;
+	background-color: #dee8ea;
+	color: #000;
+	float: left;
+	margin-left: 30px;
+	margin-right: 20px;
+	margin-top: 100px;
+}
+#login_right
+{
+	width: 291px;
+	height: 135px;
+	float: left;
+	margin-left: 380px;
+	margin-top: 100px;
+	padding:10px;
+	border:1px solid #dee8ea;
+	padding-top:50px;
+	background-image:url(bar_bg.jpg);
+	background-repeat:repeat-x;
+
+    
+
+}
+
+#login_left
+{
+	width: 30%;
+	height: 185px;
+	float: right;
+	margin-right: 10px;
+	margin-top: 30px;
+	padding:10px;
+	border:1px solid #dee8ea;
+
+}
+
+
+

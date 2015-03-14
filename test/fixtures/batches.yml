@@ -1,0 +1,925 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: batches
+#
+#  id              :integer(11)   not null, primary key
+#  batchid         :integer(11)
+#  date            :date
+#  facility_id     :integer(11)
+#  arrival_time    :datetime
+#  target_time     :datetime
+#  status          :string(255)   default(New)
+#  eob             :integer(11)
+#  completion_time :datetime
+#  payer_id        :integer(11)
+#  comment         :string(255)
+#  contracted_time :datetime
+#  manual_override :boolean(1)
+#  source          :string(255)   default(Manual)
+#  updated_by      :integer(11)
+#  updated_at      :datetime
+#  created_by      :integer(11)
+#  created_at      :datetime
+#  hlsc_id         :integer(11)
+#
+
+batch1:
+      id: 1
+      batchid: 1
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now + 13.hours).to_s(:db) %>
+
+batch2:
+      id: 2
+      batchid: 2
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now + 13.hours).to_s(:db) %>
+
+batch3:
+      id: 3
+      batchid: 3
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "NEW"
+      eob: 123
+      completion_time:
+
+batch4:
+      id: 4
+      batchid: 4
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "NEW"
+      eob: 123
+      completion_time:
+
+batch5:
+      id: 5
+      batchid: 5
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "PROCESSING"
+      eob: 123
+      completion_time:
+
+batch7:                 
+      id: 7                
+      batchid: 5
+      facility_id: 2
+      status: "OUTPUT_READY"
+
+batch_with_manual_override:
+      id: 6
+      batchid: 6
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "PROCESSING"
+      eob: 123
+      completion_time:
+
+
+batch_complete02:
+      id: 18
+      batchid: 18
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now).to_s(:db) %>
+      correspondence: 1
+
+batch_complete03:
+      id: 19
+      batchid: 19
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "PROCESSING"
+      eob: 123
+      completion_time:
+      correspondence: 1
+  
+batch_complete04:
+      id: 20
+      batchid: 2020
+      date: 2006-10-09
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now).to_s(:db) %>
+      correspondence: 1
+
+batch_complete05:
+      id: 21
+      batchid: 2021
+      date: <%= Date.today.to_s(:db) %>
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now).to_s(:db) %>
+      correspondence:
+
+invalid_batch_complete01:
+      id: 22
+      batchid: 2022
+      date: <%= Date.today.to_s(:db) %>
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+
+batch_6:
+      id: 77
+      batchid: 'batch_6'
+      date: 2012-06-15
+      facility_id: 9
+      status: "COMPLETED"
+  
+batch_01:
+      id: 56
+      batchid: 'batch_56'
+      date: <%= Date.today.to_s(:db) %>
+      facility_id: 9
+      status: "NEW"
+  
+batch_02:
+      id: 65
+      batchid: 'batch_65'
+      date: <%= Date.today.to_s(:db) %>
+      facility_id: 9
+      status: "NEW"
+  
+batch_complete_navicure:
+      id: 181
+      batchid: "w1PQ082g-CPO_111610_7057_11172010"
+      date: 2006-12-09
+      facility_id: 9
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: "COMPLETED"
+      eob: 123
+      completion_time: <%= (Time.now).to_s(:db) %>
+      correspondence: 1
+
+batch_11:
+      id: 11
+      facility_id: 84
+      batchid: 'uiyu_79879_gghkkj_78687'
+      date: <%= Date.today %>
+      arrival_time: 2010-10-29
+      index_batch_number: '567576'
+
+batch_11:  #Owner : Sunil 
+      id: 12
+      facility_id: 11
+      batchid: 'uiyu_79879_gghkkj_78687'
+      date: <%= Date.today %>
+      arrival_time: 2010-10-29
+      index_batch_number: '567576'
+
+batch6:
+      id: 60
+      batchid: 60
+      date: 2006-10-09
+      facility_id: 11
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: 'PROCESSING'
+      eob: 123
+      completion_time:
+
+batch_for_merit_mountain:
+      id: 651
+      facility_id: 151
+      client_id: 10
+ 
+batch_for_rumc:
+      id: 652
+      facility_id: 152
+      client_id: 10
+
+batch_for_quadax:
+      id: 62
+      facility_id: 151
+
+batch_100:
+      id: 100
+      batchid: 100
+      date: 2006-10-03
+      facility_id: 151
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: 'COMPLETED'
+      
+batch_101:
+      id: 101
+      batchid: 100
+      facility_id: 151
+      status: 'COMPLETED'
+
+batch_102:
+      id: 102
+      batchid: 102
+      date: 2006-10-02
+      facility_id: 21
+      status: 'COMPLETED'
+
+batch_103:
+      id: 103
+      batchid: 103
+      date: 2006-10-09
+      facility_id: 21
+      arrival_time: <%= Time.now.to_s(:db) %>
+      target_time: <%= (Time.now + 12.hours).to_s(:db) %>
+      status: 'COMPLETED'
+
+batch_for_nav:
+      id: 104
+      batchid: 104
+      date: 2006-10-03
+      facility_id: 22
+      status: 'COMPLETED'
+      
+batch_999:
+      id: 999
+      batchid: "ZZZZZY"
+      facility_id: 15
+
+batch_105:
+      id: 105
+      batchid: 105
+      date: 2006-10-03
+      facility_id: 23
+      status: 'COMPLETED'
+     
+batch_106:
+      id: 106
+      batchid: 106
+      date: 2006-10-03
+      facility_id: 16
+      status: 'COMPLETED'
+     
+batch_107:
+      id: 107
+      date: 2006-10-03
+           
+batch_boa_1:
+      id: 201
+      batchid: 'ZZZZZ'
+      date: 2011-05-02
+      facility_id: 20
+      status: 'COMPLETED'
+      cut: 'A'
+      lockbox: '78675'
+      correspondence: 0
+
+batch_boa_2:
+      id: 202
+      batchid: 'ZZZZY'
+      date: 2011-05-02
+      facility_id: 20
+      status: 'COMPLETED'
+      cut: 'B'
+      lockbox: '78675'
+      correspondence: 1
+batch_boa_3:
+      id: 203
+      batchid: 'ZZZZX'
+      date: 2011-05-02
+      facility_id: 20
+      status: 'COMPLETED'
+      cut: 'B'
+      lockbox: '78674'
+      index_batch_number: 11
+      correspondence: 0
+
+batch_boa_4:
+      id: 204
+      batchid: 'ZZZZW'
+      date: 011-05-02
+      facility_id: 20
+      status: 'COMPLETED'
+      cut: 'C'
+      lockbox: '78675'
+      index_batch_number: 12
+
+batch_boa_5:
+      id: 205
+      batchid: 'ZZZZV'
+      date: 2011-05-02
+      facility_id: 205
+      status: 'COMPLETED'
+      cut: 'C'
+      lockbox: '78675'
+      index_batch_number: 234
+
+batch_boa_6:
+      id: 206
+      batchid: 'ZZZZU'
+      date: 2011-05-02
+      facility_id: 205
+      status: 'COMPLETED'
+      cut: 'C'
+      lockbox: '78675'
+      index_batch_number: 235
+      
+urgent_completed_batch_23:
+      id: 23
+      batchid: URGENTBATCH_23
+      facility_id: 89
+      status: COMPLETED
+      completion_time: <%= (Time.now).to_s(:db) %>
+      output_835_generated_time:
+
+urgent_completed_batch_24:
+      id: 24
+      batchid: URGENTBATCH_24
+      facility_id: 89
+      status: COMPLETED
+      completion_time: <%= (Time.now + 1.hours).to_s(:db) %>
+      output_835_generated_time:
+
+urgent_completed_batch_25:
+      id: 25
+      batchid: URGENTBATCH_25
+      facility_id: 89
+      status: COMPLETED
+      completion_time: <%= (Time.now + 2.hours).to_s(:db) %>
+      output_835_generated_time:
+
+batch_110:
+      id: 110
+      batchid: 110
+      date: 2006-10-03
+      facility_id: 23
+      status: 'COMPLETED'
+
+batch_boa_7:
+      id: 207
+      batchid: 'ZZZZT'
+      date: 2011-05-02
+      facility_id: 206
+      status: 'COMPLETED'
+      cut: 'C'
+      lockbox: '134028'
+      index_batch_number: 423
+
+batch_boa_8:
+      id: 208
+      batchid: 'ZZZZS'
+      date: 2011-05-02
+      facility_id: 206
+      status: 'COMPLETED'
+      cut: 'D'
+      lockbox: '4340281'
+      index_batch_number: 424
+
+batch_26:
+      id: 26
+      facility_id: 25
+  
+batch_boa_9:
+      id: 209
+      batchid: 'ZZZZR'
+      date: 2011-05-02
+      facility_id: 207
+      status: 'COMPLETED'
+      cut: 'A'
+      correspondence: 0
+      lockbox: '64340281'
+      index_batch_number: 474
+
+batch_boa_10:
+      id: 210
+      batchid: 'ZZZZQ'
+      date: 2011-05-02
+      facility_id: 207
+      status: 'COMPLETED'
+      cut: 'B'
+      correspondence: 0
+      lockbox: '74340281'
+      index_batch_number: 484
+
+batch_boa_11:
+      id: 211
+      batchid: 'ZZZZP'
+      date: 2011-05-02
+      facility_id: 208
+      status: 'COMPLETED'
+      cut: 'C'
+      correspondence: 0
+      lockbox: '27434028'
+      index_batch_number: 414
+
+batch_212: #owner: Sunil
+      id: 212
+      batchid: 'ZZZZZY'
+
+batch_for_gcbs_213: #owner: Ramya
+      id: 213
+      facility_id: 212
+
+batch_for_other_214: #owner: Ramya
+      id: 214
+      facility_id: 213
+  
+batch_boa_12:
+      id: 232    #Ower :Dhanya
+      batchid: 'ZZZZO'
+      date: 2011-05-02
+      facility_id: 228
+      status: 'COMPLETED'
+      cut: 'D'
+      correspondence: 0
+      lockbox: '27434028'
+      index_batch_number: 416
+
+batch_boa_13:
+      id: 233   #Ower :Dhanya
+      batchid: 'ZZZZO'
+      date: 2011-05-02
+      facility_id: 228
+      status: 'COMPLETED'
+      cut: 'B'
+      correspondence: 0
+      lockbox: '27434028'
+      index_batch_number: 416
+      
+batch_27:
+      id: 27
+      facility_id: 92
+  
+batch_boa_14:
+      id: 234   #Ower :Dhanya
+      batchid: 'ZZZZC'
+      date: 2011-05-02
+      facility_id: 229
+      status: 'COMPLETED'
+      cut: 'B'
+      correspondence: 1
+      lockbox: '27434028'
+      index_batch_number: 419
+
+batch_boa_15:
+      id: 235   #Ower :Dhanya
+      batchid: 'ZZZZD'
+      date: 2011-05-02
+      facility_id: 229
+      status: 'COMPLETED'
+      cut: 'B'
+      correspondence: 0
+      lockbox: '27434028'
+      index_batch_number: 429
+
+batch_28:
+      id: 28
+      batchid: batch28
+      facility_id: 93
+
+batch_belonging_to_facility_without_svc_from_date:
+      id: 29
+      batchid: batch29
+      facility_id: 8
+
+batch_quadax:
+      id: 30
+      batchid: "12345_quadax"
+      facility_id: 16
+      date: 2011-05-02
+      status: 'COMPLETED'
+      correspondence: 0
+
+batch_31:
+     id: 31
+     batchid: batch31
+     facility_id: 32
+
+batch_32:
+      id: 32
+      batchid: batch32
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: 2010-02-14 00:00:00
+      status: "NEW"
+      completion_time:
+      client_wise_auto_allocation_enabled: 0
+      payer_wise_auto_allocation_enabled: 0
+      facility_wise_auto_allocation_enabled: 0
+
+batch_33:
+      id: 33
+      batchid: batch33
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: 2010-02-14 00:00:00
+      status: "NEW"
+      completion_time:
+      client_wise_auto_allocation_enabled: 0
+      payer_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 0
+
+batch_34:
+      id: 34
+      batchid: batch34
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      status: "NEW"
+      completion_time:
+      client_wise_auto_allocation_enabled: 0
+      payer_wise_auto_allocation_enabled: 0
+      facility_wise_auto_allocation_enabled: 0
+
+batch_35:
+      id: 35
+      batchid: batch35
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      status: "NEW"
+      completion_time:
+      client_wise_auto_allocation_enabled: 1
+      payer_wise_auto_allocation_enabled: 0
+      facility_wise_auto_allocation_enabled: 1
+
+
+batch_36:
+      id: 36
+      batchid: batch36
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: <%= Time.now.to_s(:db) %>
+      status: "COMPLETED"
+      completion_time:
+      client_wise_auto_allocation_enabled:
+      payer_wise_auto_allocation_enabled:
+      facility_wise_auto_allocation_enabled: 
+
+batch_37:
+      id: 37
+      batchid: batch37
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: 2010-02-14 00:00:00
+      status: "COMPLETED"
+      completion_time:
+      client_wise_auto_allocation_enabled:
+      payer_wise_auto_allocation_enabled:
+      facility_wise_auto_allocation_enabled:
+      completion_time: 2010-02-15 01:00:00
+      expected_completion_time: 2010-02-15 00:00:00
+
+batch_38:
+      id: 38
+      batchid: batch38
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: 2010-02-14 00:00:00
+      status: "PROCESSING"
+      completion_time:
+      client_wise_auto_allocation_enabled: 0
+      payer_wise_auto_allocation_enabled: 0
+      facility_wise_auto_allocation_enabled: 0
+        
+batch_39:
+      id: 39
+      batchid: batch39
+      date: 2012-02-14
+      facility_id: 1
+      arrival_time: 2010-02-14 00:00:00
+      status: "NEW"
+      completion_time:
+      client_wise_auto_allocation_enabled: 0
+      payer_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 0
+
+completed_batch:
+      id: 40
+      batchid: batch40
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+qa_in_progress_batch:
+      id: 41
+      batchid: batch41
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+qa_allocated_batch:
+      id: 42
+      batchid: batch42
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+qa_partially_completed_batch:
+      id: 43
+      batchid: batch43
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+qa_unallocated_batch:
+      id: 44
+      batchid: batch44
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+batch45:
+      id: 45
+      batchid: batch45
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "OUTPUT_READY"
+
+batch46:
+      id: 46
+      batchid: batch46
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "OUTPUT_READY"
+
+batch47:
+      id: 47
+      batchid: batch47
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "PROCESSING"
+
+batch48:
+      id: 48
+      batchid: batch48
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+batch49:
+      id: 49
+      batchid: batch49
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+batch50:
+      id: 50
+      batchid: batch50
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "NEW"
+
+batch51:
+      id: 51
+      batchid: batch51
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+batch_52:
+      id: 52
+      batchid: batch52
+      date: 2012-04-19
+      facility_id: 33
+      client_id: 21
+      arrival_time: 2012-04-19 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-20 00:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_53:
+      id: 53
+      batchid: batch53
+      date: 2012-04-19
+      facility_id: 33
+      client_id: 21
+      arrival_time: 2012-04-19 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-19 01:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_54:
+      id: 54
+      batchid: batch54
+      date: 2012-04-28
+      facility_id: 34
+      client_id: 22
+      arrival_time: 2012-04-18 00:00:00
+      status: NEW
+      priority: 2
+      target_time: 2012-04-20 01:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+      
+batch_55:
+      id: 55
+      batchid: batch55
+      date: 2012-04-28
+      facility_id: 35
+      client_id: 23
+      arrival_time: 2012-04-28 00:00:00
+      status: NEW
+      priority: 2
+      target_time: 2012-04-29 00:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_57:
+      id: 57
+      batchid: batch57
+      date: 2012-04-28
+      facility_id: 34
+      client_id: 22
+      arrival_time: 2012-04-18 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-20 01:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_58:
+      id: 58
+      batchid: batch58
+      date: 2012-04-28
+      facility_id: 34
+      client_id: 22
+      arrival_time: 2012-04-18 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-20 00:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_59:
+      id: 59
+      batchid: batch59
+      date: 2012-04-30
+      facility_id: 36
+      client_id: 24
+      arrival_time: 2012-04-18 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-20 00:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 0
+      facility_wise_auto_allocation_enabled: 0
+      processing_start_time:
+
+batch_61:
+      id: 61
+      batchid: batch61
+      date: 2012-04-30
+      facility_id: 37
+      client_id: 25
+      arrival_time: 2012-04-18 00:00:00
+      status: NEW
+      priority: 1
+      target_time: 2012-04-20 00:00:00
+      expected_completion_time:
+      client_wise_auto_allocation_enabled: 1
+      facility_wise_auto_allocation_enabled: 1
+      processing_start_time:
+
+batch_63:
+  id: 63
+  facility_id: 8
+  batchid: batch63
+
+batch_64:
+  id: 64
+  facility_id: 15
+  batchid: batch64
+
+batch_66:
+  id: 66
+  facility_id: 15
+  batchid: "FG6767"
+  date: 2012-04-30
+
+batch_67: #owner: Ramya
+  id: 67
+  facility_id: 39
+
+batch_68: #owner: Ramya
+  id: 68
+  facility_id: 40
+
+batch_69: #owner: Ramya
+  id: 69
+  facility_id: 41
+
+batch_70: #owner: Ramya
+  id: 70
+  facility_id: 38
+
+batch71:
+      id: 71
+      batchid: batch52
+      date: 2012-02-21
+      facility_id: 42
+      arrival_time: 2010-02-21 00:00:00
+      status: "COMPLETED"
+
+batch72:
+      id: 72
+      batchid: batch52
+      date: 2012-02-21
+      facility_id: 43
+      arrival_time: 2010-02-21 00:00:00
+
+batch73:
+      id: 73
+      batchid: batch52
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+
+batch_for_other_300: #owner: Ramya
+      id: 300
+      facility_id: 214
+      date: 2012-02-21
+
+batch74:
+      id: 74
+      batchid: batch74_637234
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+
+batch75:
+      id: 75
+      batchid: batch75_637260
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+
+batch76:
+      id: 76
+      batchid: batch76_637235
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+
+batch78:
+      id: 78
+      batchid: batch78_637236
+      date: 2012-02-21
+      facility_id: 1
+      arrival_time: 2010-02-21 00:00:00
+

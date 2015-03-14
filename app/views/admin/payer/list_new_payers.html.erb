@@ -1,0 +1,90 @@
+<div id="login_main">
+  <h1>Listing Newly Encountered Payers</h1>
+  <%= show_legend({"white" => "Eligible for Approval", "red" => "Undergoing Processing"}) %>
+  <% if @access_condition %>
+    <div class="light_info">
+      <%= link_to 'Approved Payers', :action => 'list_approved_payers',:approved =>'true' %>
+    </div>
+  <% end %>  
+  <% unless @new_payers.blank? %>
+    <div class="light_info">
+      <%= form_tag :action => 'list_new_payers',:approved => 'false' do%>
+        Show <%= select_tag 'per_page', optionize_custom(['10', '30', '50', '100'], params[:per_page]),
+          :onchange => "document.forms[0].submit();" %> entries &nbsp;&nbsp;&nbsp;&nbsp;    
+        <%= render :partial => "search_payer_records"%>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @new_payers.blank? %>
+    <%= will_paginate @new_payers , :params => {:per_page => params[:per_page], :criteria => params[:criteria], :compare => params[:compare], :to_find =>  params[:to_find]}%>
+    <%= form_tag({:action => 'approve_patient_payers'}) do %>
+
+      <table>
+        <tr>
+          <th>Payer</th>
+          <th>Payer ID</th>
+          <th>Payer Type</th>
+          <th>ABA Routing#</th>
+          <th>Payer Account#</th>
+          <th>Address One</th>
+          <th>Address Two</th>
+          <th>City</th>
+          <th>state</th>
+          <th>ZIP</th>
+          <th>Micr Status</th>
+          <th>Payer Status</th>
+          <th>Temp PayId</th>
+          <th>Footnote Indicator</th>
+          <th>TAT of the Batch</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <% for payer in @new_payers %>
+        <% @new_payer = payer %>
+        <% title = 'One or more checks associated with this payer undergoing processing. Please wait' if legend_color_new_payer_list == 'red' %>
+        <% title = 'Eligible for approval' if legend_color_new_payer_list == 'white' %>
+          <tr class="<%= legend_color_new_payer_list %>" title = "<%=  title %>" >
+            <td><%= payer.payer %></td>
+            <td><%= payer.exact_payid %></td>
+            <td><%= format_payer_type(payer.payer_type) %></td>
+            <td>
+              <%= payer.aba_no.to_s %>
+            </td>
+            <td>
+              <%= payer.payer_acc_no.to_s %>
+            </td>
+            <td><%= (payer.pay_address_one.present? ? payer.pay_address_one : "-") %></td>
+            <td><%= (payer.pay_address_two.present? ? payer.pay_address_two : "-") %></td>
+            <td><%= (payer.payer_city.present? ? payer.payer_city : "-") %></td>
+            <td><%= (payer.payer_state.present? ? payer.payer_state : "-") %></td>
+            <td><%= (payer.payer_zip.present? ? payer.payer_zip : "-") %></td>
+            <td><%= payer.micr_status %></td>
+            <td><%= payer.status %></td>
+            <td><%= (payer.micr_id.present? ? payer.temp_payid : payer.exact_payid) %></td>
+            <td><%= (payer.footnote_indicator ? "yes": "no") %></td>
+            <td><%= time_diff_from_now(payer.batch_target_time)%></td>
+            <td><% if legend_color_new_payer_list == 'white' %>
+              <%= link_to "Verify", :controller=>'/admin/payer',
+                :action => "approve_payer", :id => payer.id, :micr_id => payer.micr_id, :page => params[:page] %>
+              <%end%>
+            </td>
+             <td>
+                <%= link_to 'Manage Reason Code ', :controller => '/reason_codes', :action => 'index', :id => payer, :page_name => 'list_new_payers' %>
+              </td>
+            <% if (payer.payer_type == 'PatPay' && @access_condition) %>
+              <td>
+                <%= check_box "verify_patpay_payer", "#{payer.id}_#{payer.micr_id}" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <% if @access_condition %>
+        <%= submit_tag 'Verify PatPays', :class => 'button'%>
+      <% end %>
+    <% end %>
+    <br/>
+  <% else %>
+    <h4>No newly encountered payers found.</h4>
+  <% end %>
+</div>

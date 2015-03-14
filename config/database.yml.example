@@ -1,0 +1,33 @@
+base: &base
+  adapter: mysql2
+  socket: /var/run/mysqld/mysqld.sock
+  username: 
+  password: 
+
+development:
+  database:
+  <<: *base
+
+mpi_data_development:
+  database:
+  <<: *base
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  database:
+  <<: *base
+
+mpi_data_test:
+  database:
+  <<: *base
+
+production:
+  database: 
+  <<: *base
+
+mpi_data_production:
+  database:
+  <<: *base
+  

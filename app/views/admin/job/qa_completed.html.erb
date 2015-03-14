@@ -1,0 +1,101 @@
+<div id="login_main">
+<% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+  <h1>QA Completed Jobs In Last 7 days </h1>
+  <div class="right"><%= link_to "Work Queue" " (#{@count})" , :action => 'work_queue' %> | <%= link_to "Job Settings" , :controller => 'admin/sqa_job_settings' %></div>
+
+<% else %>
+  <h1></h1>
+<% end %>
+<% pagination = create_pagination(@job_pages, 'job', params[:page]) %>
+<%= pagination %>
+
+<% unless @jobs.empty? %>
+
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <%= form_tag :controller => 'job', :action => 'work_list', :id => @jobs_to_allocate ,:page=>params[:page] ,:back_page => params[:back_page], :from => 'user', :jobs_of_user => @user.id do %>
+
+      <table>
+      <tr>
+        <th>Batch Date</th>
+        <th>Batch ID</th>
+        <th>Check Number</th>
+        <th>Tiff Number</th>
+        <th>Processor</th>
+        <th>QA </th>
+        <th>QA Status</th>
+        <th>QA Accuracy(%) <br/> Field | EOB</th>
+        <th>QA Sampling Rate</th>
+        <!-- <th>QA Completed Time</th> -->
+     
+      
+                  <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <th style="width:20px"><input type="checkbox" name="all" onClick="checkAll(document.forms[0].toggle,this)"></th>
+        <% end %>
+      </tr>
+
+                <%@jobs.each do |job| %>
+         
+                    <%cls=''%>
+                         <%if job.work_queue == 0
+                            cls = 'white'
+                      elsif job.work_queue == 1
+                            cls = 'blue'
+      
+                       end
+                         %>
+        <tr>
+        <td class="<%= cls %>" align='right'><%= format_date(job.batch.date) %></td>
+          <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <td class="<%= cls %>" align='right'><strong><%= link_to "#{job.batch.batchid}", :controller => 'job', :action => 'allocate', :id => job.batch, :back_page => params[:back_page] %></strong></td>
+          <% else %>
+          <td class="<%= cls %>" align='right'><strong><%= job.batch.batchid %></strong></td>
+        <% end %>
+
+        <td class="<%= cls %>" align='right'><%= job.check_number %></td>
+        <td class="<%= cls %>" align='right'>
+          <%if job.tiff_number.blank? %>
+              <%="-"%>
+            <%else%>
+                <%=job.tiff_number%>
+              <%end%>
+        </td>
+
+        <td class="<%= cls %>">
+          <% if job.processor %>
+                  <%= link_to job.processor.name, :controller => '/admin/user', :action => 'show', :id => job.processor,:back_page=>params[:back_page]%>
+          <% end %>
+        </td>
+
+        <td class="<%= cls %>">
+          <% if job.qa %>
+                  <%= link_to job.qa.name, :controller => '/admin/user', :action => 'show', :id => job.qa ,:back_page=>params[:back_page]%>
+          <% end %>
+        </td>
+
+        <td class="<%= cls %>"><%= job.qa_status %></td>
+          <td align=center><%= format_percentage(job.qa.field_accuracy) %> | <%= format_percentage(job.qa.eob_accuracy) %></td>
+          <td><%= job.qa.sampling_rate() %></td>
+        <!-- <td class="<%= cls %>" align='right' nowrap><%= format_datetime(job.qa_flag_time) %></td> -->
+
+                <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <td><%= check_box :jobs_to_allocate, job.id, :id => 'toggle' %></td>
+        <% end %>
+        </tr>
+      <% end %>
+
+      </table>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <%= submit_tag "Add to Work Queue", :class => 'button', :name => "option1" %>
+        <!-- <%= submit_tag "Remove from Work Queue", :class => 'button' %> -->
+      <% end  %>
+    <% end %>
+  <% end %>
+<% else %>
+  <h4> No Jobs Found! </h4>
+<% end %>
+<br/>
+<%= pagination %>
+</div>
+
+
+

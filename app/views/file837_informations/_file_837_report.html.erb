@@ -1,0 +1,76 @@
+<% if !@file_837_informations.blank? %>
+<br/>
+<div style="float:left">
+    <%= will_paginate @file_837_informations ,:params => { 'arrival_date_from' => @arrival_date_from,
+      'arrival_date_to' => @arrival_date_to, 'client_code' => @client_code, 'zip_file_name' => @zip_file_name, 'file_name_837' => @file_name_837, 'status' => @status } %>
+</div>
+<br/>
+<table>
+    <tr>
+        <th>
+            Client Code
+        </th>
+        <th>
+            File Name
+        </th>
+        <th>
+            Zip File Name
+        </th>
+        <th style="width: 100px">
+            File Arrival Time
+        </th>
+        <th>
+            File Size(KB)
+        </th>
+        <th style="width: 100px">
+            File Load Start Time
+        </th>
+        <th style="width: 100px">
+            File Load End Time
+        </th>
+        <th style="width: 100px">
+            Total Claim Count
+        </th>
+        <th style="width: 100px">
+            Loaded Claim Count
+        </th>
+        <th style="width: 100px">
+            Total SVC count
+        </th>
+        <th style="width: 100px">
+            Loaded SVC count
+        </th>
+        <th>
+            Loading Status
+        </th>
+    </tr>
+    <% for  file_837_information in @file_837_informations %>
+      <tr>
+        <tbody id="<%= file_837_information.id %>">
+          <%= render :partial => "file_info", :locals => {:file_837_information => file_837_information } %>
+          <% if current_user.has_role?(:admin) %>
+            <td>
+              <%= link_to image_tag("delete.png", :alt => "Destroy"), {:action => 'delete', :id => file_837_information}, :remote => true %>
+            </td >
+          <% end %>
+        </tbody>
+        <% if current_user.has_role?(:admin) %>
+        <tbody id="deleted_<%= file_837_information.id %>" style="display:none">
+          <% deleted_files = ClaimFileInformation.where(:name => file_837_information.name, :deleted => 1) %>
+          <% unless deleted_files.blank? %>
+              <% for deleted_file in deleted_files %>
+                <tr bgcolor="#F78181">
+                  <%= render :partial => "file_info", :locals => { :file_837_information => deleted_file } %>
+                </tr>
+              <% end %>
+          <% end %>
+        </tbody>
+        <% end %>
+    </tr>
+    <% end %>
+</table>
+<br/>
+<% else %>
+  <h4>No 837 arrived files found. </h4>
+<% end %>
+

@@ -1,0 +1,52 @@
+<%= javascript_include_tag "era_exception" %>
+
+<% if !@payers.blank? %>
+<table>
+  <tr>
+      <th style="width: 180px">
+          Payer Name
+      </th>
+      <th style="width: 180px">
+          Payer ID
+      </th>
+      <th style="width: 180px">
+          Plan ID
+      </th>
+      <th style="width: 100px">
+          Payer TIN
+      </th>
+      <th style="width: 100px">
+          Payer Address
+      </th>
+      <th style="width: 180px">
+          
+      </th>
+  </tr>
+  <% for payer in @payers %>
+    <tr>
+      <td>
+        <%= payer.payer %>
+      </td>
+      <td>
+        <%= payer.payid %>
+      </td>
+      <td>
+        <%= payer.plan_type %>
+      </td>
+      <td>
+        <%= payer.payer_tin %>
+      </td>
+      <td>
+        <%= payer.pay_address_one %> <%= payer.city %> <%= payer.state %> <%= payer.zip_code %>
+      </td>
+      <td>
+        <%= link_to "Map This Payer", {:action => 'approve_payer', :id => payer, :chk_id => params[:chk_id]}, :remote => true, :confirm => "Are you sure you want to map the ERA transaction to the selected payer?" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate @payers %>
+<% else %>
+  <h4>Payer Not Found. </h4>
+<% end %>
+

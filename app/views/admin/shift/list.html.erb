@@ -1,0 +1,28 @@
+<div id="login_main">
+<h1>Shift Administration</h1>
+
+<div class="light_info">
+  <%= link_to 'New Shift', :action => :new %>
+</div>
+
+
+<table>
+  <tr>
+    <th style="width: 218px">Shift</th>
+    <th style="width: 276px">Start Time</th>
+    <th style="width: 276px">Shift Duration</th>
+    <th style="width: 72px"> &nbsp;</th>
+    <th style="width: 72px"> &nbsp;</th> 
+  <tr>
+  <% for shift in @shifts %>
+  <tr>
+    <td><%= shift.name %></td>
+    <td><%= shift.start_time.strftime("%H:%M") %></td>
+    <td><%= shift.duration %></td>
+    <td><%= link_to image_tag('report_edit.png', :alt => 'Edit'), :action => 'edit', :id => shift %></td>
+    <td><%= link_to image_tag('delete.png', :alt => 'Delete'), {:action => 'delete', :id => shift}, :confirm => "Deleting #{shift.name} Shift. Are you sure?" %></td>
+    
+  </tr>
+  <% end %>
+</table>
+</div>

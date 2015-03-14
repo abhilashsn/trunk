@@ -1,0 +1,113 @@
+rs1:
+      id: 1
+      user_id: 1
+      role_id: 2
+
+rs2:
+      id: 2
+      user_id: 2
+      role_id: 3
+
+rs3:
+      id: 3
+      user_id: 3 
+      role_id: 3
+
+rs4:
+      id: 4
+      role_id: 1
+      user_id: 19
+
+rs5:
+      id: 5
+      role_id: 2
+      user_id: 18
+
+rs6:
+      id: 6
+      role_id: 2
+      user_id: 12
+rs7:
+      id: 7
+      role_id: 2
+      user_id: 13
+
+rs8:
+      id: 8
+      role_id: 2
+      user_id: 14
+
+rs9:
+      id: 9
+      role_id: 3
+      user_id: 15
+rs10:
+      id: 10
+      role_id: 1
+      user_id: 4
+
+rs11:
+      id: 11
+      role_id: 2
+      user_id: 20
+
+rs12:
+      id: 12
+      role_id: 2
+      user_id: 21
+
+rs13:
+      id: 13
+      role_id: 3
+      user_id: 22
+
+rs14:
+      id: 14
+      role_id: 2
+      user_id: 23
+
+rs15:
+      id: 15
+      role_id: 2
+      user_id: 26
+
+rs16:
+      id: 16
+      role_id: 2
+      user_id: 27
+
+rs17:
+      id: 17
+      role_id: 2
+      user_id: 28
+
+rs18:
+      id: 18
+      role_id: 2
+      user_id: 29
+
+rs19:
+      id: 19
+      role_id: 2
+      user_id: 30
+
+rs20:
+      id: 20
+      role_id: 2
+      user_id: 31
+
+rs21:
+      id: 21
+      role_id: 2
+      user_id: 24
+
+rs22:
+      id: 22
+      role_id: 2
+      user_id: 32
+
+rs23:
+      id: 23
+      role_id: 2
+      user_id: 25
+

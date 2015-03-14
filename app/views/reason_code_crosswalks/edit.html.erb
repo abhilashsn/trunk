@@ -1,0 +1,108 @@
+<%= javascript_include_tag "ansi_remark_code" %>
+<div style="float:left; margin-left:20px;">
+  <% payer = @payer%>
+  <h1>Cross Walk ReasonCodes:<span class="sub_title"><%= payer.payer %> [Paper code: <%= @reason_code.reason_code %>]</span></h1>
+  <%= render "shared/error_messages", :target => @rccfsn %>  
+  <% cross_walk_level = ( @rccfsn.crosswalk_level ? @rccfsn.crosswalk_level : @rccfsn.get_crosswalk_level) %>
+  <%= form_tag :controller => :reason_code_crosswalks, :action => "update", :id=> @rccfsn.id  do %>
+
+  <div style="clear:both;">
+    <% ["GLOBAL"].each do |j| %>
+    <% checked = false %>
+    <% checked = true if (cross_walk_level == j) %>
+    <input type="radio" name="crosswalk_level" value="<%= j %>" <% if checked == true %> checked="checked" <% end %>onclick="set_cross_walk_type('<%= j %>');">
+    <span class=""> <%= j %></span>
+    <% end %>    
+  </div>
+
+  <div style="float:left; margin-right:20px;" id="ansi_box">    
+    <span class="sec_title">Manage Multiple ANSI Codes</span>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th >ANSI</th>
+        <th >&nbsp;</th>
+      </tr>
+      <tr>
+        <td valign="top"><%= (text_field_with_auto_complete :ansi,:code).gsub("_crosswalk","").html_safe%></td>
+        <td valign="top"><%= tag("input", {
+                             :type => "button",
+          :onclick => "insertOptionBefore3(count1++);",
+          :value => "Add" },false) %></td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top">
+          <%=  select_tag "ansi_remark_codes",options_from_collection_for_select(@reason_code.ansi_remark_codes, "adjustment_code", "adjustment_code"),:multiple => true,:size=>"8",:class => "ansi_code_text"%>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top"><div align="right">
+            <%= tag("input", {
+                :type => "button",
+            :onclick => "removeOptionSelected3();",
+            :value => "Delete" },false) %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+    <div style="float:left">
+	<span class="sec_title">Manage HIPAA & Client codes </span>
+	  <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th >HIPAA</th>
+          <th>Client Code</th>
+          <th>Client Name</th>
+          <th>Facility</th>
+        </tr>
+        <tr>
+          <td valign="top"><%= (text_field_with_auto_complete :hipaa, :code,
+              :value => @cross_walk_codes[:hipaa_code]).gsub("_crosswalk","").html_safe%></br></td>
+          <td valign="top"><%= (text_field_with_auto_complete :client, :code,
+              :value => @cross_walk_codes[:client_code]).gsub("_crosswalk","").html_safe %></td>
+          <td>
+            <%= select_tag('client_id',  options_from_collection_for_select(@clients.map{|c| [c.id,c.name]}.unshift(["","select client"]), "first", "last", @rccfsn.client_id) , {:style=>"width:180px;"}) %>
+          </td>
+          <td>
+            <%# facilities_grouped = @facilities.group_by(&:client_name).to_a.map{|j| [j.first , [ j.last.first.id , j.last.first.name ]]} %>
+            <%= select_tag('facility_id',  options_from_collection_for_select(@facilities.map{|c| [c.id,c.name]}.unshift(["","select facility"]), "first", "last", @rccfsn.facility_id),{:style=>"width:180px;"}) %>
+            <%#= select_tag('facility_id',  grouped_options_for_select(facilities_grouped,nil,"select facility"),{:style=>"width:180px;"}) %>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    
+	<div style="float:left; clear:both;">
+	  <%= link_to "Back", :controller => "reason_code_crosswalks",:action => "list", :payer_id=>@payer.id, :reason_code_id=>@reason_code.id %>
+          <%= hidden_field_tag "payer_id",@payer.id%>
+          <%= hidden_field_tag "reason_code_id",@reason_code.id%>
+          <%= hidden_field_tag "optional_ansi_remark_codes"%>
+          &nbsp;|&nbsp;
+          <%= submit_tag "save", :onclick => "getTheOptionalValues(); return getgroupcode();" %>
+    	</div>  
+        <%end%>
+</div>
+
+
+<script>  set_cross_walk_type = function(type){
+    type = 'GLOBAL'
+    $("client_id").hide();
+    $("facility_id").hide();
+    if (type != 'GLOBAL'){
+      $("ansi_box").hide();
+      
+    } else {
+      $("ansi_box").show();
+    }
+    if (type == 'CLIENT'){
+         $("client_id").show();
+    }
+    if (type == 'FACILITY'){
+      $("facility_id").show();
+    }
+  };
+  set_cross_walk_type('GLOBAL');
+</script>

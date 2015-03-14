@@ -1,0 +1,24 @@
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+  <%= will_paginate @all_processors%>
+</div>
+<table>
+<tr>
+  <th>Processor Name</th>
+  <th>UserID</th>
+  <th>Shift</th>
+  <th>Processing Rate <br/>Triad | Others</th>
+  <th><input type="checkbox" name="all" onClick="checkAll(document.forms[1].toggle,this)"></th>
+</tr>
+<%= form_tag :action => 'allocate_members', :tl => @tl do %>
+<% for processor in @all_processors %>
+  <tr>
+    <td> <%= processor.name %></td>
+    <td><%= processor.userid %></td>
+    <td><%= processor.shift.name unless processor.shift.nil? %></td>
+    <td align="center"><%= processor.processing_rate_triad %>  |  <%= processor.processing_rate_others %></td>
+    <td><%= check_box :users_to_assign, processor.id , :id => 'toggle'%></td>
+  </tr>
+<% end %>
+</table>
+<%= submit_tag "Assign", :class => 'button' %>
+<% end%>

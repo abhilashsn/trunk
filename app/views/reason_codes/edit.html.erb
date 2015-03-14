@@ -1,0 +1,14 @@
+<h1>Editing Client Code</h1>
+
+<%= form_tag :action => 'update_client',:id => params[:id],:payer_id => @payer_id do %>
+  
+  
+      Revenuemed Code: <%if @reason_code.client_code.blank?%><%= text_field_with_auto_complete 'client_code', 'adjustment_code',:value=>"", :class => "black_text",:style=>"width:55px; text-align:right;"%><%else%><%= text_field_with_auto_complete 'client_code', 'adjustment_code',:value=>@reason_code.client_code.adjustment_code, :class => "black_text",:style=>"width:55px; text-align:right;"%><%end%>
+ 
+     <br>
+    <%= submit_tag "Update", :class => 'button' %>
+ 
+<% end %>
+
+
+

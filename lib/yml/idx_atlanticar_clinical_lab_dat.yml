@@ -1,0 +1,34 @@
+PAYMENT:
+    BATCH:
+        batchid: 2
+        lockbox: [ 1, 0, 5]
+        date: [ 1, 6, 13, date ]
+        bank_deposit_date: [ 1, 6, 13, date ]
+    JOB:
+        check_number: 6
+    CHEQUE:
+        check_number: 6
+        check_amount: [ 6, float]
+    TYPE: 5
+    MICR:  
+        aba_routing_number: 7
+        payer_account_number: 8
+    IMAGE:
+        image_file_name: 9
+
+CORRESP:
+    BATCH:
+        batchid: 2
+        lockbox: [ 1, 0, 5]
+        date: [ 1, 6, 13, date ]
+        bank_deposit_date: [ 1, 6, 13, date ]
+    JOB:
+        check_number:
+    CHEQUE:
+        check_number:
+    TYPE: 4
+    IMAGE:
+        image_file_name: 5
+
+    
+  

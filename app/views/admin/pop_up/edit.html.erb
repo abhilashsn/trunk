@@ -1,0 +1,69 @@
+<%= javascript_include_tag "popup" %>
+<div id="login_main">
+  <h1>Edit Comment</h1>
+  <%= form_tag admin_pop_up_path(@error_popups), :method=>'put' do %>
+    <table>
+      <tr>
+        <th>Select Payer <span class="alert"></span></th>
+        <th>End Date</th>
+        <th>Comments</th>
+        <th>Question</th>
+        <th>Choice1</th>
+        <th>Choice2</th>
+        <th>Choice3</th>
+        <th>Answer</th>
+        <th>Field Name</th>
+        <th> Documents</th>
+
+      </tr>
+      <tr>
+        <td style="text-align:center">
+          <% if !params[:payer].blank? %>
+            <% payer = Payer.find(params[:payer]) %>
+            <textarea name='payer' readonly='true' cols="15" rows="5" class = "black_text">
+              <%=payer.payer %>
+            </textarea>
+            <%= link_to 'UpdatePayer', :controller => 'pop_up', :action => 'select_payer' , :previous_page => 'edit', :popup_id => params[:id]%>
+            <%=hidden_field_tag :payer_id, payer.id unless payer.blank? %>
+          <% else %>
+            <%= link_to 'UpdatePayer', :controller => 'pop_up', :action => 'select_payer' , :previous_page => 'edit', :popup_id => params[:id]%>
+          <%end %>
+        </td>
+        <td valign = "top"><%= text_field_tag 'end_date', @error_popups.end_date, :style => "width:60px;",:class => 'black_text' %>&nbsp;<%= date_picker("end_date", "ymd", "-") %></td>
+        <td><%= text_area_tag 'comment', @error_popups.comment, :id => 'comment_id', :cols => '40', :rows => '4', :class => 'black_text'%></td>
+        <td><%= text_area_tag 'question', @error_popups.Question, :id => 'question_id', :class => 'black_text'%></td>
+        <td><%= text_area_tag 'choice1', @error_popups.choice1, :id => 'choice1_id',  :class => 'black_text'%></td>
+        <td><%= text_area_tag 'choice2', @error_popups.choice2, :id => 'choice2_id',  :class => 'black_text'%></td>
+        <td><%= text_area_tag 'choice3', @error_popups.choice3, :id => 'choice3_id',  :class => 'black_text'%></td>
+        <td>
+
+          <%=select_tag 'answer', options_for_select(@choice_list, @selected_choice), :id => 'answer_id', :class => 'black_text'%>
+        </td>
+
+
+        <td>
+          <%= select_tag 'field_name', options_for_select(get_field_name_list.invert.sort, @error_popups.field_id), :id => 'field_name_id'%>
+        </td>
+        <td>
+          <input type='button' value="Update Document" onclick= "uploadDocument()" >
+          <% if(@document.blank?) %>
+            <%=hidden_field_tag :data_file_id %>
+            <%=text_area_tag 'document_name'%>
+          <%else%>
+            <%=text_area_tag 'document_name', @document.file_name unless @document.blank?%>
+            <%=hidden_field_tag :data_file_id, @document.id unless @document.blank? %>
+          <%end%>
+        </td>
+      </tr>
+    </table>
+    <%= submit_tag 'Edit', :class => 'button', :onclick => "return validateAlertData();" %>
+  <% end %>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'alert_list', :page => params[:page] %>
+</div>
+<script type="text/javascript">
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+</script>

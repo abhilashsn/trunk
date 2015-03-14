@@ -1,0 +1,50 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: sampling_rates
+#
+#  id    :integer(11)   not null, primary key
+#  slab  :string(255)   
+#  value :integer(11)   default(5)
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: sampling_rates
+#
+#  id    :integer(11)   not null, primary key
+#  slab  :string(255)   
+#  value :integer(11)   default(5)
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+1:
+      id: 1
+      slab: 95-100
+      value: 5
+      
+2:
+      id: 2
+      slab: 95-100
+      value: 10
+  
+3:
+      id: 3
+      slab: 95-100
+      value: 15
+  
+4:
+      id: 4
+      slab: 95-100
+      value: 18
+  
+5:
+      id: 5
+      slab: 95-100
+      value: 20
+  
+6:
+      id: 6
+      slab: 95-100
+      value: 25

@@ -1,0 +1,18 @@
+<% if !@facilities.blank? %>
+
+
+  <ul class = "checklist" id = "facility_ids" name = "facility[id][]" style = "width:200px;">
+    <% o2 = 0 %>
+    <% @facilities.each do |facility| %>
+      <% o2 = o2 + 1 %>
+      <li>
+       <label for = "oo<%= o2 %>">
+          <input id = "oo<%= o2 %>" name = "facility[id][]" type = "checkbox" value = "<%=facility.id%>"
+             <% unless @selected_facility_id.blank? %>    <% if @selected_facility_id.include?(facility.id) %> checked="checked" <% end %> <% end %> >
+                 <%=facility.name %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+<% end %>

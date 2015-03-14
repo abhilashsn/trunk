@@ -1,0 +1,198 @@
+<div id="ajax_container">
+  <div id="login_main">
+    <h1>Batch Allocation</h1>
+    <div class="light_info">
+      <%= form_tag :action => 'allocate' do %>
+  <%#= select_tag 'criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Status'],params[:criteria])%>
+  <%#= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+  <%#= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+  <%#= submit_tag 'Filter', :class => 'button' %>
+        <table>
+          <tr>
+            <td>
+              <%= select_tag 'first_criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Status'],params[:first_criteria]), :style=>"width:160px;"%>
+            </td>
+            <td>
+              <%= select_tag 'second_criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Status'],params[:second_criteria]),  :style=>"width:160px;"%>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td><%= text_field_tag 'first_to_find', params[:first_to_find], :style=>"width:140px;" %></td>
+            <td><%= text_field_tag 'second_to_find', params[:second_to_find], :style=>"width:140px;" %></td>
+            <td><%= submit_tag 'Filter', :class => 'button' %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+    <% unless @batches.blank? %>
+      <%= show_legend({"white" => "NEW", "blue" => "PROCESSING", "palered" => "QA REJECTED", "lightblue" => "Half Allocated"}) %>
+      <%= link_to 'Batch List', :action => 'allocate', :class => 'black_text' %>
+      <div style="background-color:#e9eef2; width:100%;" class="black_text">
+        <%= will_paginate @batches, :params => {:first_criteria => params[:first_criteria],:second_criteria => params[:second_criteria],
+          :first_to_find => params[:first_to_find], :second_to_find => params[:second_to_find]} %>
+      </div>
+      <table class="sortable" id="batch_allocate">
+        <tr>
+          <th>
+            BatchID
+          </th>
+          <th>
+            Batch Date
+          </th>
+          <th>
+            Facility
+          </th>
+          <th>
+            Estimated EOBs
+          </th>
+          <th>
+            Completed EOBs
+          </th>
+          <th>
+            Arrival Time (EST)
+          </th>
+          <th>
+            Target Time (EST)
+          </th>
+          <th>
+            Completion Time (EST)
+          </th>
+          <th>
+            Expected Completion Time (EST)
+          </th>
+          <th>
+            Index File Amount
+          </th>
+          <th>
+            Check Amount
+          </th>
+          <th>
+            Amount so far
+          </th>
+          <th>
+            Balance
+          </th>
+          <th>
+            EFT Amount
+          </th>
+          <th>
+            Status
+          </th>
+          <th>
+            TAT Comment
+          </th>
+          <th>
+            Comment
+          </th>
+          <th>
+            &nbsp;
+          </th>
+        </tr>
+        <% for batch in @batches %>
+          <%if batch.status.upcase == BatchStatus::PROCESSING
+            if not (batch.job_status_rejected).to_i ==  0
+              cls = 'palered'
+            elsif not (batch.job_status_new).to_i == 0
+              cls = 'lightblue'
+            else
+              cls = 'blue'
+            end
+          else
+            cls = 'white'
+          end
+          total_chk_amt_of_chk_or_oth, total_eft_amt = batch.totals
+          total_index_file_chk_amt = batch.get_total_index_file_amount
+          provider_adj_amount = batch.get_provider_adjustment_amount
+          asf = batch.tot_amount_so_far.to_f + provider_adj_amount.to_f
+
+        %>
+          <tr class="<%= cls %>">
+            <td>
+              <div style="text-align:center;"><%= batch.batchid %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= format_datetime(batch.date,'%m/%d/%y') unless batch.date.nil? %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= batch.facility_name %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= @batches_with_estimated_eob_count[batch.id].tot_estimated_eobs.to_f.round if @batches_with_estimated_eob_count[batch.id] %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= batch.tot_completed_eobs %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= format_datetime(batch.arrival_time) %></div>
+            </td>
+            <td nowrap>
+              <div style="text-align:center;"><%= format_datetime(batch.target_time) %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= format_datetime(batch.completion_time) unless batch.completion_time.nil? %></div>
+            </td>
+            <td nowrap>
+              <div style="text-align:center;"><% if batch.expected_completion_time.blank? %>N/A <% else %><%= format_datetime(batch.expected_completion_time) %>&nbsp;&nbsp;<%= link_to 'Edit', :action => 'comments', :id => batch %><% end %>
+              </div>
+            </td>
+            <td>
+              <div style="text-align:right;"><%=( total_index_file_chk_amt.blank? ? " " :(sprintf("%.2f", total_index_file_chk_amt.to_f)) )%></div>
+            </td>
+            <td>
+              <div style="text-align:right;"><%=( total_chk_amt_of_chk_or_oth.blank? ? " " :(sprintf("%.2f",total_chk_amt_of_chk_or_oth.to_f)) )%></div>
+            </td>
+            <td>
+              <div style="text-align:right;"><%=( asf.blank? ? " " :(sprintf("%.2f",asf)) )%></div>
+            </td>
+            <td>
+              <% balance = total_chk_amt_of_chk_or_oth.to_f -  asf
+              balance = balance.zero? ? balance.abs : balance %>
+              <div style="text-align:right;"><%=( balance.blank? ? " " :(sprintf("%.2f",balance)) )%></div>
+            </td>
+            <td>
+              <div style="text-align:right;"><%=( total_eft_amt.blank? ? " " :(sprintf("%.2f", total_eft_amt.to_f)) )%></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= batch.status %></div>
+            </td>
+            <td nowrap>
+              <div style="text-align:center;">
+                <% unless batch.tat_comment.blank? %>
+                  <%= batch.tat_comment %>&nbsp;&nbsp;
+                  <%= link_to image_tag("report_edit.png", :alt => "Edit", :title => "Edit", :border=>"0"),
+                    {:controller => '/admin/batch', :action => 'comments',
+                    :id => batch, :editable_field => 'tat_comment', :redirect_window => 'allocate'} %>|
+                  <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+                    {:controller => '/admin/batch',:action => "delete_batch_tat_comment",
+                      :id => batch.id, :redirect_window => 'allocate' }, :remote => true) %>
+                <% else %>-
+                <% end %>
+              </div>
+            </td>
+            <td nowrap>
+              <div style="text-align:left;"><textarea readonly="true" cols="20" rows="2" class="black_text"><%= (batch.comment.nil? ? " " : batch.comment)%></textarea></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= link_to 'Job Allocation',:controller => 'job', :action => 'allocate', :id => batch, :back_page => 'allocate' %></div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <br/>
+    <% else %>
+      <h4> No matching batches found. </h4>
+    <% end %>
+  </div>
+</div>
+<%= javascript_tag do %>
+  document.on('ajax:complete','#ajax_container', function(event,con){
+  con.update(event.memo.responseText);
+  Element.hide('spinner');
+  })
+  document.on('ajax:before','#ajax_container', function(event,con){
+  Element.show('spinner');
+
+  })
+<% end %>

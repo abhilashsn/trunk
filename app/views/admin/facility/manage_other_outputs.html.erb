@@ -1,0 +1,27 @@
+<%= form_tag :action => 'configure_other_outputs', :id=>@facility.id do %>
+<table width="50%" cellspacing="0" cellpadding="10" border="1">
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th colspan="2">Report Type</th>
+        </tr>
+        <% count = 0 %>
+        <% @report_types.each do |i| %>
+        <% count = count + 1 %>
+        <% checked = @other_output_configs.collect(&:other_output_type).include?(i.value) %>
+        <tr>
+          <td style="padding-left:10px;"><%= i.value %></td>
+          <td style="width:6%"><%= check_box_tag "report_type[#{count}]", i.value, checked %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td colspan="2">
+            <%= submit_tag 'Save', :class => 'button' %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<% end %>

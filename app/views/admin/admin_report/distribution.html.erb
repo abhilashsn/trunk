@@ -1,0 +1,37 @@
+<h4><%= link_to 'TAT Report', :action => 'tat_report' %>  |  Distribution  |  <%= link_to 'TAT Compliance', :action => 'tat_compliance' %>  |  <%= link_to 'Next Shift', :action => 'next_shift' %><h4>
+
+<h1>Distribution</h1>
+<div class="light_info">
+<table>
+  <tr>
+    <td>
+    <%= form_tag :action => 'distribution' do %>
+    <%= select_tag 'criteria', optionize('Lockbox', 'Shift') %>
+    <%= select_tag 'compare', optionize('=','>', '<') %>
+    <%= text_field_tag 'to_find', nil,  :size => '10' %>
+    <strong>Date:</strong> From
+    <%= text_field_tag 'date_from', nil,  :size => '10' %>
+    To
+    <%= text_field_tag 'date_to', nil,  :size => '10' %>
+    <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+    </td>  
+  </tr>
+</table>
+</div>
+
+
+<table>
+  <tr>
+    <th>Sitecode</th>
+    <th>Facility</th>
+    <th>Batch count</th>
+  </tr>
+<% for batch in @batches %>
+  <tr>
+    <td align='right'><%= batch.sitecode %></td>
+    <td><%= batch.facility_name %></td>
+    <td align='right'><%= batch.batch_count %></td>
+  </tr>
+<% end %>
+</table>

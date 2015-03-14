@@ -1,0 +1,49 @@
+PARSER: 'csv'
+COL_SEP: ','
+BANK_OF_AMERICA:
+   PAYMENT:
+        HEADER_ROW: 2
+        BATCH:
+            batchid: 5
+            lockbox: 1
+            date: [ 3, date ]
+            index_batch_number: 5
+            batch_time: 4
+        JOB:
+            check_number: 10
+            transaction_number: 0
+        CHEQUE:
+            check_number: 10
+            check_amount: [ 6, float ]
+            details:
+        MICR:
+            aba_routing_number: 8
+            payer_account_number: 9
+        IMAGE:
+            image_folder: ''
+            image_file_name: 11
+
+   CORRESP:
+        HEADER_ROW: 2
+        BATCH:
+            batchid: 5
+            lockbox: 1
+            date: [ 3, date ]
+            bank_deposit_date: [ 2, date ]
+            index_batch_number: 5
+            batch_time: 4
+        JOB:
+            check_number: 10
+            transaction_number: 0
+            details: 
+                 transaction_number: 0
+        CHEQUE:
+            check_number: 10
+            check_amount: [ 6, float ]
+            details:
+        IMAGE:
+            image_folder: ''
+            image_file_name: 11
+GENERAL:
+
+

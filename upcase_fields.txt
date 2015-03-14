@@ -1,0 +1,17 @@
+Following fields always stored in upper case;
+
+1.	All status (Job, Batch, Check & etc.)
+2.	Unique codes
+3.	Hippa codes
+4.	Batch type
+5.	Batch payee
+6.	Payer name
+7.	Client name
+8.	Facility name
+9.	Facility Tin
+10.	Facility batch_load_type
+11.	Payee npi
+12.	Site code
+13.	Group code
+14.	Plan type
+15.	Payer address, city & state

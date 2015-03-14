@@ -1,0 +1,20 @@
+ITERATORS:
+  IBAT: /BATCH
+  ICHK: Document
+BATCH:
+  document_format: "@type"
+  due_time: "@dueby"
+  provider_code: "@ProviderID"
+JOB:
+  lockbox: "@id"
+  pages_to: "@Pages"
+CHEQUE:
+  check_amount: "@CheckAmount"
+  check_number: "@CheckNumber"
+PAYER:
+  payid: "@PayerID"
+IMAGE:
+  image_file_name: "@name"
+MICR:
+  aba_routing_number: "@TRN"
+  payer_account_number: "@AccountNumber"

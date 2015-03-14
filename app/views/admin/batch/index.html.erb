@@ -1,0 +1,56 @@
+<div id="login_main">
+<h1>Listing batches</h1>
+<div class="light_info">
+  <%= form_tag 'batch', :method => "get"  do %>
+    <%= select_tag 'criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Client'],params[:criteria])%> 
+    <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+    <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+    <%= submit_tag 'Filter', :class => 'button' %>
+    <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border=>"0", :id => "spinner", :style=>"display: none;" ) %>
+  <% end %>
+</div>
+
+<% unless @batches.blank? %>
+  <%= show_legend({"blue" => "Correspondence", "white" => "Payment"}) %>    
+  <%= form_tag :action => 'delete_batches', :id => @batches_to_delete do %>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @batches, :params => {:criteria => params[:criteria], :compare => params[:compare], :to_find => params[:to_find]}%>
+    </div><br/>
+    <table style="width:100%">
+      <tr>
+        <th>Batch ID</th>
+        <th>Date</th>
+        <th>Facility</th>
+        <th>Client</th>
+        <th>Estimated EOBs</th>
+        <th>Arrival Time (EST)</th>
+        <th>Target Time (EST)</th>
+        <th><input type="checkbox" name="all" onClick="checkAll(document.forms[1].toggle,this)"/></th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+      <% for batch in @batches
+         cls=(batch.correspondence == true ? 'blue' : 'white' )
+         %>
+      <tr>
+        <td class="<%= cls %>" align='right'><%= batch.batchid %> </td>
+        <td class="<%= cls %>"><%= format_datetime(batch.date,'%m/%d/%y') unless batch.date.nil? %> </td>
+        <td class="<%= cls %>"><%= batch.facility_name %> </td>
+        <td class="<%= cls %>"><%= batch.facility_client_name %> </td>
+        <td class="<%= cls %>" align='right'><%= batch.tot_estimated_eobs.to_f.round %></td>
+        <td class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time)%> </td>
+        <td class="<%= cls %>" align='right'><%= format_datetime(batch.target_time)%> </td>
+        <td class="<%= cls %>"><%= check_box :batches_to_delete, batch.id, :id => 'toggle' %> </td>
+        <td class="<%= cls %>"><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => batch  %></td>
+        <td class="<%= cls %>"><%= link_to 'Job  Administration', :action => 'add_job', :id => batch %></td>
+      </tr>
+    <% end %>
+    </table>
+  <br/>
+  <%= submit_tag 'Delete Batches', :onclick => "return(confirm('Only new batches can be deleted. Are you sure?'))", :class => 'button' %>
+  <% end %>
+<% else %>
+  <h4> No matching batches found. </h4>
+<% end %>
+</div>
+

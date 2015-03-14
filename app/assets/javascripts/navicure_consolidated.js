@@ -1,0 +1,11 @@
+// ...
+//= require 'sorttable'
+//= require 'prototype'
+//= require 'effects'
+//= require 'dragdrop'
+//= require 'controls'
+//= require 'datepicker'
+//= require 'application'
+//= require 'jquery'
+//= require 'jquery.idletimeout'
+//= require 'jquery.idletimer'

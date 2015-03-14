@@ -1,0 +1,64 @@
+<div id="login_main">
+  <h1>Editing Job</h1>
+  <%= form_tag({:controller=>:job,:action =>"update_micr", :id => @job.id},:name => 'form1', :method=>"post") do %>
+      <table>
+      <tbody>
+        <tr>
+          <th>Check Number</th>
+          <%  check_number_value = @job.display_check_number%>
+          <td>
+            <%= text_field 'job', 'check_number', :value => check_number_value,
+              :disabled => true%>
+          </td>
+        </tr>
+        <%  aba_routing_no = @micr_line_info.aba_routing_number unless @micr_line_info.blank?
+            payer_acc_no = @micr_line_info.payer_account_number unless @micr_line_info.blank?
+        %>
+        <tr>
+          <th>ABA Routing #</th>
+          <td>
+            <%= text_field 'micr_line_information', 'aba_routing_number',
+              :id => 'job_aba_routing_number_id',
+              :value => aba_routing_no, :disabled => true,
+              :onchange => "isAbaValid(id, #{@is_micr_configured}, '#{check_number_value}');"
+            %>
+          </td>
+        </tr>
+        <tr>
+          <th>Payer Account #</th>
+          <td>
+            <%= text_field 'micr_line_information', 'payer_account_number',
+              :id => 'job_payer_account_number_id',
+              :value => payer_acc_no, :disabled => true,
+              :onchange => "isPayerAccNumValid(id, #{@is_micr_configured}, '#{check_number_value}');"
+            %>
+          </td>
+        </tr>
+        <tr>
+          <th>Payer Name</th>
+          <td>
+            <%= text_field 'payer', 'payer', :value => @payer_name,
+              :disabled => true
+              %>
+          </td>
+        </tr>
+        <tr>
+          <th>Associate EOB</th>
+          <td>
+            <%= text_field 'eob', 'count', :value => @eob_count,
+              :disabled => true
+              %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <%= submit_tag 'Edit', :name => "option1", :class => "button",
+                :onclick => "return enableMicrEdit(#{@eob_count});", :id => @job.id %>
+  <%= submit_tag 'Save', :name => "option1", :class => 'button', :id => @job.id,
+      :onclick => "return validateMicrData('job_aba_routing_number_id',
+  'job_payer_account_number_id', '#{check_number_value}', #{@is_micr_configured})"%>
+  <% end %>
+
+  <br/>
+  <td><%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'batch', :action => 'add_job', :id => @batch.id%></td>
+</div>

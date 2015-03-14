@@ -1,0 +1,59 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<body onblur="self.focus()">
+  <% if @eob_id != "0" && !@eob_id.blank? %>
+    <div id="definition">
+      <div class="cont" style="width:99%; height:260px; overflow-y : scroll;">
+        <table style="width:100%;">
+          <tr>
+            <td style="background-color:#E8E3CE; text-align:center;">
+              <span style="font-family:arial ;font-size:13px; text-align:center; color:#FF6600;">
+                <strong>
+                  Activity Log of A/c no: <%if !@eob_type.blank?%><%=@ins_eob.patient_account_number if @ins_eob%><%else%><%=@patient_data.account_number if @patient_data%><%end%>
+                </strong>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#F7F5F0;">
+
+              <%if @list%>
+                <% @list.each do |list|%>
+                  <ul><li><strong><%=list.start_time.strftime("%m/%d/%Y - %H:%M:%S %p")%> EST
+                      </strong>
+                      <ul>
+                        <% if(list.attributes.has_key?("user_name"))%>
+                          <li><%=list.user_name%>  <%=list.activity%> </li>
+                        <%else %>
+                          <%if(list.attributes.has_key?("allocater_name") && list.activity=='Allocated Job')%>
+                            <% user_name = (list.processorname.present? ? list.processorname : list.qa_name) if list.attributes.has_key?("processorname") %>
+
+                            <li><%=list.allocater_name%>  <%=list.activity%> to <%=user_name%> </li>
+                          <%else%>
+                            <% if list.attributes.has_key?("object_name") && list.object_name.present? %>
+                              <li>
+                                <%= display_activity_record(list) %>
+                              </li>
+                            <%else%>
+                              <% user_name = (list.processorname.present? ?list.processorname : list.qa_name) if list.attributes.has_key?("processorname") %>
+                              <% user_name = list.allocater_name if user_name.blank? %>
+                              <li> <%=list.activity%> by <%=user_name%> </li>
+                            <%end%>
+                          <%end%>
+                        <%end%>
+                      </ul>
+                    </li>
+                  </ul>
+                <%end%>
+              <%end%>
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  <% else %>
+    <h4>No EOBs found!. </h4>
+  <% end %>
+</body>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?><%@check=@checks.first%><%@batch=@check.job.batch%><%@job = @check.job%><%@page_count=@job.pages_to%><%@micr = @check.micr_line_information
+if @micr && @micr.payer
+  @payer = @micr.payer
+else
+  @payer = @check.payer
+end%>
+<Batch BatchNumber="<%=@batch.batchid.xmlize%>" LockboxID="<%=@job.lockbox.xmlize%>" PageCount="<%=@page_count%>" Product="KFI" Name="<%= image_name(@job.initial_image_name)%>" CheckAmount="<%="%.2f" %(@check.check_amount.to_f)%>"  ProviderID="<%=@batch.meta_batch_information.provider_code.xmlize%>" PayerID="<%= @check.details[:rms_kfi_payer_id].xmlize if @check.details and @check.details[:rms_kfi_payer_id]%>">
+  <EOBRecord>
+    <Grid Name="DOCUMENT">
+      <InsuranceCompanyAddress Datatype="Address" LookedUp="False" Page="<%=@job.pages_from%>">
+        <DataValue Datatype="MyAddress">
+          <Address AddressStructure="Multiple Lines" AddressType="Name and Address">
+            <Name WORD="<%=payer_name(@check,@payer)%>" />
+            <StreetAddress WORD="<%=payer_address1(@check,@payer)%>" />
+            <City WORD="<%=payer_city(@check,@payer)%>" />
+            <State WORD="<%=payer_state(@check,@payer)%>" />
+            <Zip WORD="<%=payer_zip(@check,@payer)%>" />
+          </Address>
+        </DataValue>
+      </InsuranceCompanyAddress><%@tax_id=provider_tax_id(@check)%><%unless @tax_id.blank? || @tax_id == "123456789"%>
+        <%= provider_tin_tag(@tax_id,@job.pages_from)%><%end%><% @aba_number=payer_aba_number(@check)%><%unless @aba_number.blank?%>
+        <%= payer_aba_number_tag(@aba_number,@job.pages_from)%><%end%><% @account_number=payer_account_number(@check)%><%unless @account_number.blank?%>
+        <%= payer_account_number_tag(@account_number,@job.pages_from)%><%end%><%provider_id=rendering_provider_id(@check)%><%unless provider_id.blank?%>
+        <%=rendering_provider_tag(provider_id,@job.pages_from)%><%end%><%provider_npi = provider_npi(@check)%><%unless provider_npi.blank?%>
+        <%= provider_npi_tag(provider_npi,@job.pages_from)%><%end%><%check_date=check_date(@check)%><%unless check_date.blank? %>
+        <%= check_date_tag(check_date,@job.pages_from)%><%end%><%check_number= check_number(@check)%><%unless check_number.blank?%>
+        <%= check_number_tag(check_number,@job.pages_from)%><%end%><%check_amount=check_amount(@check)%><%unless check_amount.blank?%>
+        <%= check_amount_tag(check_amount,@job.pages_from)%><%end%><%@provider_adjustments = get_provider_adjustment(@check)%><% @total_pr_adjustment_amount,@total_pr_interest_amount=calculate_pr_adjustments(@provider_adjustments)%><% if @total_pr_adjustment_amount!= 0 %>
+        <TransactionAdjustmentAmount Datatype="Money" LookedUp="False" Page="<%=@job.pages_from%>">
+          <DataValue Datatype="OCRWord">
+            <TEXTSTRING WORD="<%="%.2f" %(@total_pr_adjustment_amount.to_f)%>"/>
+          </DataValue>
+        </TransactionAdjustmentAmount><%end%> <% if @total_pr_interest_amount!= 0 %>
+        <TransactionInterest Datatype="Money" LookedUp="False" Page="<%=@job.pages_from%>">
+          <DataValue Datatype="OCRWord">
+            <TEXTSTRING WORD="<%= "%.2f" %(@total_pr_interest_amount.to_f)%>"/>
+          </DataValue>
+        </TransactionInterest> <%end%>
+    </Grid>
+    <Grid Name="TotalSet"> <% @ins_eob_array=[]%> <%ins_eobs = get_ordered_insurance_payment_eobs(@check)%><% rc_service_line_values = get_rc_service_line(@check) %><%ins_eobs.each_with_index do|ins_eob,counter| %>
+        <ClaimRecord ClaimRecordNumber="<%= counter+1%>"><% @ins_eob_array<< ins_eob%><% unless ins_eob.patient_first_name.blank? %>
+            <PatientName Datatype="Name" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="MyName">
+                <MyName NameStructure="First Name Space Last Name">
+                  <FirstName WORD="<%= validate_eob_details(ins_eob.patient_first_name.strip.xmlize)%>" />
+                  <LastName WORD="<%=validate_eob_details(ins_eob.patient_last_name.strip.xmlize)%>" />
+                </MyName>
+              </DataValue>
+            </PatientName> <%end%> <% unless ins_eob.subscriber_identification_code.blank?  %>
+            <MemberNumber Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= validate_eob_details(ins_eob.subscriber_identification_code.xmlize)%>" />
+              </DataValue>
+            </MemberNumber> <%end%> <% unless ins_eob.claim_number.blank? %>
+            <ClaimNumber Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= ins_eob.claim_number.xmlize%>" />
+              </DataValue>
+            </ClaimNumber> <%end%> <% unless ins_eob.patient_account_number.blank? %>
+            <PatientAccountNumber Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>" >
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= ins_eob.patient_account_number.xmlize%>" />
+              </DataValue>
+            </PatientAccountNumber> <%end%> <%unless ins_eob.subscriber_first_name.blank?%>
+            <MemberName Datatype="Name" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="MyName">
+                <MyName NameStructure="First Name Space Last Name">
+                  <FirstName WORD="<%= ins_eob.subscriber_first_name.xmlize%>" />
+                  <LastName WORD="<%= ins_eob.subscriber_last_name.xmlize%>" />
+                </MyName>
+              </DataValue>
+            </MemberName> <%end%> <% unless ins_eob.insurance_policy_number.blank? %>
+            <GroupNumber Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= ins_eob.insurance_policy_number.xmlize%>" />
+              </DataValue>
+            </GroupNumber> <%end%>  <%if ins_eob.over_payment_recovery and get_formatted_amount(ins_eob.over_payment_recovery) != "0.00" %>
+            <OverPaymentRecovery Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.over_payment_recovery.to_f)%>" />
+              </DataValue>
+            </OverPaymentRecovery> <%end%>  <% if ins_eob.total_submitted_charge_for_claim and get_formatted_amount(ins_eob.total_submitted_charge_for_claim) != "0.00" %>
+            <TotalBilledAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_submitted_charge_for_claim.to_f)%>" />
+              </DataValue>
+            </TotalBilledAmount> <%end%> <%if ins_eob.total_co_pay and get_formatted_amount(ins_eob.total_co_pay) != "0.00"%>
+            <TotalCopay Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_co_pay.to_f)%>" />
+              </DataValue>
+            </TotalCopay> <%end%> <%if ins_eob.total_co_insurance and get_formatted_amount(ins_eob.total_co_insurance) != "0.00"%>
+            <TotalCoinsurance Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_co_insurance.to_f)%>" />
+              </DataValue>
+            </TotalCoinsurance> <%end%>  <% if ins_eob.total_contractual_amount and get_formatted_amount(ins_eob.total_contractual_amount) != "0.00" %>
+            <TotalDisallowed Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_contractual_amount.to_f)%>" />
+              </DataValue>
+            </TotalDisallowed> <%end%> <%if ins_eob.total_deductible and get_formatted_amount(ins_eob.total_deductible) != "0.00" %>
+            <TotalDeductible Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_deductible.to_f)%>" />
+              </DataValue>
+            </TotalDeductible> <%end%> <%if ins_eob.total_prepaid and get_formatted_amount(ins_eob.total_prepaid) != "0.00" %>
+            <TotalPrepaid Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_prepaid.to_f)%>"/>
+              </DataValue>
+            </TotalPrepaid> <%end%> <%if ins_eob.total_discount and get_formatted_amount(ins_eob.total_discount) != "0.00" %>
+            <TotalDiscount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_discount.to_f)%>" />
+              </DataValue>
+            </TotalDiscount><%end%><%if ins_eob.total_drg_amount and get_formatted_amount(ins_eob.total_drg_amount) != "0.00" %>
+            <TotalDRGAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%="%.2f" %(ins_eob.total_drg_amount.to_f)%>" />
+              </DataValue>
+            </TotalDRGAmount><%end%><%if ins_eob.total_non_covered and get_formatted_amount(ins_eob.total_non_covered) != "0.00" %>
+            <TotalIneligibleAmountMember Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%="%.2f" %(ins_eob.total_non_covered.to_f)%>" />
+              </DataValue>
+            </TotalIneligibleAmountMember><%end%><%if ins_eob.total_allowable and get_formatted_amount(ins_eob.total_allowable) != "0.00" %>
+            <TotalAllowedAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%="%.2f" %(ins_eob.total_allowable.to_f)%>" />
+              </DataValue>
+            </TotalAllowedAmount><%end%><%if ins_eob.total_primary_payer_amount and get_formatted_amount(ins_eob.total_primary_payer_amount) != "0.00" %>
+            <TotalCOB Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_primary_payer_amount.to_f)%>" />
+              </DataValue>
+            </TotalCOB><%end%><%if ins_eob.total_amount_paid_for_claim and get_formatted_amount(ins_eob.total_amount_paid_for_claim) != "0.00" %>
+            <TotalPaidAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(ins_eob.total_amount_paid_for_claim.to_f)%>" />
+              </DataValue>
+            </TotalPaidAmount><%end%><% @total_adjustment_amount =0 %><%if @total_adjustment_amount > 0%>
+            <TotalRemarkCode Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <RemarkCodeMap Grid="REMARKS" ServiceLine="2" Zone="RemarkDescriptionInRemarkGrid" />
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="8504" />
+              </DataValue>
+            </TotalRemarkCode><%end%> <%if ins_eob.claim_interest and get_formatted_amount(ins_eob.claim_interest) != "0.00" %>
+            <TotalInterest Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%="%.2f" %(ins_eob.claim_interest.to_f)%>" />
+              </DataValue>
+            </TotalInterest><%end%><%eob_claim=ins_eob.claim_information%><%if eob_claim%><%unless eob_claim.facility_type_code.blank? || eob_claim.claim_frequency_type_code.blank?%>
+              <TotalBillType Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                <DataValue Datatype="OCRWord">
+                  <TEXTSTRING WORD="<%=eob_claim.facility_type_code.xmlize if ins_eob.claim_information%><%=eob_claim.claim_frequency_type_code.xmlize if ins_eob.claim_information %>" />
+                </DataValue>
+              </TotalBillType><%end%><%end%><%unless ins_eob.claim_type.blank?%>
+            <TotalClaimType Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%=ins_eob.claim_type[0]%>" />
+              </DataValue>
+            </TotalClaimType><%end%><% if ins_eob.category == "service" and   @total_adjustment_amount > 0 %>
+            <TotalAdjustmentAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="10.00" />
+              </DataValue>
+            </TotalAdjustmentAmount><%end%>  <% total_patient_responsibility_amount = ins_eob.total_patient_responsibility.to_f %><%if get_formatted_amount(total_patient_responsibility_amount) != "0.00"%>
+            <TotalPatientResponsibility Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= "%.2f" %(total_patient_responsibility_amount.to_f)%>" />
+              </DataValue>
+            </TotalPatientResponsibility><%end%><%total_begin_date = ((ins_eob.claim_from_date.blank?)? ins_eob.min_date : ins_eob.claim_from_date)%><%unless total_begin_date.blank?%>
+            <TotalBeginDateOfService Datatype="Date" DateFormat="MM/dd/yyyy" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= check_default_date(total_begin_date.strftime("%m/%d/%Y"))%>" />
+              </DataValue>
+            </TotalBeginDateOfService><%end%><%total_end_date = ((ins_eob.claim_to_date.blank?)? ins_eob.max_date : ins_eob.claim_to_date)%><%unless total_end_date.blank?%>
+            <TotalEndDateOfService Datatype="Date" DateFormat="MM/dd/yyyy" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+              <DataValue Datatype="OCRWord">
+                <TEXTSTRING WORD="<%= check_default_date(total_end_date.strftime("%m/%d/%Y"))%>" />
+              </DataValue>
+            </TotalEndDateOfService><%end%><%service_lines=ins_eob.service_payment_eobs%><% service_lines.each_with_index do|service_line,service_index|%>
+            <ServiceLine ServiceLineNumber="<%= (service_index + 1)%>"><%if service_line.service_procedure_charge_amount and get_formatted_amount(service_line.service_procedure_charge_amount) != "0.00"%>
+                <BilledAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_procedure_charge_amount.to_f)%>" />
+                  </DataValue>
+                </BilledAmount><%end%><%unless service_line.service_procedure_code.blank?%>
+                <ProcedureCode Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_procedure_code.xmlize%>" />
+                  </DataValue>
+                </ProcedureCode><%end%><%unless service_line.service_modifier1.blank?%>
+                <ProcedureCodeModifier Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_modifier1.xmlize%>" />
+                  </DataValue>
+                </ProcedureCodeModifier><%end%><%unless service_line.service_modifier2.blank?%>
+                <ProcedureCodeModifier Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_modifier2.xmlize%>" />
+                  </DataValue>
+                </ProcedureCodeModifier><%end%><%unless service_line.service_modifier3.blank?%>
+                <ProcedureCodeModifier Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_modifier3.xmlize%>" />
+                  </DataValue>
+                </ProcedureCodeModifier><%end%><%unless service_line.service_modifier4.blank?%>
+                <ProcedureCodeModifier Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_modifier4.xmlize%>" />
+                  </DataValue>
+                </ProcedureCodeModifier><%end%><%unless service_line.revenue_code.blank?%>
+                <RevenueCode Datatype="String" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.revenue_code%>" />
+                  </DataValue>
+                </RevenueCode><%end%><%unless service_line.service_quantity.blank?%>
+                <Quantity Datatype="Integer" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_quantity.to_f.to_amount%>" />
+                  </DataValue>
+                </Quantity><%end%><%if service_line.service_co_pay and get_formatted_amount(service_line.service_co_pay) != "0.00"%>
+                <Copay Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_co_pay.to_f)%>" />
+                  </DataValue>
+                </Copay> <%end%> <%if service_line.service_co_insurance and get_formatted_amount(service_line.service_co_insurance) != "0.00"%>
+                <Coinsurance Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_co_insurance.to_f)%>" />
+                  </DataValue>
+                </Coinsurance><%end%><%if service_line.contractual_amount and get_formatted_amount(service_line.contractual_amount) != "0.00"%>
+                <DisAllowed Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.contractual_amount.to_f)%>" />
+                  </DataValue>
+                </DisAllowed><%end%><%if service_line.service_deductible and get_formatted_amount(service_line.service_deductible) != "0.00"%>
+                <Deductible Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_deductible.to_f)%>" />
+                  </DataValue>
+                </Deductible><%end%><%if service_line.service_prepaid and get_formatted_amount(service_line.service_prepaid) != "0.00"%>
+                <Prepaid Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_prepaid.to_f)%>" />
+                  </DataValue>
+                </Prepaid><%end%><%if service_line.service_discount and get_formatted_amount(service_line.service_discount) != "0.00"%>
+                <Discount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_discount.to_f)%>" />
+                  </DataValue>
+                </Discount><%end%><%if service_line.drg_amount and get_formatted_amount(service_line.drg_amount) != "0.00"  %>
+                <DRGAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.drg_amount.to_f)%>" />
+                  </DataValue>
+                </DRGAmount> <%end%><%unless service_line.service_plan_coverage.blank?%>
+                <PlanCoverage Datatype="Integer" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= service_line.service_plan_coverage.xmlize%>" />
+                  </DataValue>
+                </PlanCoverage><%end%><%if service_line.service_no_covered and get_formatted_amount(service_line.service_no_covered) != "0.00"%>
+                <IneligibleAmountMember Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_no_covered.to_f)%>" />
+                  </DataValue>
+                </IneligibleAmountMember> <%end%><%if service_line.service_allowable and get_formatted_amount(service_line.service_allowable) != "0.00"%>
+                <AllowedAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_allowable.to_f)%>" />
+                  </DataValue>
+                </AllowedAmount><%end%><%if service_line.primary_payment and get_formatted_amount(service_line.primary_payment) != "0.00"%>
+                <COB Datatype="Money" LookedUp="False">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%="%.2f" %(service_line.primary_payment.to_f)%>" />
+                  </DataValue>
+                </COB><%end%><%if service_line.service_paid_amount and get_formatted_amount(service_line.service_paid_amount) != "0.00"%>
+                <PaidAmount Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.service_paid_amount.to_f)%>" />
+                  </DataValue>
+                </PaidAmount><%end%><%if service_line.patient_responsibility and get_formatted_amount(service_line.patient_responsibility) != "0.00"%>
+                <PatientResponsibility Datatype="Money" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= "%.2f" %(service_line.patient_responsibility.to_f)%>" />
+                  </DataValue>
+                </PatientResponsibility><%end%>
+              <% adjustment_reasons.each do |adjustment_reason| %>
+                <%= print_service_level_reason_code_tag(service_line, adjustment_reason, @page_count, service_index, rc_service_line_values) %>
+              <% end %>
+              <%unless service_line.date_of_service_from.blank?%>
+                <BeginDateOfService Datatype="Date" DateFormat="MM/dd/yyyy" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= check_default_date(service_line.date_of_service_from.strftime("%m/%d/%Y"))%>" />
+                  </DataValue>
+                </BeginDateOfService><%end%><%unless service_line.date_of_service_to.blank?%>
+                <EndDateOfService Datatype="Date" DateFormat="MM/dd/yyyy" LookedUp="False" Page="<%=ins_eob.image_page_no%>">
+                  <DataValue Datatype="OCRWord">
+                    <TEXTSTRING WORD="<%= check_default_date(service_line.date_of_service_to.strftime("%m/%d/%Y"))%>" />
+                  </DataValue>
+                </EndDateOfService><%end%>
+            </ServiceLine><%end%>
+        </ClaimRecord><%end%>
+    </Grid><%@reason_code_flag = false%><%@ins_eob_array.each do|ins_eob|%> <%if @reason_code_flag %><% break %><%end%><%service_eobs= ins_eob.service_payment_eobs%><%service_eobs.each_with_index do|service_eob,service_counter| %><%if @reason_code_flag == false%><%if reason_code_present(service_eob)%><%@reason_code_flag = true%><%end%><%else%><%break%><%end%><%end%><%end%><%if @reason_code_flag%>
+      <Grid Name="REMARKS">
+        <Record RecordNumber="0"><%@reason_code_array=[]%><%@service_line = 0%>
+          <%@ins_eob_array.each do|ins_eob|%>
+            <%service_eobs= ins_eob.service_payment_eobs%>
+            <%service_eobs.each_with_index do|service_eob,counter3| %>
+
+              <% adjustment_reasons.each do |adjustment_reason| %>
+                <% code, description, code_desc_string = print_all_reason_code_tag(service_eob, adjustment_reason) %>
+                <% if code.present? && description.present? %>
+                  <% unless @reason_code_array.include?(code_desc_string)
+                    @reason_code_array << code_desc_string %>
+                    <%= service_remark_code_tag(code, description, @page_count, code_desc_string, rc_service_line_values)  %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+            <%end%>
+          <%end%>
+        </Record>
+      </Grid><%end%>
+  </EOBRecord>
+</Batch>

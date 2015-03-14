@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <p>
+     <%if @status%>
+       The 835 output generation of the batch <%= @batch_id%> and the Group of batches <%= @group_batchids.to_sentence%> using delayed job is successfully completed.
+     <%else%>
+       The 835 output generation of the batch <%= @batch_id%> using delayed job is failed.
+       <br/>
+       URL : <%= @et_params[:url] %>
+       <br/>
+       The Group of Batches :
+       <br/>
+       <%= @group_batchids.to_sentence%>
+       <br/>
+       The last Batch considered :
+       <br/>
+       Batch ID: <%= @et_params[:last_batch].try(:batchid)%>
+       <br/>
+       The last JOB considered :
+       <br/>
+       JOB ID: <%= @et_params[:last_job].try(:id)%>
+       <br/>
+       The last EOB considered :
+       <br/>
+       EOB Class: <%= @et_params[:last_eob].try(:class)%> EOB ID: <%=  @et_params[:last_eob].try(:id)%>
+       <br/>
+       Check the below trace.
+       <br/>
+       <%= @error.message %>
+       <br/>
+       <%= raw(@error.backtrace.join("<br/>"))%>
+     <%end%>
+    </p>
+  </body>
+</html>
+

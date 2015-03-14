@@ -1,0 +1,85 @@
+<div>
+  <h1>Assign Facilities to <%= @processor.login %></h1>
+  <!--Filter starts here -->
+  <div class="light_info">
+    <%= form_tag ({:action => 'associate_facilities_to_users', :id => @processor.id}) do  %>
+      <%= select_tag 'search_key', optionize_custom(['Client Name','Facility Name', 'Facility Experience', 'Allocation Type'], params[:search_key]) %>
+      <%= select_tag 'compare', optionize_custom(['=','>', '<'], params[:compare])%>
+      <%= text_field_tag 'search_value', params[:search_value], :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button'  %>
+    <% end %>
+  </div>
+  <!--Filter ends here -->
+  <div>
+    <% if @facilities.blank? %>
+      No Records found!
+    <% else %>
+      <div  class="pagination_style">
+        <%= will_paginate @facilities, :params => {:search_key => params[:search_key],
+          :compare => params[:compare], :search_value => params[:search_value], :id => @processor.id} %>
+      </div>
+      <%= show_legend({ "lightblue" => "Yes", "white" => "No"}) %>
+      <div>
+        <br/>
+        <%= form_tag :action => 'create_or_update_facilities_to_users', :processor => @processor, :page => params[:page] do %>
+          <%= submit_tag "Add to allocation", :class => 'button', :name => "option" %>
+          <%= submit_tag "Remove from allocation", :class => 'button', :name => "option" %>
+          <table style="width:100%">
+            <tr>
+              <th style="width: 200px">Client Name</th>
+              <th style="width: 250px">Facility Name</th>
+              <th style="width: 100px">Site Code</th>
+              <th style="width: 150px">Experience With Facility</th>
+              <th style="width: 100px">Allocation Type</th>
+              <th style="width: 10px"><input type="checkbox" name="all" onClick = "checkOrUncheckAll(document.getElementsByClassName('checkbox'))"></th>
+            </tr>
+            <%  @facilities.each do |facility| %>
+              <%if facility.eligible_for_auto_allocation == 1
+                cls = 'lightblue'
+              else
+                cls = 'white'
+              end
+            %>
+              <tr class = "<%= cls%>">
+                <td><%= facility.client_name %></td>
+                <td><%= facility.facility_name %></td>
+                <td><%= facility.site_code %></td>
+                <td><%= (facility.eobs_processed.blank?)? 0:facility.eobs_processed%></td>
+                <td>
+                  <% if facility.eligible_for_auto_allocation == 1%>
+                    Yes
+                  <%else%>
+                    No
+                  <%end%>
+                </td>
+                <td style="width: 10px">
+                  <center>
+                    <%= check_box :facilities_to_update, "#{facility.id}" + ',' + "#{facility.facility_user_id}", :class => 'checkbox' %>
+                  </center>
+                </td>
+
+              </tr>
+            <% end %>
+          </table>
+          <%= submit_tag "Add to allocation", :class => 'button', :name => "option" %>
+          <%= submit_tag "Remove from allocation", :class => 'button', :name => "option" %>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => :index %>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

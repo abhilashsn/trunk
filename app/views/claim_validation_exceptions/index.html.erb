@@ -1,0 +1,76 @@
+<h1>Listing Claim Validation Exceptions</h1>
+
+<%= search_form_for @search do |f| %>
+    <div id="left">
+        <%= f.label "Client" %>
+        <%= f.text_field :eob_check_information_job_batch_client_name_cont %><br />
+        <%= f.label "Site" %>
+        <%= f.text_field :eob_check_information_job_batch_facility_name_cont %><br />
+        <%= f.label "Batch Date" %>
+        <%= f.text_field :eob_check_information_job_batch_date_eq %><br />
+        <%= f.label "Batch ID" %>
+        <%= f.text_field :eob_check_information_job_batch_batchid_cont %><br />
+    </div>
+    <div id="right">
+        <%= f.label "EOB Account"%>
+        <%= f.text_field :eob_patient_account_number_cont %><br />
+        <%= f.label "EOB Patient Last"%>
+        <%= f.text_field :eob_patient_last_name_cont %><br />
+        <%= f.label "Claim Account"%>
+        <%= f.text_field :claim_patient_account_number_cont %><br />
+        <%= f.label "Claim Patient Last"%>
+        <%= f.text_field :claim_patient_last_name_cont %><br />
+        <%= f.label "Action"%>
+        <%= f.text_field :action_cont %><br />
+    </div>
+    <%= f.submit %>
+    <% end %>
+
+<%= form_tag do %>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @claim_validation_exceptions, :params => {:criteria => params[:criteria], :to_find => params[:to_find]} %>
+</div>
+<table>
+  <tr>
+    <th rowspan="2"><%= sort_link @search, :eob_check_information_job_batch_client_name, "Client" %></th>
+    <th rowspan="2"><%= sort_link @search, :eob_check_information_job_batch_facility_name, "Site" %></th>
+    <th rowspan="2"><%= sort_link @search, :eob_check_information_job_batch_date, "Batch Date" %></th>
+    <th rowspan="2"><%= sort_link @search, :eob_check_information_job_batch_batchid, "Batch ID" %></th>
+    <th colspan="5">From EOB</th>
+    <th colspan="5">From Claim</th>
+    <th rowspan="2"><%= sort_link @search, :action %></th>
+  </tr>
+  <tr>
+    <th><%= sort_link @search, :eob_patient_account_number, "Account #" %></th>
+    <th><%= sort_link @search, :eob_patient_last_name, "Patient Name" %></th>
+    <th><%= sort_link @search, :eob_payer_name, "Payer" %></th>
+    <th><%= sort_link @search, :eob_claim_type, "Claim Type" %></th>
+    <th><%= sort_link @search, :eob_charges, "Charges" %></th>    
+    <th><%= sort_link @search, :claim_patient_account_number, "Account #" %></th>
+    <th><%= sort_link @search, :claim_patient_last_name, "Patient Name" %></th>
+    <th><%= sort_link @search, :claim_payer_name, "Payer" %></th>
+    <th><%= sort_link @search, :eob_claim_type, "Claim Type" %></th>
+    <th><%= sort_link @search, :claim_charges, "Charges" %></th>
+  </tr>
+
+<% @claim_validation_exceptions.each do |cve| %>
+  <tr>
+    <td><%= cve.client_name %></td>
+    <td><%= cve.facility_name %></td>
+    <td><%= cve.batch_date %></td>
+    <td><%= cve.batchid %></td>
+    <td><%= cve.eob_patient_account_number %></td>
+    <td><%= cve.eob_patient_last_name %></td>
+    <td><%= cve.payer.payer %></td>
+    <td><%= cve.eob_claim_type %></td>
+    <td class="numeric"><%= cve.eob_charges %></td>
+    <td><%= cve.claim_patient_account_number %></td>
+    <td><%= cve.claim_patient_last_name %></td>
+    <td><%= cve.claim_payer_name %></td>
+    <td><%= cve.claim_claim_type_normalized %></td>
+    <td class="numeric"><%= cve.claim_charges %></td>
+    <td><%= cve.action %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>

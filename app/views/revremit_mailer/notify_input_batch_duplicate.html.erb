@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+    <% unless @is_duplicate_name%>
+      The file <%= @file_name%> received on <%=@arrival_time%> did not pass validation checks.<br></br> <b>Reason:</b> “The lockbox file is a duplicate of a previously processed file <%= @duplicate_batch.file_name%>
+<br></br><b>BatchId:</b> <%= @duplicate_batch.batchid%><br></br><b>Arrival Time:</b> <%= @duplicate_batch.arrival_time%><br></br><b>Client:</b> <%= @client_name%><br></br><b>Facility:</b> <%= @facility_name %>  <font color="red"></font>.
+    <% else %>
+      The file <%= @file_name%> received on <%= @arrival_time%> has the same filename of a previously processed file received on <%=@duplicate_batch.arrival_time %> <br></br><b>BatchId:</b> <%= @duplicate_batch.batchid%><br></br><b> Client:</b> <%= @client_name%><br></br><b> Facility:</b> <%= @facility_name %><br></br> Request the client to send a new file with an updated filename.  <font color="red"></font>.
+    <% end %>
+    </p>
+  </body>
+</html>
+
+
+
+

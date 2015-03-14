@@ -1,0 +1,75 @@
+<%= javascript_include_tag "popup" %>
+<%= javascript_include_tag "datevalidation" %>
+<div id="login_main">
+  <h1>Edit Double Keying</h1>
+  <%= form_tag admin_twice_keying_field_path(@twice_keying_record), :method => 'put' do %>
+    <%=hidden_field_tag :previous_field_name, params[:field_name] %>
+
+    <table>
+      <tr>
+        <th width="10%">
+          Payer
+        </th>
+        <th width="20%">
+          Client <span class="alert"> *</span>
+        </th>
+        <th width="20%">
+          Facility 
+        </th>
+        <th width="10%">
+          Processor
+        </th>
+        <th width="8%">
+          Start Date <span class="alert"> *</span>
+        </th>
+        <th width="8%">
+          End Date <span class="alert"> *</span>
+        </th>
+        <th width="20%">
+          Field Name <span class="alert"> *</span>
+        </th>
+      </tr>
+      <tr>
+        <td style="text-align:center">
+          <% if @payer %>
+            <textarea name='payer' readonly='true' cols="15" rows="5" class = "black_text">
+              <%=@payer.payer %>
+            </textarea>
+            <%= link_to 'UpdatePayer', :controller => 'pop_up', :action => 'select_payer' , :previous_page => 'edit', :popup_id => params[:id], :group_no => params[:group_no], :mode => 'twice_keying_edit',:field_name => params[:field_name]  %>
+            <%=hidden_field_tag :payer_id, @payer.id unless @payer.blank? %>
+          <% else %>
+            <%= link_to 'UpdatePayer', :controller => 'pop_up', :action => 'select_payer' , :previous_page => 'edit', :popup_id => params[:id], :group_no => params[:group_no], :mode => 'twice_keying_edit', :field_name =>  params[:field_name] %>
+          <%end %>
+        </td>
+
+        <td>
+          <%= select_tag 'client_id', ("<option value=''>--Select--</option>" + options_for_select(@clients, @twice_keying_record.client_id)).html_safe,
+            :onchange => "getFacilitiesByClientForAlert(this.value, 'twice_keying_facility_span_id');",
+            :id => 'client_id' %>
+        </td>
+        <td>
+          <span id = "twice_keying_facility_span_id">
+            <%= render :partial => "/admin/pop_up/show_facility_for_alert" %>
+          </span>
+        </td>
+        <td>
+          <%= select_tag 'user_ids', options_for_select(processor_list, (@twice_keying_record.processor_ids.split(','))), {:multiple => true, :id => "example" } %>
+          <%#= hidden_field_tag 'user_ids', @twice_keying_record.processor_ids %>
+          <%= hidden_field_tag :group_no, @twice_keying_record.group_no%>
+        </td>
+        <td ><%= text_field_tag 'start_date', @twice_keying_record.start_date, :style => "width:60px;",:class => 'black_text' %>&nbsp;<%= date_picker("start_date", "ymd", "-") %></td>
+        <td ><%= text_field_tag 'end_date', @twice_keying_record.end_date, :style => "width:60px;",:class => 'black_text' %>&nbsp;<%= date_picker("end_date", "ymd", "-") %></td>
+       <td>
+          <%= select_tag 'field_names', options_for_select(field_names_list.invert.sort, @twice_keying_record.field_name) %>
+        </td>
+
+      </tr>
+    </table>
+    <%= submit_tag "Save", :class => 'button', :name => "option2", :onclick => "return validateTwiceKeyingRecord();" %>
+  <% end %>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'list', :page => params[:page] %>
+</div>
+
+

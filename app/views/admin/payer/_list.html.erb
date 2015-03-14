@@ -1,0 +1,50 @@
+<table>
+  <tr>
+    <th>Payer ID</th>
+    <th>Payer</th>
+    <th>ERA Payer Name</th>
+    <th>ABA Routing#</th>
+    <th>Payer Account#</th>
+    <th>Address One</th>
+    <th>Address Two</th>
+    <th>City</th>
+    <th>state</th>
+    <th>ZIP</th>
+    <th>Company ID</th>
+    <th>Payer Type</th>
+    <th>Footnote Indicator</th>
+    <th>RC Set Name</th>
+    <th>Payer Status</th>
+    <th>EOBs Per Image</th>
+    <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+    <th>Edit</th>
+    <%end%>
+  </tr>
+  <% @approved_payers.each do |payer| %>
+    <tr>
+      <td><%= display(payer.exact_payid) %></td>
+      <td><%= display(payer.payer) %></td>
+      <td><%= display(payer.era_payer_name) %></td>
+      <td><%= display(payer.aba_routing_number) %></td>
+      <td><%= display(payer.payer_account_number) %></td>
+      <td><%= display(payer.pay_address_one) %></td>
+      <td><%= display(payer.pay_address_two) %></td>
+      <td><%= display(payer.payer_city) %></td>
+      <td><%= display(payer.payer_state) %></td>
+      <td><%= display(payer.payer_zip) %></td>
+      <td><%= display(payer.company_id) %></td>
+      <td><%= (format_payer_type(payer.payer_type)) %></td>
+      <td><%= (payer.footnote_indicator ? "YES": "NO") %></td>
+      <td><%= display(payer.rc_set_name) %></td>
+      <td><%= display(payer.status) %></td>
+      <td><%= display(payer.eobs_per_image) %></td>
+      <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+      <td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"),
+        :action => 'edit', :id => payer.id, :micr_id => payer.micr_id %></td>
+      <td>
+        <%= link_to 'Manage Reason Code ', :controller => '/reason_codes', :action => 'index', :id => payer , :page_name => 'list_approved_payers'%>
+      </td>
+      <%end%>
+    </tr>
+  <% end %>
+</table>

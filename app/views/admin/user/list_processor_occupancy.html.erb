@@ -1,0 +1,37 @@
+<div id="login_main">
+<h5>Online Processors&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Processor Report', :action => 'processor_report' %></h5>
+
+<h1>Online Processors</h1>
+
+<% unless @users.blank? %>
+
+  <table style="width: 938px">
+    <tr>
+      <th ROWSPAN=2  style="width: 223px">User ID</th>
+      <th ROWSPAN=2 style="width: 126px">Accuracy %</th>
+      <th COLSPAN=3>Last 12 Hrs </th>
+    </tr>
+    <tr>
+      <th>Jobs Allocated</th>
+      <th>Jobs Completed</th>
+      <th>EOBs Completed</th>
+    </tr>
+    
+    <% @users.each do |user| %>
+    <tr>
+	<% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>	
+		<td><%= link_to user.userid, :controller => 'job', :action => 'user_jobs', :user => user, :hours => 12 %></td>
+	<% else %>
+		<td><%= user.login %></td>
+	<% end %>
+      <td><%= user.field_accuracy %></td>
+      <td align=right><%= user.allocated_jobs %></td>
+      <td align=right><%= user.completed_jobs %></td>
+      <td align=right><% if user.completed_eobs.nil? %>0<% else %><%= user.completed_eobs %><% end %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+  <% else  %>
+    <h4> No Information available.</h4>
+  <% end %>

@@ -1,0 +1,47 @@
+ITERATORS:
+  IBAT: /batch
+  ICHK: transaction
+BATCH:
+  batchid: batch_id
+  lockbox: lockbox_number
+  file_name: imagename
+  date: [ depositdate, date ]
+  bank_deposit_date: [ depositdate, date ]
+  production_status: production_status
+  provider_id: provider_id
+  group_id: group_id
+  interchange_sender_id: interchange_sender_id
+  interchange_receiver_id: interchange_receiver_id
+  group_sender_id: group_sender_id
+  group_receiver_id: group_receiver_id
+  payee_name: payee_name
+  payee_id: payee_id
+  payee_address1: payee_address1
+  payee_address2: payee_address2
+  payee_city: payee_city
+  payee_state: payee_state
+  payee_zip: payee_zip
+JOB:
+  check_number: check_number
+  guid_number: guid_number
+CHEQUE:
+  check_number: check_number
+  check_amount: [ check_amount, float ]
+  transaction_id: transaction_id
+  payer_name: payer_name
+  payer_address1: payer_address1
+  payer_address2: payer_address2
+  payer_city: payer_city
+  payer_state: payer_state
+  payer_zip: payer_zip
+  chk_payer_id: payer_id
+  chk_date: check_date
+  payer_supplemental_code: payer_supplemental_code
+  payer_tax_id: payer_tax_id
+  medistreams_payer_id: medistreams_payer_id
+MICR:
+  aba_routing_number: routing_number
+  payer_account_number: account_number
+IMAGE:
+  image_file_name: imagename
+

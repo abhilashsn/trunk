@@ -1,0 +1,95 @@
+<script LANGUAGE="JavaScript">
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+</script>
+
+<div id="login_main">
+  <h1>Double Keying Report</h1>
+
+  <div class="light_info">
+    <%= form_tag :action => 'list' do %>
+
+      <table>
+        <tr>
+          <th>Date Of Keying</th>
+          <td>
+            <strong>From :</strong>
+            <%= text_field_tag 'from_date', params[:from_date], :size => '10', :class => 'dropdown' %>
+            <%= date_picker("from_date", "mdy", "/") %>
+          </td>
+          <td>
+            <strong>To :</strong>
+            <%= text_field_tag 'to_date', params[:to_date], :size => '10', :class => 'dropdown' %>
+            <%= date_picker("to_date", "mdy", "/") %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <%= select_tag 'criteria', optionize_custom(@field_options, params[:criteria]) %>
+          </td>
+          <td>
+            <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+          </td>
+          <td>
+            <%= submit_tag 'Filter', :class => 'button' %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+
+    <%= link_to 'Export Double Keying Report', :action => 'export_list',
+      :criteria => params[:criteria], :compare => params[:compare], :to_find => params[:to_find],
+      :from_date => params[:from_date], :to_date => params[:to_date]  %>
+  </div>
+
+  <% if @records.present? %>
+    <%= show_legend({"green" => "Success", "orange" => "Failure"}) %>
+    <br>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @records, :params => { :criteria => params[:criteria],
+        :compare => params[:compare], :to_find => params[:to_find],
+        :from_date => params[:from_date], :to_date => params[:to_date] } %>
+    </div>
+
+    <table style="width:100%;float:left;">
+      <tr>
+        <%= hide_and_seek_label :twice_keying_statistics, :date_of_keying_label, 'Date (IST)', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :client_name_label, 'Client', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :facility_name_label, 'Facility', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :payid_label, 'Payer ID', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :payer_name_label, 'Payer Name', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :batch_date_label, 'Batch Date', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :batchid_label, 'Batch ID', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :check_number_label, 'Check Number', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :patient_account_number_label, 'Patient Account #', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :field_name_label, 'Field Name', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :employee_id_label, 'Processor Emp ID', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :processor_name_label, 'Processor Name', true, "th" %>
+        <%= hide_and_seek_label :twice_keying_statistics, :first_attempt_status_label, 'Status', true, "th" %>
+      </tr>
+
+      <% @records.each do |record| %>
+        <tr class="<%= legend_color(record.first_attempt_status) %>">
+          <%= hide_and_seek_label :twice_keying_statistics, :date_of_keying, (format_datetime(convert_to_ist_time(record.date_of_keying),'%m/%d/%y') || '-'), true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :client_name, record.client_name.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :facility_name, record.facility_name.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :payid, record.payid.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :payer_name, record.payer_name.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :batch_date, (format_datetime(record.batch_date,'%m/%d/%y') || '-'), true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :batchid, record.batchid.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :check_number, record.check_number.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :patient_account_number, record.patient_account_number.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :field_name, record.normalize_field_name, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :employee_id, record.employee_id.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :processor_name, record.processor_name.to_s.upcase, true, "td" %>
+          <%= hide_and_seek_label :twice_keying_statistics, :first_attempt_status, record.normalize_first_attempt_status, true, "td" %>
+        </tr>
+      <% end  %>
+    </table>
+  <% else %>
+    <h4> No matching records found. </h4>
+  <% end %>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'dashboard', :action => 'index' %>
+</div>

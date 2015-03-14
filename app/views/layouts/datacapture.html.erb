@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <%= csrf_meta_tag %>
+    <title><%= $APP_TITLE %></title>
+    <link rel="shortcut icon" href="/favicon.ico">
+      <%= javascript_include_tag 'datacapture_consolidated' %>
+      <%= stylesheet_link_tag 'datacapture_consolidated' %>
+      <style type="text/css">
+        #idletimeout { background:#CC5100; border:3px solid #FF6500; color:#fff; font-family:arial, sans-serif; text-align:center; font-size:12px; padding:10px; position:relative; top:0px; left:0; right:0; z-index:100000; display:none; }
+        #idletimeout a { color:#fff; font-weight:bold }
+        #idletimeout span { font-weight:bold }
+      </style>
+      <!--[if IE]>
+          <style>
+          .validation-advice {
+          margin-top: 25px;
+          margin-left: -20px;
+          }
+          </style>
+      <![endif]-->
+      <SCRIPT>
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+        function popopen(){
+          var pop_w = window.open("uploadfile", "mywindow", "top=500,left=200,width=500,height=300", "toolbar=no", "menubar=no");
+        }
+        var win = null;
+        function NewWindow(mypage, myname, w, h, scroll, pos){
+          if (pos == "random") {
+            LeftPosition = (screen.width) ? Math.floor(Math.random() * (screen.width - w)) : 100;
+            TopPosition = (screen.height) ? Math.floor(Math.random() * ((screen.height - h) - 75)) : 100;
+          }
+          if (pos == "center") {
+            LeftPosition = (screen.width) ? (screen.width - w) / 2 : 100;
+            TopPosition = (screen.height) ? (screen.height - h) / 2 : 100;
+          }
+          else
+            if ((pos != "center" && pos != "random") || pos == null) {
+              LeftPosition = 0;
+              TopPosition = 20
+            }
+          settings = 'width=' + w + ',height=' + h + ',top=' + TopPosition + ',left=' + LeftPosition + ',scrollbars=' + scroll + ',location=no,directories=no,status=no,menubar=no,toolbar=no,resizable=no';
+          win = window.open(mypage, myname, settings);
+        }
+        jQuery.noConflict();
+        jQuery(function() {
+          jQuery("#resizable").resizable({
+            alsoResizeReverse: ".myiframe"
+          });
+        });
+      </SCRIPT>
+  </head>
+  <body onload="noBack();"  onpageshow="if (event.persisted) noBack();" >
+    <%=yield %>
+  </body>
+</html>
+
+<% unless current_user.nil? %>
+  <script type="text/javascript">
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    jQuery.noConflict();
+    document.attachEvent("onkeydown", myOnKeyDownHandler);
+  </script>
+<% end %>

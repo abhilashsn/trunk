@@ -1,0 +1,76 @@
+PARSER: 'dat'
+BANK_OF_AMERICA:
+    PAYMENT:
+        BATCH:
+          batchid: [ 39, 44, batch ]
+          lockbox: [ 14, 23 ]
+          date: [ 24, 31, date ]
+          bank_deposit_date: [ 24, 31, date ]
+          index_batch_number: [ 39, 44]
+        DOC: [ 56, 60 ]
+        JOB:
+          check_number: [ 75, 86 ]
+          transaction_number: [47, 50]
+          details: 
+                 batch_item_sequence: [ 47, 50]
+        CHEQUE:
+          check_number: [ 75, 86 ]
+          check_amount: [ 61, 74, float ]
+        MICR:
+          aba_routing_number: [ 88, 107 ]
+          payer_account_number: [ 108, 127 ]
+        IMAGE:
+          image_file_name: [ 128, 182 ]
+    CORRESP:
+        BATCH:
+          batchid: [ 39, 44 ]
+          lockbox: [ 14, 23 ]
+          date: [ 24, 31, date ]
+          bank_deposit_date: [ 24, 31, date ]
+        DOC: [ 56, 60 ]
+        JOB:
+          check_number: [ 75, 86 ]
+          transaction_number: [47, 50]
+          details: 
+                 batch_item_sequence: [ 47, 50]
+        IMAGE:
+          image_file_name: [ 128, 182 ]
+  
+GENERAL:
+    PAYMENT:
+        BATCH:
+          batchid: [ 39, 44, batch ]
+          lockbox: [ 14, 22 ]
+          date: [ 24, 31, date ]
+          bank_deposit_date: [ 24, 31, date ]
+        DOC: [ 56, 60 ]
+        JOB:
+          check_number: [ 75, 86 ]
+          details:
+                 batch_item_sequence: [ 47, 50]
+        CHEQUE:
+          check_number: [ 75, 86 ]
+          check_amount: [ 61, 74, float ]
+        MICR:
+          aba_routing_number: [ 88, 107 ]
+          payer_account_number: [ 108, 127 ]
+        IMAGE:
+          image_file_name: [ 128, 182 ]
+        APPEND:
+          date: 'true'
+
+    CORRESP:
+        BATCH:
+          batchid: [ 39, 44 ]
+          lockbox: [ 14, 22 ]
+          date: [ 24, 31, date ]
+          bank_deposit_date: [ 24, 31, date ]
+        DOC: [ 56, 60 ]
+        JOB:
+          check_number: [ 75, 86 ]
+          details:
+                 batch_item_sequence: [ 47, 50]
+        IMAGE:
+          image_file_name: [ 128, 182 ]
+        APPEND:
+          date: 'true'

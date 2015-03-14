@@ -1,0 +1,154 @@
+<%= javascript_include_tag "simpletreemenu" %>
+<%= stylesheet_link_tag 'simpletree' %>
+
+<div id="login_main">
+  <h1>Editing user</h1>
+  <%= render "shared/error_messages", :target => @user %>
+  <%= form_tag(admin_user_path(@user), :method=>'put') do %>
+    <table>
+      <tr>
+        <td style="width: 278px"><label for="user_name">Name <span class="alert"> *</span></label></td><td><%= text_field 'user', 'name',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_userid">User ID <span class="alert"> *</span></label></td><td><%= text_field 'user', 'login',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_email">Email <span class="alert"> *</span></label></td><td><%= text_field 'user', 'email',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_password">Password <span class="alert"> *</span></label></td><td><%= password_field 'user', 'password',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_password_confirmation">Confirm Password <span class="alert"> *</span></label></td><td><%= password_field 'user', 'password_confirmation',:class => 'black_text' %></td>
+      </tr>
+
+      <tr>
+        <td><label for="user_shift">Shift</label></td><td><%= select_tag 'shift', options_for_select(@shifts, @selected),:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_role">Role <span class="alert"> *</span></label></td><td>
+          <table><tr>
+              <%o = 0
+              unless @roles.blank?
+                @roles.each do |role| %>
+                  <%o = o+1%>
+
+                  <td><label for="o<%=o %>"><input id="o<%= role %>" name="role[id][]" type="checkbox" value= "<%=role%>" onclick="choose_facility(id)"; <%= "checked" if !@role_array.nil? && @role_array.include?(role) %> > </label><%=(role.size == 2? role.upcase : role.capitalize)%>&nbsp;</td>
+                <% end %>
+              <% end %>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr id="facilityRow">
+        <td><label for="user_facility">Facility</label></td><td>
+          <div id='fac_div'  style="width: 100%;float: left;">
+            <ul id="fac_tree" class="treeview" style="padding-left:1px">
+              <%f = 0%>
+              <% @partners.each do |partner| %>
+                <li><%=partner.name%>
+                  <ul>
+                    <% partner.clients.each do |client| %>
+                      <li><%=client.name%>
+                        <ul>
+                          <% client.facilities.each do |facility| %>
+                            <li>
+                              <input id="f<%=facility.id %>" name="facility[id][]" type="checkbox" value= "<%=facility.id%>" > <%=facility.name%>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              <%end%>
+            </ul>
+
+          </div>
+          <div id='partner_div' class='checklist' style="display:none; width: 100%; float: left;">
+            <%unless @partners.blank?
+              @partners.each do |partner| %>
+                <label><input id="c<%=partner.id %>" name="partner[id][]" type="checkbox" value= "<%=partner.id%>" > <%=partner.name%></label>
+              <% end %>
+            <% end %>
+          </div>
+          <div id='client_div' style="display:none; width: 100%; float: left;">
+            <ul id="client_tree" class="treeview" style="padding-left:1px">
+              <% @partners.each do |partner| %>
+                <li><%=partner.name%>
+                  <ul>
+                    <% partner.clients.each do |client| %>
+                      <li>
+                        <input id="c<%=client.id %>" name="client[id][]" type="checkbox" value= "<%=client.id%>" > <%=client.name%>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="user_role">Retrieval Permission(s)</label></td>
+        <td colspan="2"><label for="batch_correspondence">| Image </label><%= check_box 'user', 'image_permision',:checked=>@image %>
+          <label for="batch_system_issue"> | Image and 835 </label><%= check_box 'user', 'image_835_permision',:checked=>@image_835 %>
+          <label for="batch_policy_issue"> | Image and grid </label><%= check_box 'user', 'image_grid_permision',:checked=>@image_grid %>
+          <label for="claim_retrieval"> | Claims </label><%= check_box 'user', 'claim_retrieval_permission', :checked => @claim_retrieval %></td>
+      </tr>
+      <% if current_user.grant_fc_edit_permission %>
+        <tr>
+          <td><label>Facility Configuration Editing Permission</label></td>
+          <td><%= check_box('user', 'fc_edit_permission', {:checked => @user.fc_edit_permission}) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><label> Batch Status</label></td><td><%= check_box 'user', 'batch_status_permission',:checked=>@batch_status_grid %></td>
+      </tr>
+      <tr>
+        <td><label> 837 File Report </label></td>
+        <td><%= check_box('user', 'file_837_report_permission', {:checked => @file_837_report_permission}, "1", "0") %></td>
+      </tr>
+      <tr>
+        <td><label for="user_accuracy"> Accuracy %</label></td><td><%= text_field 'user', 'field_accuracy',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_total_eobs">Total EOBs</label></td><td><%= text_field 'user', 'total_eobs',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="user_rejected_eobs">Rejected EOBs</label></td><td><%= text_field 'user', 'rejected_eobs',:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="employee_id">Employee ID  <span class="alert"> *</span> </label></td>
+        <td><%= text_field 'user', 'employee_id', :class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="location">Location  <span class="alert"> *</span> </label></td>
+        <td><%= select_tag 'location', options_for_select(['TVM', 'NGL'], @selected_location),:class => 'black_text' %></td>
+      </tr>
+      <tr>
+        <td><label for="num_cre_errors"> Number of CRE errors for the salary period</label></td>
+        <td><%= text_field 'user', 'num_cre_errors', :class => 'black_text' %></td>
+      </tr>
+      <% if @user.has_role?(:processor) %>
+        <tr>
+          <td><label for="payer_wise_auto_allocation">Payer Wise Auto Allocation</label></td>
+          <td><%= check_box :user, :eligible_for_payer_wise_job_allocation %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <%= hidden_field_tag "pass", @password %>
+        <%= hidden_field_tag "page", @page %>
+      </tr>
+    </table>
+    <%= submit_tag 'Edit', :class => 'button' %>
+  <% end %>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index', :page => @page %>
+</div>
+<script type="text/javascript">
+  ddtreemenu.createTree("client_tree", false);
+  ddtreemenu.createTree("fac_tree", false);
+
+</script>

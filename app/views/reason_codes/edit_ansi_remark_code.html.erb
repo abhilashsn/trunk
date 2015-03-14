@@ -1,0 +1,18 @@
+<h1>Editing ANSI Remark Code</h1>
+
+<%= form_tag :action => 'update_ansi_remark_code', :id => params[:id], :payer_id => @payer_id, :view => params[:view] do %>
+
+  ANSI Remark Code:
+
+  <%  if @reason_code.ansi_remark_code.blank?
+    ansi_remark_code = ""
+  else
+    ansi_remark_code = @reason_code.ansi_remark_code.adjustment_code
+  end %>
+
+  <%= text_field_with_auto_complete 'ansi_remark_code', 'adjustment_code', :value => ansi_remark_code, :class => "black_text", :style => "width:55px; text-align:left;" %>
+
+  <br>
+  <%= submit_tag "Update", :class => 'button' %>
+
+<% end %>

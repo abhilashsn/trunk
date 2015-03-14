@@ -1,0 +1,275 @@
+<%= stylesheet_link_tag "ext-all.css" %>
+<%= javascript_include_tag "ExtJs/adapter/ext/ext-base.js" %>
+<%= javascript_include_tag "ExtJs/ext-all.js" %>
+<%= javascript_include_tag "ExtJs/ext-all-debug.js" %>
+<%= javascript_include_tag "ExtJs/ext-utils.js" %>
+<script LANGUAGE="JavaScript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+</script>
+<%= render "shared/error_messages", :target => @payer %>
+<%= hidden_fields_for_payer %>
+<table width="85%" cellpadding="0" cellspacing="0" valign='top' style="border:#FFFFFF 1px solid;">
+  <tr>
+    <td valign='top' bgcolor="#dfe8f6" width="50%">
+      <fieldset>
+        <legend style="text-align:left;padding:5px">
+          <a href="#" onclick="javascript:Element.toggle('payer_info');return false;">
+            <%= image_tag "drop.gif", :alt=>"", :width=>"10", :height=>"15", :border=>"0", :align=>"absmiddle" %> Payer Information</a>
+        </legend>
+        <div id='payer_info' style="width: 100%; padding:5px">
+          <table width='100%'>
+            <tr>
+              <td width='20%'><b> Payer Id </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'payid', :size => 10, :value => @payid,
+                  :class => 'black_text required', :disabled => @readonly_payid,
+                  :onblur => "changeToCapital(id)", :onchange => "autoPopulateRCSetName()" %> </td>
+            </tr>
+            <tr>
+              <td><b> ABA Routing #</b></td>
+              <td><%= text_field 'micr_line_information', 'aba_routing_number',
+                  :maxlength => 9, :size => 20, :class => 'black_text',
+                  :onblur => "changeToCapital(id); isAbaValid(id, '')" %></td>
+            </tr>
+            <tr>
+              <td><b> Payer Account #</b></td>
+              <td><%= text_field 'micr_line_information', 'payer_account_number',
+                  :maxlength => 15, :size => 20, :class => 'black_text',
+                  :onblur => "changeToCapital(id); isPayerAccNumValid(id, '')" %></td>
+            </tr>
+            <tr>
+              <td><b> Payer Name </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'payer', :size => 35, :class => 'black_text required',
+                  :onblur => "changeToCapital(id);", :value => @payer_name %>  <input type='button' value="Search" onclick="payerNameSearch(<%= @payer_id%>)" ></td>
+            </tr>
+            <tr>
+              <td><b> ERA Payer Name </b></td>
+              <td><%= text_field 'payer', 'era_payer_name', :size => 35, :class => 'black_text',
+                  :onblur => "changeToCapital(id);", :value => @era_payer_name %>  </td>
+            </tr>
+            <tr>
+              <td><b> Address One </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'pay_address_one', :size => 35, :class => 'black_text required',
+                :onblur => "changeToCapital(id);" %></td>
+            </tr>
+            <tr>
+              <td><b> Address Two</b></td>
+              <td><%= text_field 'payer', 'pay_address_two', :size => 35, :class => 'black_text',
+                :onblur => "changeToCapital(id);" %></td>
+            </tr>
+            <tr>
+              <td><b> City </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'payer_city', :size => 35, :class => 'black_text required',
+                :onblur => "changeToCapital(id);" %></td>
+            </tr>
+            <tr>
+              <td><b> State </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'payer_state', :size => 3,
+                  :class => 'black_text required validate-payer_state', :maxlength => 2,
+                  :onblur => "changeToCapital(id);" %></td>
+            </tr>
+            <tr>
+              <td><b> Zip Code </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'payer_zip', :size => 10, :maxlength => 9,
+                :class => 'required validate-zipcode black_text' %></td>
+            </tr>
+            <tr>
+              <td><b> Plan Type</b></td>
+              <td><%= select_tag 'plan_type', options_for_select(payer_type_list.sort,@plan_type),:class => "black_text" %></td>
+            </tr>
+            <tr>
+              <td><b> Tax ID</b></td>
+              <td><%= text_field 'payer', 'payer_tin', :size => 20, :class => 'black_text',
+                :onblur => "changeToCapital(id);"%></td>
+            </tr>
+            <tr>
+              <td><b> Company ID</b></td>
+              <td><%= text_field 'payer', 'company_id', :size => 20, :class => 'black_text',
+                :onblur => "changeToCapital(id);", :value => params[:company_id]%></td>
+            </tr>
+          </table>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend style="text-align:left;padding:5px">
+          <a href="#" onclick="javascript:Element.toggle('facility_plan_types_list');return false;">
+            <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Plan Type</a>
+          <div id='facility_plan_types_list' style="width: 100%;padding:5px">
+            <%= hidden_field_tag 'plan_ids_to_delete', nil %>
+            <table width='100%' id="facility_plan_type" border="0">
+              <tr valign="top" id="facility_plan_type">
+                <th width='10%'><b> Plan Type </b></th>
+                <th width='20%'><b> Client </b></th>
+                <th width='60%'><b> Facility </b></th>
+              </tr>
+              <tr>
+                <td><%= text_field_tag 'plan_type_code',nil, {:size => 15, :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 2 } %></td>
+                <td><%= select_tag 'plan_type_client', ("<option value=''>--Select--</option>" + options_for_select(@clients)).html_safe,
+                  :onchange => "getFacilityByClient(\'#{@relative}\',this, 'plan_type_facilities');" %></td>
+                <td width='40%'><span id="plan_type_facility_span"></span></td>
+                <td width='5%'><input type="button" name="button" value="+" id="add_facility_plan_type" onclick ="addFacilityPlanType(); " style="width:20px;" class = "submit_add"/>
+              </tr>
+
+              <% unless @facility_plan_types.blank? %>
+                <% @facility_plan_types.each do |facility_plan_type| %>
+                  <tr id="facility_plan_type_<%=  facility_plan_type.id %>">
+                    <td><%= display(facility_plan_type.plan_type) %></td>
+                    <td><%= display(facility_plan_type.client.name) %></td>
+                    <td><%= display(facility_plan_type.facility.name) if facility_plan_type.facility.present? %></td>
+                    <%= hidden_field_tag 'saved_plan_type_details', "#{facility_plan_type.client_id},#{facility_plan_type.facility_id}", {:class => 'saved_plan_type_details'}  %>
+                    <%= hidden_field_tag 'saved_plan_client_id', facility_plan_type.client_id %>
+                    <%= hidden_field_tag 'saved_plan_facility_id', facility_plan_type.facility_id %>
+                    <td><input type="button" name="button" value="-" onclick ="removeSavedFacilityPlanTypes(<%= facility_plan_type.id %>); " style="width:20px;" class = "submit_add"/>
+                    </td></tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+        </legend>
+      </fieldset>
+      <fieldset>
+        <legend style="text-align:left;padding:5px">
+          <a href="#" onclick="javascript:Element.toggle('client_specific_payer_info');return false;">
+            <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Client Specific Payer Name / ID</a>
+          <div id='client_specific_payer_info' style="width: 100%;padding:5px">
+            <table width='100%' id="client_specific_payer_details" border="0">
+              <%= hidden_fields_for_output_payid %>
+              <%= hidden_fields_for_onbase_name %>
+              <input type = 'hidden' id = 'client_specific_payer_details_last_serial_num' value = 0>
+              <tr valign="top" id="client_specific_payer_details_label">
+                <th width='10%'><b> Name </b></th>
+                <th width='10%'><b> ID </b></th>
+                <th width='20%'><b> Client </b></th>
+                <th width='60%'><b> Facility </b></th>
+              </tr>
+              <tr>
+                <td><%= text_field 'fac_micr', 'onbase_name', :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);" %></td>
+                <td><%= text_field 'fac_payer', 'output_payid', :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id); validateAlphaNumeric(id)" %></td>
+                <td><%= select_tag 'client', ("<option value=''>--Select--</option>" + options_for_select(@clients)).html_safe,
+                    :onchange => "getFacilityByClientForPayerRelatedData(this, 'facility_span');",
+                    :id => 'client_of_onbase' %></td>
+                <td width='40%'><span id="facility_span"></span></td>
+                <td width='5%'><input type="button" name="button" value="+" id="add_client_specific_information" onclick ="addClientSpecificPayerInformation(); " style="width:20px;" class = "submit_add"/>
+                </td></tr>
+              <% index = 0 %>
+              <% unless @onbase_name_records.blank? %>              
+                <% @onbase_name_records.each do |onbase_name_record| %>
+              <% index += 1 %>
+                  <tr id="saved_facility_micr_info_<%= index %>">
+                    <td><%= display(onbase_name_record.onbase_name) %></td>
+                    <td></td>
+                    <td><%= display(onbase_name_record.client_name) %></td>
+                    <td><%= display(onbase_name_record.facility_name) %></td>
+                    <td><input type="button" name="button" value="-" id="remove_saved_facility_micr_info_<%= index %>" onclick ="removeSavedOnbaseNameRow('<%= onbase_name_record.id %>', '<%= onbase_name_record.client_id %>', '<%= onbase_name_record.facility_id %>', '<%= index %>'); " style="width:20px;" class = "submit_add"/>
+                    </td></tr>
+                <% end %>
+              <% end %>
+              <% unless @output_payid_records.blank? %>
+                <% @output_payid_records.each do |output_payid_record| %>
+                  <% index += 1 %>
+                  <tr id="saved_facility_micr_info_<%= index %>">
+                    <td></td>
+                    <td><%= display(output_payid_record.output_payid) %></td>
+                    <td><%= display(output_payid_record.client_name) %></td>
+                    <td><%= display(output_payid_record.facility_name) %></td>
+                    <td><input type="button" name="button" value="-" id="remove_saved_facility_micr_info_<%= index %>" onclick ="removeSavedOutputPayidRow('<%= output_payid_record.id %>', '<%= output_payid_record.client_id %>', '<%= output_payid_record.facility_id %>', '<%= index %>'); " style="width:20px;" class = "submit_add"/>
+                    </td></tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+        </legend>
+      </fieldset>
+      <fieldset>
+        <legend style="text-align:left;padding:5px">
+          <a href="#" onclick="javascript:Element.toggle('payment_or_allowance_code_info');return false;">
+            <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Payment / Allowance Codes</a>
+          <div id='payment_or_allowance_code_info' style="width: 100%;padding:5px">
+            <table width='100%' id="payment_or_allowance_code_details" border="0">
+              <%= hidden_fields_for_payment_or_allowance_codes %>
+              <tr valign="top" id="payment_or_allowance_code_details_label">
+                <th width='10%'><b> IP - Pay </b></th>
+                <th width='10%'><b> OP - Pay </b></th>
+                <th width='10%'><b> IP - All </b></th>
+                <th width='10%'><b> OP - All </b></th>
+                <th width='10%'><b> Capitation </b></th>
+                <th width='20%'><b> Client </b></th>
+                <th width='30%'><b> Facility </b></th>
+              </tr>
+              <tr id="payment_or_allowance_code_details_add_row">
+                <td><%= text_field 'fac_payer', 'in_patient_payment_code',  :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 25 %></td>
+                <td><%= text_field 'fac_payer', 'out_patient_payment_code',  :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 25 %></td>
+                <td><%= text_field 'fac_payer', 'in_patient_allowance_code',  :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 25 %></td>
+                <td><%= text_field 'fac_payer', 'out_patient_allowance_code',  :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 25 %></td>
+                <td><%= text_field 'fac_payer', 'capitation_code',  :size => 15,
+                  :class => 'black_text', :onblur => "changeToCapital(id);", :maxlength => 25 %></td>
+                <td><%= select_tag 'client', ("<option value=''>--Select--</option>" + options_for_select(@clients)).html_safe,
+                    :onchange => "getFacilityByClientForPayerRelatedData(this, 'facility_span_of_payment_or_allowance_code');",
+                    :id => 'client_of_code' %></td>
+                <td width='40%'><span id="facility_span_of_payment_or_allowance_code"></span></td>
+                <td width='5%'><input type="button" name="button" value="+" id="add_payment_or_allowance_code" onclick ="addPaymentOrAllowanceCode(); " style="width:20px;" class = "submit_add"/>
+                </td></tr>
+              <% unless @facilities_payers_information.blank? %>
+                <% @facilities_payers_information.each_with_index do |facility_payer_info, index| %>
+                  <tr id="saved_facility_payer_info_<%= (index + 1) %>">
+                    <td><%= display(facility_payer_info.in_patient_payment_code) %></td>
+                    <td><%= display(facility_payer_info.out_patient_payment_code) %></td>
+                    <td><%= display(facility_payer_info.in_patient_allowance_code) %></td>
+                    <td><%= display(facility_payer_info.out_patient_allowance_code) %></td>
+                    <td><%= display(facility_payer_info.capitation_code) %></td>
+                    <td><%= display(facility_payer_info.client_name) %></td>
+                    <td><%= display(facility_payer_info.facility_name) %></td>
+                    <td><input type="button" name="button" value="-" id="remove_saved_facility_payer_info_<%= (index + 1) %>" onclick ="removeSavedPaymentOrAllowanceCode('<%= facility_payer_info.id %>', '<%= facility_payer_info.facility_id %>', '<%= (index + 1) %>'); " style="width:20px;" class = "submit_add"/>
+                    </td></tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+        </legend>
+      </fieldset>
+      <fieldset >
+        <legend style="text-align:left;padding:5px">
+          <a href="#" onclick="javascript:Element.toggle('other_info');return false;">
+            <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Other Details</a>
+        </legend>
+        <div id='other_info' style="width: 100%;padding:5px">
+          <table width='100%'>
+            <tr>
+              <td width='20%'><b> EOBs Per Image </b><span class="alert">*</span></td>
+              <td><%= text_field 'payer', 'eobs_per_image',  :size => 15,
+                :class => 'black_text required validate-digits', :onblur => "validateEobsPerImage()" %></td>
+            </tr>
+            <tr>
+              <td><b> RC Set Name</b></td>
+              <td><%= text_field 'rc_set', 'name',  :value => @rc_set_name, :size => 15,:id => 'rc_set_name',
+                :class => 'black_text', :readonly => true %></td>
+            </tr>
+            <tr>
+              <td><b> Payer Type</b></td>
+              <td><%= select_tag 'payer_type', options_for_select(payer_types, @payer_type),:onchange => 'clearPayIdOnChangeOfPayerType()' %></td>
+            </tr>
+            <tr>
+              <td><b> Footnote Indicator</b></td>
+              <td><%= select_tag 'payer_footnote_indicator', options_for_select(foot_note_types, @footnote_indicator)%></td>
+            </tr>
+            <tr>
+              <td><b> OCR Flag</b></td>
+              <td><%= check_box 'micr_line_information', 'is_ocr'%></td>
+            </tr>
+          </table>
+        </div>
+      </fieldset>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript">
+  var valid = new Validation('payer_form');
+</script>

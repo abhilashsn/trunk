@@ -1,0 +1,46 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: documents
+#
+#  id        :integer(11)   not null, primary key
+#  filename  :string(255)   
+#  content   :binary        
+#  file_type :string(255)   
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: documents
+#
+#  id        :integer(11)   not null, primary key
+#  filename  :string(255)   
+#  content   :binary        
+#  file_type :string(255)   
+#
+
+doc1:
+      id: 1
+      filename: "abc.txt"
+      content: "Hello, how are you?"
+      file_type: "Text"
+
+doc2:
+      id: 2
+      filename: "go_went_gone.txt"
+      content: "Bye, I am leaving!"
+      file_type: "Errors"
+
+doc3:
+      id: 3
+      filename: "confidential.txt"
+      content: "I said it is confidential!!!"
+      file_type: "ScreenShots"
+
+doc4:
+      id: 4
+      filename: "go_went_gone_again.txt"
+      content: "Bye, I am leaving again!"
+      file_type: "Errors"
+  

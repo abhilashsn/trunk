@@ -1,0 +1,34 @@
+svc_remark_code_1:
+      id: 1
+      service_payment_eob_id: 3
+      ansi_remark_code_id: 1
+
+svc_remark_code_2:
+      id: 2
+      service_payment_eob_id: 3
+      ansi_remark_code_id: 4
+
+svc_remark_code_3:
+      id: 3
+      service_payment_eob_id: 9
+      ansi_remark_code_id: 4
+
+svc_remark_code_4:
+      id: 4
+      service_payment_eob_id: 7
+      ansi_remark_code_id: 1
+
+svc_eob_having_remark_code_1:
+      id: 5
+      service_payment_eob_id: 31
+      ansi_remark_code_id: 1
+
+svc_eob_having_remark_code_2:
+      id: 6
+      service_payment_eob_id: 31
+      ansi_remark_code_id: 2
+
+another_svc_eob_having_remark_code_1:
+      id: 7
+      service_payment_eob_id: 32
+      ansi_remark_code_id: 1

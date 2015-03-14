@@ -1,0 +1,80 @@
+one:
+      id: 1
+      hipaa_adjustment_code: 1
+
+hipaa_code_1:
+      id: 2
+      hipaa_adjustment_code: 1
+      hipaa_code_description: hipaa_description_1
+
+invalid_hipaa_code_1:
+      id: 3
+      hipaa_adjustment_code: '-'
+      hipaa_code_description: hipaa_description_2
+
+invalid_hipaa_code_2:
+      id: 4
+      hipaa_adjustment_code:
+      hipaa_code_description: hipaa_description_3
+
+invalid_hipaa_code_3:
+      id: 5
+      hipaa_adjustment_code: 12
+      hipaa_code_description: hipaa_description_3
+
+invalid_hipaa_code_4:
+      id: 6
+      hipaa_adjustment_code: 12
+      hipaa_code_description: hipaa_description_3
+
+hipaa_code_7:
+      id: 7
+      hipaa_adjustment_code: H1
+      hipaa_code_description: HIPAA Desc H1
+      active_indicator: 1
+
+hipaa_code_8:
+      id: 8
+      hipaa_adjustment_code: H2
+      hipaa_code_description: HIPAA Desc H2
+      active_indicator: 1
+
+hipaa_code_9:
+      id: 9
+      hipaa_adjustment_code: H3
+      hipaa_code_description: HIPAA Desc H3
+      active_indicator: 1
+
+hipaa_code_10:
+      id: 10
+      hipaa_adjustment_code: H4
+      hipaa_code_description: HIPAA Desc H4
+      active_indicator: 1
+
+hipaa_code_11:
+      id: 11
+      hipaa_adjustment_code: H5
+      hipaa_code_description: HIPAA Desc H5
+      active_indicator: 1
+
+hipaa_code_12:
+      id: 12
+      hipaa_adjustment_code: H6
+      hipaa_code_description: HIPAA Desc H6
+      active_indicator: 0
+
+hipaa_code_13:
+      id: 13
+      hipaa_adjustment_code: H7
+      hipaa_code_description: HIPAA Desc H7
+
+hipaa_code_14:
+      id: 14
+      hipaa_adjustment_code: H8
+      hipaa_code_description: HIPAA Desc H8
+
+hipaa_code_15:
+      id: 15
+      hipaa_adjustment_code: 137
+      hipaa_code_description: HIPAA Desc 137
+

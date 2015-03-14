@@ -1,0 +1,20 @@
+
+<div id="login_main">
+<h4>Edit Document</h4>
+
+<table style="width: 938px">
+    <%= form_tag :action => 'update', :doc_id => @doc do %>
+      <tr><th>Document ID</th><td><%= @doc.id %></td></tr>
+      <tr><th>Filename</th><td><%= @doc.filename %></td></tr>
+        <tr><th>Document Type</th>
+        <td><%= select_tag 'type', options_for_select(['Text', 'Errors', 'ScreenShots', 'Others'], @doc.file_type) %></td></tr>
+        <tr><th>Client Name</th>
+        <td><%= select_tag 'client_name', options_for_select(@clients, @doc.client.name) %></td></tr>
+        <tr><th>Received on</th>
+        <!-- <td><%= select_datetime(Time.now, :prefix => 'set_datetime') %></td></tr>     -->
+        <td class="dropdown"><%= datetime_select :doc, :created_at %></td></tr>
+  </tr>
+</table>
+<%= submit_tag 'Update', :class => 'button' %>
+<% end %>
+</div>

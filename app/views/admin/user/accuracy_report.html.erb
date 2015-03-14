@@ -1,0 +1,65 @@
+
+  
+
+
+<div id="login_main">
+
+
+<h1>Week Base  Report</h1>
+<%@username =User.find_by_id(@procid).userid%>
+<h2><%=@username%></h2>
+  <table>
+    <tr>
+     
+      
+     <th>From</th>
+<th>To</th>
+       <th>Productivity in(minutes)</th>
+<th>accuracy</th>
+<% i=1%>
+    </tr>
+    <% # u = User.find(session[:user])%>
+    <% @p.each do |user| %>
+    
+      <tr>
+   <% 
+  user.each do |user1| 
+ 
+   s= user1.time.to_f %>
+    <td><%= format_date(@firsttime1)  %></td>
+<td><%= format_date(@firsttime1+7.days)  %></td>
+<%
+jobcount = EobQa.count(:all,:conditions=>"processor_id=#{@procid} and time_of_rejection>='#{@firsttime1.to_date}' and time_of_rejection<='#{(@firsttime1+7.days).to_date}' ")
+errorcount = EobQa.count(:all,:conditions=>"processor_id=#{@procid} and time_of_rejection>='#{@firsttime1.to_date}' and time_of_rejection<='#{(@firsttime1+7.days).to_date}' and total_incorrect_fields>0 ")
+puts jobcount
+puts errorcount
+if jobcount!=0
+accuracy1 = ((jobcount- errorcount))
+accuracy= ((accuracy1.to_f/jobcount.to_f).to_f)*100
+else
+  accuracy=0.0
+end
+
+%>
+
+
+  <td><%= s  %></td>
+<td><%= format_percentage(accuracy)  %></td>
+ <%@firsttime1 = @firsttime1+7.days%>
+   <%i = i + 1%>
+ <% end %>
+ 
+    </tr>
+
+   <% end %>
+  </table>
+
+<br/>
+
+   
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'joblist', :page => @page %>
+
+</div>
+
+
+</div>

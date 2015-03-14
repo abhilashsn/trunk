@@ -1,0 +1,73 @@
+<%= javascript_include_tag  "batch_upload" %>
+<script>
+ function vali_type(){
+   var id_value = document.getElementById('upload_datafile').value;
+
+   if(id_value != '')
+   {
+    var valid_extensions = /(.zip)$/i;
+    if(valid_extensions.test(id_value))
+     return true;
+    else
+     return false;
+   }
+    return true;
+  }
+  function validate_form(){
+    var facility = document.getElementById("facility_name");
+    var facility_name_txt = facility.options[facility.selectedIndex].value;
+    if (facility_name_txt == "Select"){
+     alert("Please select a facility name");
+     return false; 
+    }
+    var id_value = document.getElementById('upload_datafile').value;
+    if(id_value == ''){
+      alert("Please upload a Zip file");
+      return false;
+    }
+    if(!vali_type()){
+      alert("Invalid File type,Not a Zip file");
+      return false;
+    }
+    return true;
+  }
+</script>
+
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<div style="width:100%">
+  <div id="innercontent">
+    <div style="min-height:450px;width:100%; margin-left:20px; margin-top:20px;">
+      <h1>Batch Upload</h1>
+      <% if @user_has_access %>
+        <%= form_tag({:action => 'uploadFile'}, :multipart => true) do %>
+          <table style="width:50%; border:hidden;">
+          <tr>
+            <th align="left" style="border:hidden;width:100px;">Select a  Facility :</th>
+            <td style="border:hidden;"><%= select("facility", "name", ["Select"].concat(@facilities.collect {|p| [ p.name, p.name ] })) %></td>
+          </tr>
+          <tr>
+            <th align="left" style="border:hidden;">Select a  Zip File :</th>
+            <td style="border:hidden;"><%= file_field 'upload', 'datafile' %></td>
+          </tr>
+          <tr>
+            <th align="left" style="border:hidden;">Batch Arrival Time :</th>
+            <td style="border:hidden;"><%= select_datetime(Time.now, prefix: 'arrival_date') %></td>
+          </tr>
+          <tr>
+            <th align="left" style="border:hidden;">Batch Date :</th>
+            <td style="border:hidden;"><div class="black_text" style="width: 20%; display: inline;">
+               <%= text_field_tag 'batch_date', nil, :size => 12,:class => 'dropdown' %><%= date_picker("batch_date", "ymd", "-") %><%= spacer(2) %>
+            </div>
+            <div style="width: 72px; text-align: center; display: inline;">
+              <input type="button" name="button" value="Get Inbound Files" onclick = "getInboundFiles();" class = "button"/>
+            </div></td></tr></table>
+          <%= hidden_field_tag 'inbound_id', nil %>
+          <div id="inbound_details"></div>
+          <br>
+          <%= submit_tag "Upload", :class => "button", :onclick => "return validate_form()"%>
+        <%end %>
+      <%end %>
+    </div>
+  </div>
+</div>

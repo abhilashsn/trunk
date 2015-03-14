@@ -1,0 +1,80 @@
+<div id="page_container">
+
+
+<div id="login_main">
+  <% if not @insurance_eob_regenerate.blank? or @patient_eob_regenerate.blank? %>
+    <%= form_tag :action => 'eob_archive' do %>
+      <br><br>
+      <h1>Regenerate 835 </h1>
+  
+  
+      <table>
+        <tr>
+          <th style="width: 278px"><label for="user_name">PATIENT NAME</label></th><th> PATIENT A/C # </th>
+          <th>DATE OF SERVICE </th>
+          <th>CHECK NO: </th>
+          <th>BATCH NAME </th>
+          <th>&nbsp;</th>
+        </tr>
+        <%if  @insurance_eob_regenerate%>
+          <%@insurance_eob_regenerate.each do |insurance_eob| %>
+    
+            <%@check_info = insurance_eob.check_information%>
+              <%@job=@check_info.job%>
+                <%@batch=@job.batch%> 
+    
+                  <tr>
+                    <td><label for="user_userid"><%=insurance_eob.patient_first_name%><%=insurance_eob.patient_last_name%></label></td>
+                    <td><%=insurance_eob.patient_account_number%></td>
+                    <td><%=@check_info.check_date%></td>
+                    <td><%=@check_info.check_number%></td>
+                    <td><%=@batch.batchid%> </td>
+                    <td><%= check_box :insurance_eob_to_generate, insurance_eob.id, :id => 'toggle' %> </td>
+                    <!-- <td><label
+      
+                    <input type="checkbox" name="checkbox" value="checkbox" />
+                    </label></td>-->
+                  </tr>
+                <%end%>
+              <%end%>
+              <%if  @patient_eob_regenerate%>
+                <%@patient_eob_regenerate.each do |patient_eob|%>
+                  <%@check_info = patient_eob.check_information%>
+                    <%@job=@check_info.job%>
+                      <%@batch=@job.batch%>
+                        <tr>
+                          <td><label for="user_userid"><%=patient_eob.patient_first_name%><%=patient_eob.patient_last_name%></label></td>
+                          <td><%=patient_eob.account_number%></td>
+                          <td><%=@check_info.check_date%></td>
+                          <td><%=@check_info.check_number%></td>
+                          <td><%=@batch.batchid%> </td>
+                          <td><%= check_box :patient_eob_to_generate, patient_eob.id, :id => 'toggle' %> </td>
+                          <!--<td><label>
+                          <input type="checkbox" name="checkbox" value="checkbox" />
+                          </label></td>-->
+                        </tr>
+                      <%end%>
+                    <%end%>
+    
+                  </table>
+  
+                  <script language="javascript">
+                    <!--
+                    document.getElementById("user_name").focus()
+                    //-->
+                  </script>
+  
+                  <!--[eoform:user]-->
+                  <%= submit_tag "Regenerate 835/NextGen", :class => 'button', :name => "option1" %>
+                  <%= submit_tag "Archive", :class => 'button', :name => "option1" %>
+  
+                  &nbsp;&nbsp;  <a href="main.html">
+                  <%= image_tag "arrow_undo.png", :alt=>"Back", :width=>"16", :height=>"16", :border=>"0" %></a> 
+  
+  
+                  <br/>
+  
+                <% end %>
+              <% end %>
+  
+            </div>

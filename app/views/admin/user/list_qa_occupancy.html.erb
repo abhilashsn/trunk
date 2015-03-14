@@ -1,0 +1,36 @@
+<div id="login_main">
+<% space = "&nbsp;"*2 %>
+<h1>Online QAs</h1>
+
+
+<% unless @users.empty? %>
+  <table>
+    <tr>
+      <th ROWSPAN=2>User ID</th>
+      <th ROWSPAN=2>Accuracy %</th>
+      <th COLSPAN=3>Last 12 Hrs </th>
+    </tr>
+    <tr>
+      <th>Jobs Allocated</th>
+      <th>Jobs Completed</th>
+      <th>Jobs Remaining</th>
+    </tr>
+    <% u = session[:user] %>
+    <% @users.each do |user| %>
+    <tr>
+	<% if u.role == 'Supervisor' or u.role == 'Admin' %>	
+		<td><%= link_to user.userid, :controller => 'job', :action => 'qa_jobs', :user => user, :hours => 12 %></td>
+	<% else %>
+		<td><%= user.login %></td>
+	<% end %>
+      <td><%= user.field_accuracy %></td>
+      <td align=right><%= user.allocated_jobs %></td>
+      <td align=right><%= user.completed_jobs %></td>
+      <td align=right><%= user.allocated_jobs - user.completed_jobs  %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% else  %>
+    <h4> No Information available.</h4>
+  <% end %>
+</div>

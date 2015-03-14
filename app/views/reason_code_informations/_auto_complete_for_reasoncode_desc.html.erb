@@ -1,0 +1,6 @@
+
+<ul class="autocomplete_list">
+  <% for reason_code in @reason_codes.to_a -%>
+    <li class="autocomplete_item" title = '<%= reason_code.reason_code_description -%>'><%= reason_code.reason_code_description -%> + <%= reason_code.reason_code -%> + <%= reason_code.id -%></li>
+<% end -%>
+</ul>

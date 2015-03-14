@@ -1,0 +1,7 @@
+facility_payer1:
+     id: 1
+     facility_id: 16
+     client_id: 5
+     payer: 'quadax_payer'
+     payer_id: 301
+     output_payid: '1023'

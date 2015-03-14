@@ -1,0 +1,24 @@
+<%= render "shared/error_messages", :target => @eob_error %>  
+<!-- %= error_messages_for 'eob_error' % -->
+
+<!--[form:eob_error]-->
+<table>
+  <tr>
+    <th>Error Type</th>
+    <td><%= text_field 'eob_error', 'error_type'  %></td>
+  </tr>
+  <tr>
+  <th>Field Name</th>
+    <td><%= text_field 'eob_error', 'field_name'  %></td>
+  </tr>
+  <tr>
+    <th>Severity</th>
+    <td><%= text_field 'eob_error', 'severity'  %></td>
+  </tr>
+  <tr>
+    <th>Code</th>
+    <td><%= text_field 'eob_error', 'code'  %></td>
+  </tr>
+
+</table>
+<!--[eoform:eob_error]-->

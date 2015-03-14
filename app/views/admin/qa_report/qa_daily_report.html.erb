@@ -1,0 +1,69 @@
+<div id="login_main">
+<h1>QA Daily Report</h1>
+
+  <div class="light_info">
+    <%= form_tag :action => 'qa_daily_report' do %>
+      <strong>Date[MM/DD/YY]: </strong> From <%= text_field_tag 'to_find1', nil,  :size => '10' %> To <%= text_field_tag 'to_find3', nil,  :size => '10' %>
+      <%= select_tag 'criteria2',  optionize('Account Number','Processor','Accuracy %','QA','Batch ID','Batch Date','Total Fields','Incorrect Fields','Error Severity','Error Code','Status') %>
+      <%= select_tag 'compare2', optionize('=','>', '<')%>
+      <%= text_field_tag 'to_find2', nil,  :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+  </div>  
+  <%= show_legend({"white" => "Accepted", "red" => "Rejected"}) %>    
+<div class="right"><%= link_to 'Export to CSV', :controller => '/report', :action => "export_dailyreport", :from_date => @from_date, :to_date => @to_date, :criteria => @criteria2, :compare => @compare2, :search_field => @search_field2 %></div>
+  
+<% unless @reports.empty? %>
+  <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @reports%>
+  </div>
+<table  style="width: 95%">
+  <tr>
+    <th>QA</th>
+    <th>Verified Date<br/>(IST)</th>
+    <th>Processor</th>
+    <th>Site Number</th>
+    <th>Batch Date</th>
+    <th>Batch ID</th>
+    <th>Payer ID</th>
+    <th>Account <br/> Number</th>
+    <th>Error <br/>Severity</th>
+    <th>Error Type</th>
+    <th>Total <br/>Fields</th>
+    <th>Incorrect <br/>Fields</th>
+    <th>Error <br/>Code</th>
+    <th>Accuracy</th>
+  </tr>
+  <% for report in @reports %>
+    <tr>
+      <% if report.status == 'Rejected'
+          cls = 'red'
+      else
+          cls = 'white'
+      end %>
+      <% batch = Batch.find_by_batchid(report.batch_id)%>
+      <% user = User.find_by_userid(report.qa) %>
+      <td nowrap class="<%= cls %>"><%= report.qa %></td>
+      <td nowrap class="<%= cls %>"><%= format_datetime(user.convert_to_ist_time(report.verify_time)) %></td>
+      <td nowrap class="<%= cls %>"><%= report.processor %></td>
+      <td nowrap class="<%= cls %>"><%= batch.facility.sitecode rescue "Unknown" %></td>
+      <td nowrap class="<%= cls %>"><%= format_date(report.batch_date) %></td>
+      <td nowrap class="<%= cls %>"><%= report.batch_id%></td>
+      <td nowrap class="<%= cls %>"><%= report.payer %></td>
+      <td nowrap class="<%= cls %>"><%= report.account_number %></td>
+      <td nowrap class="<%= cls %>"><%= report.error_severity %></td>
+      <td nowrap class="<%= cls %>"><textarea readonly='true'><%= report.error_type %></textarea></td>
+      <td nowrap class="<%= cls %>"><%= report.total_fields %></td>
+      <td nowrap class="<%= cls %>"><%= report.incorrect_fields %></td>
+      <td nowrap class="<%= cls %>"><%= report.error_code %></td>
+      <td nowrap class="<%= cls %>"><%= report.accuracy %></td>
+    </tr>
+  <% end %>
+</table>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @reports%>
+</div>
+<% else %>
+  <h4> No Matching Report Found. </h4>
+<% end %>
+</div>

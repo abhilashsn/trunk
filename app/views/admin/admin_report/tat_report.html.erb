@@ -1,0 +1,63 @@
+<!-- <h4>TAT Report  |  <%= link_to 'Distribution', :action => 'distribution' %>  |  <%= link_to 'TAT Compliance', :action => 'tat_compliance' %>  |  <%= link_to 'Next Shift', :action => 'next_shift' %> </h4>-->
+<div id="login_main">
+<h1>TAT Report</h1>
+
+<div class="light_info">
+<table  style="width: 900px">
+<tr class="black_text">
+    <%= form_tag :action => 'tat_report' do %>
+    <td style="width: 40px">
+    Lockbox:
+    </td>
+    <td> 
+    <%= select_tag 'facilities[]', options_for_select(@all_facilities, @selected_facilities), :multiple => true, :size => 3, :class => 'black_text'%>    
+    </td>
+
+ <td style="width: 300px">
+    
+     From Date  <%= text_field_tag 'date_from', @date_from, :size => 10 %> <%= date_picker("date_from", "mdy", "/") %> 
+                 <br/>
+                From Time <input id="from_find" name="from_find" size="10" type="text">[HH:MM:SS]
+              
+
+  
+          </td>
+          <td style="width: 300px">
+              To Date <%= text_field_tag 'date_to', @date_to, :size => 10 %> <%= date_picker("date_to", "mdy", "/") %>
+            <br/>
+                To Time <input id="to_find" name="to_find" size="10" type="text">[HH:MM:SS]
+             
+</td>
+                   
+ <td><%= submit_tag 'Filter', :class => 'button' %></td>
+<td style="width: 115px"><%= link_to "Previous Queries > ", :action => "show_query" %></td>
+<% end %>
+    
+   
+</tr>
+</table>
+</div>
+</div>
+
+<!--
+<div class="right"><%= link_to 'Export to CSV', :controller => '/report', :action => "export_tat_report",  :from_date => @from_date, :to_date => @to_date, :facilities => @selected, :query_facilities =>  @query %></div>
+-->
+<div id="login_main">
+<div class="black_text"><%= link_to 'Export to CSV', :controller => '/report', :action => "export_tat_report",  :from_date => @from_date, :to_date => @to_date, :facilities => @selected, :query_facilities =>  @query ,:from_time => @from_time , :to_time => @to_time %></div>
+<% if @batches.size > 0 %>
+<table style="width: 800px">
+<tr class="black_text">
+<td>Batches: <%= @batches_sorted.size %></td>  
+<td >Min: <%= sprintf("%.2f", (@batches_sorted[0].mean)/3600) %></td>  
+<td >Max: <%= sprintf("%.2f", (@batches_sorted[(@batches_sorted.size - 1)].mean)/3600) %></td> 
+<td >Mean: <%= sprintf("%.2f", (@sum_of_diff/@batches_sorted.size)/3600) %></td>
+<td >Std. Dev: <%= sprintf("%.2f", @std_dev) %></td>
+</tr>
+</table>
+<% end %>
+
+<% pagination = create_pagination(@batch_pages,'admin_report',params[:page]) %>
+<%= pagination %>
+<%= render :partial => "tat_report_list"%>
+<%= pagination %>
+</div>

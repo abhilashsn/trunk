@@ -1,0 +1,98 @@
+<h1>Listing payers</h1>
+
+<% if @payers.size > 0 %>
+<div class="light_info">
+  <%= form_tag :action => 'filter_for_processor' do %>
+    <%= select 'payer', 'criteria', ['Date Added', 'Initials','From Date' ,'Gateway', 'Payer Id', 'Payer', 'Address-1','Address-2','Address-3','Phone'] %> 
+    <%= select 'payer', 'compare', ['=','>=', '<=']%>
+    <%= text_field 'payer', 'to_find', :size => '10' %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+</div>
+<% end %>
+
+<% if @payer_pages.current.previous %>
+    <%= link_to 'Prev', { :page => @payer_pages.current.previous } %>
+  <% end %>
+
+  <% if @payer_pages.length > 1 %>
+    <% @payer_pages.each do |page|%>
+      <% params[:controller] = 'payer' %>
+      <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page )})%>
+    <% end %>
+  <% end %>
+
+  <% if @payer_pages.current.next %>
+    <%= link_to 'Next', { :page => @payer_pages.current.next } %>
+  <% end %>
+
+<% unless @payers.empty? %>
+ 
+ 
+ 
+<table class="sortable" id="payer_admin">
+  <tr>
+  <% for column in Payer.content_columns %>
+      <%if column.human_name == 'Payor' %>
+        <th><%= 'Payer' %></th>
+      <% else %>
+      <%if column.human_name == 'Pay address one' %>
+      <th><%= 'Address -1' %></th>
+       <% else %>
+      <%if column.human_name == 'Pay address two' %>
+      <th><%= 'Address -2' %></th>
+     
+      <% else %>
+      <%if column.human_name == 'Pay address three' %>
+      <th><%= 'Address -3' %></th>
+     
+      <% else %>
+       
+       <th><%= column.human_name %></th>
+       <% end%>
+       <%end%>
+       <% end%>
+       <%end%>
+  <% end %>
+  </tr>
+  
+<% for payer in @payers %>
+  <tr>
+  <% for column in Payer.content_columns %>
+    <td><%=h payer.send(column.name) %></td>
+  <% end %>
+    <!-- <td><%= link_to 'Show', :action => 'show', :id => payer %></td> -->
+    <!-- <td><%= link_to 'Edit', :action => 'edit', :id => payer %></td> -->
+    <!-- <td><%= link_to 'Destroy', { :action => 'destroy', :id => payer }, :confirm => 'Are you sure?' %></td> -->
+    <!-- <td><%= check_box :payers_to_delete, payer.id  %> </td> -->
+  </tr>
+<% end %>
+</table>
+
+<% if @payer_pages.current.previous %>
+    <%= link_to 'Prev', { :page => @payer_pages.current.previous } %>
+  <% end %>
+
+  <% if @payer_pages.length > 1 %>
+    <% @payer_pages.each do |page|%>
+      <% params[:controller] = 'payer' %>
+      <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page )})%>
+    <% end %>
+  <% end %>
+
+  <% if @payer_pages.current.next %>
+    <%= link_to 'Next', { :page => @payer_pages.current.next } %>
+  <% end %>
+
+
+
+
+<% else %>
+  <h4> No Payers found. </h4>
+<% end %>
+
+<%= link_to 'Back', :controller => '/' %>
+
+
+
+

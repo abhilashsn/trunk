@@ -1,0 +1,76 @@
+<body>
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<div id="login_main" style="background-color:#ECE9D8; overflow:scroll; height:270px; width:100%;">
+<h1>EOB INFORMATION</h1>
+<%resultsetlength = @insurance_eob_information.length unless @insurance_eob_information.nil?%>
+<%if (resultsetlength > 0)%>
+<table  style="background-color:#CCC;" width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+   <th>No</th>
+   <th>Account Number</th>
+   <th>Last Name</th>
+   <th>First Name</th>
+   <th>Total Charge</th>
+   <th>EOB Payment </th>
+  <% unless @facility.details[:interest_in_service_line] %>
+   <th>Interest Payment </th>
+  <% end%>
+   <th>Total Payment </th>
+   <th>Image PageNo </th>
+   <th>Claim Type </th>
+   <th>Reject Reason </th>
+<%@totalcharge = 0%>
+<%@totalpaidamount = 0
+  @total_interest_amount = 0
+  @total_payment = 0
+%>
+<%@page = 1%>
+<%for ins in @insurance_eob_information%>
+<tr>
+  <% unless @facility.details[:interest_in_service_line]
+    claim_interest = ins.claim_interest.to_f
+  else
+    claim_interest = 0.00
+  end %>
+<%@totalcharge = @totalcharge + ins.total_submitted_charge_for_claim.to_f
+  @totalpaidamount = @totalpaidamount + ins.total_amount_paid_for_claim.to_f
+  @total_interest_amount = @total_interest_amount + claim_interest
+  @total_payment = ins.total_amount_paid_for_claim.to_f + claim_interest
+%>
+  <td><%=@page%></td>
+  <td><%=ins.patient_account_number%></td>
+  <td><%=ins.patient_last_name%></td>
+  <td><%=ins.patient_first_name%></td>
+  <td><div style="text-align:right;"><%=( ins.total_submitted_charge_for_claim.blank? ? " " : (sprintf("%.2f",ins.total_submitted_charge_for_claim)) ) %></div></td>
+  <td><div style="text-align:right;"><%=( ins.total_amount_paid_for_claim.blank? ? " " :(sprintf("%.2f",ins.total_amount_paid_for_claim)) )%></div></td>
+   <% unless @facility.details[:interest_in_service_line] %>
+  <td><div style="text-align:right;"><%=( ins.claim_interest.blank? ? " " :(sprintf("%.2f",ins.claim_interest)) )%></div></td>
+  <%  end %>
+  <td><div style="text-align:right;"><%=( @total_payment.blank? ? " " :(sprintf("%.2f",@total_payment)) )%></div></td>
+  <td><%=ins.image_page_no%></td>
+  <td><%=ins.claim_type%></td>
+  <td><%=ins.rejection_comment%></td>
+</tr>
+<%@page = @page + 1.to_i%>
+<%end%>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>TOTAL</td>
+  <td><div style="text-align:right;"><%=( @totalcharge.blank? ? " " :(sprintf("%.2f",@totalcharge)) )%></div></td>
+  <td><div style="text-align:right;"><%=( @totalpaidamount.blank? ? " " :(sprintf("%.2f",@totalpaidamount)) )%></div></td>
+   <% unless @facility.details[:interest_in_service_line] %>
+  <td><div style="text-align:right;"><%=( @total_interest_amount.blank? ? " " :(sprintf("%.2f",@total_interest_amount)) )%></div></td>
+  <td><div style="text-align:right;"><%=( (@totalpaidamount.blank? and @total_interest_amount.blank?)? " " :(sprintf("%.2f",@totalpaidamount + @total_interest_amount)) )%></div></td>
+  <%  else %>
+  <td><div style="text-align:right;"><%=( (@totalpaidamount.blank?)? " " :(sprintf("%.2f",@totalpaidamount )) )%></div></td>
+  <%  end %>
+  <td></td>
+</tr>
+</table>
+<%else%>
+   <span class="alert"> No records found</span>
+<%end%>
+<center> <input type="button" value="Close Window" onclick="window.close()"> </center>
+</div>

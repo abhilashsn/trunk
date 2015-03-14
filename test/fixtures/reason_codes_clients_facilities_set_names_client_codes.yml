@@ -1,0 +1,11 @@
+client_code_mapping_1:
+      id: 1
+      reason_codes_clients_facilities_set_name_id: 51
+      client_code_id: 3
+      category: NON-DENIED
+
+client_code_mapping_2:
+      id: 2
+      reason_codes_clients_facilities_set_name_id: 51
+      client_code_id: 4
+      category: DENIED

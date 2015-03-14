@@ -1,0 +1,471 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+      id: 1
+      insurance_payment_eob_id: 938
+      noncovered_code: 42
+      noncovered_code_description: 'CHARGES EXCEED OUR FEE SCHEDULE OR MAXIMUM ALLOWABLE AMOUNT'
+  
+two:
+      id: 2
+      insurance_payment_eob_id: 938 
+
+
+svc_1:
+      id: 3
+      insurance_payment_eob_id: 77
+
+four:
+      id: 4
+      insurance_payment_eob_id: 3
+      date_of_service_from:     2006-10-09
+      date_of_service_to:       2006-10-12
+      service_reference_identification_number: '6789'
+      service_allowable: 20.0
+
+svc1:
+      id: 11
+      insurance_payment_eob_id: 111
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+
+svc_5:
+      id: 5
+      insurance_payment_eob_id: 7
+      service_procedure_code: '12345'
+      service_quantity: 2
+      service_modifier1: 'QA'
+      service_modifier2: 'JK'
+      service_modifier3: 'JK'
+      service_modifier4: 'T1'
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+      primary_payment_reason_code_id: 1
+      deductible_reason_code_id: 1
+      discount_reason_code_id: 1
+      noncovered_reason_code_id: 1
+      service_allowable: 30
+      service_no_covered: 10
+      service_discount: 10
+      service_co_insurance: 10
+      service_deductible: 10
+      service_co_pay: 10
+      primary_payment: 10
+      contractual_amount: 10
+      service_procedure_charge_amount: 30
+      service_paid_amount: 30
+      date_of_service_from: '2009-04-04'
+      date_of_service_to: '2009-04-04'
+      denied: 30
+      denied_reason_code_id: 1
+      bundled_procedure_code: '12121'
+      revenue_code: 12      
+      rx_number: 78
+      service_provider_control_number: 67
+      expected_payment: 90
+      inpatient_code: 1
+      outpatient_code: 2
+
+svc_6:
+      id: 6
+      insurance_payment_eob_id: 7
+      service_quantity: 6
+      service_modifier1: 'QA'
+      service_modifier2: 'JK'
+      service_modifier3: 'JK'
+      service_modifier4: 'T1'
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+      primary_payment_reason_code_id: 1
+      deductible_reason_code_id: 1
+      discount_reason_code_id: 1
+      noncovered_reason_code_id: 1
+      service_allowable: 30
+      service_no_covered: 10
+      service_discount: 10
+      service_co_insurance: 10
+      service_deductible: 10
+      service_co_pay: 10
+      primary_payment: 10
+      contractual_amount: 10
+      service_procedure_charge_amount: 30
+      service_paid_amount: 30
+      inpatient_code: "1"
+
+svc_7:
+      id: 7
+      insurance_payment_eob_id: 6
+      inpatient_code: "1,2"
+      service_procedure_charge_amount: 30
+      service_paid_amount: 30
+      date_of_service_from: '2009-04-04'
+      date_of_service_to: '2009-04-04'
+
+svc_8:
+      id: 8
+      insurance_payment_eob_id: 7
+
+svc_9:
+      id: 9
+      insurance_payment_eob_id: 6
+      inpatient_code: "1"
+      service_procedure_charge_amount: 30
+      service_paid_amount: 30
+
+svc_10:
+      id: 10
+      insurance_payment_eob_id: 6
+      pbid: 10
+      retention_fees: 10
+      line_item_number: 'C67'
+      payment_status_code: 'V67'
+
+svc12:
+      id: 12
+      insurance_payment_eob_id: 19
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+
+svc13:
+      id: 13
+      insurance_payment_eob_id: 19
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+      primary_payment_reason_code_id: 1
+
+svc14:
+      id: 14
+      insurance_payment_eob_id: 24
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+
+svc15:
+      id: 15
+      insurance_payment_eob_id: 24
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+      primary_payment: 10
+      primary_payment_reason_code_id: 3
+
+svc16:
+      id: 16
+      insurance_payment_eob_id: 25
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+
+svc17:
+      id: 17
+      insurance_payment_eob_id: 25
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+      primary_payment: 10
+      primary_payment_reason_code_id: 4
+
+# Service EOB with multiple adjustments and not zero pay
+svc18:
+      id: 18
+      insurance_payment_eob_id: 26
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+      contractual_amount: 50
+      contractual_reason_code_id: 5
+      primary_payment: 50
+      primary_payment_reason_code_id: 6
+      service_procedure_charge_amount: 100
+
+# Service EOB with single adjustment, no crosswalk record and not zero pay
+svc19:
+      id: 19
+      insurance_payment_eob_id: 27
+      service_procedure_code: '12345'
+      date_of_service_from: '2009-03-03'
+      date_of_service_to: '2010-03-03'
+      contractual_amount: 10
+      contractual_reason_code_id: 7
+
+svc201:
+      id: 201
+      insurance_payment_eob_id: 201
+      service_procedure_code: '12345'
+      date_of_service_from: '2010-03-03'
+      date_of_service_to: '2010-03-03'
+      primary_payment: 100
+      primary_payment_reason_code_id: 6
+
+svc202:
+      id: 202
+      insurance_payment_eob_id: 202
+      service_procedure_code: '12355'
+      date_of_service_from: '2010-04-03'
+      date_of_service_to: '2010-04-03'
+      primary_payment: 100
+      primary_payment_reason_code_id: 6
+
+svc203:
+      id: 203
+      insurance_payment_eob_id: 203
+      service_procedure_code: '11155'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+
+svc204:
+      id: 204
+      insurance_payment_eob_id: 204
+      service_procedure_code: '12225'
+      date_of_service_from: '2010-04-05'
+      date_of_service_to: '2010-04-05'
+      primary_payment: 70
+      primary_payment_reason_code_id: 6
+
+svc205:
+      id: 205
+      insurance_payment_eob_id: 17
+      service_quantity: '1.0'
+      service_procedure_code: '6798'
+      date_of_service_to: '2010-04-05'
+      date_of_service_from: '2010-04-01'
+      service_paid_amount: 50.0
+
+svc206:
+      id: 206
+      insurance_payment_eob_id: 205
+      service_procedure_code: '11155'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_code: '90821'
+      service_procedure_charge_amount: 12.00
+
+
+svc207:
+      id: 207
+      insurance_payment_eob_id: 206
+      service_procedure_code: '17155'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_code: '90821'
+      service_procedure_charge_amount: 90.00
+
+svc208:
+      id: 208
+      insurance_payment_eob_id: 207
+      service_procedure_code: '17655'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+
+svc209:
+      id: 209
+      insurance_payment_eob_id: 208
+      service_procedure_code: '17655'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_charge_amount: 190.00
+
+svc210:
+      id: 210
+      insurance_payment_eob_id: 209
+      service_procedure_code: '17655'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_charge_amount: 194.00
+
+svc211:
+      id: 211
+      insurance_payment_eob_id: 210
+      service_procedure_code: '17655'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_charge_amount: 164.00
+
+svc212:
+      id: 212
+      insurance_payment_eob_id: 211
+      service_procedure_code: '15655'
+      date_of_service_from: '2010-04-04'
+      date_of_service_to: '2010-04-04'
+      primary_payment: 10
+      primary_payment_reason_code_id: 6
+      service_procedure_charge_amount: 14.00
+
+svc_with_reason_codes:
+      id: 21
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+      service_deductible: 1.00
+      service_discount: 1.00
+      service_no_covered: 1.00
+      denied: 1.00
+      primary_payment: 1.00
+      service_procedure_charge_amount: 10
+      service_paid_amount: 2
+      coinsurance_reason_code_id: 51
+      contractual_reason_code_id: 52
+      copay_reason_code_id: 53
+      deductible_reason_code_id: 54
+      denied_reason_code_id: 55
+      discount_reason_code_id: 56
+      noncovered_reason_code_id: 57
+      primary_payment_reason_code_id: 91
+      insurance_payment_eob_id: 30
+
+svc_line_with_zero_payment:
+      id: 22
+      service_paid_amount: 0
+
+svc_line_with_non_zero_payment:
+      id: 23
+      service_paid_amount: 1.00
+
+balance_record_service_line:
+      id: 24
+      insurance_payment_eob_id: 31
+      service_procedure_charge_amount: 50.00
+      service_paid_amount: 50.00
+      date_of_service_from: '10/10/10'
+      date_of_service_to: '10/10/10'
+      service_procedure_code: 12345
+      service_provider_control_number: 1234
+      service_quantity: 1
+
+service_line_25:
+      id: 25
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+      service_deductible: 1.00
+      service_discount: 1.00
+      service_no_covered: 1.00
+      denied: 1.00
+      primary_payment: 1.00
+      insurance_payment_eob_id: 45
+      coinsurance_reason_code_id: 1
+      contractual_reason_code_id: 2
+      copay_reason_code_id: 3
+
+service_line_26: #owner:ramya
+      id: 26
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+      service_deductible: 1.00
+      service_discount: 1.00
+      service_no_covered: 1.00
+      denied: 1.00
+      primary_payment: 1.00
+      insurance_payment_eob_id: 50
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+
+service_line_27:
+      id: 27
+      insurance_payment_eob_id: 51
+      service_co_insurance: 1.00
+      coinsurance_reason_code_id: 87
+
+service_line_2226:
+      id: 2226
+      insurance_payment_eob_id: 2226
+      service_co_insurance: 1.00
+      coinsurance_reason_code_id: 87
+
+svc_with_orphan_adjustment_amount:
+      id: 28
+      service_co_insurance: 10.00
+      coinsurance_reason_code_id: 
+      insurance_payment_eob_id: 30
+
+svc1_for_insurance_eob_without_interest:
+      id: 29
+
+service_payment_eob_without_remark_codes1:
+      id: 30
+
+service_payment_eob_with_remark_codes:
+      id: 31
+
+service_payment_eob_with_one_remark_code:
+      id: 32
+service_payment_eob_without_remark_codes2:
+      id: 33
+service_payment_eob_without_remark_codes3:
+      id: 34
+
+svc_35:
+      id: 35
+      date_of_service_from: '2011-09-11' 
+      insurance_payment_eob_id: 68
+
+svc_36:
+      id: 36
+      date_of_service_from: '2011-09-22' 
+      insurance_payment_eob_id: 69
+
+svc_37:
+      id: 37
+      date_of_service_from: '2011-09-08' 
+      insurance_payment_eob_id: 69
+
+service_line_38: #owner:ramya
+      id: 38
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+      insurance_payment_eob_id: 50
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+
+service_line_39: #owner:ramya
+      id: 39
+      insurance_payment_eob_id: 71
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+
+service_line_40: #owner:ramya
+      id: 40
+      insurance_payment_eob_id: 85
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+
+service_line_41: #owner:ramya
+      id: 41
+      insurance_payment_eob_id: 87
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00
+
+service_line_42: #owner:ramya
+      id: 42
+      insurance_payment_eob_id: 89
+      service_co_insurance: 1.00
+      contractual_amount: 1.00
+      service_co_pay: 1.00

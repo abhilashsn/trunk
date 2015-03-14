@@ -1,0 +1,21 @@
+ITERATORS:
+  IBAT: /batch
+  ICHK: transaction
+BATCH:
+  batchid: batch_id
+  lockbox: lockbox_number
+  file_name: imagename
+  date: [ depositdate, date ]
+  bank_deposit_date: [ depositdate, date ]
+JOB:
+  check_number: check_number
+  guid_number: guid_number
+CHEQUE:
+  check_number: check_number
+  check_amount: [ check_amount, float ]
+MICR:
+  aba_routing_number: routing_number
+  payer_account_number: account_number
+IMAGE:
+  image_file_name: imagename
+

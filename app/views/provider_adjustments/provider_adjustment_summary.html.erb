@@ -1,0 +1,56 @@
+<div id="provider_adjustment_grid_container" align="center" >
+  <% unless flash[:error].nil? %>
+    <div class="alert"><%= flash[:error] %></div>
+  <% end %>
+  <%= image_tag("spinner.gif", :align => 'absmiddle', :border=> 0,
+                          :id => "spinner", :style=>"display: none;" )%>
+  <%= hidden_field :child_job, :parent_job_id, :value => @parent_job_id %>
+  <% unless @provider_adjustments.blank? %>
+    <table>
+      <tr>
+        <th>Slno.</th>
+        <th>Page Number<span style="color:#FF3300"> *</span></th>
+        <th>Qualifier</th>
+        <th>Type of Adjustment<span style="color:#FF3300"> *</span></th>
+        <th>Patient Account Number</th>
+        <th>Amount<span style="color:#FF3300"> *</span></th>
+      </tr>
+
+      <% @provider_adjustments.each_with_index do |provider_adjustment, i| %>
+        <% style = cycle("light", "dark") %>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= provider_adjustment.image_page_number%></td>
+          <td><%= provider_adjustment.qualifier%></td>
+          <td><%= provider_adjustment.description%></td>
+          <td><%= provider_adjustment.patient_account_number%></td>
+          <td><%= (sprintf("%.2f", provider_adjustment.amount))%></td>
+          <td><%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+              {:controller => 'provider_adjustments', :action => "destroy", :id => provider_adjustment.id,
+                :amount => provider_adjustment.amount, :job_id => params[:job_id]},
+               :remote => true, :onclick => "balanceAmountAfterProvAdjAmountDelete('#{provider_adjustment.amount.to_f}');") %>
+          </td>
+        </tr>
+
+      <% end %>
+    </table>
+  <% else %>
+    <h3>No records found!</h3>
+  <% end %>
+
+</div>
+
+
+<%= javascript_tag do %>
+document.on('ajax:complete','#provider_adjustment_grid_container', function(event,con){
+   con.update(event.memo.responseText); 
+    Element.hide('spinner');
+})
+document.on('ajax:before','#provider_adjustment_grid_container', function(event,con){
+   Element.show('spinner');
+
+
+})
+<% end %>
+
+

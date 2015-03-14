@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    The file '<%= @filename %>' received on '<%= Time.now.strftime("%d/%m/%Y") %>' at '<%= Time.now.strftime("%H:%M") %>' does not comply with XML schema. How ever the Parser is trying to load the file..
+    The errors/warnings identified are....<br />
+    <% @errors.each do |error| %>
+    <%= error %><br />
+    <%end%>
+    <br/>
+  </body>
+</html>

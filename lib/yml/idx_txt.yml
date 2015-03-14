@@ -1,0 +1,18 @@
+PAYMENT:
+    HEADER: true
+    BATCH:
+        batchid: [74, 80]
+        lockbox: [60, 67]
+        date: [ 68, 73, date ]
+        bank_deposit_date: [68, 73, date ]
+    JOB:
+        check_number: [114, 123]
+    CHEQUE:
+        check_number: [114, 123]
+        check_amount: [ 138, 146,  float ]
+    IMAGE:
+        image_file_name: [148, 197]
+    MICR:
+        aba_routing_number: [ 91, 99 ]
+        payer_account_number: [ 100, 113 ]
+

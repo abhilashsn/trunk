@@ -1,0 +1,118 @@
+<%= javascript_include_tag  "payer" %>
+<script>
+  Event.observe(window, 'load', function() {
+    $$('.click_images').each(function(element) {
+      element.observe('click', function(event){
+        seeViewOne(element);
+      });
+    });
+    seeViewOne = function(element) {
+      image_name = element.readAttribute('name');
+      try{
+        ViewONE = document.ViewONE;
+      } catch(err) {
+      }
+      _images = image_name.split("**");
+      ViewONE.initializePageArray(_images.length);
+      for(i=0; i<_images.length; i++){
+        _pth = relative_url_root() + _images[i];
+        ViewONE.setPageArray(_pth, i);
+      }
+      if(_images.length > 0) {
+        ViewONE.openPageArray(1);
+      }
+    }
+  });
+  function relative_url_root() {
+    return "<%= app_root -%>";
+  }
+</script>
+<style>
+  .click_images {
+    float:left;
+    padding:2px;
+    color:blue;
+    cursor:pointer;
+  }
+</style>
+<div id="login_main">
+  <h1>New Payer Approval UI </h1>  
+  <div style="width:100%;height:400px;border:1px solid black;">
+    <applet width="100%" vspace="0" hspace="0" height="100%" align="middle" mayscript="true" accesskey="Z" name="ViewONE" id="viewONE" code="ji.applet.jiApplet.class" archive="ji.jar,daeja2.jar,daeja1.jar,daeja1s.jar" codebase="<%= app_root -%>/v1/v1files"><param value="application/x-java-applet;version=1.4" name="type">VALUE="/v1files/ji.cab, daeja1.cab, daeja2.cab, daeja3.cab"&gt;<param value="false" name="printKeys"><param value="false" name="printMenus"><param value="“ViewONE.cab”" name="cabbase"><param value="ftow" name="scale"><param value="false" name="fileButtonSave"><param value="false" name="fileButtonOpen"><param value="false" name="fileButtonClose"><param value="false" name="printButtons"><param value="5" name="prefetchPages"><param value="false" name="obfuscate"><param value="true" name="version3Features"><param value="console_logger" name="eventhandler"><param value="0, 9, 22, 30, 34, 35, 37, 38, 39, 41, 43" name="eventInterest"><param value="true" name="ProcessKeys"><param value="UTF8" name="annotationEncoding"><param value="true" name="annotate"><param value="true" name="annotateEdit"><param value="false" name="initialFocus"><param value="false" name="focusBorder"><param value="true" name="annotationJavascriptExtensions"><param value="true" name="hideAnnotationToolbar">
+      <% if @images && @images.size > 0 %>
+        <% @images[0].each_with_index do |img,index| %>
+          <param value="<%= (app_root ? app_root : "" ) + img.public_filename%>" name="page<%=(index + 1)%>">
+        <% end %>
+      <% else %>
+        <param value="" name="page1">
+      <% end %>
+      <param value="undefined" name="pageNumber"></applet>
+  </div>    
+  <div style="width:100%;height:80px;margin-top:1px;border:1px solid black;">
+    <% if @images %>
+      <% @images.each_with_index do |img,index| %>
+        <div class="click_images" name="<%=img.map{|i| i.public_filename}.join("**") %>"><%=img[0].jobs.last.check_information.check_number if (img && img[0] && img[0].jobs) %>&nbsp;</div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= hidden_field_tag :is_partner_bac, @is_partner_bac %>
+  <table width="90%" cellspacing="" cellpadding="" border="">
+    <% element_ids_of_payer_details = "payer_payer,payer_address_one,payer_city,payer_state,payer_payer_zip" %>
+    <%= form_for :payer, :url=>{:controller=>'/admin/payer', :action => "approve_payer", :id=>@micr.id},
+      :html=>{:onsubmit=>"return validatePayerDetails('#{element_ids_of_payer_details}');"}  do |f| %>
+      <tr>
+        <th>Payer</th>
+        <th>Payer ID</th>
+        <th>Payer Type</th>
+        <th>Address One</th>
+        <th>Address Two</th>
+        <th>Address Three</th>
+        <th>City</th>
+        <th>state</th>
+        <th>ZIP</th>
+      </tr>
+
+      <% disabled = @payer.status == "MAPPED"? true : false %>
+      <tr>
+        <td><%= f.text_field :payer, :size => 10,:disabled => disabled %></td>
+        <td><%= f.text_field :payid, :size => 10,
+            :disabled => readonly_payid_conditions_for_payer_approval,
+            :onblur => "changeToCapital(id)" %></td>
+        <td><%= @payer.payer_type%></td>
+        <td><%= f.text_field :address_one, :size => 15,:disabled => disabled %></td>
+        <td><%= f.text_field :address_two, :size => 15,:disabled => disabled %></td>
+        <td><%= f.text_field :pay_address_two, :size => 15,:disabled => disabled %></td>
+        <td><%= f.text_field :city, :size => 15,:disabled => disabled %></td>
+        <td><%= f.text_field :state, :size => 15,:disabled => disabled %></td>
+        <td><%= f.text_field :payer_zip, :size => 15,:disabled => disabled %></td>
+      </tr>
+      <tr>
+        <th>Footnote Indicator</th>
+        <th>Micr Status</th>
+        <th>Payer Status</th>
+        <th>Temp PayId</th>
+        <th>EOBs Per Image</th>
+        <th>Set Name</th>
+      </tr>
+      <tr>
+        <td>
+          <select name="payer[footnote_indicator]">
+            <%= options_for_select([["Non Footnote",0],["Footnote",1]], (@payer.footnote_indicator ? 1 : 0 )) %>
+          </select>
+        </td>
+
+        <td><%= @micr.status%></td>
+        <td><%= @payer.status%></td>
+        <td><%= @micr.payid_temp%></td>
+        <td><%= f.text_field :eobs_per_image, :size => 5, :onblur => "return validateEobsPerImage(id, value)" %></td>
+        <td><%= text_field :rc_set, :name, :value => @rc_set_name, :size => 15, :readonly => true%></td>
+      </tr>
+      <tr>
+        <td colspan="14">
+          <%= f.submit 'Approve Payer', :class => 'button',
+            :onclick => "return validate_presence_of('payer_payid', 'Payer ID') && validate_presence_of('rc_set_name', 'Set Name');" unless disabled %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

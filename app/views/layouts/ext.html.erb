@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <head>
+            <title><%= $APP_TITLE %></title>
+            <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+            <meta http-equiv="cache-control" content="no-cache" />
+            <link rel="shortcut icon" href="/favicon.ico">
+            <%= stylesheet_link_tag "ext_consolidated" %>
+            <%= javascript_include_tag 'ext_consolidated' %>
+        </head>
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <div id="logo_container">
+                </div>
+                <div id="company_logo">
+                </div>
+            </div>
+            <div id="link_bar" align="right">
+                <div id="message" style:align="absmiddle">
+                    <% if flash[:error] %>
+                    <div id="flash_error">
+                        <%= flash[:error] %>
+                    </div>
+                    <% end %>
+                    <% if flash[:notice] %>
+                    <div id="flash_notice">
+                        <%= image_tag("alert.gif", :alt => "Edit") %>
+                        <%= flash[:notice] %>
+                    </div>
+                    <% end %>
+                </div>
+                <%= link_to image_tag("home.gif", :alt => "home",:border=>'0',:align=>'absmiddle'), :controller => '/dashboard' %>|<% if logged_in? %>
+                <span class="alert">Logged in as <%= @current_user.login %></span>
+                |<%= link_to image_tag("logout.gif", :alt => "Logout",:border=>'0',:align=>'absmiddle'), :controller => '/logout' %>
+                <% else -%>
+                <%= link_to image_tag("login.gif", :alt => "Login",:border=>'0',:align=>'absmiddle'), :controller => '/login' %>
+                <% end -%>
+            </div>
+            <div id="page_container">
+                <%=yield %>
+                <div id="footer">
+                    Send any <a href="mailto:revremit-support@revenuemed.com?subject=RevRemit Issue">issues</a>, <a href="mailto: revremit-support@revenuemed.com?subject=RevRemit Question">questions</a>, or <a href="mailto: revremit-support@revenuemed.com?subject=RevRemit Suggestion">suggestions</a>
+                    to <a href="mailto: revremit-support@revenuemed.com">revremit-support@revenuemed.com</a>
+                    <br/>
+                    RevRemit V3.0
+                    &copy; 2012  RevenueMed Inc. All Rights Reserved
+                </div>
+            </div>
+        </div>
+        <script language="JavaScript" type="text/javascript" src="/assets/wz_tooltip.js">
+        </script>
+    </body>
+</html>

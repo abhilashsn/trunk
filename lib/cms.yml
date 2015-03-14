@@ -1,0 +1,28 @@
+ITERATORS:
+  I837: /Export
+  ICLM: Product
+  ICLM_ITM: ClaimItems/ClaimItem
+CLAIM:
+  insured_id: "@SubscriberID"
+  provider_ein: "@FederalTaxID"
+  total_charges: "@TotalCharges"
+  payer_name: "CarrierAddress/@AddressLine1"
+  payer_address: "CarrierAddress/@AddressLine2"
+  payer_city: "CarrierAddress/@City"
+  payer_state: "CarrierAddress/@State"
+  payer_zipcode: "CarrierAddress/@Zip"
+  patient_names: "@PatientName"
+  patient_account_number: "@PatientControlNumber"
+  provider_npi: "@ReferringSourceNPI"
+  provider_names: "@ProviderName"
+  subscriber_names: "@SubscriberName"
+CLAIM_ITMS:
+  charges: "@Charges"
+  cpt_hcpcts: "@CPT_HCPCS"
+  days_units: "@UnitsOfService"
+  service_from_date: "@ServiceDateFrom"
+  service_to_date: "@ServiceDateTo"
+  modifier1: "@Modifier.1"
+  quantity: "@UnitsOfService"
+
+

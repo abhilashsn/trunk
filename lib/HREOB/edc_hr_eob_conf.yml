@@ -1,0 +1,157 @@
+makeup_eob:
+  - process(cnf['file_header'])
+  - process(cnf['eob_header'], ' ')
+  - repeat('=', 80)
+  - carg_return
+  - process(cnf['eob_header_1'], ' ')
+  - process(cnf['eob_header_2'], ' ')
+  - process(cnf['eob_header_3'], ' ')
+  - repeat('=', 80)
+  - carg_return
+  - process(cnf['eob_header_4'])
+  - lalign("Adj Reason Codes:")
+  - repeat(' ', 1)
+  
+file_header:
+  - lalign("[EOB]")
+  - repeat(' ', 22)
+  - lalign("HealthLogic Human Readable EOB")
+  - carg_return
+  - chk.payer.payer.center(80)
+  - carg_return(5)
+
+eob_header:  
+  - lalign("PROVIDER \#")
+  - repeat(' ', 19)
+  - lalign("| FPE :")
+  - lalign("Unknown")
+  - lalign("| TOB :")
+  - repeat(' ', 2)
+  - lalign("| PAID :")
+  - lalign(format_date(@l_c_d, "%m/%d/%y"), 11)
+  - carg_return
+  
+eob_header_1:
+  - ralign("PATIENT:", 9)
+  - lalign(eob.patient_first_name + ' ' + eob.patient_last_name, 44)
+  - lalign("PCN:")
+  - ralign(eob.patient_account_number, 20)
+  - carg_return
+
+eob_header_2:
+  - ralign("HIC:", 9)
+  - lalign(eob.subscriber_identification_code, 21)
+  - ralign("SVC FROM:", 9)
+  - lalign(format_date(eob.service_payment_eobs.minimum(:date_of_service_from)), 11)
+  - lalign("MRN:")
+  - repeat(' ', 20)
+  - carg_return
+
+eob_header_3:         
+  - ralign("PAT STAT:", 9)
+  - repeat(' ', 2) 
+  - lalign("CLAIM STAT:", 11)
+  - repeat(' ', 10)
+  - lalign("THRU:", 5)
+  - lalign(format_date(eob.service_payment_eobs.maximum(:date_of_service_from)), 11)
+  - lalign("ICN:", 4)
+  - ralign(eob.claim_number, 20)
+  - carg_return
+
+eob_header_4:
+  - lalign("CHARGES:")
+  - repeat(' ', 23)
+  - lalign("PAYMENT DATA:")
+  - repeat(' ', 17)
+  - lalign("0.00=REIM RATE", 22)
+  - carg_return
+  - sprintf('%12.02f=%-11s', eob.total_submitted_charge_for_claim.to_f, "REPORTED")
+  - sprintf('%14.02f=%-12s', 0.0, "DRG AMOUNT")
+  - sprintf('%14.02f=%-22s', 0.0, "MSP PRIM PAYER")
+  - carg_return
+  - sprintf('%12.02f=%-11s', eob.total_denied.to_f, "NCVD/DENIED")
+  - sprintf('%14.02f=%-12s', 0.0, "DRG/OPER/CAP")
+  - sprintf('%14.02f=%-22s', 0.0, "PROF COMPONENT")
+  - carg_return
+  - repeat(' ', 51)
+  - sprintf('%14.02f=%s', 0.0, lalign("ESRD AMOUNT", 22))
+  - carg_return
+  - sprintf('%12.02f=%-11s', eob.total_allowable.to_f, "COVERED")
+  - sprintf('%14.02f=%-12s', 0.0, "OUTLIER")
+  - sprintf('%14.02f=%-22s', 0.0, "PROC CD AMOUNT")
+  - carg_return
+  - lalign("DAYS/VISITS", 24)
+  - sprintf('%14.02f=%-12s', 0, "CAP OUTLIER")
+  - sprintf('%14.02f=%-22s', 0.0, "ALLOW/REIM")
+  - carg_return
+  - sprintf('%12d=%-11s', 0, "COST REPT")
+  - sprintf('%14.02f=%-12s', eob.total_deductible.to_f, "CASH DEDUCT")
+  - sprintf('%14.02f=%-22s', 0.0, "G/R AMOUNT")
+  - carg_return
+  - sprintf('%12d=%-11s', 0, "COVD/UTIL")
+  - sprintf('%14.02f=%-12s', 0.0, "BLOOD DEDUCT")
+  - sprintf('%14.02f=%-22s', eob.claim_interest.to_f, "INTEREST")
+  - carg_return
+  - sprintf('%12.02f=%-11s', eob.total_non_covered, "NON-COVERED")
+  - sprintf('%14.02f=%-12s', eob.total_co_insurance.to_f, "COINSURANCE")
+  - sprintf('%14.02f=%-22s', eob.total_contractual_amount.to_f, "CONTRACTUAL ADJUSTMENT")
+  - carg_return
+  - sprintf('%12d=%-11s', 0, "COVD VISITS")
+  - sprintf('%14.02f=%-12s', 0.0, "PAT REFUND")
+  - sprintf('%14.02f=%-22s', 0.0, "PER DIEM AMT")
+  - carg_return
+  - sprintf('%12d=%-11s', 0, "NCOV VISITS")
+  - sprintf('%14.02f=%-12s', 0.0, "MSP LIAB MET")
+  - sprintf('%14.02f=%-22s', eob.total_amount_paid_for_claim.to_f, "NET REIM AMT")
+  - carg_return
+
+makeup_eob_service_item_header:
+  - repeat('=', 80)
+  - carg_return  
+  - process(cnf['eob_item_header'], ' ')
+  - carg_return
+
+eob_item_header:
+  - lalign("HCPCS", 5)
+  - lalign("MODS", 8)
+  - lalign("SERVICE", 7)
+  - ralign("CHARGE", 10)
+  - ralign("ALLOWED", 12) 
+  - ralign("COPAY", 12)
+  - ralign("COINS", 12)
+  - ralign("DED", 12)
+  - ralign("PAYMENT", 12) 
+  - ralign("DENIED", 12)
+  - lalign("REASON", 30)
+
+eob_service_items:
+  - lalign(srv_itm.service_procedure_code, 5)
+  - sprintf('%-8s', srv_itm.service_modifier1 << srv_itm.service_modifier2 << srv_itm.service_modifier3 << srv_itm.service_modifier4)
+  - ralign(format_date(srv_itm.date_of_service_from,"%m%d%y"), 7)
+  - sprintf('%10.02f', srv_itm.service_procedure_charge_amount.to_f)
+  - sprintf('%12.02f', srv_itm.service_allowable.to_f)
+  - sprintf('%12.02f', srv_itm.service_co_pay.to_f)
+  - sprintf('%12.02f', srv_itm.service_co_insurance.to_f)
+  - sprintf('%12.02f', srv_itm.service_deductible.to_f)
+  - sprintf('%12.02f', srv_itm.service_paid_amount.to_f)
+  - sprintf('%12.02f', srv_itm.denied.to_f)
+  - lalign(collect_srv_line_reason(srv_itm))
+
+makeup_eob_service_items:
+  - process(cnf['eob_service_items'], ' ')
+  - carg_return
+
+eob_service_items_total:
+  - repeat(' ', 22)
+  - sprintf('%10.02f', eob.total_submitted_charge_for_claim.to_f)
+  - sprintf('%12.02f', eob.total_allowable.to_f)
+  - sprintf('%12.02f', eob.total_co_pay.to_f)
+  - sprintf('%12.02f', eob.total_co_insurance.to_f)
+  - sprintf('%12.02f', eob.total_deductible.to_f)
+  - sprintf('%12.02f', eob.total_amount_paid_for_claim.to_f)
+  - sprintf('%12.02f', eob.total_denied.to_f)
+
+makeup_eob_service_items_total:
+  - process(cnf['eob_service_items_total'], ' ')
+  - carg_return
+

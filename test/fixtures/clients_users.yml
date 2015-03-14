@@ -1,0 +1,105 @@
+client_user_1:
+      id: 1
+      user_id: 13
+      client_id: 16
+      eobs_processed: 10
+      eligible_for_auto_allocation:
+
+client_user_2:
+      id: 2
+      user_id: 17
+      client_id: 19
+      eobs_processed: 10
+      eligible_for_auto_allocation: 1
+
+client_user_3:
+      id: 3
+      user_id: 17
+      client_id: 20
+      eobs_processed: 10
+      eligible_for_auto_allocation: 1
+
+client_user_4:
+      id: 4
+      user_id: 19
+      client_id: 19
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_5:
+      id: 5
+      user_id: 23
+      client_id: 21
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_6:
+      id: 6
+      user_id: 23
+      client_id: 22
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_7:
+      id: 7
+      user_id: 23
+      client_id: 23
+      eobs_processed: 5
+      eligible_for_auto_allocation: 0
+
+client_user_8:
+      id: 8
+      user_id: 24
+      client_id: 22
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_11:
+      id: 11
+      user_id: 26
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_12:
+      id: 12
+      user_id: 27
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_13:
+      id: 13
+      user_id: 28
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_14:
+      id: 14
+      user_id: 30
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 0
+
+client_user_15:
+      id: 15
+      user_id: 31
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_16:
+      id: 16
+      user_id: 32
+      client_id: 24
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+client_user_17:
+      id: 17
+      user_id: 25
+      client_id: 25
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+

@@ -1,0 +1,121 @@
+<%= javascript_include_tag "era_exception" %>
+
+<h1> ERA Approval </h1>
+
+<b>Exception:</b> <%= @era_check.exception_status %>
+
+<table style="width:100%">
+  <td>
+    <b>Filename: </b><%= @era_check.era.name %><br>
+    <b>File Arrival Date: </b><%= @era_check.era.arrival_date.strftime("%m/%d/%Y") %><br>
+    <b>Check Number: </b><%= @era_check.check_number %><br>
+    <b>Check Date: </b><%= @era_check.check_date.strftime("%m/%d/%Y") %><br>
+    <b>Check Amount: </b>$<%= @era_check.check_amount %>
+  </td>
+  <td>
+    <b>Site Name: </b><%= @era_job.payee_name %><br>
+    <b>Site NPI: </b><%= @era_job.payee_npi %><br>
+    <b>Site TIN: </b><%= @era_job.payee_tin %><br>
+    <b>Site Address 1: </b><%= @era_job.payee_address_1 %><br>
+    <b>Site Address 2: </b><%= @era_job.payee_address_2 %><br>
+    <b>City: </b><%= @era_job.payee_city %><br>
+    <b>State: </b><%= @era_job.payee_state %><br>
+    <b>Zip: </b><%= @era_job.payee_zip %><br>
+  </td>
+  <td>
+    <b>Payer Name: </b><%= @era_check.payer_name %><br>
+    <b>Payer ID: </b><%= @era_check.era_payid %><br>
+    <b>Payer Plan ID: </b><%= @era_check.payer_npi %><br>
+    <b>Payer TIN: </b><%= @era_check.trn_payer_company_identifier %><br>
+    <b>Payer Address 1: </b><%= @era_check.payer_address_1 %><br>
+    <b>Payer Address 2: </b><%= @era_check.payer_address_2 %><br>
+    <b>City: </b><%= @era_check.payer_city %><br>
+    <b>State: </b><%= @era_check.payer_state %><br>
+    <b>Zip: </b><%= @era_check.payer_zip %><br>
+</td>
+</table>
+
+<% if @era_check.exception_status == "Both" || @era_check.exception_status == "Unidentified Site" %>
+  <b>Site Verification</b>
+  <div style="width:100%;height:200px;border:1px solid #D8D8D8;">
+  <%= form_tag :action => 'site_search' do %>
+    <table>
+      <tr>
+        <th>Site Name:</th>
+        <td><%= text_field_tag :site_name, nil, :size => '14' %> </td>
+      </tr>
+      <tr>
+        <th>Site TIN:</th>
+        <td><%= text_field_tag :site_tin, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>Site NPI:</th>
+        <td><%= text_field_tag :site_npi, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>Address 1:</th>
+        <td><%= text_field_tag :site_address_1, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>Address 2:</th>
+        <td><%= text_field_tag :site_address_2, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>City:</th>
+        <td><%= text_field_tag :site_city, nil, :size => '14' %></td>
+        <th>State:</th>
+        <td><%= text_field_tag :site_state, nil, :size => '5' %></td>
+        <th>Zip:</th>
+        <td><%= text_field_tag :site_zip, nil, :size => '5' %></td>
+      </tr>
+    </table>
+      <%= hidden_field_tag :job_id, @era_job.id %>
+      <%= hidden_field_tag :chk_id, params[:chk_id] %>
+      <%= submit_tag "Search", :class => "button", :onclick => "siteSearchPopup();return false" %> <%= submit_tag "Reject Site", :class => "button", :onclick => "rejectSite();return false" %>
+    </p>
+  <% end %>
+
+<% end %>
+
+<% if @era_check.exception_status == "Both" || @era_check.exception_status == "Unidentified Payer" %>
+  <b>Payer Verification</b>
+  <div style="width:100%;height:200px;border:1px solid #D8D8D8;">
+  <%= form_tag :action => 'payer_search' do %>
+    <table>
+      <tr>
+        <th>Payer Name:</th>
+        <td><%= text_field_tag :payer_name, nil, :size => '14' %> </td>
+      </tr>
+      <tr>
+        <th>Address 1:</th>
+        <td><%= text_field_tag :payer_address_1, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>Address 2:</th>
+        <td><%= text_field_tag :payer_address_2, nil, :size => '14' %></td>
+      </tr>
+      <tr>
+        <th>City:</th>
+        <td><%= text_field_tag :payer_city, nil, :size => '14' %></td>
+        <th>State:</th>
+        <td><%= text_field_tag :payer_state, nil, :size => '5' %></td>
+        <th>Zip:</th>
+        <td><%= text_field_tag :payer_zip, nil, :size => '5' %></td>
+      </tr>
+      <tr>
+        <th>Payer ID:</th>
+        <td><%= text_field_tag :payer_id, nil, :size => '14' %></td>
+        <th>Payer Plan ID:</th>
+        <td><%= text_field_tag :payer_plan_id, nil, :size => '5' %></td>
+        <th>Payer TIN:</th>
+        <td><%= text_field_tag :payer_tin, nil, :size => '5' %></td>
+      </tr>
+    </table>
+      <%= hidden_field_tag :chk_id, params[:chk_id] %>
+      <%= submit_tag "Search", :class => "button", :onclick => "payerSearchPopup();return false" %> <%= submit_tag "Create New Payer", :class => "button", :name => "create_payer_button", :onclick => "createPayer();return false" %>
+    </p>
+  <% end %>
+
+<% end %>
+
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index' %>

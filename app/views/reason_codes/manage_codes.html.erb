@@ -1,0 +1,295 @@
+<%= javascript_include_tag "ansi_remark_code" %>
+<script type="text/javascript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+  // Have this code after including all javascript files.
+  jQuery.noConflict();
+</script>
+<div style="float:left; margin-left:20px;">
+  <% payer = @payer%>
+  <h1>Manage Codes<span class="sub_title"><%= payer.payer %> [Paper code: <%= @reason_code.reason_code %>]</span></h1>
+  <div style="clear:both;"><span id="hhh" class="sec_title">Crosswalk Mapping</span></div>
+  <div style="clear:both;">
+    <% mapping_levels = ['Global', 'Client', 'Facility'] %>
+    <% mapping_levels = ['Global'] if params[:view].present?%>
+    <%= select_tag 'crosswalk_mapping_type', options_for_select(mapping_levels,@type.camelize), {"onchange"=>"mapsubmit();"}%>
+  </div>
+
+  <%= form_tag :controller => :reason_codes,:action => "map_multiple_code_for_reason_code",
+    :remark_code_crosswalk_ids => params[:remark_code_crosswalk_ids],
+    :remark_code_crosswalked_facility_id => params[:remark_code_crosswalked_facility_id],
+    :remark_code_crosswalked_client_id => params[:remark_code_crosswalked_client_id], :filter_hash => params[:filter_hash] do %>
+
+    <div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Reason Code</th>
+          <th>Reason Code Description</th>
+          <th></th>
+        </tr>
+        <tr>
+          <%= hidden_field_tag :existing_code, @reason_code.code %>
+          <%= hidden_field_tag :existing_description, @reason_code.description %>
+          <td><%= text_field_tag :reason_code, @reason_code.code, :readonly => true %></td>
+          <td><%= text_field_tag :reason_code_description, @reason_code.description, :readonly => true, :size => 50,
+            :onfocus => "enlargeTextfieldSize(id, 50)", :onblur => "resetTextfieldSize(id, 50)" %></td>
+          <td>
+            <input type = "button"  value = "Edit" onclick ="toggleEditForReasonCode();"/>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <%unless @nbac_identifier%>
+      <%= hidden_field_tag "id", @rccfsn.id if @rccfsn%>
+      <%= hidden_field_tag "type", @type %>
+      <%= hidden_field_tag "payer_id",@payer.id%>
+      <%= hidden_field_tag "footnote_indicator", @payer.footnote_indicator%>
+      <%= hidden_field_tag "optional_ansi_remark_codes"%>
+      <%= hidden_field_tag "view",params[:view]%>
+      <%= hidden_field_tag "reason_code_id", @reason_code.id %>
+      <% if params["referer"].present? %>
+        <%= hidden_field_tag "referer", request.env["HTTP_REFERER"] %>
+      <% end %>
+      <div style="float:left; margin-right:20px;">
+        <span class="sec_title">Manage Multiple ANSI Codes</span>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th >ANSI</th>
+            <th >&nbsp;</th>
+          </tr>
+          <tr>
+            <td valign="top"><%= text_field_with_auto_complete :ansi,:code%></td>
+            <td valign="top"><%= tag("input", {
+                  :type => "button",
+                  :onclick => "insertOptionBefore3(count1++);",
+                  :value => "Add" },false) %></td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="top">
+              <%=  select_tag "ansi_remark_codes",options_for_select(@remark_codes),:multiple => true,:size=>"8",:class => "ansi_code_text"%>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="top"><div align="right">
+                <%= tag("input", {
+                    :type => "button",
+                    :onclick => "removeOptionSelected3();",
+                    :value => "Delete" },false) %>
+              </div></td>
+          </tr>
+
+        </table>
+      </div>
+    <%end%>
+    <div style="float:left">
+      <span class="sec_title">Manage HIPAA & Client codes </span>
+      <div id="group_code_th" style = "visibility:hidden;"> Group Code </div>
+      <div  id="group_code_td" style = "visibility:hidden;" >
+        <%= text_field :crosswalk_codes, :group_code,
+          :value => @cross_walk_codes[:hipaa_group_code] %>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+
+
+          <th>Group Code</th>
+          <th>HIPAA</th>
+          <% if $IS_PARTNER_BAC %>
+            <th>Client Code</th>
+          <% end %>
+          <th>Client Name</th>
+          <th>Facility</th>
+        </tr>
+        <tr>
+
+
+
+          <%unless @nbac_identifier%>
+            <td valign="top">
+            <%= text_field :crosswalk_codes, :group_code, :value => @cross_walk_codes[:hipaa_group_code], :size => 10 %> </td>
+            <td valign="top"><%= text_field_with_auto_complete :hipaa, :code,
+              :value => @cross_walk_codes[:hipaa_code]%></td>
+            <% if $IS_PARTNER_BAC %>
+              <td valign="top"><%= text_field_with_auto_complete :client, :code,
+                :value => @cross_walk_codes[:client_code] %></td>
+            <% end %>
+            <td>
+              <% if(@type == "client" || @type == "facility") %>
+                <% client_id = @rccfsn.client_id %>
+                <% client_id = @rccfsn.try(:facility).try(:client_id) if @type == "facility" %>
+                <%= select_tag('client_id',  options_from_collection_for_select(@clients.map{|c| [c.id,c.name]}.unshift(["","select client"]), "first", "last", client_id ) , {:style=>"width:180px;", "onchange"=>"get_facilities(\"#{@type}\");"}) %>
+              <% end %>
+            </td>
+            <td>
+              <% if(@type == "facility") %>
+                <% facility_id = @rccfsn.facility_id %>
+                <%= select_tag('facility_id',  options_from_collection_for_select(@facilities.map{|c| [c.id,c.name]}.unshift(["","select facility"]), "first", "last", facility_id),{:style=>"width:180px;"}) %>
+              <% end %>
+              <div id="facility_loading" style="text-align:center;"></div>
+
+            </td>
+          <%else%>
+            <td valign="top"><%= text_field :hipaa, :code,
+                :value => @cross_walk_codes[:hippa_code], :readonly => "readonly"%></br></td>
+            <td valign="top"><%= text_field :client, :code,
+              :value => @cross_walk_codes[:client_code], :readonly => "readonly"%></td>
+            <td></td>
+            <td></td>
+          <%end%>
+        </tr>
+      </table>
+
+    </div>
+    <div style="float:left; clear:both;">
+      <%if params[:current_action] == "index"%>
+        <%= hidden_field_tag "current_action","index"%>
+        <%= link_to "Back", :controller => "reason_codes",:action => "index",:id => payer.id%>
+      <%else%>
+        <%= link_to "Back", :controller => "admin/payer",:action => "manage_newly_added_codes", :filter_hash => params[:filter_hash] %>
+      <%end%>
+      <%unless @nbac_identifier%>
+        &nbsp;|&nbsp;
+        <%= submit_tag "save", :onclick => "return validateMapping() && validateReadonCodeEdit();" %>
+      <%end%>
+    </div>
+
+
+  <%end%>
+</div>
+
+
+
+<script>
+  mapsubmit = function(){
+    opts = $("crosswalk_mapping_type").options
+    len = opts.length;
+    for( i=0; i < len ; i++){
+      selected = opts[i].selected;
+      if(selected == true){
+        opt = opts[i].value.toLowerCase();
+      }
+    }
+    payer_id = "<%= @payer.id %>";
+    reason_code_id = "<%= @reason_code.id %>";
+    url = document.location.href.split("?")[0] + "?payer_id=" + payer_id +
+      "&reason_code_id=" + reason_code_id + "&type=" + opt + "&from=<%=params[:from]%>" +
+      "&remark_code_crosswalked_facility_id=<%= h params[:remark_code_crosswalked_facility_id]%>" +
+      "&remark_code_crosswalked_client_id=<%= h params[:remark_code_crosswalked_client_id]%>" +
+      "&remark_code_crosswalk_ids=<%= h params[:remark_code_crosswalk_ids]%>";
+<% if @rccfsn.id %>
+      url = document.location.href.split("?")[0] + "?payer_id=" + payer_id +
+        "&rccfsn_id=<%=@rccfsn.id %>&reason_code_id=" + reason_code_id +
+        "&type=" + opt + "&from=<%=params[:from]%>" +
+        "&remark_code_crosswalked_facility_id=<%= h params[:remark_code_crosswalked_facility_id]%>" +
+        "&remark_code_crosswalked_client_id=<%= h params[:remark_code_crosswalked_client_id]%>" +
+        "&remark_code_crosswalk_ids=<%= h params[:remark_code_crosswalk_ids]%>";
+<% end %>
+    document.location.href = url;
+  }
+
+  get_facilities = function(type){
+    if(type == "client") {
+      return ;
+    }
+    opt = "";
+    options = $("client_id").options
+    len = options.length
+    for(i=0; i<len; i++){
+      if(options[i].selected == true) {
+        opt = options[i].value
+      }
+    }
+    if(opt !== " "){
+      var url = "facilities_for_client" + "/" + opt;
+      new Ajax.Request(url,{
+        method: 'get',
+        onLoading: function() {
+          $("facility_loading").show();
+          $("facility_id").hide();
+        },
+        onSuccess: function(transport){
+          eval("var facilities =" +  transport.responseText +";");
+          clear_select();
+          populate_facilities(facilities);
+          $("facility_loading").hide();
+          $("facility_id").show();
+        }})
+    }
+  }
+
+  clear_select = function(){
+    options = $("facility_id").options
+    len = options.length
+    for(i=0; i<len; i++){
+      $("facility_id").remove(options[i]);
+    }
+    option = new Option("Select Facility", "");
+    $("facility_id").add(option);
+  }
+  populate_facilities = function(facilities) {
+    var len = facilities.length;
+    for(i=0; i<len; i++) {
+      option = new Option(facilities[i].name, facilities[i].id);
+      $("facility_id").add(option);
+    }
+  }
+
+  $("facility_loading").hide();
+  validateMapping = function(){
+    var hipaa_code = $("hipaa_code").value
+    if (hipaa_code== '') {
+      alert('Please select hipaa_code');
+      return false;
+    }
+    var selected_crosswalk = $("crosswalk_mapping_type")[$("crosswalk_mapping_type").selectedIndex].value
+    if(selected_crosswalk == 'Client'){
+      if ($("client_id") && $("client_id")[$("client_id").selectedIndex].value != ''){
+        getTheOptionalValues();
+        return true;
+      } else {
+        alert('Please select a client');
+      }
+    }
+    if(selected_crosswalk == 'Facility'){
+      if ($("facility_id") && $("facility_id")[$("facility_id").selectedIndex].value != ''){
+        getTheOptionalValues();
+        return true;
+      } else {
+        alert('please select a facility');
+      }
+    }
+    if(selected_crosswalk == 'Global') {
+      getTheOptionalValues();
+      return true;
+    }
+    return false;
+  }
+
+  function validateReadonCodeEdit() {
+    var parameters = 'reason_code_id=' + $F('reason_code_id') +
+      '&footnote_indicator=' + $F('footnote_indicator') +
+      '&reason_code=' + $F('reason_code') + '&reason_code_description=' +
+      $F('reason_code_description') + '&user_acceptance=true';
+    var resultOfValidation = true;
+    var isUserAcceptanceNeeded = false;
+    var url = relative_url_root() + "/reason_codes/validate_reason_code_edit_with_user_confirmation";
+    new Ajax.Request(url, {
+      asynchronous: false,
+      parameters: parameters,
+      onSuccess: function(getValidation) {
+        isUserAcceptanceNeeded = eval("(" + getValidation.responseText + ")");
+      }
+    });
+    if(isUserAcceptanceNeeded == true || isUserAcceptanceNeeded == 'true') {
+      var description = ''
+      if($F('footnote_indicator') == 'true')
+        description = 'Description';
+      resultOfValidation = confirm("Reason Code " + description + " already exists. Do you want to associate the existing one with the new one?");
+    }
+    return resultOfValidation;
+  }
+</script>

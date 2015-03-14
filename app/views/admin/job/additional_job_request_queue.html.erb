@@ -1,0 +1,103 @@
+<script language="javascript" type="text/javascript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+</script>
+<div id="login_main">
+  <% if @jobs.length > 0%>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @jobs%>
+    </div>
+    <%= form_tag({:action => 'remove_jobs_from_additional_job_request_queue',
+        :page=> params[:page], :back_page => params[:back_page]}, :id =>'my_form') do %>
+      <table style="width:100%;float:left;">
+        <tr>
+          <th>
+            Batch
+            <br/>
+            Date
+          </th>
+          <th>Batch ID</th>
+          <th>Batch Tat</th>
+          <th>Job ID</th>
+          <th>
+            Check
+            <br/>
+            Number
+          </th>
+          <th>Processor</th>
+          <th>Page To</th>
+          <th>Processed EOBs</th>
+          <th>Processor Comments</th>
+          <th style="width: 80px">
+
+          </th>
+          <th style="width: 20px">
+            <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))">
+          </th>
+        </tr>
+        <% @jobs.each do |job| %>
+          <tr>
+
+            <td align='right'>
+              <div style="text-align:center;"><%= (format_datetime(job.batch_date.to_s,'%m/%d/%y') if job.batch_date.present?) %></div>
+            </td>
+            <td align='right'>
+              <div style="text-align:center;"><%= job.batchid %></div>
+            </td>
+            <td align='right'>
+              <div style="text-align:center;"><%= (format_datetime(job.batch_tat.to_s) if job.batch_tat.present?) %></div>
+            </td>
+            <td align='right'>
+              <div style="text-align:center;"><%= job.id %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= job.check_number.present? ? job.check_number : '-' %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= job.processor_login %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= (job.pages_to.blank? ? "-" : job.pages_to) %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= (job.processed_eobs.blank? ? "0" : job.processed_eobs) %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= (job.processor_comments.blank? ? "-" : job.processor_comments) %></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= link_to "Create Jobs", {:controller => 'job', :action => 'create_new_job',
+                  :back_page => "additional_job_request_queue", :jobs => [job.id]},
+                  {:onclick => "indicatePresenceOfProcessedEobs( \"#{job.processed_eobs}\",  \"#{@job_image_names_with_eobs[job.id]}\" )"} %></div>
+            </td>
+            <td>
+              <%= check_box_tag "job_ids_to_remove[]", job.id, false, :class => 'checkbox' %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <div style="clear:both;"></div>
+      <%= submit_tag "Remove Jobs From Queue", :class => 'button', :name => "option1" %>
+    <% end %>
+  <% else %>
+    <h4>No Jobs Present</h4>
+  <% end %>
+  <br/>
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/dashboard', :action => 'index' %>
+
+</div>
+
+<script type="text/javascript">
+  function indicatePresenceOfProcessedEobs(processedEobs, imageNames) {
+    if(parseInt(processedEobs) > 0) {
+      var message = "There are ";
+      message += processedEobs;
+      message += " EOBs created by the users in this job and the images associated with them are ";
+      message += imageNames;
+      alert(message)
+    }
+  }
+</script>

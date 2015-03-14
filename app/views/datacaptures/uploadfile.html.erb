@@ -1,0 +1,21 @@
+<h1 class="black_text">Uploaded Files</h1>
+<%if !@documents.blank? %>
+<table width="100%" cellpadding="1" cellspacing="1" bgcolor="#ECE9D8">
+    <tr>        
+        <th>
+            File name
+        </th>
+    </tr>
+    <%= will_paginate @documents %>
+    <% for document in @documents %>
+    <tr>        
+        <td>
+            <%str = document.file_name %>
+            <%= link_to document.file_name ,{:controller => "documents", :action => document.file_name},:filename => document.file_name,:target => "_blank" %>
+        </td>
+    </tr>
+    <%end %>
+    <%else %>
+    <h5>No files Uploaded</h5>
+    <%end %>
+</table>

@@ -1,0 +1,37 @@
+<% if !@claim_service_informations.blank? %>
+<table>
+  <tr>
+      <th style="width: 180px">
+          Service Date From
+      </th>
+      <th style="width: 180px">
+          Service Date To
+      </th>
+      <th style="width: 180px">
+          CPT Code
+      </th>
+      <th style="width: 100px">
+          SVC Charges
+      </th>
+  </tr>
+  <% for claim_service_information in @claim_service_informations %>
+    <tr>
+      <td>
+        <%= claim_service_information.service_from_date %>
+      </td>
+      <td>
+        <%= claim_service_information.service_to_date %>
+      </td>
+      <td>
+        <%= claim_service_information.cpt_hcpcts %>
+      </td>
+      <td>
+        <%= "$#{claim_service_information.charges}" unless claim_service_information.charges.blank? %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate @claim_service_informations %>
+<% else %>
+  <h4>Claim Service Information Not Found. </h4>
+<% end %>

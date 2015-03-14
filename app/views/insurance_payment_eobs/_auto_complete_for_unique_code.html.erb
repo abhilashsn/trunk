@@ -1,0 +1,8 @@
+
+<ul class="autocomplete_list">
+  <% for adjustment_codes in @adjustment_codes -%>
+  <% title =  adjustment_codes[2]
+  title = title + ',' + adjustment_codes[3] if adjustment_codes[3].present? -%>
+    <li class="autocomplete_item" title = '<%= title -%>'><%= adjustment_codes[0] -%>+<%= adjustment_codes[1] -%></li>
+<% end -%>
+</ul>

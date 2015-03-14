@@ -1,0 +1,36 @@
+<div id="login_main">
+<h1>Listing Facilty</h1>
+
+
+
+<% unless @payers.empty? %>
+      <%= form_tag :action => 'facilityselect', :id => @payers_to_delete,:payer=>@m do %>
+         
+
+    <table>
+      <tr>
+       
+        <th>Facility Name</th>  
+        <th>Site Code</th>
+        <th>Client</th>
+        <th><input type="checkbox" name="all" onClick="checkAll(document.forms[0].toggle,this)"></th>
+      </tr>
+      <% for payer in @payers %>
+        <tr>
+          <td><%= payer.name%></td>
+          <td><%= payer.sitecode%></td>
+           <%
+           clientname=Client.find_by_id(payer.client_id).name
+           %>
+          <td><%= clientname%></td>
+          <td><%= check_box :payers_to_delete, payer.id, :id => 'toggle' %> </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= submit_tag 'Add Facility', :class => 'button' if @payers.size > 0 %>
+  <% end %>
+  <br/>
+<% else %>
+  <h4> No Payers found.</h4>
+<% end %>
+</div>

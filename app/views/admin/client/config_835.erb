@@ -1,0 +1,43 @@
+<h1><%= @client.name %>: Client level 835 configuration </h1>
+<table border="1">
+  <tr>
+    <th>Output Type</th>
+    <th colspan="2">Action</th>
+  </tr>
+  <tr>
+    <td>Insurance</td>
+    <td>
+      <%= form_tag admin_config_settings_upload_path, multipart: true do %>
+        <%= hidden_field_tag(:client_id, params[:id]) %>
+        <%= hidden_field_tag(:output_type, :Insurance) %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Upload" %>
+      <% end %>
+    </td>
+    <td><%= button_to "Download", admin_config_settings_download_path(:client_id => params[:id],  :output_type => "Insurance") %></td>
+  </tr>
+  <tr>
+    <td>PatPay</td>
+    <td>
+      <%= form_tag admin_config_settings_upload_path, multipart: true do %>
+        <%= hidden_field_tag(:client_id, params[:id]) %>
+        <%= hidden_field_tag(:output_type, :PatPay) %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Upload" %>
+      <% end %>
+    </td>
+    <td><%= button_to "Download", admin_config_settings_download_path(:client_id => params[:id],  :output_type => "PatPay") %></td>
+  </tr>
+  <tr>
+    <td>Denials(correspondence)</td>
+    <td>
+      <%= form_tag admin_config_settings_upload_path, multipart: true do %>
+        <%= hidden_field_tag(:client_id, params[:id]) %>
+        <%= hidden_field_tag(:output_type, :Denials) %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Upload" %>
+      <% end %>
+    </td>
+    <td><%= button_to "Download", admin_config_settings_download_path(:client_id => params[:id],  :output_type => "Denials") %></td>
+  </tr>
+</table>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<style type="text/css">
+  #idletimeout { background:#CC5100; border:3px solid #FF6500; color:#fff; font-family:arial, sans-serif; text-align:center; font-size:12px; padding:10px; position:relative; top:0px; left:0; right:0; z-index:100000; display:none; }
+  #idletimeout a { color:#fff; font-weight:bold }
+  #idletimeout span { font-weight:bold }
+</style>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <%= csrf_meta_tags %>
+    <title><%= $APP_TITLE %></title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<%#= stylesheet_link_tag 'scaffold' %>
+    <%= javascript_include_tag "jquery-1-7-1" %>
+    <%= javascript_include_tag "jquery-ui" %>
+    <%= javascript_include_tag "jquery-multiselect" %>
+    <%= javascript_include_tag "jquery-multiselect-filter" %>
+    <script type="text/javascript">
+      jQuery.noConflict();
+
+      jQuery(document).ready(function($){
+
+        $(document).ready(function(){
+          $("#example").multiselect().multiselectfilter();
+        });
+
+        $(document).ready(function(){
+          $("#example_1").multiselect().multiselectfilter();
+        });
+
+      });
+    </script>
+
+    <%= stylesheet_link_tag "standard_consolidated" %>
+    <%= javascript_include_tag "standard_consolidated" %>
+    <%= stylesheet_link_tag "jquery-ui-all" %>
+    <%= stylesheet_link_tag "jquery-multiselect" %>
+    <%= stylesheet_link_tag "jquery-multiselect-filter" %>
+  </head>
+
+  <body onbeforeunload="sessionTimeOutOnBrowserClose()">
+
+    <div id="idletimeout" style="display: none">
+	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity.
+      <a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
+    </div>
+
+    <div id="container">
+      <div id="header">
+        <div id="logo_container">
+        </div>
+        <div id="company_logo">
+        </div>
+      </div>
+      <div id="link_bar" align="right">
+        <div id="message" style:align="absmiddle">
+          <% if flash[:error] %>
+            <div id="flash_error">
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+          <% if flash[:notice] %>
+            <div id="flash_notice">
+              <%= image_tag("alert.gif", :alt => "Edit") %>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to image_tag("home.gif", :id => "home_icon", :alt => "home",:border=>'0',:align=>'absmiddle'), :controller => '/dashboard' %>|<% if logged_in? %>
+          <span class="alert">Logged in as <%= current_user.login if current_user %></span>
+          <%= hidden_field_tag :user_id, (current_user.id if current_user)%>
+          <% if current_user
+            roles = current_user.roles
+            current_user_role = roles.first.name if roles
+          end %>
+          <%= hidden_field_tag :user_role, current_user_role %>
+          <%= hidden_field_tag :refresh_page, false %>
+          |<%= link_to image_tag("logout.gif", :alt => "Logout",:border=>'0',:align=>'absmiddle'), :controller => '/logout' %>
+        <% else -%>
+          <%= link_to image_tag("login.gif", :alt => "Login",:border=>'0',:align=>'absmiddle'), :controller => '/login' %>
+        <% end -%>
+      </div>
+      <div id="page_container">
+        <%=yield %>
+        <div id="footer">
+          Send any <a href="mailto:revremit-support@revenuemed.com?subject=RevRemit Issue">issues</a>, <a href="mailto: revremit-support@revenuemed.com?subject=RevRemit Question">questions</a>, or <a href="mailto: revremit-support@revenuemed.com?subject=RevRemit Suggestion">suggestions</a>
+          to <a href="mailto: revremit-support@revenuemed.com">revremit-support@revenuemed.com</a>
+          <br/>
+          RevRemit V3.0
+          &copy; 2012 RevenueMed Inc. All Rights Reserved
+          <%=link_to "Confidentiality Disclaimer", { :controller => '/disclaimer'},{ :style => "color:#FF0000"}%>
+          <%=link_to "About RevRemit", { :controller => '/version' }%>
+
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag "wz_tooltip" %>
+  </body>
+</html>
+
+<% unless current_user.nil? %>
+  <script type="text/javascript">
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    jQuery.noConflict();
+    sessionTimeOut();
+    document.attachEvent("onkeydown", myOnKeyDownHandler);
+  </script>
+<% end %>

@@ -1,0 +1,158 @@
+<script language="javascript" type="text/javascript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+</script>
+<div id="login_main">
+  <% unless @jobs.blank? %>
+    <%= show_legend({"white" => "NEW", "blue" => "PROCESSING", "green" => "COMPLETED", "lightgrey" => "INCOMPLETED"}) %>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @jobs%>
+    </div>
+    <%= form_tag({:action => 'allocate_deallocate', :id => @jobs_to_allocate ,:page=> params[:page] ,:back_page => params[:back_page]}, :id =>'my_form') do %>
+      <table style="width:100%;float:left;">
+        <tr>
+          <th>
+            Batch
+            <br/>
+            Date
+          </th>
+          <th>Batch ID</th>
+          <th>
+            Facility
+            <br/>
+            Tat
+          </th>
+          <th>
+            Check
+            <br/>
+            Number
+          </th>
+          <th>
+            EOBs
+            <br/>
+            <font size='1'>
+              Est./Comp.
+            </font>
+          </th>
+          <th>Processor</th>
+          <th>
+            Shift
+            <br/>
+            Name
+          </th>
+          <th>QA</th>
+          <th>Job Status</th>
+          <th>Payer</th>
+          <th>Page From
+          <th>Page To</th>
+          <th>Check Amount</th>
+          <th>Amount so far</th>
+          <th>Balance</th>
+          <%unless current_user.has_role?(:TL)%>
+            <th style="width: 20px">
+              <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))">
+            </th>
+          <%end%>
+        </tr>
+        <% @jobs.each do |job| %>
+          <%cls='' %>
+          <%if job.job_status == JobStatus::PROCESSING
+            cls = 'blue'
+          elsif job.job_status == JobStatus::COMPLETED
+            cls = 'green'
+          elsif job.job_status == JobStatus::INCOMPLETED
+            cls = 'lightgrey'
+          else
+            cls = 'white'
+          end %>
+          <tr>
+
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= (format_datetime(job.batch_date.to_s,'%m/%d/%y') unless job.batch_date.nil?) %></div>
+            </td>
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= job.batchid %></div>
+            </td>
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= job.facility_tat %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= !job.check_number.blank? ? job.check_number : '-' %></div>
+            </td>
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= job.estimated_eob %>/ <%= job.eob_count %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;">
+                <%= job.processor_name%>
+              </div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job.shift_name %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;">
+                <%= job.qa_name%>
+              </div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job.job_status %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;">
+                <% if job.payer.blank? %>
+                  No Payer
+                <% else %>
+                  <strong><%= job.payer.payer%></strong>
+                <% end %>
+              </div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= (job.pages_from.blank? ? "-" : job.pages_from) %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= (job.pages_to.blank? ? "-":job.pages_to) %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:right;"><%= !job.check_amt.blank? ? sprintf("%.2f", job.check_amt) : '-'%></div>
+            </td>
+            <td class="<%= cls %>">
+              <% amount_so_far = job.get_amount_so_far%>
+              <div style="text-align:right;"><%=(amount_so_far.blank? ? " " :(sprintf("%.2f",amount_so_far)) )%></div>
+            </td>
+            <%@balance =(job.check_amount(job.id).to_f - amount_so_far.to_f).to_f %>
+            <%if (!@balance.blank? or job.parent_job_id.blank?)
+              @balance = sprintf("%.2f", @balance)
+            end %>
+            <%if (!@balance.blank? and job.parent_job_id.blank?) %>
+              <td class="<%= cls %>">
+                <div style="text-align:right;"><%= @balance %></div>
+              </td>
+            <%else %>
+              <td class="<%= cls %>">
+              </td>
+            <%end %>
+            <%unless current_user.has_role?(:TL)%>
+              <td>
+                <%= check_box :jobs_to_allocate, job.id, :id => 'jobs_to_allocate_id', :class => 'checkbox'%>
+              </td>
+            <%end%>
+          </tr>
+        <% end %>
+      </table>
+      <div style="clear:both;"></div>
+      <%unless current_user.has_role?(:TL)%>
+      <%#= submit_tag "Allocate Processor", :class => 'button', :name => "option1" %>
+      <%#= submit_tag "Deallocate Processor", :class => 'button', :name => "option1" %>
+      <%end%>
+    <% end %>
+  <% else %>
+    <h4>No Jobs Present</h4>
+  <% end %>
+  <br/>
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"),:page => params[:page],:controller => '/admin/batch', :action => 'work_list' %>
+
+</div>

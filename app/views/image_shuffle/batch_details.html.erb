@@ -1,0 +1,41 @@
+<h1> Image Shuffle Management - Batch Details </h1>
+<table>
+    <tr>
+        <th style="width: 150px">
+            Batch Id
+        </th>
+        <th style="width: 100px">
+            Check Number
+        </th>
+        <th style="width: 100px">
+            Job Id
+        </th>
+        <th>
+            Images
+        </th>
+        <th>
+            Image Shuffle
+        </th>       
+    </tr>
+
+   <% @batch.jobs.each do |job| %>
+    <tr>
+        <td style="text-align: center;">
+            <%= @batch.batchid %>
+        </td>
+        <td style="text-align: center;">
+            <%= job.get_checknumber %>
+        </td>
+        <td style="text-align: center;">
+            <%= job.id %>
+        </td>
+         <% job_images = job.images_for_jobs.find(:all, :order => 'updated_at')  %>
+        <td style="text-align: center;">
+            <%= select_tag 'images', options_for_select(job_images.map{|image| image.filename}) %>
+        </td>
+        <td style="text-align: center;">
+            <%= button_to 'Image Shuffle', :action => 'shuffle', :job_id => job.id, :batch_id => @batch.id  %>
+        </td>
+    </tr>
+   <% end %>  
+</table>

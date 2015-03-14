@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+
+    <p>
+    <b>Zip File Name:</b> <%= @zip_file_name %><br />
+    <b>File Name:</b> <%= @file_name %><br />
+    <b>Facility:</b> <%= @facility_name %><br />
+    <b>Claim Count:</b> <%= @claim_count %><br />
+    <b>Service Line Count:</b> <%= @svcline_count %><br />
+    <b>Status:</b> <%= @status %><br />
+    <% if @status == "FAILURE" %>
+      <b>File Location:</b> <%= @file_location %><br />
+    <% end %>
+    </p>
+  </body>
+</html>

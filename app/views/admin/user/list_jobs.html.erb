@@ -1,0 +1,22 @@
+<h1>Listing Processor Jobs</h1>
+<strong><%=@jobs.size%></strong> job(s) found for <strong><%=@user.name %></strong>
+<br/><br/>
+<table>
+ <tr>
+  <th>Batch ID</th>
+  <th>Check Number</th>
+  <th>Tiff Number</th>
+ <tr/>
+<%for job in @jobs%>
+ <tr>
+  <td><%=job.batchid%></td>
+  <td><%=job.check_number%></td>
+  <td><%=job.tiff_number%></td>
+ <tr>
+<%end%>
+</table>
+
+<br/>
+<%= link_to '<< Back to Users', :action => 'index' %>
+
+ 

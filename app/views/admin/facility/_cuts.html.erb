@@ -1,0 +1,16 @@
+<%for facility_cut_relation in @facility_cut_relations%>
+<%= form_tag url_for(:action => :delete_facility_cut_configurations), :remote=>true, :method => :post do %>
+<table width ="100%">
+<tr >
+<td width ="20%"><%= facility_cut_relation.cut %></td>
+<td width ="20%"><%= facility_cut_relation.day %></td>
+<td width ="20%"><%= facility_cut_relation.time.localtime.strftime('%H:%M') rescue nil%></td>
+<td width ="10%"><%= facility_cut_relation.lockbox_number %></td>
+<td width ="10%"><%= facility_cut_relation.expected_day_of_arrival%></td>
+<%= hidden_field_tag :id, facility_cut_relation.id %>
+<td width ="30%" style="border:0px"><%= submit_tag "Delete" if current_user[:fc_edit_permission] %></td>
+</tr>
+</table>
+<%end%>
+<% end %>
+

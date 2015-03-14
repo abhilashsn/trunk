@@ -1,0 +1,11 @@
+admin_role:
+      id: 1
+      name: 'admin'
+
+processor_role:
+      id: 2
+      name: 'processor'
+
+qa_role:
+      id: 3
+      name: 'qa'

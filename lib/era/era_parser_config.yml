@@ -1,0 +1,258 @@
+TRN_DETAILS:
+  ST02: transaction_set_control_number
+  BPR01: transaction_handling_code
+  BPR02: check_amount
+  BPR03: credit_debit_flag
+  BPR04: payment_method
+  BPR05: payment_format_code
+  BPR06: payer_routing_qualifier
+  BPR07: aba_routing_number
+  BPR08: payer_account_qualifier
+  BPR09: payer_account_number
+  BPR10: payer_company_identifier
+  BPR11: payer_company_supplemental_code
+  BPR12: site_routing_qualifier
+  BPR13: site_routing_number
+  BPR14: site_account_qualifier
+  BPR15: site_account_number
+  BPR16: check_date
+  TRN02: check_number
+  TRN03: trn_payer_company_identifier
+  TRN04: trn_payer_company_supplemental_code
+  Receiver Identification Number:
+    REF02: site_receiver_identification
+  Production:
+    DTM02: production_date
+  Payer:
+    N102: payer_name
+    N104: payer_npi
+    N301: payer_address_1
+    N302: payer_address_2
+    N401: payer_city
+    N402: payer_state
+    N403: payer_zip
+  Payer Identification Number:
+    REF01: era_payid_qualifier
+    REF02: era_payid
+  National Association of Insurance Commissioners (NAIC) Code:
+    REF01: era_payid_qualifier
+    REF02: era_naic_id
+  Payee:
+    N102: payee_name
+    N103: payee_qualifier
+    N301: payee_address_1
+    N302: payee_address_2
+    N401: payee_city
+    N402: payee_state
+    N403: payee_zip
+  Federal Taxpayer's Identification Number:
+    REF01: era_addl_payeeid_qualifier
+    REF02: era_addl_payeeid
+  National Council for Prescription Drug Programs Pharmacy Number:
+    REF01: era_addl_payeeid_qualifier
+    REF02: era_addl_payeeid
+  State License Number:
+    REF01: era_addl_payeeid_qualifier
+    REF02: era_addl_payeeid
+  Payee Identification:
+    REF01: era_addl_payeeid_qualifier
+    REF02: era_addl_payeeid
+  CLP01: patient_account_number
+  CLP02: claim_status_code
+  CLP03: total_submitted_charge_for_claim
+  CLP04: total_amount_paid_for_claim
+  CLP05: total_patient_responsibility
+  CLP06: claim_indicator_code
+  CLP07: claim_number
+  CLP08: facility_type_code
+  CLP09: claim_frequency_code
+  CLP11: drg_code
+  CLP12: drg_weight
+  CLP13: discharge_fraction
+  Patient:
+    NM102: patient_entity_qualifier
+    NM103: patient_last_name
+    NM104: patient_first_name
+    NM105: patient_middle_initial
+    NM107: patient_suffix
+    NM108: patient_identification_code_qualifier
+    NM109: patient_identification_code
+  Insured or Subscriber:
+    NM102: subscriber_entity_qualifier
+    NM103: subscriber_last_name
+    NM104: subscriber_first_name
+    NM105: subscriber_middle_initial
+    NM107: subscriber_suffix
+    NM108: subscriber_identification_code_qualifier
+    NM109: subscriber_identification_code
+  Rendering Provider:
+    NM102: rendering_provider_entity_qualifier
+    NM103: rendering_provider_last_name
+    NM104: rendering_provider_first_name
+    NM105: rendering_provider_middle_initial
+    NM107: rendering_provider_suffix
+    NM108: rendering_provider_code_qualifier
+    NM109: rendering_provider_identification_number
+  Group or Policy Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Member Identification Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Employee Identification Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Group Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Repriced Claim Reference Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Adjusted Repriced Claim Reference Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Authorization Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Class of Contract Code:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Medical Record Identification Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Original Reference Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Prior Authorization Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Predetermination of Benefits Identification Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Insurance Policy Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Social Security Number:
+    REF01: other_claim_identification_qualifier
+    REF02: other_claim_identifier
+  Received:
+    DTM02: date_received_by_insurer
+  Claim Statement Period Start:
+    DTM02: claim_from_date
+  Claim Statement Period End:
+    DTM02: claim_to_date
+  TS301: ts3_provider_number
+  TS302: ts3_facility_type_code
+  TS303: ts3_date
+  TS304: ts3_quantity
+  TS305: ts3_amount
+  SVC0101: service_product_qualifier
+  SVC0102: service_procedure_code
+  SVC0103: service_modifier1
+  SVC0104: service_modifier2
+  SVC0105: service_modifier3
+  SVC0106: service_modifier4
+  SVC02: service_procedure_charge_amount
+  SVC03: service_paid_amount
+  SVC04: revenue_code
+  SVC05: service_quantity
+  SVC0601: original_service_product_qualifier
+  SVC0602: original_service_procedure_code
+  SVC0603: original_service_modifier1
+  SVC0604: original_service_modifier2
+  SVC0605: original_service_modifier3
+  SVC0606: original_service_modifier4
+  SVC0607: original_procedure_description
+  SVC07: original_service_quantity
+  Service:
+    DTM02: date_of_service_from
+  Service Period Start:
+    DTM02: date_of_service_from
+  Service Period End:
+    DTM02: date_of_service_to
+  Provider Control Number:
+    REF02: line_item_number
+  Policy Form Identifying Number:
+    REF02: service_policy_identification
+  Ambulatory Patient Group (APG) Number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Ambulatory Payment Classification:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Authorization Number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Attachment Code:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Prior Authorization Number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Predetermination of Benefits Identification Number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Location Number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  Rate code number:
+    REF01: service_identification_qualifier
+    REF02: service_identifier
+  LQ01: service_remark_code_qualifier
+  LQ02: service_remark_code
+  PLB01: provider_identifier
+  PLB02: fiscal_period_date
+  PLB0301: provider_adjustment_reason_code1
+  PLB0302: provider_adjustment_identifier1
+  PLB04: provider_adjustment_amount1
+
+MISC_SEGMENTS:
+  CUR01:
+  PER01:
+  RDM01:
+  TS201:
+  MIA01:
+  MOA01:
+  REF01:
+  NM101:
+  DTM01:
+
+SKIP_SEGMENTS:
+  DTM02:
+  REF02:
+  AMT02:
+  NM102:
+  NM103:
+  NM104:
+  NM105:
+  NM107:
+  NM108:
+  NM109:
+  N102:
+  N103:
+  N104:
+  N3:
+  N301:
+  N302:
+  N4:
+  N401:
+  N402:
+  N403:
+  N404:
+
+ADJUSTMENTS:
+  CAS02: cas_hipaa_code
+  CAS03: adjustment_amount
+  CAS04: adjustment_quantity
+
+PAYEE_ADD_IDENTIFICATION:
+  State License Number:
+  National Council for Prescription Drug Programs Pharmacy Number:
+  Payee Identification:
+  Federal Taxpayer's Identification Number:
+
+PAYEE_REF_WEIGHT:
+  TJ: 4
+  PQ: 3
+  D3: 2
+  0B: 1

@@ -1,0 +1,134 @@
+<% if @alert_messages.size > 0 %>
+  <h1>Alert List </h1>
+  <%= show_legend({"lightblue" => "Active", "lightgrey" => "Expired"}) %>
+  <br/>
+  <br/>
+  <%= will_paginate @alert_messages %>
+  <%= form_tag({:action => 'delete_messages', :id => @message_to_delete}, :id =>"my_form") do %>
+    <table>
+      <tr>
+        <th>
+          Payer
+        </th>
+        <th>
+          PayID
+        </th>
+        <th>
+          Client
+        </th>
+        <th>
+          Payee
+        </th>
+        <th>
+          User Name
+        </th>
+        <th>
+          Message Type
+        </th>
+        <th>
+          Field Name
+        </th>
+        <th>
+          Start Date
+        </th>
+        <th>
+          End Date
+        </th>
+        <th>
+          Message
+        </th>
+        <th>
+          Question
+        </th>
+        <th>
+          Choice1
+        </th>
+        <th>
+          Choice2
+        </th>
+        <th>
+          Choice3
+        </th>
+        <th>
+          Answer
+        </th>
+        <th>
+          <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))"/>
+        </th>
+      </tr>
+      <tr>
+        <% unless @alert_messages.blank? %>
+          <% @alert_messages.each do |alert| %>
+          <tr>
+
+            <% end_date = alert.end_date
+            end_date = Date.parse(alert.end_date.to_s)
+          %>
+            <%cls='' %>
+            <%if @today > end_date
+              cls='lightgrey'
+            else
+              cls='lightblue'
+            end %>
+            <td class="<%=cls%>">
+              <%= alert.payer %>
+            </td>
+            <td class="<%=cls%>">
+              <%= alert.payid %>
+            </td>
+            <td class="<%=cls%>">
+              <%= alert.client.name unless  alert.client.blank?%>
+            </td>
+            <td class="<%=cls%>">
+              <%= alert.facility.name unless alert.facility.blank? %>
+            </td>
+            <td class="<%=cls%>">
+              <%= alert.processor.login unless alert.processor.blank?%>
+            </td>
+            <td class="<%=cls%>">
+              <%= "Alert"%>
+            </td>
+            <td class="<%=cls%>">
+              <%= @field_names_hash[alert.field_id]%>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.start_date.strftime("%m/%d/%y") %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.end_date.strftime("%m/%d/%y") %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.comment %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.Question %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.choice1 %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.choice2 %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.choice3 %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= alert.answer %>
+            </td>
+
+            <td>
+              <%= check_box :message_to_delete, alert.id, :id => alert.id, :class => 'checkbox' %>
+            </td>
+            <td>
+              <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => alert.id, :payer => alert.payer_id, :page => params[:page] %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <%= submit_tag 'Delete', :onclick => "return(confirm('Messages will be deleted. Are you sure?'))", :class => 'button', :action => 'delete_messages' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'add_message' %>

@@ -1,0 +1,64 @@
+<h1>Listing payers</h1>
+
+<% if @payer_pages.current.previous %>
+  <%= link_to 'Prev', { :page => @payer_pages.current.previous } %>
+<% end %>
+
+<% if @payer_pages.length > 1 %>
+  <% @payer_pages.each do |page|%>
+    <% params[:controller] = 'processor' %>
+    <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page )})%>
+  <% end %>
+<% end %>
+
+<% if @payer_pages.current.next %>
+  <%= link_to 'Next', { :page => @payer_pages.current.next } %>
+<% end %>
+
+<% unless @payers.empty? %>
+  <%= form_tag :action => 'delete_payers', :id => @payers_to_delete do %>
+
+    <table class="sortable" id="payer_admin">
+      <tr>
+        <th>Gateway</th>
+        <th>Payer ID</th>
+        <th>Payer</th>
+        <th>GR Name</th>
+        <th>Address One</th>
+        <th>Address Two</th>
+        <th>Address Three</th>
+        <% for payer in @payers %>
+        <tr>
+          <td><%= payer.gateway %></td>
+          <td><%= payer.supply_payid %></td>
+          <td><%= payer.payer %></td>
+          <td><%= payer.gr_name %></td>
+          <td><%= payer.pay_address_one %></td>
+          <td><%= payer.pay_address_two %></td>
+          <td><%= payer.pay_address_three %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+  <% if @payer_pages.current.previous %>
+    <%= link_to 'Prev', { :page => @payer_pages.current.previous } %>
+  <% end %>
+
+  <% if @payer_pages.length > 1 %>
+    <% @payer_pages.each do |page|%>
+      <% params[:controller] = 'processor' %>
+      <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page )})%>
+    <% end %>
+  <% end %>
+
+  <% if @payer_pages.current.next %>
+    <%= link_to 'Next', { :page => @payer_pages.current.next } %>
+  <% end %>
+
+<% else %>
+  <h4> No Payers found. Click 'New Payer' to create one. </h4>
+<% end %>
+
+
+
+

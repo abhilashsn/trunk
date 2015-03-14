@@ -1,0 +1,47 @@
+<%= javascript_include_tag  "payer" %>
+
+<h1 style="padding:5px;"> Approve Payer </h1>
+<%= form_tag(admin_payer_path, :method=>'put', :payer_id => @payer, :flag => @flag, :id => "payer_form") do %>
+  <%= hidden_field_tag 'from', 'approve_payer' %>
+ <%= hidden_field_tag 'page', @page %>
+  <div class="skeleton_container" >
+    <div class="sktn_left">
+      <div class="sktn_left_image">
+        <iframe name="image_iframe" id = "myiframe" class="myiframe" width="100%" height="100%" src="<%= url_for(:action => 'display_image', :controller => 'admin/payer', :id => params[:id]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+        </iframe>
+      </div><!--End sktn_left_image-->
+      <div class="sktn_left_second">
+        <% if !@check_number_and_job_ids.blank?
+          @check_number_and_job_ids.each do |check_number_and_job_id|
+            check_number = check_number_and_job_id[0]
+            job_id = check_number_and_job_id[1] %>
+            <%= link_to "#{check_number}", {:controller => 'admin/payer',
+              :action => 'display_image', :id => params[:id], :job_id => job_id },
+              {:target => "image_iframe", :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;" } %>
+          <% end
+        end %>
+      </div><!--End sktn_left_second-->
+
+    </div><!--End sktn_left-->
+
+
+    <div class="sktn_right">
+
+      <%= render :partial => 'form' %>
+
+    </div><!--End sktn_right-->
+    <% if !@micr_line_information.blank? %>
+      <%= hidden_field_tag 'micr_id', @micr_line_information.id %>
+    <% end %>
+    <div style="float:right; padding:5px; margin-top:5px; hieght:20px;">
+      
+     
+    <%= submit_tag 'Approve', :class => 'button',
+      :onclick => "return mustPassValidationsForPayer('#{@blank_output_payid_records_array}',
+      '#{@blank_output_payid_records.length}', '#{@payer_specific_records_array}',
+      '#{@payer_specific_records.length}', '#{@clients_with_output_payid_mandatory}',
+      '#{@clients_with_output_payid_mandatory.length}', '#{@payer.payer_type}');"%>
+</div>
+  </div> <!--End skeleton_container-->
+<% end %>
+

@@ -1,0 +1,27 @@
+<%= center(payer) %>
+
+
+<%= pad_right(facility_name) %> FPE :  <%= fpe_date %>
+<%= pad_right(facility_address) %> PAID : <%= paid_date %>
+<%= pad_right(facility_city_state_zip) %> CLM# : <%= clm %>
+NPI: <%= pad_right(npi,13) %> PROV# <%= pad_right(prov_number,16) %>  TOB : <%= tob %>
+================================================================================
+ PATIENT: <%= pad_right(patient,43) %> PCN: <%= pcn %>
+     HIC: <%= pad_right(hic,20) %>  SVC FROM: <%= pad_right(svc_from,10) %>  MRN: <%= mrn %>
+PAT STAT: <%= pad_right(pat_stat,3) %>CLAIM STAT: <%= pad_right(claim_stat,10) %> THRU: <%= pad_right(svc_thru,10) %>  ICN: <%= icn %>
+================================================================================
+CHARGES:                       PAYMENT DATA:             <%= pad_left(reim_rate)%>=REIM RATE
+    <%= pad_left(reported_amount)%>=REPORTED         <%= pad_left(drg_amount)%>=DRG AMOUNT        <%=pad_left(msp_prim_payer)%>=MSP PRIM PAYER
+    <%= pad_left(ncvd_denied_amount)%>=NCVD/DENIED      <%= pad_left(drg_oper_cap)%>=DRG/OPER/CAP      <%= pad_left(prof_component) %>=PROF COMPONENT
+    <%= pad_left(claim_adjs)%>=CLAIM ADJS       <%= pad_left(line_adj_amt)%>=LINE ADJ AMT      <%= pad_left(esrd_amount)%>=ESRD AMOUNT
+    <%= pad_left(covered)%>=COVERED          <%= pad_left(outlier)%>=OUTLIER           <%= pad_left(proc_cd_amount)%>=PROC CD AMOUNT
+DAYS/VISITS                   <%= pad_left(cap_outlier)%>=CAP OUTLIER       <%= pad_left(allow_reim)%>=ALLOW/REIM
+    <%= pad_left(cost_rept)%>=COST REPT        <%= pad_left(cash_deduct)%>=CASH DEDUCT       <%= pad_left(g_r_amount)%>=G/R AMOUNT
+    <%= pad_left(covd_util)%>=COVD/UTIL        <%= pad_left(blood_deduct)%>=BLOOD DEDUCT      <%= pad_left(interest)%>=INTEREST
+    <%= pad_left(non_covered)%>=NON-COVERED      <%= pad_left(coinsurance)%>=COINSURANCE       <%= pad_left(contractual_adjustment)%>=CONTRACTUAL ADJUSTMENT
+    <%= pad_left(covd_visits)%>=COVD VISITS      <%= pad_left(pat_refund)%>=PAT REFUND        <%= pad_left(per_diem_amt)%>=PER DIEM AMT
+    <%= pad_left(ncov_visits)%>=NCOV VISITS      <%= pad_left(msp_liab_met)%>=MSP LIAB MET      <%= pad_left(net_reim_amt)%>=NET REIM AMT
+ADJ REASON CODES:
+    <%= pad_right(reason_codes) %>
+REMARK CODES:
+---------------------------------------------------------------------------------------------------------

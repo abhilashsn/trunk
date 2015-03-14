@@ -1,0 +1,33 @@
+<div id="login_main">
+<% space = "&nbsp;"*2 %>
+<h5><%= link_to 'Online Processors', :action => 'list_processor_occupancy' %><%=space%>|<%=space%>Processor Productivity Report</h5>
+
+<h1>Processor Productivity Report</h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'productivity_report' do %>
+  <table>
+    <tr>
+    <td style="width: 150px; text-align: center;"> <strong>Lockbox</strong>
+    <%= select_tag 'facilities[]', options_for_select(@all_facilities, @selected_facilities), :multiple => true, :size => 3,:class => 'dropdown' %>    
+    </td>
+
+      <td style="width: 89px; text-align: center;"><strong>Processor ID</strong> <%= text_field_tag :userid, @userid, :size => 10,:class => 'dropdown'%></td>
+      <td style="width: 70px; text-align: center;" ><strong>Batch ID</strong> <%= text_field_tag :batchid, @batchid, :size => 10,:class => 'dropdown'%></td>
+      <td style="width: 323px;text-align: center;">
+        <strong>From</strong> <%= text_field_tag 'date_from', @date_from, :size => 10,:class => 'dropdown' %> <%= date_picker("date_from", "mdy", "/") %><%= spacer(2) %>
+        <strong>To</strong> <%= text_field_tag 'date_to', @date_to, :size => 10,:class => 'dropdown' %>  <%= date_picker("date_to", "mdy", "/") %><%= spacer(2) %>
+      </td>
+      <td style="width: 67px; text-align: center;"><strong>Payer ID</strong> <%= text_field_tag :payid, @payid, :size => 10,:class => 'dropdown' %></td>
+      <td style="width: 72px; text-align: center;"><%= submit_tag 'Search', :class => 'button' %></td>  
+      <td style="width: 73px; text-align: center;"><%= submit_tag 'Export', :class => 'button' %></td>  
+    </tr>
+  </table>
+  
+  <% end %>
+</div>
+
+<%= will_paginate @jobs %>
+<%= render :partial => 'productivity_report_list' %>
+
+</div>

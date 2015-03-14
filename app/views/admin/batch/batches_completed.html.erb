@@ -1,0 +1,71 @@
+<div id="ajax_container">
+<div id="login_main">
+  <h1>Listing completed batches</h1>
+    <div class="light_info">
+      <%= form_tag :action => 'batches_completed' do %>
+            <%= select_tag 'criteria',  optionize_custom(['Batch Date', 'Batch ID', 'Facility Name'],params[:criteria]) %>
+            <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+            <%= text_field_tag 'to_find', params[:to_find],  :size => '10' %>
+            <%= submit_tag 'Filter', :class => 'button' %>
+      <% end %>
+    </div>
+  <% unless @batches.blank? %>
+<%= link_to 'Export Batches to CSV', :action => "export_batches" , :search_field => @search_field,:compare => @compare,:criteria => @criteria%>
+ <br/><br/>
+<%= will_paginate @batches, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]} %>
+  <table width="100%">
+  <tr>
+    <th width="10%"> Batch Date </th>
+    <th width="25%"> Batch ID </th>
+    <th width="25%"> Facility Name</th>
+    <th width="15%"> Arrival Time (EST)</th>
+    <th width="15%"> Completion Time (EST)</th>
+    <th> EOB Count</th>
+    <th width="15%"> TAT Comment </th>
+  </tr>
+
+      <% for batch in @batches %>
+          <% cls = ''
+          %>
+    <tr>
+    <td nowrap class="<%= cls %>" align='right'><%= format_date(batch.date) %> </td>
+      <td nowrap class="<%= cls %>" align='right'><%= batch.batchid %> </td>
+      <td nowrap class="<%= cls %>"><%= batch.facility.name %> (<%= batch.facility.sitecode %>)</td>
+      <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+      <td nowrap class="<%= cls %>" align='right'><%= ( batch.completion_time.nil? ? "" : format_datetime( batch.completion_time ) )%></td>
+      <td nowrap class="<%= cls %>" align='right'> <%= batch.get_completed_eobs %> </td>
+      <td nowrap class="<%= cls %>">
+            <div style="text-align:center;">
+            <% unless batch.tat_comment.blank? %>
+            <%= batch.tat_comment %>&nbsp;&nbsp;
+            <%= link_to image_tag("report_edit.png", :alt => "Edit", :title => "Edit", :border=>"0"),
+                  {:controller => '/admin/batch', :action => 'comments',
+                   :id => batch, :editable_field => 'tat_comment', :redirect_window => 'batches_completed'} %>|
+            <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+                {:controller => '/admin/batch',:action => "delete_batch_tat_comment",
+                 :id => batch.id, :redirect_window => 'batches_completed'}, :remote => true) %>
+            <% else %>-
+            <% end %>
+            </div>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<%=will_paginate @batches,:params => { 'search_field' => @search_field, 'compare' => @compare, 'criteria' => @criteria }%>
+  <br/>
+<% else %>
+  <h4> No matching Batches found. </h4>
+<% end %>
+
+</div>
+</div>
+<%= javascript_tag do %>
+document.on('ajax:complete','#ajax_container', function(event,con){
+   con.update(event.memo.responseText);
+   Element.hide('spinner');
+})
+document.on('ajax:before','#ajax_container', function(event,con){
+   Element.show('spinner');
+
+})
+<% end %>

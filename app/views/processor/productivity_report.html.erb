@@ -1,0 +1,82 @@
+<div id="login_main">
+  <li> <%= link_to 'Monthly Productivity Report', :controller => 'processor/monthly_productivity_report' %> </li>
+  <h1>Listing my jobs</h1>
+  <div class="light_info">
+    
+      <%= form_tag :action => 'productivity_report' do %>
+        <%unless @ins_eobs.blank?%>   
+          <table width="100%">
+            <tr>
+              <th colspan="8">Insurance EOBs</th>
+            </tr>
+            <tr>
+              <th>Sl.No</th>
+              <th>Batch Id</th>
+              <th>Batch Date</th>
+              <th>Facility</th>
+              <th>Check Number</th>
+              <th>Account Number</th>
+              <th>Comp.SVC count</th>
+              <th>EOB Comp.Time</th>
+            </tr>
+          
+            <%@ins_eobs.each_with_index do |ins_eob,i| %>
+              <%@total_service_lines += ins_eob.service_payment_eobs_count.to_i%>
+              <tr>
+                <td><%=i+1%></td>
+                <td><%=ins_eob.batchid%></td>
+                <td><%=ins_eob.date%></td>
+                <td><%=ins_eob.facility_name%></td>
+                <td><%=ins_eob.check_number%></td>
+                <td><%=ins_eob.patient_account_number%></td>
+                <td><%=ins_eob.service_payment_eobs_count%></td>
+                <td><%=format_datetime(ins_eob.created_at,"%d-%m-%Y %H:%M:%S")%></td>
+              </tr>
+            <%end%>
+          </table>
+          <span class="black_text">
+            <b>Completed Insurance EOBs: <%=@total_ins_eobs%></b><br/>
+            <b>Completed Service Lines: <%=@total_service_lines%></b>
+          </span>
+        <%else%>
+          <span class="black_text"><b>No Insurance EOBs</b><br/></span>
+        <%end%>
+        <br/><br/>
+        
+        <!--Patient_pay Starts here-->
+        <%unless @pat_eobs.blank?%> 
+          <table width="100%">
+            <tr>
+              <th colspan="7">PatientPay EOBs</th>
+            </tr>
+            <tr>
+              <th>Sl.No</th>
+              <th>Batch Id</th>
+              <th>Batch Date</th>
+              <th>Facility</th>
+              <th>Check Number</th>
+              <th>Account Number</th>
+              <th>EOB Comp.Time</th>
+            </tr>
+            <%@pat_eobs.each_with_index do |pat_eob,j| %>
+              <tr>
+                <td><%=j+1%></td>
+                <td><%=pat_eob.batchid%></td>
+                <td><%=pat_eob.date%></td>
+                <td><%=pat_eob.facility_name%></td>
+                <td><%=pat_eob.check_number%></td>
+                <td><%=pat_eob.account_number%></td>
+                <td><%=format_datetime(pat_eob.end_time,"%d-%m-%Y %H:%M:%S")%></td>
+              </tr>
+            <%end%>
+          </table>
+          <span class="black_text">
+            <b>Completed PatientPay EOBs: <%=@total_pat_eobs%></b>
+          </span> 
+        <%else%>
+          <span class="black_text"><b>No PatientPay EOBs</b></span> 
+        <%end%>
+      <% end %>
+  
+    </div>
+  </div>

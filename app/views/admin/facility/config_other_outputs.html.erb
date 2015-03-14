@@ -1,0 +1,33 @@
+<%=javascript_include_tag 'accordion'%>
+<%= stylesheet_link_tag 'tab_view' %>
+<%= stylesheet_link_tag 'tab' %>
+
+<h1>Configure Other Outputs</h1>
+<div style="float:left;font-size:10px;">
+<%= link_to("add/remove report types",:action=>"manage_other_outputs", :id=>@facility.id)%>
+</div>
+<div style="clear:both;"></div>
+<% if @other_output_configs.size > 0 %>
+<%= form_tag :action => 'save_other_outputs_config', :id=>@facility.id do %>
+<div class="" style="margin:3px;">
+<div id="accordion1">
+  <dl class="accordion2" id="slider">
+  <% @other_output_configs.collect(&:other_output_type).each_with_index do |rpt,idx| %>
+    <% if rpt != "Human Readable Eob" %>
+    <%= render :partial => "other_output_form", :locals=>{:report_type => rpt, :idx => idx} %>
+    <% end %>
+  <% end %>
+  </dl>
+</div>  
+</div>
+<%= submit_tag 'Save', :class => 'button' %>
+<%= submit_tag("Reset", { :class => 'button', :name => 'reset', :id => 'reset_bn', :type => "reset" }) %>
+<% end %>
+<% else %>
+ No Configuration Found for Other Outputs
+<% end %>
+
+<script type="text/javascript">
+     var slider = new accordion.slider("slider");             
+     slider.init("slider",0,"close");
+</script>

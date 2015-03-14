@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+  <%= will_paginate @idle_users%>
+</div>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>User Id</th>
+    <th>Shift name</th>
+    <th>Location</th>
+    <th>Last job completed time</th>
+    <th>First login time for the day</th>
+    <th>Last logout time for the day</th>
+  </tr>
+  <% for idle_user in @idle_users %>
+    <tr>
+      <td><%= idle_user.name %></td>
+      <td><%= idle_user.login %></td>            
+      <td><%= idle_user.shift.blank? ? 'NA' : idle_user.shift.name%></td>
+      <td><%= idle_user.location %></td>
+      <td><%= format_complete_date_without_century(idle_user.last_job_completed_at) %></td>
+      <td><%= format_complete_date_without_century(idle_user.first_login_time_for_day) %></td>
+      <td><%= format_complete_date_without_century(idle_user.last_logout_time_for_day) %></td>
+    </tr>
+  <% end %>
+  </table>

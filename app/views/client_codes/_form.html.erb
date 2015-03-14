@@ -1,0 +1,12 @@
+ <table>
+  <tr>
+    <th>Group code</th>
+    <th>Code</th>
+    <th>Code Description</th>
+  </tr>
+  <tr>
+    <td><%= select_tag 'group_code', options_for_select([' ','CO','PR','OA'],@selected)%></td>
+    <td><%= text_field 'client_code', 'adjustment_code' %></td>
+     <td><%= text_field 'client_code', 'adjustment_code_description' %></td>
+  </tr>
+</table>

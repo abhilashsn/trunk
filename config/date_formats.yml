@@ -1,0 +1,9 @@
+us_date_formats:
+  MM/dd/yyyy: "%m/%d/%Y"
+  MMddyyyy: "%m%d%Y"
+  yyyyMMdd: "%Y%m%d"
+  MMM dd, yyyy: "%b %d, %Y"
+  MM-dd-yy: "%m-%d-%y"
+  MM/dd/yy: "%m/%d/%y"
+  MM/dd: "%m/%d"
+  

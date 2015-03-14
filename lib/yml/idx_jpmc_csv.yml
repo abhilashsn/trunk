@@ -1,0 +1,33 @@
+PAYMENT:
+    HEADER: false
+    BATCH:
+        batchid: 4
+        lockbox: 3
+        date: [ 0, date, "%m%d%Y" ]
+        bank_deposit_date: [ 0, date, "%m%d%Y" ]
+    JOB:
+        job_index: 5
+        record_type: 7
+        check_number: 10
+    CHEQUE:
+        check_number: 10
+        check_amount: [ 9, float ]
+    MICR:
+        aba_routing_number: 11
+        payer_account_number: 12
+    IMAGE:
+        image_file_name: [ 8, 9 ]
+
+CORRESP:
+    HEADER: false
+    BATCH:
+        batchid: 4
+        lockbox: 3
+        date: [ 0, date, "%m%d%Y" ]
+        bank_deposit_date: [ 0, date, "%m%d%Y" ]
+    JOB:
+        job_index: 5
+        record_type: 7
+        check_number: 10
+    IMAGE:
+        image_file_name: [ 8, 9 ]

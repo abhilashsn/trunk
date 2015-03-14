@@ -1,0 +1,49 @@
+<div id="provider_adjustment_grid_container">
+  <%= form_tag({:controller => 'provider_adjustments',:action => 'create'}, :remote => true, :onKeyUp=>"highlight1(event)", :onClick=>"highlight1(event)") do%>
+    <%= hidden_field_tag :facility_name, (@facility_name || params[:facility_name]) %>
+    <%= hidden_field_tag :job_id, params[:job_id] || @job_id, :id =>'job_id' %>
+    <% allow_special_characters = (params[:allow_special_characters] || @allow_special_characters) %>
+    <%= hidden_field_tag :allow_special_characters, allow_special_characters %>
+    <%= hidden_field 'prov_adjustment', 'image_page_number', :id => 'image_page_number_id'%>
+    <div>
+      <%= image_tag("spinner.gif", :align => 'absmiddle', :border=> 0,
+        :id => "spinner", :style=>"display: none;" )%>
+      <label>Description<span class="alert">*</span></label>
+      <%= select_tag 'prov_adjustment_description', options_for_select(@prov_adjustment_description << ['-','-'], '-')%>
+      <label>Pat Acc No</label>
+      <%= text_field 'prov_adjustment', 'account_number',
+        :onblur => validations_for_account_number(params[:allow_special_characters], (@facility_name || params[:facility_name])),
+        :value => "",
+        :style=>"border: 1px solid ", :size => "17"%>
+      <label>Amount<span class="alert">*</span></label>
+      <%= text_field 'prov_adjustment', 'amount', :value => "", :id => 'prov_adjustment_amount_id',
+        :class => "amount", :onblur => "validateDollarAmount(id)",:style=>"border: 1px solid ;width:60px;"%>
+      <%= submit_tag "Save", :class => "submit_save", :onclick => "return mustPassValidationsForProviderAdjustment(#{allow_special_characters})"%>
+      <% unless flash[:error].nil? %>
+        <div id="prov_adj_message" class="alert"><%= flash[:error] %></div>
+        <script type="text/javascript">
+          setTimeout("new Effect.Fade('prov_adj_message');", 3000)
+        </script>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+<%= javascript_tag do %>
+  document.on('ajax:complete','#provider_adjustment_grid_container', function(event,con){
+  con.update(event.memo.responseText);
+  balanceAmountAfterProvAdjAmountCreate();
+  Element.hide('spinner');
+
+  })
+  document.on('ajax:before','#provider_adjustment_grid_container', function(event,con){
+  Element.show('spinner');
+  getImagePageNumber();
+  getCurrentProviderAdjustmentamount();
+
+  })
+<% end %>
+
+<script>
+  $('prov_adjustment_description').focus();
+</script>

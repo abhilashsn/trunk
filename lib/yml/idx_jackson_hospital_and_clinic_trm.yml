@@ -1,0 +1,34 @@
+PAYMENT:
+    HEADER: false
+    identifier: 0
+    BATCH:
+        identifier: 0
+        lockbox: 2
+    JOB:
+        identifier: 0
+        check_number: 1
+    CHEQUE:
+        identifier: 0
+        check_number: 1
+        check_amount: [ 3, float ]
+    MICR:
+        aba_routing_number: 4
+        payer_account_number: 5
+    IMAGE:
+        identifier: 0
+        image_file_name: 1
+
+CORRESP:
+    HEADER: false
+    BATCH:
+       identifier: 0
+       lockbox: 2
+    JOB:
+        identifier: 0
+       
+    CHEQUE:
+        identifier: 0
+        check_amount: [ 2, float ]
+    IMAGE:
+        identifier: 0
+        image_file_name: 1

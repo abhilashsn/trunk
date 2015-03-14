@@ -1,0 +1,37 @@
+email:
+  batch_upload:
+    notification: "revremit_notification@revenuemed.com"
+  837_upload:
+    success: "notifications@revenuemed.com"
+    failure: "notifications@revenuemed.com, shamnath.masthan@revenuemed.com"
+  ach_loading:
+    notification: "revremit_notification@revenuemed.com"
+  wrong_837_load:
+    notification: "edi-support@revenuemed.com,shamnath.masthan@revenuemed.com,krishnakumar.padmanabhan@revenuemed.com,edi-fm@revenuemed.com,jaidev.jayakumar@revenuemed.com"
+  duplicate_837_load:
+    notification: "edi-support@revenuemed.com"
+  output_generation_status:
+    notification: "revremit_notification@revenuemed.com, shamnath.masthan@revenuemed.com, merin.varghese@revenuemed.com"
+  output_config_edit_status:
+    notification: "revremit_notification@revenuemed.com, shamnath.masthan@revenuemed.com, merin.varghese@revenuemed.com"
+  fc_config_edit:
+    notification: "shamnath.masthan@revenuemed.com, krishnakumar.padmanabhan@revenuemed.com, jaidev.jayakumar@revenuemed.com, merin.varghese@revenuemed.com"
+  wrong_xml_format:
+    notification: "shamnath.masthan@revenuemed.com"
+  orbo_batch_edit_nonlockbox_client:
+    notification: "notifications@revenuemed.com,revremit_notification@revenuemed.com"
+  late_ocr_xml_arrival:
+    notification: "edi-support@revenuemed.com"
+  inactive_claims:
+    notification:
+  batch_load_rms_kfi_wrong_batch_type:
+    notification: "edi-support@revenuemed.com"
+application:
+  # Debug = 0, Info = 1, Warn = 2
+  logger_level: 1
+  
+#  version: January 2011 Release
+#  changeset: "9316"
+#  track_url: "https://track.revenuemed.com/issues/"
+#  release_date: "01/17/2011"
+#  notifications@revenuemed.com, shamnath.masthan@revenuemed.com, merin.varghese@revenuemed.com

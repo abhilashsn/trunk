@@ -1,0 +1,83 @@
+
+<div id="login_main">
+<% unless @batches.blank? %>
+  <div class="light_info">
+    <%= form_tag :action => 'batchlist' do %>
+        <%= select_tag 'criteria',  optionize('Batch Date', 'Batch ID',   'Site Name') %>
+        <%= select_tag 'compare', optionize('=','>', '<')%>
+        <%= text_field_tag 'to_find', nil,  :size => '10' %>
+        <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+  </div>
+  <table>
+    <tr>
+      <th> Batch Date </th>
+      <th> <a>Batch ID</a> </th>
+      <th> Site </th>
+      <th> Arrival Time (EST)</th>
+      <th> Expected Completion Time (EST)</th>
+      <th>Job Count<br>(Completed/Total)</th>
+    </tr>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @batches%>
+    </div>
+         <% for batch in @batches %>
+            
+               <% cls = '' 
+               if @user.role == 'Supervisor' or @user.role == 'Admin' or @user.role == 'TL'
+                   unless batch.expected_completion_time.blank?
+                       if batch.expected_completion_time > batch.contract_time(@user.role)
+                           cls = 'red'
+                       end
+                   end
+ 
+                   if batch.status == BatchStatus::NEW
+                       cls = 'white'
+                   elsif not batch.allocated.nil?
+                       cls = 'palered'
+                   elsif batch.processor_allocated.nil?
+                       cls = 'lightblue'
+                   elsif batch.status == BatchStatus::PROCESSING
+                       cls = 'blue'
+                   end
+             
+                   if batch.policy_issue == 1
+                       cls = 'darkgrey'
+                   end
+                   if batch.system_issue == 1
+                       cls = 'lightgrey'
+                   end                      
+             
+               end %>
+ 
+      <tr>
+        <td nowrap class="<%= cls %>" align='right'><%= format_date(batch.date) %> </td>
+        <% if @user.role == 'Supervisor' or @user.role == 'Admin'  or   @user.role == 'HLSC' %>
+           <%@id =Batch.find_by_batchid(batch.batchid).id%>
+          <td nowrap class="<%= cls %>" align='right'><%= link_to batch.batchid, :controller => 'hlsc', :action => 'view_completed_jobs', :id => @id %> </td>
+    
+        <% end %>
+        <td nowrap class="<%= cls %>"><%= batch.facility.name%> (<%= batch.facility.sitecode %>) </td>
+        <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+        <td nowrap class="<%= cls %>"  align='right'>
+            <% @batchid = Batch.find_by_batchid(batch.batchid).id %>
+            <% if batch.expected_completion_time.blank? %>N/A
+            <% else %>
+                <%= format_datetime(batch.expected_completion_time)%>
+                  <% if @user.role == 'Supervisor' or @user.role == 'HLSC' && batch.manual_override %> *<% end %>
+           <% end %></td>
+          <%
+          @batchid = Batch.find_by_batchid(batch.batchid).id
+          @totaljobcount = Job.count(:conditions=>"batch_id=#{@batchid}")
+          @totalcomletedjobcount = Job.count(:conditions => "batch_id = #{@batchid} and job_status = '#{JobStatus::COMPLETED}' ")
+           %>
+          <td><%=@totalcomletedjobcount.to_s+"/"+@totaljobcount.to_s %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br/>
+  <% else %>
+    <h4> No matching Batches found. </h4>
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<% if @eob_link_exists %>
+  var msg = confirm("One or more claims are used in EOBs. Are you sure?");
+<% else %>
+  var msg = confirm("Are you sure?");
+<% end %>
+
+if (msg == true){
+  var id = '<%= @file_837_information_id %>';
+  window.location.href="delete_confirmed?id=" + id + "&eob_containing_claim_information_ids=" + '<%= @eob_containing_claim_information_ids %>';
+}

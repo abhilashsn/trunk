@@ -1,0 +1,6 @@
+<ul class="autocomplete_list">
+  <% for hipaa_code in @hipaa_codes.to_a -%>
+    <li class="autocomplete_item" title = '<%= hipaa_code.hipaa_code_description -%>'>
+     <%= hipaa_code.hipaa_adjustment_code -%></li>
+<% end -%>
+</ul>

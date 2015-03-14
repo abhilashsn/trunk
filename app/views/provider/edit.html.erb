@@ -1,0 +1,9 @@
+<div id="login_main">
+    <h1>Editing provider</h1>
+    <%= form_tag :action => 'update', :id => @provider, :flag => @flag do %>
+    <%= render :partial => 'form' %>
+    <%= submit_tag 'Edit', :class => 'button' %>
+    <% end %>
+    <br/>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :action => 'index' %>
+</div>

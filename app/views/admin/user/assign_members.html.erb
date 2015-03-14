@@ -1,0 +1,41 @@
+<h1>Assign Members to <%= @tl.userid %></h1>
+
+<div id="assigned_members">
+<% if @tl.members.size == 0 or @tl.members.nil? %>
+No assigned team members! Add them using the list below:
+<% else %>
+<table>
+<tr>
+  <th>Processor Name</th>
+  <th>UserID</th>
+  <th>Shift</th>
+  <th>Processing Rate <br/>Triad | Others</th>
+  <th><input type="checkbox" name="all" onClick="checkAll(document.forms[0].toggle,this)"></th>
+</tr>
+<%= form_tag :action => 'remove_members', :tl => @tl do %>
+<% for processor in @tl.members %>
+  <tr>
+    <td> <%= processor.name %></td>
+    <td><%= processor.userid %></td>
+    <td><%= processor.shift.name unless processor.shift.nil? %></td>
+    <td align="center"><%= processor.processing_rate_triad %>  |  <%= processor.processing_rate_others %></td>
+    <td><%= check_box :users_to_remove, processor.id , :id => 'toggle' %></td>
+  </tr>
+<% end %>
+</table>
+<%= submit_tag "Remove", :class => 'button' %>
+<% end %>
+<% end %>
+</div>
+
+<hr/>
+
+<div id="processor_list">
+<% if @all_processors.size > 0 %>
+  <%= render :partial => 'assign_member_list' %>
+<% else %>
+  <h4> No Processors found / Processors already assigned</h4>
+<% end %>
+</div>
+<br/><br/>
+<%= link_to image_tag("arrow_undo.png", :alt => 'Back'), :action => 'index' %>

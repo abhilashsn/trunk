@@ -1,0 +1,41 @@
+<h1>New Client Reported Error</h1>
+
+<%= form_for(@client_reported_error) do |f| %>
+  <% if @client_reported_error.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client_reported_error.errors.count, "error") %> prohibited this client_reported_error from being saved:</h2>
+
+      <ul>
+      <% @client_reported_error.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :site_code %><br />
+    <%= f.text_field :site_code %>
+  </div>
+  <div class="field">
+    <%= f.label :user_date %><br />
+    <%= f.text_field :user_date, :size => 12, :class => 'dropdown' %><%= date_picker("client_reported_error[user_date]", "mdy", "/") %><%= spacer(2) %>
+  </div>
+  <div class="field">
+    <%= f.label :batch_date %><br />
+    <%= f.text_field :batch_date, :size => 12, :class => 'dropdown' %><%= date_picker("client_reported_error[batch_date]", "mdy", "/") %><%= spacer(2) %>
+  </div>
+  <div class="field">
+    <%= f.label :eob_count %><br />
+    <%= f.text_field :eob_count %>
+  </div>
+  <div class="field">
+    <%= f.label :error_count %><br />
+    <%= f.text_field :error_count %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Create' %>
+  </div>
+<% end %>
+
+

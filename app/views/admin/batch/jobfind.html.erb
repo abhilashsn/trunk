@@ -1,0 +1,47 @@
+<% @pgname = Payergroup.find_by_id(@pgid).payergroupname%>
+<div id="login_main">
+<h1>Allocate Jobs for <%= @pgname %></h1>
+
+
+<div class="right"><%= link_to 'Batch List', :action => 'allocate' %></div>
+<% pagination = create_pagination(@payer_pages,'batch',params[:page]) %>
+<%= pagination %>
+ <%= form_tag  :controller=>'job', :action => 'addtl',:payer=>@payers, :id => @jobs_to_allocate ,:page=> params[:page] ,:back_page => params[:back_page] do %>
+
+<table>
+  <tr>
+    <th>Payer ID</th>
+    <th>PayerName</th>
+    <th>Job <br/> Count</th>
+    <th>Estimated <br/> EOBs</th>
+    <th>Earliest <br/> Contracted Time</th>
+    <th>Earliest <br/> Expected Time</th>
+ 
+  </tr>
+<% for payer1 in @payers %>
+<% for payer in payer1 %>
+    <tr>
+   <td><%= payer.payer.payid %></td>
+      <td><%= payer.payer.payer%></td>
+      <td><%= payer.count %></td>
+      <td><%= payer.eobs %></td>
+      <% if payer.tat.nil? %>
+      <td>N/A</td>
+      <% else %>
+      <td><%= format_datetime(payer.tat) %></td>
+      <% end %>
+      <% if payer.etc.nil? %>
+      <td>New</td>
+      <% else %>
+      <td><%= format_datetime(payer.etc) %></td>
+      <% end %>
+      
+    </tr>
+<% end %>
+<% end %>
+<% end %>
+
+</table>
+<%= link_to 'Back', :action => 'payer_grouplist' %>
+<br/>
+</div>

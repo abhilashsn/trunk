@@ -1,0 +1,30 @@
+PAYMENT:
+    BATCH:
+        bank_deposit_date: [ 0, 8, date, "%m/%d/%y" ]
+        date: [ 8, 8, date, "%m/%d/%y" ]
+        batchid: [ 18, 5 ]
+    JOB:
+        check_number: [ 46, 13 ]
+    CHEQUE:
+        check_number: [ 46, 13 ]
+        check_amount: [ 35, 11, float ]
+    IMAGE:
+        image_file_name: [ 62, 12 ]
+        type: [ 34, 1 ]
+    MICR:
+        aba_routing_number: [ 91, 9 ]
+        payer_account_number: [ 74, 17 ]
+CORRESP:
+    BATCH:
+        bank_deposit_date: [ 0, 8, date, "%m/%d/%y" ]
+        date: [ 8, 8, date, "%m/%d/%y" ]
+        batchid: [ 17, 5 ]
+    JOB:
+        check_number: [ 46, 13 ]
+    CHEQUE:
+        check_number: [ 46, 13 ]
+        check_amount: [ 35, 11, float ]
+    IMAGE:
+        image_file_name: [ 62, 12 ]
+        type: [ 34, 1 ]
+   

@@ -1,0 +1,17 @@
+<% date = processing_date%>
+<%ins_eobs = get_ordered_insurance_payment_eobs(@check)%>
+<% if !ins_eobs.empty? && ins_eobs.length > 0 %>
+<cns:Correspondence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.orbograph.com/schema/Correspondence-v1.0 Correspondence.1.0.xsd" xmlns:cns="http://www.orbograph.com/schema/Correspondence-v1.0" XsdVersion="1.0" ProcessingDate="<%= date%>">
+  <%ins_eobs.each_with_index do |ins_eob|%><%#ins_eob = ins_eobs.first%>
+  <cns:OrboAccountNumber><%=@batch.orbo_account_number.to_s.strip%></cns:OrboAccountNumber>
+  <cns:PatientAcctNum><%= ins_eob.patient_account_number.to_s.strip%></cns:PatientAcctNum>
+     <cns:Key><%= ins_eob.details['key'].to_s.strip%></cns:Key>
+     <cns:CategoryAction><%= ins_eob.details['category_action'].to_s.strip%></cns:CategoryAction>
+     <cns:PatientFirstName><%= ins_eob.patient_first_name.to_s.strip%></cns:PatientFirstName>
+  <cns:PatientLastName><%= ins_eob.patient_last_name.to_s.strip%></cns:PatientLastName>
+     <cns:PaidAmnt><%= "%.2f" %(ins_eob.total_amount_paid_for_claim.to_f)%></cns:PaidAmnt>
+     <cns:LetterDate><%= ins_eob.details['letter_date'].strftime("%Y-%m-%d")%></cns:LetterDate>
+     <cns:PayerName><%= ins_eob.details['payer_name'].to_s.strip%></cns:PayerName>
+     <cns:Reason><%= ins_eob.details['reason'].to_s.strip%></cns:Reason><%end%>
+</cns:Correspondence>
+<% end %>

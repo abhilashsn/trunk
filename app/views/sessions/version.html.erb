@@ -1,0 +1,22 @@
+<table align='center' class='head'>
+<tr>
+	<th colspan=2><b>Application Information</b></th>
+
+</tr>
+<% @config.each do |c_value| %>
+	<tr>
+		<td style="background-color:#CCC;"><%=c_value[0]%></td>
+		<td><%=c_value[1]%></td>
+	</tr>
+<% end %>
+<tr>
+		<td style="background-color:#CCC;">Change set</td>
+		<td>
+<%changesets = @version_settings['application']['changeset'].split(",")
+track_url = @version_settings['application']['track_url']
+changesets.each do |changeset| %>
+		<a target = '_blank' href='<%=track_url%><%=changeset%>'> #<%=changeset%></a> <br>
+<% end %>
+	</td>
+		</tr>
+</table>

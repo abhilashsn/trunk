@@ -1,0 +1,4 @@
+<% if !@facilities.blank? %>
+<%= select_tag "facility_of_onbase", ("<option value=''>--Select--</option>" + options_for_select(@facilities)).html_safe,
+  :style=>"width: 300px;" , :class=> "facility" %>
+<% end %>

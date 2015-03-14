@@ -1,0 +1,86 @@
+<%= stylesheet_link_tag "ext-all.css" %>
+<%= javascript_include_tag "ExtJs/adapter/ext/ext-base.js" %>
+<%= javascript_include_tag "ExtJs/ext-all.js" %>
+<%= javascript_include_tag "ExtJs/ext-all-debug.js" %>
+<%= javascript_include_tag "ExtJs/ext-utils.js" %> 
+<% if current_user.claim_retrieval_permission == "1" %>
+<table width="100%" cellpadding="0" cellspacing="0" valign='top' style="border:#FFFFFF 1px solid;">
+  <tr>
+    <td valign='top' width="75%" bgcolor="#dfe8f6"><div id="claim-grid"></div></td>
+    <td valign='top' bgcolor="#dfe8f6" width="25%">
+      <%= form_tag({:action => 'claim_retrieval'},:id=>'e_options') do %>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('pat_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %> Patient Information</a>
+          </legend>
+          <div id='pat_info' style="width: 100%; padding:5px">
+            <table width='100%'>
+              <tr>
+                <td width='50%'> Account Number</td>
+                <td> <%= text_field_tag 'account_number', nil ,:class => 'black_text',:style => "width:80%;" %></td>
+              </tr>
+              <tr>
+                <td> Patient Last Name</td>
+                <td><%= text_field_tag 'pat_lastname', nil,:class => 'black_text', :style => "width:80%;"%> </td>
+              </tr>
+              <tr>
+                <td> Patient First Name</td>
+                <td><%= text_field_tag 'pat_firstname', nil,  :style => "width:80%;",:class => 'black_text' %></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('claim_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %>Claim Information</a>
+          </legend>
+          <div id='claim_info' style="width: 100%;padding:5px">
+            <table width='100%'>
+              <tr>
+                <td> Claim From Date</td>
+                <td> <%= text_field_tag 'claim_from_date', @claim_from_date, :style => "width:70%;",:class => 'black_text'%><%= date_picker("claim_from_date", "ymd", "-") %></td>
+              </tr>
+              <tr>
+                <td> Charges</td>
+                <td><%= text_field_tag 'charges', nil,  :style => "width:80%;",:class => 'black_text' %></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset >
+          <legend style="text-align:left;padding:5px">
+            <a href="#" onclick="javascript:Element.toggle('claim_f_info');return false;">
+              <%= image_tag "drop.gif", :alt=>"", :width=>"15", :height=>"15", :border=>"0", :align=>"absmiddle" %> Claim File Information</a>
+          </legend>
+          <div id='claim_f_info' style="width: 100%;padding:5px">
+            <table width='100%'>
+              <tr>
+                <td> Filename</td>
+                <td><%= text_field_tag 'filename', nil,:class => 'black_text' ,:style=>"width:80%; text-align:right;"%> </td>
+              </tr>
+              <tr>
+                <td> Arrival Date</td>
+                <td><%= text_field_tag 'arrival_date', @arrival_date, :style => "width:70%;",:class => 'black_text' %><%= date_picker("arrival_date", "ymd", "-") %></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+                  <%= hidden_field :filter, :flag,  :id => "filter_flag" , :value => 0 %>
+                  <%= hidden_field_tag :cf_id, params[:cf_id] %>
+        <div style='text-align:center;padding:10px'>
+          <input type='button' value="Filter" onclick="setFilterFlag();">
+          <input type='reset' value="Clear">
+        </div>
+      <%end %>
+    </td>
+  </tr>
+</table>
+<% else %>
+  <h1> You do not have permission to access the Claim Retrieval module </h1>
+<% end %>
+<script LANGUAGE="JavaScript">
+  function relative_url_root() {        return "<%= app_root -%>"  }
+</script>
+<%= javascript_include_tag "claims" %> 

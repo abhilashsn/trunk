@@ -1,0 +1,25 @@
+<div class="light_info"><%= link_to 'New HIPAA code', :controller => '/hipaa_codes', :action => 'new' %>||<%= link_to 'Import HIPAA from CSV file', :controller => '/reason_code_upload', :action => 'upload', :type => 'hipaa'%></div>
+
+<h1>Listing HIPAA Codes</h1>
+<table>
+  <tr>
+    <th style="width: 144px">HIPAA Adjustment Code</th>
+    <th style="width: 338px">HIPAA Code Description</th>
+    <th style="width: 109px"> Actions </th>
+  </tr>
+
+  <% for hipaa_code in @hipaa_codes %>
+    <tr> 
+        <td><%= hipaa_code.hipaa_adjustment_code %></td>
+      	<td><%= hipaa_code.hipaa_code_description %></td>
+      	<td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => hipaa_code %> &nbsp;&nbsp;&nbsp;
+      	<%= link_to image_tag("delete.png", :alt => "Destroy",:border=>"0"), :action => 'destroy_code', :id => hipaa_code %></td>
+     </tr>
+  <% end %>
+  <%= will_paginate @hipaa_codes %>
+</table>
+
+
+<br />
+
+

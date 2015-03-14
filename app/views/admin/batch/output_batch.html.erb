@@ -1,0 +1,66 @@
+
+<div id="login_main">
+<h1>837 Ready Batches</h1>
+<%= show_legend({"green" => "Completed", "red" => "Output Ready"}) %>    
+<% unless @batches.blank? %>
+  <%= form_tag :action => 'batch_archive' do %>
+   <br><br>
+  <table>
+    <tr>
+      <th> Batch Date </th>
+      <th> <a>Batch ID</a> </th>
+      <th> Facility </th>
+      <th> Arrival Time (EST)</th>
+      <th> Expected Completion Time (EST)</th>
+      
+    </tr>
+    <% pagination = create_pagination(@batch_pages,'batch',params[:page]) %>
+     <%= pagination %>  
+         <%  @batches.each do|batch| %>
+            
+               <% cls = ''
+               if @user.role == 'Supervisor' or @user.role == 'Admin' or @user.role == 'TL'
+                  
+                   if batch.status == BatchStatus::COMPLETED
+                       cls = 'green'
+                   end
+                   if batch.status == BatchStatus::OUTPUT_READY
+                       cls = 'red'
+                   end                      
+             
+               end %>
+ 
+      <tr>
+        <td nowrap class="<%= cls %>" align='right'><%= format_date(batch.date) %> </td>
+        <% if @user.role == 'Supervisor' or @user.role == 'Admin'  or   @user.role == 'HLSC' %>
+           <%@id =Batch.find_by_batchid(batch.batchid).id%>
+          <td nowrap class="<%= cls %>" align='right'><%=  batch.batchid %> </td>
+    
+        <% end %>
+        <td nowrap class="<%= cls %>"><%= batch.facility.name%> (<%= batch.facility.sitecode %>) </td>
+        <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+        <td nowrap class="<%= cls %>"  align='right'>
+            <% if batch.expected_completion_time.blank? %>N/A
+            <% else %>
+               <%= format_datetime(batch.expected_completion_time)%>
+               <% if @user.role == 'Supervisor' or @user.role == 'HLSC' && batch.manual_override %> *<% end %>
+            <% end %> </td>
+<td><%= check_box :batch_to_delete, batch.batchid, :id => 'toggle' %> </td>
+          <%
+          @batchid = Batch.find_by_batchid(batch.batchid).id
+          @totaljobcount = Job.count(:conditions=>"batch_id=#{@batchid}")
+          @totalcomletedjobcount = Job.count(:conditions => "batch_id = #{@batchid} and job_status = '#{JobStatus::COMPLETED}' ")
+           %>
+         
+        </tr>
+      <% end %>
+      
+    </table>
+ <%= submit_tag "Archive", :class => 'button', :name => "option1" %>
+ <%= submit_tag "837 Report", :class => 'button', :name => "option1" %>
+  <% end %>
+    <br/>
+  <% else %>
+    <h4> No matching Batches found. </h4>
+  <% end %>
+</div>

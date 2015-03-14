@@ -1,0 +1,68 @@
+<div id="login_main">
+<h1>Payer Group Wise Job List</h1>
+<%= link_to 'Payer Group Administration ' , :controller => 'admin/payergroup' %>
+<% unless @payers.blank? %>
+<%= show_legend({"white" => "TL Not Allocated", "blue" => "TL  Allocated"}) %>    
+
+<div class="right"><%= link_to 'Batch List', :action => 'allocate' %></div>
+<% pagination = create_pagination(@payer_pages,'batch',params[:page]) %>
+<%= pagination %>
+ <%= form_tag  :controller=>'job', :action => 'addtl',:payer=>@payers, :id => @jobs_to_allocate ,:page=> params[:page] ,:back_page => params[:back_page] do %>
+
+<table>
+  <tr>
+  
+    <th>Payer GroupName</th>
+    <th>Job <br/> Count</th>
+<th>Team Leader</th>
+    <th>Estimated <br/> EOBs</th>
+    <th>Earliest <br/> Contracted Time</th>
+    <th>Earliest <br/> Expected Time</th>
+ 
+  </tr>
+<% for payer in @payers %>
+  <%cls=''%>
+      <%if payer.tlusername =~ /TL Not Allocated/
+          cls = 'white'
+        else
+           cls = 'blue'
+         end
+      %>
+    <tr height="10" >
+
+      <td  class="<%= cls %>"><%= link_to payer.payergroupname,:controller=>'batch',:action=>'jobfind' ,:id => payer.id%></td>
+      <td  class="<%= cls %>"><%= payer.count %></td>
+<% if payer.tlusername.nil? %>   
+
+<td>NA          </td>
+<% else %>
+  <% if  payer.tlusername=="TL Not Allocated"%>
+    <td  >TL not allocated    </td>
+<% else %>
+ <% user=User.find_by_id(payer.tlusername).name %>
+  <td class="<%= cls %>" ><%= user %>       </td>
+<% end %>
+<% end %>
+
+      <td class="<%= cls %>" ><%= payer.eobs %></td>
+      
+      <% if payer.tat.nil? %>
+      <td class="<%= cls %>" >N/A</td>
+      <% else %>
+      <td class="<%= cls %>"><%= format_datetime(payer.tat) %></td>
+      <% end %>
+      <% if payer.etc.nil? %>
+      <td class="<%= cls %>">New</td>
+      <% else %>
+      <td class="<%= cls %>"><%= format_datetime(payer.etc) %></td>
+      <% end %>
+     
+    </tr>
+<% end %>
+<% end %>
+
+</table>
+<% else %>
+   <h4> Insert Payers into PayerGroup and create Job </h4>
+  <% end %>
+</div>

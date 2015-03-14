@@ -1,0 +1,60 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+#one:
+#      id: 1
+#      patient_account_number: 0002037194
+#      patient_first_name: MARLENE	
+#      patient_last_name: CAMPBELL 
+#
+#two:
+#      id: 2
+#      patient_account_number: 99999
+#      patient_first_name: 
+#      patient_last_name: 
+#
+#three:
+#      id: 3
+#      patient_account_number: 000074644451AAA28004
+#      patient_first_name: PABLO
+#      patient_last_name: CONDE
+#
+#four:
+#      id: 313
+#      patient_account_number: '000074697533AAA28004'
+#      patient_first_name: 'DONATO'
+#      patient_last_name: 'FISCHETTI'
+#      
+#  
+#five:
+#      id:                     312
+#      patient_account_number: '123456' 
+#     
+#six:
+#      id: 6
+#
+#claim_boa1:
+#      id: 203
+#      patient_account_number: 'SAL1234'
+#      business_unit_indicator: 400
+#
+claim_7:
+      id: 7
+      claim_type: S
+      xpeditor_document_number: 1234567890
+#
+claim_8:
+      id: 8
+      claim_type: T
+      xpeditor_document_number: 
+#
+#claim_234:
+#      id: 234
+#      xpeditor_document_number: '12345A'
+#
+claim_9:
+      id: 9
+      patient_last_name: "CAMPELL"
+      xpeditor_document_number: 1000001
+# 
+#claim_10:
+#      id: 10
+#  

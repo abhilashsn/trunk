@@ -1,0 +1,11 @@
+<div id="login_main">
+<h1>Editing Job</h1>
+
+<%= form_tag admin_job_path(@job), :method => 'put' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit', :class => 'button' %>
+<% end %>
+
+<br/> <!-- TODO: Handle in CSS -->
+<a href="javascript:history.go(-1)">Back</a>
+</div>

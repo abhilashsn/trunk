@@ -1,0 +1,188 @@
+<MediStreams.Remittance>
+  <Batch>
+    <ProviderID><%= npi %></ProviderID>
+    <GroupID><%= group_id%></GroupID>
+    <InterchangeSenderID><%= interchange_sender_id%></InterchangeSenderID>
+    <InterchangeReceiverID><%= interchange_receiver_id%></InterchangeReceiverID>
+    <GroupSenderID><%= group_sender_id%></GroupSenderID>
+    <GroupReceiverID><%= group_receiver_id%></GroupReceiverID><%
+     @checks.each_with_index do|check,counter| %>
+      <Transaction><%ins_eobs = get_ordered_insurance_payment_eobs(check)%>
+        <TransactionControlNumber><%= transaction_control_number(counter) %></TransactionControlNumber>
+        <TransactionID><%=transaction_id(check)%></TransactionID>
+        <Image_Type><%=image_type(check)%></Image_Type><% if @image_type_result == "Correspondence" %>
+          <PaymentMethod>NON</PaymentMethod><%end%> <% unless @image_type_result == "Correspondence" %>
+          <PaymentMethod><%=payment_method(check)%></PaymentMethod>
+          <CheckABANumber><%=check_ABA_number(check)%></CheckABANumber>
+          <CheckAccountNumber><%=check_account_number(check)%></CheckAccountNumber>
+          <PayerName><%=payer_name(check)%></PayerName>
+          <PayerAdd1><%=payer_address1(check)%></PayerAdd1>
+          <PayerAdd2><%=payer_address2(check)%></PayerAdd2>
+          <PayerCity><%=payer_city(check)%></PayerCity>
+          <PayerState><%=payer_state(check)%></PayerState>
+          <PayerZip><%=payer_zip(check)%></PayerZip>
+          <PayerID>MEDISTREAMS</PayerID>
+          <PayerTaxID><%=payer_tax_id(check)%></PayerTaxID>
+          <CheckDate><%=check_date(check)%></CheckDate>
+          <CheckNumber><%=check_number(check)%></CheckNumber>
+          <CheckAmount><%=check_amount(check)%></CheckAmount>
+          <PayeeDFI></PayeeDFI>
+          <PayeeAccountNumber></PayeeAccountNumber>
+          <PayeeName><%= payee_name%></PayeeName>
+          <PayeeID><%= payee_id%></PayeeID>
+          <PayeeAdd1><%= payee_address_one%></PayeeAdd1>
+          <PayeeAdd2><%= payee_address_two%></PayeeAdd2>
+          <PayeeCity><%= payee_city%></PayeeCity>
+          <PayeeState><%=payee_state%></PayeeState>
+          <PayeeZip><%=payee_zip%></PayeeZip><% end %>
+          <PaperGUID><%=check.job.guid_number%></PaperGUID><% unless (@image_type_result == "Check_Only" || @image_type_result == "Correspondence") %>
+          <TotalEOBPages></TotalEOBPages>
+          <TotalCountOfClaims><%= ins_eobs.length%></TotalCountOfClaims><% total_charges, total_interest = total_charges_and_interest(check) %>
+          <TotalChargesOfClaims><%=total_charges%></TotalChargesOfClaims>
+          <TotalInterestAmount><%=total_interest%></TotalInterestAmount><% ins_eobs.each_with_index do|ins_eob,counter2| %>
+            <Claim><% service_eobs = ins_eob.service_payment_eobs%>
+              <PatientAccountNumber><%=validate_eob_details(ins_eob.patient_account_number)%></PatientAccountNumber>
+              <PatientMediStreamsID><%=validate_eob_details(ins_eob.patient_medistreams_id) %></PatientMediStreamsID>
+              <ClaimStatusCode><%=ins_eob.claim_type_weight%></ClaimStatusCode>
+              <TotalClaimCharges><%=total_claim_charges(ins_eob)%></TotalClaimCharges>
+              <TotalClaimPayment><%=total_claim_payment(ins_eob)%></TotalClaimPayment>
+              <PayerControlNumber><%=ins_eob.claim_number%></PayerControlNumber>
+              <BillType></BillType>
+              <KeyingUserName>RevenueMed</KeyingUserName>
+              <EOBPageNumber><%=ins_eob.image_page_no %></EOBPageNumber>
+              <PatientLast><%= validate_eob_details(ins_eob.patient_last_name) %></PatientLast>
+              <PatientFirst><%= validate_eob_details(ins_eob.patient_first_name) %></PatientFirst>
+              <PatientMid><%= validate_eob_details(ins_eob.patient_middle_initial) %></PatientMid>
+              <PatientID><%=patient_id(ins_eob)%></PatientID>
+              <SubscriberLast><%= validate_eob_details(ins_eob.subscriber_last_name) %></SubscriberLast>
+              <SubscriberFirst><%= validate_eob_details(ins_eob.subscriber_first_name) %></SubscriberFirst>
+              <SubscriberMid><%= validate_eob_details(ins_eob.subscriber_middle_initial) %></SubscriberMid>
+              <SubscriberID><%=validate_eob_details(ins_eob.subscriber_identification_code) %></SubscriberID>
+              <PatientRespAmt><%=patient_responsibility_amount(ins_eob)%></PatientRespAmt>
+              <ClaimLevelAdjustmentGroupCode><%=claim_level_adjustment_group_code(ins_eob)%></ClaimLevelAdjustmentGroupCode>
+              <ClaimLevelAdjustmentReasonCode><%=claim_level_adjustment_reason_code(ins_eob)%></ClaimLevelAdjustmentReasonCode>
+              <ClaimLevelAdjustmentAmount><%=claim_level_adjustment_amount(ins_eob)%></ClaimLevelAdjustmentAmount>
+              <ClaimLevelAdjustmentUnits></ClaimLevelAdjustmentUnits>
+              <PolicyNumber><%=ins_eob.insurance_policy_number %></PolicyNumber><%=social_security_number(ins_eob)%>
+              <ClaimFromDate><%=claim_from_date(ins_eob)%></ClaimFromDate>
+              <ClaimToDate><%=claim_to_date(ins_eob)%></ClaimToDate><% service_eobs.each_with_index do|service,counter3| %>
+                <Line>
+                  <ProcedureCodeQualifier>HC</ProcedureCodeQualifier>
+                  <ProcedureCode><%=service.service_procedure_code %></ProcedureCode>
+                  <ProcedureCodeModifier1><%=service.service_modifier1 %></ProcedureCodeModifier1>
+                  <ProcedureCodeModifier2><%=service.service_modifier2 %></ProcedureCodeModifier2>
+                  <ProcedureCodeModifier3><%=service.service_modifier3 %></ProcedureCodeModifier3>
+                  <ProcedureCodeModifier4><%=service.service_modifier4 %></ProcedureCodeModifier4>
+                  <RevenueCode><%=service.revenue_code %></RevenueCode>
+                  <LineItemCharges><%=line_item_charges(service)%></LineItemCharges>
+                  <LineItemPayment><%=line_item_payment(service)%></LineItemPayment>
+                  <ServiceUnits><%=service.service_quantity %></ServiceUnits>
+                  <ServiceLineProviderCode></ServiceLineProviderCode>
+                  <ServiceLineFromDate><%=service_line_from_date(service)%></ServiceLineFromDate>
+                  <ServiceLineToDate><%=service_line_to_date(service)%></ServiceLineToDate>
+                  <LineItemAllowedAmount><%=line_item_allowed_amount(service)%></LineItemAllowedAmount>
+                  <RemarkCode></RemarkCode>
+                  <REF6R><%=service.service_provider_control_number %></REF6R><%
+                  payer = check.payer
+                  client = @facility.client
+                  reason_code_crosswalk = ReasonCodeCrosswalk.new(payer, service, client, @facility)
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('noncovered')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank? %>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.service_no_covered%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('copay')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.service_co_pay%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('deductible')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.service_deductible%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('coinsurance')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.service_co_insurance rescue nil%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('discount')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.service_discount rescue nil%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('contractual')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)                  
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.contractual_amount%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end
+                  crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_adjustment_reason('primary_payment')
+                  reason_code, reason_code_description = reason_code_crosswalk.get_reason_code_and_description(crosswalked_codes)
+                  group_code = crosswalked_codes[:cas_01]
+                  unless reason_code.blank?%>
+                    <Adjustment>
+                      <AdjustmentGroupCode><%=group_code%></AdjustmentGroupCode>
+                      <AdjustmentReasonCode><%=mapped_code(crosswalked_codes)%></AdjustmentReasonCode>
+                      <AdjustmentAmount><%=service.primary_payment%></AdjustmentAmount>
+                      <AdjustmentUnits></AdjustmentUnits>
+                      <PaperCode><%=reason_code[0..9]%></PaperCode>
+                      <PaperDescription><%=format_reason_code_description(reason_code_description)%></PaperDescription>
+                    </Adjustment><%
+                  end %>
+                </Line><%
+              end %>
+            </Claim><%
+          end
+        end %>
+      </Transaction><%
+    end %>
+  </Batch>
+</MediStreams.Remittance>

@@ -1,0 +1,127 @@
+.overlay_alphacube {
+background-color : #85BBEF;
+opacity : 0.60000002384185791015625;
+}
+.alphacube_nw {
+background : url(alphacube/left-top.gif) 0 0 no-repeat transparent;
+width : 10px;
+height : 25px;
+}
+.alphacube_n {
+background : url(alphacube/top-middle.gif) 0 0 repeat-x transparent;
+height : 25px;
+}
+.alphacube_ne {
+background : url(alphacube/right-top.gif) 0 0 no-repeat transparent;
+width : 10px;
+height : 25px;
+}
+.alphacube_w {
+background : url(alphacube/frame-left.gif) top left repeat-y transparent;
+width : 7px;
+}
+.alphacube_e {
+background : url(alphacube/frame-right.gif) top right repeat-y transparent;
+width : 7px;
+}
+.alphacube_sw {
+background : url(alphacube/bottom-left-c.gif) 0 0 no-repeat transparent;
+width : 7px;
+height : 7px;
+}
+.alphacube_s {
+background : url(alphacube/bottom-middle.gif) 0 0 repeat-x transparent;
+height : 7px;
+}
+.alphacube_se, .alphacube_sizer {
+background : url(alphacube/bottom-right-c.gif) 0 0 no-repeat transparent;
+width : 7px;
+height : 7px;
+}
+.alphacube_sizer {
+cursor : nw-resize;
+}
+.alphacube_close {
+width : 23px;
+height : 23px;
+background : url(alphacube/button-close-focus.gif) 0 0 no-repeat transparent;
+position : absolute;
+top : 0;
+right : 11px;
+cursor : pointer;
+z-index : 1000;
+}
+.alphacube_minimize {
+width : 23px;
+height : 23px;
+background : url(alphacube/button-min-focus.gif) 0 0 no-repeat transparent;
+position : absolute;
+top : 0;
+right : 35px;
+cursor : pointer;
+z-index : 1000;
+}
+.alphacube_maximize {
+width : 23px;
+height : 23px;
+background : url(alphacube/button-max-focus.gif) 0 0 no-repeat transparent;
+position : absolute;
+top : 0;
+right : 33px;
+cursor : pointer;
+z-index : 1000;
+}
+.alphacube_title {
+float : left;
+height : 14px;
+font-size : 14px;
+text-align : center;
+margin-top : 2px;
+width : 100%;
+background-color : #bfdbff;
+color : #000000;
+margin-left : 0;
+width : 96%;
+border : #808080 solid 1px;
+}
+.alphacube_content {
+overflow : auto;
+color : #000;
+font-family : Tahoma, Arial, sans-serif;
+font : 9px arial;
+background : #E7E7E7;
+}
+.alphacube_window {
+border : #F00 solid 1px;
+background : #FFF;
+padding : 20px;
+margin-left : auto;
+margin-right : auto;
+width : 400px;
+}
+.alphacube_message {
+font : 12px arial;
+text-align : center;
+width : 100%;
+padding-bottom : 10px;
+}
+.alphacube_buttons {
+text-align : center;
+width : 100%;
+}
+.alphacube_buttons input {
+width : 20%;
+margin : 10px;
+}
+.alphacube_progress {
+float : left;
+margin : auto;
+text-align : center;
+width : 100%;
+height : 16px;
+background : url('alert/progress.gif') center center no-repeat #FFF;
+}
+.alphacube_wired_frame {
+background : #FFF;
+opacity : 0.60000002384185791015625;
+}

@@ -1,0 +1,38 @@
+<% unless @capitation_account.blank? %>
+    <%= will_paginate @capitation_account, :params => {'to_find' => @search_field, 'compare' => @compare, 'criteria' => @criteria} %>
+
+    <table>
+      <tr>
+        <th style="width: 85px">Batch Date</th>
+        <th style="width: 85px">Batch ID</th>
+        <th style="width: 100px">Check Number</th>
+        <th style="width: 100px">First Name</th>
+        <th style="width: 100px">Last Name</th>
+        <th style="width: 100px">Middle<br/> Initial</th>
+        <th style="width: 100px">Suffix</th>
+        <th style="width: 120px">Payer Name</th>
+        <th style="width: 95px">Account #</th>
+        <th style="width: 115px">Payment</th>
+      </tr>
+
+      <% for capitation_account in @capitation_account %>
+          <tr>
+            <td align='right'><%= capitation_account.batch.date %></td>
+            <td align='right'><%= capitation_account.batch.batchid %> </td>
+            <td align='right'><%= capitation_account.checknumber %> </td>
+            <td align='right'><%= capitation_account.patient_first_name %> </td>
+            <td align='right'><%= capitation_account.patient_last_name %> </td>
+            <td align='right'><%= capitation_account.patient_initial %> </td>
+            <td align='right'><%= capitation_account.patient_suffix %> </td>
+            <td align='right'><%= capitation_account.payer_name %></td>
+            <td align='right'><%= capitation_account.account %> </td>
+            <td align='right'><%= capitation_account.payment %> </td>
+            <td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'capitation_account_edit', :id => capitation_account.id  %></td>
+            <td><%= link_to image_tag("delete.png", :alt => "Delete",:border=>"0"), :action => 'capitation_account_delete', :id => capitation_account.id %></td>            
+          </tr>
+      <% end %>
+    </table>
+    <br/>
+<% else %>
+    <h4> No Capitation Account found. </h4>
+<% end %>

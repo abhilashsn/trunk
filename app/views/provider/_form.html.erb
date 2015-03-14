@@ -1,0 +1,63 @@
+<%= render "shared/error_messages", :target => @batch %>  
+<table>
+    <tr>
+        <th>
+            Last Name 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_last_name' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            First Name 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_first_name' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Suffix 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_suffix' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Middle Initial 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_middle_initial' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            NPI 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_npi_number' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            TIN 
+        </th>
+        <td>
+            <%= text_field 'provider', 'provider_tin_number' %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Facility
+        </th>
+        <td>
+            <%if not @provider.blank? %>
+            <%= select_tag 'facility', options_for_select(@facilities,@provider.facility.name),:class => "cont" %>
+            <%else %>
+            <%= select_tag 'facility', options_for_select(@facilities),:class => "cont" %>
+            <%end %>
+        </td>
+    </tr>
+</table>

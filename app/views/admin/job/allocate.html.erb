@@ -1,0 +1,287 @@
+<%= javascript_include_tag "datacapture" %>
+<%= javascript_include_tag "report" %>
+<%= stylesheet_link_tag 'tab' %>
+<script type="text/javascript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+  function changeClass(tab_id) {
+    document.getElementById('tab_ocr').className = "tab"
+    document.getElementById('tab_non_ocr').className = "tab"
+    document.getElementById('tab_excluded').className = "tab"
+    document.getElementById(tab_id).className = "tab_selected"
+  }
+</script>
+<div id="login_main">
+  <% unless @jobs.blank? %>
+    <h1>Allocate Jobs - Batch &nbsp; <%= @batch.batchid %>
+      (Batch Date: <%= format_date(@batch.date) %>,
+      Client: <%= @client_name %>)</h1>
+  <% else %>
+    <h1>Allocate Jobs</h1>
+  <% end %>
+
+  <% if(params[:tab] == 'ocr_jobs')
+    ocr  = '#A8A8A8'
+  elsif(params[:tab] == 'excluded_jobs')
+    excluded = '#A8A8A8'
+  elsif(params[:tab] == 'non_ocr_jobs' || params[:tab].blank?)
+    non_ocr = '#A8A8A8'
+  end%>
+  <div>
+    <table width="98.5%">
+      <tr><td valign="top" style="height: 17px">
+          <%= link_to "NON OCR JOBS", {:controller => 'job',
+            :action => 'allocate', :tab => "non_ocr_jobs", :back_page => params[:back_page]},
+            {:class => "tab", :onClick => "changeClass('tab_non_ocr')",
+            :id => 'tab_non_ocr', :style=>"background-color:#{non_ocr};border-color: #{non_ocr}}" } %>
+
+          <%= link_to "OCR JOBS", {:controller => 'job',
+            :action => 'allocate', :tab => "ocr_jobs", :back_page => params[:back_page]},
+            {:class => "tab", :onClick => "changeClass('tab_ocr')",  :style=>"background-color:#{ocr};border-color: #{ocr}}",
+            :id => 'tab_ocr'} %>
+          <%= link_to "EXCLUDED JOBS", {:controller => 'job',
+            :action => 'allocate', :tab => "excluded_jobs", :back_page => params[:back_page]},
+            {:class => "tab", :onClick => "changeClass('tab_excluded')",  :style=>"background-color:#{excluded};border-color: #{excluded}}",
+            :id => 'tab_excluded'} %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="light_info">
+    <%= form_tag :action => 'allocate', :jobs => @batch ,:back_page => params[:back_page], :tab => params[:tab] do %>
+      <%= select_tag 'criteria', optionize_custom(['Completed EOBs', 'Job ID','Job Status', 'Processor', 'QA', 'Check Number','Processor Status', 'QA Status','Payer', 'Page To', 'Check Amount', 'Amount So Far', 'Balance'].sort, params[:criteria]),
+        :onchange => "clearFindField()"%>
+      <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+      <%= text_field_tag 'to_find', params[:to_find], :size => '10',
+        :onFocus => "return showUserMessagesOnJobAllocation()", :onBlur => "return clearUserMessages()" %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+      <div id="message1" style="font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-weight: bold;Color: #FF6600;text-decoration: none;"></div>
+      <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border => "0",
+        :id => "spinner", :style => "display: none;" ) %>
+    <% end %>
+  </div>
+  <% unless @jobs.blank? %>
+    <%= show_legend({"white" => "NEW", "blue" => "PROCESSING", "green" => "COMPLETED", "red" => "REJECTED", "lightgrey" => "INCOMPLETED"}) %>
+    <div style="background-color:#e9eef2; width:100%;float:left;" class="black_text">
+      <%= will_paginate @jobs, :params => {:jobs => @batch,
+        :criteria => params[:criteria], :compare => params[:compare],
+        :to_find => params[:to_find], :sort => @sort}%>
+    </div>
+    <%= form_tag({:action => 'allocate_deallocate', :id => @jobs_to_allocate ,
+        :page=> params[:page] ,:back_page => params[:back_page],
+        :criteria => params[:criteria],:compare => params[:compare],
+        :to_find => params[:to_find], :tab => params[:tab]}, :id =>'my_form') do %>
+      <%= hidden_field_tag :criteria, '', :id => 'searchBy' %>
+      <%= hidden_field_tag :compare, '', :id => 'compareBy' %>
+      <%= hidden_field_tag :to_find, '', :id => 'findBy' %>
+      <table id="job_allocate" style="width:100%;float:left;">
+        <tr style="color:#0066FF">
+          <th>Batch ID</th>
+          <th><%= sort_header("Job ID", "id")%></th>
+          <th>Check Number</th>
+          <th>Job Type</th>
+          <th><%= sort_header("EOBs\nEst./Comp.", "estimated_eob")%></th>
+          <th><%= sort_header("Processor", "processor_name")%></th>
+          <th><%= sort_header("Processors\nStatus", "processor_status")%></th>
+          <th><%= sort_header("QA", "qa_name")%></th>
+          <th><%= sort_header("QAs\nStatus", "qa_status")%></th>
+          <th><%= sort_header("Job Status", "job_status")%></th>
+          <th><%= sort_header("Payer\ngroup", "payer_group")%></th>
+          <th><%= sort_header("Incomplete\nEOBs", "incomplete_tiff")%></th>
+          <th><%= sort_header("Payer", "name_payer")%></th>
+          <th>Comment</th>
+          <th><%= sort_header("Page\nFrom", "pages_from")%></th>
+          <th><%= sort_header("Page\nTo", "pages_to")%></th>
+          <th><%= sort_header("COR", "is_correspondence")%></th>
+          <th><%= sort_header("Check\nAmount", "check_amount_value")%></th>
+          <th><%= sort_header("Amount so\nfar", "amount_so_far")%></th>
+          <th><%= sort_header("Balance", "balance")%></th>
+          <%unless current_user.has_role?(:TL)%>
+            <th style="width: 20px">
+              <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))"/>
+            </th>
+          <%end%>
+        </tr>
+        <% @jobs.each do |job|
+          @job = job %>
+          <%cls='' %>
+          <%if job.job_status == JobStatus::REJECTED
+            cls = 'red'
+          elsif job.job_status == JobStatus::PROCESSING
+            cls = 'blue'
+          elsif job.job_status == JobStatus::COMPLETED
+            cls = 'green'
+          elsif job.job_status == JobStatus::INCOMPLETED
+            cls = 'lightgrey'
+          else
+            cls = 'white'
+          end %>
+          <tr>
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= job.batchid %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job.id %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><a href="#" onclick="popup_image('<%=job.id%>')"><%= job.check_number %></a></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job_type(job, @parents_of_splitted_jobs) %></div>
+            </td>
+            <td class="<%= cls %>" align='right'>
+              <div style="text-align:center;"><%= job.estimated_eob.to_f.round %>/ <%= job.completed_eobs %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><% if job.processor_name %>
+                  <%= link_to job.processor_name, :controller => 'user', :action => 'show', :id => job.processor_id,:back_page=>params[:back_page] %>
+                <%else %>
+                  -<% end %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job.processor_status %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><% if job.qa_name %>
+                  <%= link_to job.qa_name, :controller => 'user', :action => 'show', :id => job.qa_id ,:back_page=>params[:back_page] %>
+                <%else %>
+                  -<% end %></div>
+            </td>
+            <td class="<%= cls %>">
+              <div style="text-align:center;"><%= job.qa_status %></div>
+            </td>
+          <input type ="hidden" id="qa_status_id" value="<%= job.qa_status%>">
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= (job.is_micr_ocr_flag == 1) ? "OCR"  :  job.job_status %></div>
+          </td>
+          <td>
+            <div style="text-align:center;" id="refresh">
+              <% child_job_has_a_status_not_new = false
+              if job.parent_job_id.blank?
+                if !@parent_job_ids_having_status_of_child_jobs_as_not_new.blank? &&
+                    @parent_job_ids_having_status_of_child_jobs_as_not_new.include?(job.id)
+                  child_job_has_a_status_not_new = true
+                end
+              end
+            edit_value_condition = job.completed_eobs == 0 && job.parent_job_id.blank? && !child_job_has_a_status_not_new && job.job_status == JobStatus::NEW
+          %>
+              <% if edit_value_condition %>
+                <%= in_place_editor_select_field :job, :payer_group, {:disabled  => false}, {:collection => ['Insurance', 'PatPay'], :url=>  {:contoller => 'job', :action => 'set_payer_group_in_job_allocation_view', :job_id => job.id, :check_id => job.check_id}} %>
+              <%else%>
+                <font color="#808080">
+                  <%= job.payer_group unless job.payer_group.blank? %>
+                </font>
+              <%end%>
+            </div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;">
+              <%job_incomplete_count = job.incomplete_eob_count%>
+              <% if job.incomplete_tiff.blank? %>
+                None (<% unless job_incomplete_count.blank? %><%= job_incomplete_count %><% else %>0<%end %>)
+              <% else %>
+                <%= job.incomplete_tiff %>(<%= job_incomplete_count %>)
+              <% end %>
+            </div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;">
+              <strong><%= link_to "#{job.name_payer}", :action => 'allocate_payer_jobs', :payer => job.payer_id %></strong>
+            </div>
+          </td>
+          <td class="<%= cls %>" nowrap>
+            <% comment = (job.is_ocr_flag == 1) ? "OCR"  :  "NON OCR" %>
+            <div style="text-align:left;"><textarea readonly='true' cols="20" rows="1" class="black_text"><%= comment %></textarea></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= (job.pages_from.blank? ? "-" : job.pages_from) %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= (job.pages_to.blank? ? "-":job.pages_to) %></div>
+          </td>
+          <td>
+            <div style="text-align:center;" id="refresh">
+              <% if job.completed_eobs == 0 && job.parent_job_id.blank? && (job.job_status == JobStatus::NEW || job.job_status == JobStatus::PROCESSING) %>
+                <%= in_place_editor_select_field :job, :is_correspondence, {:disabled  => false}, {:collection => ['true', 'false'], :url=>  {:contoller => 'job', :action => 'set_is_correspondence', :job_id => job.id, :check_id => job.check_id}} %>
+              <%else%>
+                <font color="#808080">
+                  <%= job.is_correspondence %>
+                </font>
+              <%end%>
+            </div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:right;"><%=(job.check_amount_value.blank? ? " " :(sprintf("%.2f",job.check_amount_value)) )%></div>
+          </td>
+          <td class="<%= cls %>">
+            <% interest_in_service_line = get_interest_in_service_line_from_facility_details_column(job.facility_details_column) %>
+            <% amount_so_far = amount_so_far_for_job(job.amount_so_far.to_f, job.total_interest_amount.to_f, interest_in_service_line) %>
+            <div style="text-align:right;"><%=(amount_so_far.blank? ? " " :(sprintf("%.2f",amount_so_far)) )%></div>
+          </td>
+          <%  @balance =(job.check_amount_value.to_f - amount_so_far.to_f).to_f
+          @balance = @balance.zero? ? @balance.abs : @balance %>
+          <%if (!@balance.blank? or job.parent_job_id.blank?)
+            @balance = sprintf("%.2f", @balance)
+          end %>
+          <%if (!@balance.blank? and job.parent_job_id.blank?) %>
+            <td class="<%= cls %>">
+              <div style="text-align:right;"><%= @balance %></div>
+            </td>
+          <%else %>
+            <td class="<%= cls %>">
+            </td>
+          <%end %>
+          <input type ="hidden" id="count_of_completed" value= 0>
+          <%unless current_user.has_role?(:TL)%>
+            <td>
+              <% if(job.processor_status == 'COMPLETED')
+                class_status = "checkbox_completed checkbox"
+              elsif (job.processor_status == 'ALLOCATED')
+                class_status = "checkbox_processing checkbox"
+              else
+                class_status =  "checkbox"
+              end
+            %>
+              <%= check_box :jobs_to_allocate, job.id, :id => 'toggle',
+                :onclick => "set_qa_status();", :class => "#{class_status}" %>
+            </td>
+          <%end%>
+          </tr>
+        <% end %>
+      </table>
+      <div style="clear:both;"></div>
+      <%unless current_user.has_role?(:TL)%>
+        <% if params[:tab] != 'excluded_jobs' %>
+          <%= submit_tag "Allocate Processor", :class => 'button', :name => "option1" %>
+          <%= submit_tag "Deallocate Processor", :class => 'button', :name => "option1",:onclick => "return alertForProcessorStatus()" %>
+          <%= submit_tag "Allocate QA", :class => 'button', :name => "option1" %>
+          <%= submit_tag "Deallocate QA", :class => 'button', :name => "option1",
+            :onclick => "return validateQaStatus()"%>
+          <%= sp_button "Create New Job", @batch.facility.new_job_creation_applicable, nil, :class => "button", :name => "option1" %>
+          &nbsp;<%= select_tag 'job_split_count', optionize('1','2','5', '10','20'),:class => "black_text" %>
+          <%= submit_tag "Manual Split", :class => 'button', :name => "option1" %>&nbsp<%= submit_tag "Auto Split", :class => 'button', :name => "option1" %>&nbsp
+          <button type="button" class='button' onclick ="callPopUpIncomplete('<%= params[:page]%>', '<%= params[:back_page]%>')">Incomplete</button>
+          <%= submit_tag "Excluded Job", :class => "button", :name => "option1" %>&nbsp;
+        <% else %>
+          <%= submit_tag "Non Excluded Job", :class => "button", :name => "option1" %>&nbsp;
+        <% end %>
+        <%= submit_tag "Delete", :class => "button", :name => "option1" %>
+      <%end%>
+    <% end %>
+  <% else %>
+    <h4>No Jobs Created for batch <%= link_to @batch.batchid, :controller => '/admin/batch', :action => 'show', :id => @batch %>. </h4>
+  <% end %>
+  <br/>
+  <br/>
+  <div style="background-color:#e9eef2; width:100%;" class="black_text">
+    <%= will_paginate @jobs, :params => {:jobs => @batch, :criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]}%>
+  </div>
+  <%  if (params[:back_page].blank?) %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), @request_source_path %>
+  <%else%>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'batch', :action => params[:back_page] %>
+  <%end%>
+</div>
+

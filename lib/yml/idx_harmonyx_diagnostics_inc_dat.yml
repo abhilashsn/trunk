@@ -1,0 +1,19 @@
+BATCH:
+     batchid: 5
+     lockbox: 2
+     date: [1, date]
+     record_type: 7
+     index_batch_number: 5
+JOB:
+     transaction_id: 6
+     job_number: 8
+     check_number: 10
+CHEQUE:
+      check_number: 10
+      check_amount: [ 9, float]
+MICR:
+      aba_routing_number: 13
+      payer_account_number: 11
+IMAGE:
+      image_folder: ''
+      image_file_name: [18]

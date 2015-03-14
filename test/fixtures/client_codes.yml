@@ -1,0 +1,14 @@
+client_code_1:
+      id: 2
+      adjustment_code: 1
+      adjustment_code_description: revenuemed_description_1
+
+client_code_2:
+      id: 3
+      adjustment_code: CC1
+      adjustment_code_description: CC 1
+
+client_code_3:
+      id: 4
+      adjustment_code: CC2
+      adjustment_code_description: CC 2

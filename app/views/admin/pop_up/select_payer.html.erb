@@ -1,0 +1,80 @@
+<div id="login_main">
+  <h1>Listing payers</h1>
+
+  <% if @payers.size > 0 %>
+    <div class="light_info">
+      <%= form_tag :action => 'select_payer', :previous_page => @previous_page, :mode => @mode, :popup_id => params[:popup_id]  do %>
+        <%= hidden_field_tag :mode, params[:mode] %>
+        <%= hidden_field_tag :popup_id, params[:popup_id] %>
+        <%= select_tag 'criteria', optionize_custom(['Gateway', 'Payer Id', 'Payer', 'Address-1','Address-2','Address-3'],params[:criteria]) %>
+        <%= select_tag 'compare', optionize_custom(['=','>=', '<='],params[:compare])%>
+        <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+        <%= submit_tag 'Filter', :class => 'button' %>
+      <% end %>
+    </div>
+  <% end %>
+  <% controller = (@mode == 'twice_keying_edit' ? 'admin/twice_keying_fields' : 'admin/pop_up')
+  action = (@mode == 'twice_keying_edit' ? 'edit' : @previous_page)%>
+  <% unless @payers.empty? %>
+    <%= will_paginate @payers,:params=>{:to_find=>params[:to_find], :compare=>params[:compare],:criteria=>params[:criteria]} %>
+    <table>
+      <tr>
+        <th>Select</th>
+        <th>Gateway</th>
+        <th>Payer ID</th>
+        <th>Payer</th>
+        <th>GR Name</th>
+        <th>Address One</th>
+        <th>Address Two</th>
+        <th>Address Three</th>
+      </tr>
+      <% for payer in @payers %>
+        <tr>
+          <td><%= link_to 'Select',:controller => controller, :action => action, 
+                   :payer => payer,:id => params[:popup_id],
+                   :payer_name => payer.payer, :mode => @mode  %></td>
+
+          <td><%= payer.gateway %></td>
+          <td><%= payer.supply_payid %></td>
+          <td><%= payer.payer %></td>
+          <td>
+            <%if  payer.gr_name.blank?%>
+              <%='-'%>
+            <%else%>
+              <%=payer.gr_name%>
+            <%end%>
+          </td>
+
+          <td>
+            <%if payer.pay_address_one.blank? %>
+              <%='-'%>
+            <%else%>
+              <%=payer.pay_address_one%>
+            <%end%>
+
+          </td>
+          <td>
+            <%if payer.pay_address_two.blank? %>
+              <%='-'%>
+            <%else%>
+              <%=payer.pay_address_two%>
+            <%end%>
+          </td>
+          <td><%if payer.pay_address_three.blank? %>
+              <%='-'%>
+            <%else%>
+              <%=payer.pay_address_three%>
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br/>
+  <% else %>
+    <h4> No Payers found.</h4>
+  <% end %>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => controller, :action => action, :mode => params[:mode],:id => params[:popup_id] %>
+</div>

@@ -1,0 +1,17 @@
+<p class="expand-one"><a href="#">Reorder Images</a></p>
+<div id="image_reorder_div">
+  Drag and Drop file names -
+    Click to select a single item, 
+    Ctrl+click to select multiple items
+  <% images = @images.sort{|a,b| a.image_number <=> b.image_number} %>
+  <%= form_tag({:action => "reorder_images"}, :id => "image_reorder") do %>
+    <ul id="imageList" class="sortable">
+      <% images.each do |image| %>
+        <li id=<%="#{image.id}"%>>
+          <%=  image.image_file_name -%>
+        </li>
+      <% end %>
+    </ul>
+  <%  end %>
+</div>
+

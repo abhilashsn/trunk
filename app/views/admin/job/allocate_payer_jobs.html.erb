@@ -1,0 +1,123 @@
+<script language="javascript" type="text/javascript">
+    //This will return the sub-uri if any
+    function relative_url_root() {
+        return "<%= app_root %>";
+    }
+</script>
+
+<div id="login_main">
+<% if @jobs.size > 0 %>
+  <h1>Allocate Jobs for <%= @jobs[0].payer.payer %></h1>
+  <div class="light_info">
+    <%= form_tag :action => 'allocate', :jobs => @batch ,:back_page => params[:back_page], :payer => @payer do %>
+      <%= select 'job', 'criteria', ['Check Number', 'Tiff Number', 'Count', 'Status', 'Processor', 'QA'] %>
+      <%= select 'job', 'compare', ['=','>=', '<=']%>
+      <%= text_field 'job', 'to_find', :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+  </div>
+  
+    <%= show_legend({"white" => "New", "blue" => "Processing", "green" => "Completed", "red" => "Rejected"}) %>    
+    <br/>
+<br/>
+  <%= will_paginate @jobs %>
+  
+  
+  <% unless @jobs.blank? %>
+    <%= form_tag :action => 'allocate_deallocate', :id => @jobs_to_allocate ,:page=>params[:page] ,:back_page => params[:back_page], :payer => params[:payer], :from => 'payer' do %>
+  
+<div >   
+ <table>
+      <tr>
+        <th style="width: 68px">Batch ID</th>
+        <th style="width: 70px">Batch Date</th>
+        <th style="width: 123px">Check Number </th>
+        <th style="width: 105px">Tiff Number </th>
+        <th style="width: 67px">EOBs<br/><font size='1'>Est./Comp.</font></th>
+        <th style="width: 78px">Contracted Time <br/> (EST)</th>
+        <th style="width: 71px">ETC</th>
+        <th style="width: 108px">Processor</th>
+        <th style="width: 79px">Processors  Status</th>
+        <th style="width: 123px">QA </th>
+        <th style="width: 80px">QAs status</th>
+        <th style="width: 76px">Job Status</th>
+        <th style="width: 71px">Incomplete<br/>TIFF(EOBs)</th>
+        <th style="width: 145px">Comment</th>
+        <th style="width: 20px"><input type="checkbox" name="all" onClick="checkAll(document.forms[1].toggle,this)"></th>
+      </tr>
+  
+      <%@jobs.each do |job| %>
+      <%cls=''%>
+      <%if job.job_status == JobStatus::REJECTED
+          cls = 'red'
+        elsif job.job_status == JobStatus::PROCESSING
+          cls = 'blue'
+        elsif job.job_status == JobStatus::COMPLETED
+          cls = 'green'
+        else
+          cls = 'white'
+         end
+      %>
+      <tr>
+        <td class="<%= cls %>" align='right'><strong><%= link_to "#{job.batch.batchid}", :controller => 'job', :action => 'allocate', :id => job.batch , :back_page => params[:back_page]%></strong></td>
+        <td class="<%= cls %>"><%= format_date(job.batch.date) %></td>
+        <td class="<%= cls %>"><a href="#" onclick="popup_image('<%=job.id%>')"><%= job.display_check_number %></a><%#= link_to "#{job.check_number}", :controller => 'batch', :action => 'add_job', :id => job.batch, :from => job.batch, :payer => job.payer %></td>
+        <td class="<%= cls %>"><%= job.tiff_number %></td>
+        <td class="<%= cls %>" align='right'><%= job.estimated_eob %> / <%= job.count %></td>
+        <td class="<%= cls %>"><%= format_datetime(job.batch.contract_time(@user.role)) rescue nil%></td>
+        <td class="<%= cls %>">
+        <% if job.batch.expected_completion_time.blank? or job.batch.expected_time.nil? %>
+        N/A
+        <% else %>
+        <%= format_datetime(job.batch.expected_time) %></td>
+        <% end %>
+        <td class="<%= cls %>">
+        <% if job.processor %>
+            <%= link_to job.processor.name, :controller => '/admin/user', :action => 'show', :id => job.processor,:back_page=>params[:back_page]%>
+        <% end %>
+        </td>
+        <td class="<%= cls %>"><%= job.processor_status %>
+        </td>
+        <td class="<%= cls %>">
+        <% if job.qa %>
+            <%= link_to job.qa.name, :controller => '/admin/user', :action => 'show', :id => job.qa ,:back_page=>params[:back_page]%>
+        <% end %>
+        </td>
+        <td class="<%= cls %>"><%= job.qa_status %></td>
+        <td class="<%= cls %>"><%= job.job_status %></td>
+        <td class="<%= cls %>">
+        <% if job.incomplete_tiff.blank? %>
+          None (<% unless job.incomplete_count.blank? %><%= job.incomplete_count %><% else %>0<%end%>)</td>
+        <% else %>
+          <%= job.incomplete_tiff %> (<%= job.incomplete_count %>)</td>
+        <% end %>
+        <td><textarea readonly='true'><%= job.comment %></textarea></td>
+      <td><%= check_box :jobs_to_allocate, job.id, :id => 'toggle' %></td>
+      </tr>
+      <% end %>
+    </table>
+    </div>
+  <br/>
+      <%= submit_tag "Allocate Processor", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Deallocate Processor", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Allocate QA", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Deallocate QA", :class => 'button', :name => "option1" %>
+    <% end %>
+  <% else %>
+    <h4> No Jobs Created for batch <%= link_to @batch.batchid, :controller => '/admin/batch', :action => 'show', :id => @batch %> . </h4>
+  <% end %>
+<% else %>
+  <h4>No jobs found for payer.</h4>
+<% end %>
+<br/>
+<br/>
+<%= will_paginate @jobs %>
+<br/>
+<% if @user.role=="Admin" or  @user.role=='Supervisor'%>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"),:page => params[:page],:controller => '/admin/batch', :action => 'payer_list' %>
+<% elsif @user.role=="TL" %>
+  <% @username = session[:user].name %>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"),:page => params[:page],:controller => '/admin/payergroup', :action => 'tlworkque',:id=>@username %>
+
+<% end %>
+</div>

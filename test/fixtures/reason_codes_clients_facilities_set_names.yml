@@ -1,0 +1,275 @@
+one:
+      id: 1
+      reason_code_id: 380
+      hipaa_code_id: 1
+
+unassociated_client_facility_payer_reason_cd:
+      id: 9999
+
+mapping_reason_codes_1:
+      id:  2
+      reason_code_id:  2
+      client_id:  6
+      facility_id:  8
+      hipaa_code_id:  2
+
+mapping_reason_codes_2:
+      id:  3
+      reason_code_id:  3
+      client_id:  6
+      facility_id:  8
+      hipaa_code_id: 3
+
+two:
+      id: 5
+      reason_code_id: 1
+      facility_id: 11
+      client_id: 1
+      denied_claim_status_code: 20
+      denied_hipaa_code_id: 5
+
+four:
+      id: 6
+      reason_code_id: 2
+      facility_id: 11
+      client_id: 1
+      claim_status_code: 14
+      denied_hipaa_code_id: 6
+
+seven:
+      id: 7
+      reason_code_id: 3
+      facility_id: 11
+      client_id: 1
+      claim_status_code: 14
+      denied_hipaa_code_id: 6
+
+eight:
+      id: 8
+      reason_code_id: 4
+      facility_id: 11
+      client_id: 1
+      denied_claim_status_code: 16
+      active_indicator: 1
+      denied_hipaa_code_id: 6
+
+nine:
+      id: 9
+      reason_code_id: 5
+      facility_id: 11
+      client_id: 1
+      denied_hipaa_code_id: 6
+
+ten:
+      id: 10
+      reason_code_id: 6
+      facility_id: 11
+      client_id: 1
+      denied_hipaa_code_id: 6
+
+site_level_crosswalk_for_rc_id_51:
+      id: 51
+      reason_code_id: 51
+      client_id: 
+      facility_id: 81
+      active_indicator: 1
+      reporting_activity1: 1
+      reporting_activity2: 2
+      claim_status_code: CSC
+      denied_claim_status_code: DCSC
+      hipaa_code_id: 7
+      hipaa_group_code: HGG
+      denied_hipaa_code_id: 8
+
+client_level_crosswalk_for_rc_id_51:
+      id: 52
+      reason_code_id: 51
+      client_id: 13
+      facility_id:
+      active_indicator: 1
+      reporting_activity1: 1
+      reporting_activity2: 2
+      claim_status_code: CL_CSC
+      denied_claim_status_code: CL_DCSC
+      hipaa_code_id: 8
+      hipaa_group_code: HGC
+
+global_level_crosswalk_for_rc_id_51:
+      id: 53
+      reason_code_id: 51
+      client_id:
+      facility_id:
+      active_indicator: 1
+      reporting_activity1: 1
+      reporting_activity2: 2
+      claim_status_code: GL_CSC
+      denied_claim_status_code: GL_DCSC  
+
+client_level_crosswalk_for_rc_id_52:
+      id: 54
+      reason_code_id: 52
+      client_id: 13
+      facility_id:
+      active_indicator: 1
+      hipaa_code_id: 8
+
+global_level_crosswalk_for_rc_id_52:
+      id: 55
+      reason_code_id: 52
+      client_id:
+      facility_id:
+      active_indicator: 1
+
+global_level_crosswalk_for_rc_id_53:
+      id: 57
+      reason_code_id: 53
+      client_id:
+      facility_id:
+      active_indicator: 1
+      hipaa_code_id: 9
+      denied_hipaa_code_id: 10
+
+non_footnote_payer_1:
+      id: 58
+      reason_code_id: 59
+
+non_footnote_payer_2:
+      id: 59
+      reason_code_id: 60
+
+footnote_payer_1:
+      id: 60
+      reason_code_id: 61
+
+footnote_payer_2:
+      id: 61
+      reason_code_id: 62
+
+non_footnote_payer_3:
+      id: 62
+      reason_code_id: 59
+
+non_footnote_payer_4:
+      id: 63
+      reason_code_id: 60
+
+footnote_payer_3:
+      id: 64
+      reason_code_id: 61
+
+footnote_payer_4:
+      id: 65
+      reason_code_id: 62
+
+new_reason_code:
+      id: 66
+      reason_code_id: 58
+      client_id: 13
+      facility_id: 81
+      active_indicator: 1
+      hipaa_code_id: 12
+      hipaa_group_code: HGC
+
+new_reason_code_with_hipaa_mapping_for_non_bac:
+      id: 67
+      reason_code_id: 57
+      client_id:
+      facility_id:
+      active_indicator: 1
+      hipaa_code_id: 11
+
+non_footnote_payer_5:
+      id: 68
+      reason_code_id: 63
+
+non_footnote_payer_6:
+      id: 69
+      reason_code_id: 64
+
+non_footnote_payer_7:
+      id: 70
+      reason_code_id: 65
+
+non_footnote_payer_8:
+      id: 71
+      reason_code_id: 66
+
+non_footnote_payer_9:
+      id: 72
+      reason_code_id: 67
+      hipaa_code_id: 11
+
+non_footnote_payer_10:
+      id: 73
+      reason_code_id: 68
+
+non_footnote_payer_11:
+      id: 74
+      reason_code_id: 69
+
+non_footnote_payer_12:
+      id: 75
+      reason_code_id: 70
+
+non_footnote_payer_13:
+      id: 76
+      reason_code_id: 56
+      active_indicator: 1
+      hipaa_code_id: 7
+      hipaa_group_code: HGC
+
+site_level_crosswalk_for_rc_id_87:
+      id: 77
+      reason_code_id: 87
+      client_id:
+      facility_id: 92
+      active_indicator: 1
+      reporting_activity1: 1
+      reporting_activity2: 2
+      claim_status_code: CSC
+      denied_claim_status_code: DCSC
+      hipaa_code_id: 7
+      hipaa_group_code: HGC
+
+crosswalk_record_for_rc_id_92:
+      id: 78
+      reason_code_id: 92
+      client_id:
+      facility_id:
+      active_indicator: 1
+      reporting_activity1: 11
+      reporting_activity2: 22
+      claim_status_code: 4
+      denied_claim_status_code: 2
+      hipaa_code_id: 10
+      hipaa_group_code: GC-H
+
+mapping_record_for_rc_id_8:
+  id: 79
+  reason_code_id: 8
+  active_indicator: 1
+
+mapping_record_for_rc_id_9:
+  id: 80
+  reason_code_id: 9
+  active_indicator: 1
+
+mapping_record_for_rc_id_10:
+  id: 81
+  reason_code_id: 10
+  active_indicator: 1
+
+crosswalk_for_rc_id_22:
+      id: 82
+      reason_code_id: 22
+      client_id:
+      facility_id: 81
+      active_indicator: 1
+      reporting_activity1: 1
+      reporting_activity2: 2
+      claim_status_code: CSCD
+      denied_claim_status_code: DCSCD
+      hipaa_code_id: 15
+      hipaa_group_code: CO
+      denied_hipaa_code_id: 8
+      

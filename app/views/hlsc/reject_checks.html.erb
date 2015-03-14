@@ -1,0 +1,38 @@
+<h1>Reject Checks for Batch <%= @batch.batchid %></h1>
+
+<%= form_tag :action => "reject_checks" do %>
+<table>
+  <tr>
+    <th>Check Number</th>
+    <th>Reason</th>
+  </tr>
+  <tr>
+    <td><%= select "job","check_number", @checks %></td>
+    <td><%= text_field_with_auto_complete :job_rejection_comment, :comment%></td>
+    <td><%= submit_tag "Reject", :class => "button" %> </td>
+  </tr>
+</table>
+
+<% if @rejected_jobs.size > 0 %>
+  <h5> Rejected Checks </h5>
+
+<table>
+  <tr>
+    <th>Check Number</th>
+    <th>Reason</th>
+  </tr>
+<% @rejected_jobs.each do |job| %>
+  <% unless job.nil? %>
+    <tr>
+      <td><%= job.check_number %></td>
+      <td><%= job.comment %></td>
+      <td><%= link_to "Clear", :action => "reject_checks", :accept_job => job  %></td> 
+    </tr>
+  <% end %>
+<% end %>
+</table>
+<% end %>
+<!-- <%= submit_tag "Finish", :class => "button" %>
+<% end %> -->
+<br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => "batch_status" %>

@@ -1,0 +1,45 @@
+ISA06,835_SEG,6,ISA
+ISA08,835_SEG,8,ISA
+ISA13,835_SEG,13,ISA
+ISA16,835_SEG,16,ISA
+ST02,835_SEG,2,ST
+BPR10,835_SEG,10,BPR
+BPR15,835_SEG,15,BPR
+BPR16,835_SEG,16,BPR
+TRN02,835_SEG,2,TRN
+TRN03,835_SEG,3,TRN
+Payer ID,835_SEG_OPT,[Payer ID],ISA06
+Facility Name,835_SEG_OPT,[Facility Name],ISA06
+Pre Defined Payer ID,835_SEG_OPT,[Pre Defined PayerID],ISA06
+Facility Name,835_SEG_OPT,[Facility Name],ISA08
+Client TIN number,835_SEG_OPT,[Client TIN],ISA08
+Counter,835_SEG_OPT,[Counter],ISA13
+Lockbox Number,835_SEG_OPT,[Lockbox Number],ISA13
+Incremental Sequence Number,835_SEG_OPT,[Sequence Number],ST02
+HLSC Batch ID+Incremental Sequence,835_SEG_OPT,[Batch ID + Sequence],ST02
+HLSC Payer ID,835_SEG_OPT,[HLSC Payer ID],BPR10
+DDA Number,835_SEG_OPT,[DDA Number],BPR15
+Check Date,835_SEG_OPT,[Check Date],BPR16
+Batch Date,835_SEG_OPT,[Batch Date],BPR16
+Check Number,835_SEG_OPT,[Check Number],TRN02
+Batch ID,835_SEG_OPT,[Batch ID],TRN02
+Batch Date,835_SEG_OPT,[Batch Date],TRN02
+Check Number+Batch Date+Batch Time+Source Filename,835_SEG_OPT,[Check Num + Batch Date + Batch Time + Filename],TRN02
+1+Payer TIN,835_SEG_OPT,[1 + Payer TIN],TRN03
+HLSC Payer ID,835_SEG_OPT,[HLSC Payer ID],TRN03
+Deposit Date,835_SEG_OPT,[Deposit Date],DTM02
+Processing Date,835_SEG_OPT,[Processing Date],DTM02
+Provider TIN,835_SEG_OPT,[Provider TIN],N104
+Lockbox Number,835_SEG_OPT,[Lockbox Number],N104
+Provider TIN,835_SEG_OPT,[Provider TIN],REF02
+Check Number,835_SEG_OPT,[Check Number],REF02
+Trace Identification Number,835_SEG_OPT,[Trace Number],REF02
+Provider NPI,835_SEG_OPT,[Provider NPI],NM18209
+Provider TIN,835_SEG_OPT,[Provider TIN],NM18209
+Lockbox Number+Trace Number,835_SEG_OPT,[Lockbox Number + Trace Number],NM18209
+TRUE,835_SEG_OPT,[True],SVC05
+DTM02,835_SEG,2,DTM
+N104,835_SEG,4,N1
+REF02,835_SEG,2,REF
+NM18209,835_SEG,9,NM182
+SVC05,835_SEG,5,SVC

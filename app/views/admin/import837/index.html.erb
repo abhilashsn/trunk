@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+<%= javascript_include_tag "import837" %>
+
+<div style="width:100%">
+  <div id="innercontent">
+    <div style="min-height:450px;width:100%; margin-left:20px; margin-top:20px;">
+      <h1>Import 837</h1>
+      <% if @user_has_access %>
+        <%= form_tag({:action => 'upload837'}, :multipart => true) do %>
+          <p>
+            <label for="facilities_names">
+              Select a  Facility
+            </label>
+            : <%= select("facility", "name", ["Select"].concat(@facilities.collect {|p| [ p.name, p.name ] })) %>
+          </p>
+          <p>
+            <label for="upload_file">
+              Select a  Zip File
+            </label>
+            : <%= file_field 'upload', 'datafile' %>
+          </p>
+          <%= submit_tag "Upload", :onclick => "return validate_form()"%>
+        <%end %>
+      <%end %>
+    </div>
+  </div>
+</div>
+

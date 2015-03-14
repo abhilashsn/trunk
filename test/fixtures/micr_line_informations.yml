@@ -1,0 +1,190 @@
+
+micr1:
+      id: 99
+      aba_routing_number: '123456789'
+      payer_account_number: '3456789087'
+      payer_id: 4
+
+micr2:
+      id: 100
+      payer_id: 14
+      aba_routing_number: '12345789'
+      payer_account_number: '34745489087'
+
+micr3:
+      id: 101
+      payer_id: 14
+      aba_routing_number: '12878989'
+      payer_account_number: '3477879087'
+
+micr4:
+      id: 1
+      payer_id: 28
+      aba_routing_number: 012345678
+      payer_account_number: 0123456789
+
+micr5:
+      id: 2
+      payer_id: 30
+      aba_routing_number: 123456780
+      payer_account_number: 1234567890
+
+micr5_not_excluded:
+      id: 5
+      payer_id: 40
+      aba_routing_number: '12878988'
+      payer_account_number: '3477879088'
+
+micr6:
+      id: 6
+      aba_routing_number: 234567801
+      payer_account_number: 2345678901
+      payid_temp: 88301
+
+micr_7:
+      id: 7
+      payer_id: 220
+      payid_temp: "temp_payid"
+  
+micr152:  #owner :Dhanya
+      id: 152
+      aba_routing_number: 213456781
+      payer_account_number: 2134567891
+      payer_id: 219
+
+micr_line_info_has_mapped_payer_153:  #owner :Ramya
+      id: 153
+      aba_routing_number: 213490908
+      payer_account_number: 909090789
+      payer_id: 221
+
+micr_line_info_has_unmapped_payer_154:  #owner :Ramya
+      id: 154
+      aba_routing_number: 909090909
+      payer_account_number: 909090789
+      payer_id: 222
+      status: 'Approved'
+
+micr_line_info_without_payer_155:  #owner :Ramya
+      id: 155
+      aba_routing_number: 909090909
+      payer_account_number: 909090789
+      status: 'New'
+
+micr_info_3:
+      id: 3
+      aba_routing_number: 909090
+      payer_account_number: 909090
+      payer_id: 48
+
+micr_info_4:
+      id: 4
+      aba_routing_number: 9090909
+      payer_account_number: 9090909
+      payer_id:
+
+micr_info_156:
+      id: 156
+      aba_routing_number: 123456789
+      payer_account_number: 123
+      payer_id: 305
+
+micr_info_157:
+      id: 157
+      aba_routing_number: '223-56789'
+      payer_account_number: '223'
+      payer_id: 306
+
+micr_info_159:
+      id: 159
+      aba_routing_number: '222222222'
+      payer_account_number: '555'
+      payer_id: 308
+
+micr_info_160:
+      id: 768
+      aba_routing_number: 0
+      payer_account_number: 4567
+      payer_id: 968
+      status: "APPROVED"
+
+micr_8:
+      id: 8
+      aba_routing_number: 121234345
+      payer_account_number: 121234345
+      payer_id: 57
+
+micr_9:
+      id: 9
+      aba_routing_number: 121121121
+      payer_account_number: 121121121
+      payer_id: 57
+
+micr_10:
+      id: 10
+      aba_routing_number: 100000111
+      payer_account_number: 100000111
+      payer_id: 61
+
+micr_11:
+      id: 11
+      aba_routing_number: 100001111
+      payer_account_number: 100001111
+      payer_id: 62
+
+micr_12:
+      id: 12
+      aba_routing_number: 100111111
+      payer_account_number: 100111111
+      payer_id: 63
+
+micr_13:
+      id: 13
+      aba_routing_number: 100111100
+      payer_account_number: 100111100
+      payer_id: 66
+
+micr_14:
+      id: 14
+      aba_routing_number: 567567567
+      payer_account_number: 567567567
+      payer_id: 69
+      status: NEW
+
+micr_15:
+      id: 15
+      aba_routing_number: 765765765
+      payer_account_number: 765765765
+      payer_id: 70
+      status: APPROVED
+
+micr_16:
+      id: 16
+      aba_routing_number: 457567111
+      payer_account_number: 457567111
+      payer_id: 70
+      status: APPROVED
+
+micr_17:
+      id: 17
+      aba_routing_number: 456000564
+      payer_account_number: 456000564
+      payer_id: 
+      status: APPROVED
+
+micr_18:
+    id: 18
+    aba_routing_number: 456111564
+    payer_account_number: 456111564
+    payer_id:
+    status: APPROVED
+    payid_temp: D9998
+
+micr_19:
+    id: 19
+    aba_routing_number: 222111333
+    payer_account_number: 222111333
+    payer_id:
+    status: APPROVED
+    payid_temp: 
+

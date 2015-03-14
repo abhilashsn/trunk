@@ -1,0 +1,58 @@
+<h1>HLSC Report</h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'hlsc_report' do %>
+    <strong>Date:</strong>&nbsp;From
+    <%= text_field_tag 'find_from', nil,  :size => '10' %>
+    &nbsp;To
+    <%= text_field_tag 'find_to', nil,  :size => '10' %>
+    <%= submit_tag 'Filter', :class => 'button' %>
+  <% end %>
+</div>
+
+<% if @reports.size > 0 %>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @reports%>
+</div>
+<table>
+  <tr>
+    <th>Batch Date</th>
+    <th>Batches Processed</th>
+    <th>Batches Rejected</th>
+    <th>Batches Accepted (%)</th>
+    <th>EOBs Processed</th>
+    <th>EOBs Rejected</th>
+    <th>EOBs Accepted(%)</th>
+  </tr>
+  <% i = 0 %>
+    <% for report in @reports %>
+      <tr>
+        <td><%= format_date(report.batch_date.to_date) %></td>
+        <td><%= @batches_processed[i].complete_batches %></td>
+        <td><%= @batches_processed[i].total_rejected_batches %></td>
+        <td><%= sprintf "%.2f",((@batches_processed[i].complete_batches.to_f - @batches_processed[i].total_rejected_batches.to_f) / @batches_processed[i].complete_batches.to_f) * 100 %></td>
+        <td><%= @batches_processed[i].total_eobs %></td>
+        <td><%= @batches_processed[i].total_rejected_eobs.to_i %></td>
+        <td><%= sprintf "%.2f",((@batches_processed[i].total_eobs.to_f - @batches_processed[i].total_rejected_eobs.to_i) / @batches_processed[i].total_eobs.to_f) * 100 %></td>
+      </tr>
+      <% i += 1 %>
+    <% end %>
+    <%if @reports.size > 1%>
+    <tr><td><strong>Summary:<strong></td></tr>
+    <tr>
+      <td><%= @summary['date']%></td>
+      <td><%= @summary['batches_processed'] %></td>
+      <td><%= @summary['batches_rejected'] %></td>
+      <td><%= sprintf "%.2f", ((@summary['batches_processed'].to_f - @summary['batches_rejected'].to_f) / @summary['batches_processed'].to_f) * 100 %></td>
+      <td><%= @summary['eobs_processed']%></td>
+      <td><%= @summary['eobs_rejected']%></td>
+      <td><%= sprintf "%.2f", ((@summary['eobs_processed'].to_f - @summary['eobs_rejected'].to_f) / @summary['eobs_processed'].to_f) * 100 %></td>
+    </tr>
+    <% end %>
+</table>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @reports%>
+</div>
+<% else %>
+  <h4> No Matching Report Found. </h4>
+<% end %>

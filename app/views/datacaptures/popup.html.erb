@@ -1,0 +1,47 @@
+
+<%= form_tag url_for(:action => 'correct_answer', :controller => 'datacaptures') do %>
+
+  <table  width="99%" align="center" >
+    <tr>
+      <td class="black_text" style="padding:10px;"><b><%=@question.comment%></b></td>
+    </tr>
+    <tr>
+      <td height="1px" bgcolor="#ccc"></td>
+    </tr>
+    <tr>
+      <td>
+        <%=hidden_field_tag :error_popup_id,@question.id %>
+        <%=hidden_field_tag :payer,params[:payer] %>
+        <%=hidden_field_tag :id_pop,@alert_ids %>
+
+        <%if flash[:message]%>
+          <span class="alert" style="padding:10px"><b><%=flash[:message]%></b></span><br/>
+        <%end%>
+      </td>
+    </tr>
+  </table>
+<%if (!(@question.Question).blank?)%>
+    <table width="99%" align="center" class="black_text">
+      <tr>
+        <td><%=@question.Question%></td>
+      </tr>
+      <tr>
+        <td><%=radio_button_tag :choice,@question.choice1%><%=@question.choice1%><br/><%=radio_button_tag :choice,@question.choice2%><%=@question.choice2%><br/><%=radio_button_tag :choice,@question.choice3%><%=@question.choice3%></td>
+      </tr>
+      <tr>
+        <td><%=submit_tag "Submit", :class => "submit_save"%></td>
+      </tr>
+      <tr>
+      <%else%>
+        <%=submit_tag "OK", :class => "submit_save"%>
+      <%end%>
+
+    </tr>
+  <%end%>
+</table>
+<%if (!@question.data_file_id.blank?)%>
+  <% datafile = @question.data_file %>
+
+  <%= link_to "See attached document here "  ,{:controller => "datacaptures", :action => "show",
+    :filename => datafile.file_name},:target => "_blank" %>
+<%end%>

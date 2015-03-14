@@ -1,0 +1,136 @@
+<div id="login_main">
+  <h1>Listing my jobs</h1>
+  <%= render "shared/error_messages", :target => @job %>
+  <!-- %= error_messages_for 'job' % -->
+  <%i=0 %>
+  <% unless @jobs.empty? %>
+
+    <%= will_paginate @jobs %>
+    <%= show_legend({"white" => "ALLOCATED", "red" => "REJECTED"}) %>
+
+    <table width='100%'>
+      <tr>
+        <th>
+          Batch ID
+          <br/>
+          <font size='1'>
+            (Date)
+          </font>
+        </th>
+        <th>
+          Facility
+        </th>
+        <th>
+          Payer
+        </th>
+        <th>
+          Check Number
+        </th>
+        <th>
+          QA
+        </th>
+        <th>
+          Estimated EOBs
+          <br/>
+          (Remaining EOBs)
+        </th>
+        <th>
+          Comment
+        </th>
+        <th>
+          Arrival Time
+        </th>
+        <th>
+          Target Time
+        </th>
+        <th>
+          Estimated Completion Time
+        </th>
+        <th>
+          ErrorType
+        </th>
+        <th>
+          Page From
+        </th>
+        <th>
+          Page To
+        </th>
+        <th>
+          &nbsp;
+        </th>
+      </tr>
+      <% cnt = 0 %>
+      <% @jobs.each do |job|
+        cls = (job.job_status == JobStatus::REJECTED ? 'red' : 'white' )%>
+        <% cnt += 1 %>
+        <tr>
+          <td class="<%= cls %>" align='left'>
+            <div style="text-align:center;"><%= job.batchid %>
+              <br/>
+              <font size='1'>
+                (<%=  Date.parse(job.batch_date.to_s).strftime('%m/%d') unless job.batch_date.nil? %>)</div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.facility_name %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%=job.name_payer%></div>
+          </td>          
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%=job.check_number%></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><% unless job.qa_name.nil? %><%= job.qa_name %><%else%> - <% end %></div>
+          </td>          
+          <td class="<%= cls %>" align='right'>
+            <div style="text-align:center;"><%= job.estimated_eob.to_f.round %>(<%if job.incomplete_eob_count.blank? %> 0 <%else %><%= job.incomplete_eob_count %><%end %>)</div>
+          </td>
+          <% unless job.rejected_comment.blank? %>
+            <td>
+              <div style="text-align:left;"><textarea readonly='true'class="black_text"><%= job.rejected_comment %></textarea></div>
+            </td>
+          <%else %>
+            <td>
+                                                   <%  ocr_comment = job.is_ocr %>
+                           <div style="text-align:left;"><%= ocr_comment %></div>
+            </td>
+          <%end %>
+          <%= form_tag :action => 'complete_job', :id => job.id do %>
+            <td>
+              <div style="text-align:center;"><%= ((job.arrival_time.nil? || job.arrival_time.blank?) ? " " : format_datetime(job.arrival_time.to_s))%></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= ((job.target_time.nil? || job.target_time.blank?) ? " " : format_datetime(job.target_time.to_s))%></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= ((job.expected_completion_time.blank?) ? " " : format_datetime(job.expected_completion_time.to_s)) %></div>
+            </td>
+            <% if job.error_type.blank?
+              errors = '-'
+            else
+
+              errors = job.error_type { |e| e+ ',' }
+
+            end %>
+            <td>
+              <div style="text-align:left;"><textarea name='payerid' readonly='true' class="black_text"><%= errors %></textarea></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= (job.pages_from.blank? ? "-": job.pages_from)%></div>
+            </td>
+            <td>
+              <div style="text-align:center;"><%= (job.pages_to.blank? ? "-" : job.pages_to)%></div>
+            </td>
+            <td>
+              <% allow_special_characters = find_attribute_from_text_column(job.facility_details, 'patient_account_number_hyphen_format: true') %>
+              <div style="text-align:center;"><%= link_to 'Data Capture ', {:controller => 'insurance_payment_eobs', :action => 'claim',:batch_id => job.batch_id,:checknumber => job.check_number,:job_id => job.id ,:first => 1, :allow_special_characters => allow_special_characters, :mode => ((ocr_comment == 'OCR') ? "VERIFICATION" : "NON_VERIFICATION" )}, :id => "data_capture_id#{cnt}" %></div>
+            </td>
+          </tr>
+        <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h4>You don't have any assigned jobs!!</h4>
+  <% end %>
+</div>

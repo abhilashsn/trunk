@@ -1,0 +1,63 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+#  column: value
+
+balance_record_config_1:
+      id: 21
+      first_name: Patient
+      last_name: Name
+      account_number: 78901
+      is_payer_the_patient: false
+      category: Missing Image
+      source_of_adjustment: balance
+      facility_id: 25
+
+balance_record_config_2:
+      id: 1
+      first_name: "John"
+      last_name: "Britas"
+      account_number: 78901
+      is_payer_the_patient: false
+      category: "Missing Image"
+      source_of_adjustment: "balance"
+      facility_id: 25
+
+balance_record_config_3:
+      id: 2
+      account_number: 78901
+      is_payer_the_patient: true
+      category: "Mismatch Image"
+      source_of_adjustment: "check"
+      facility_id: 25
+
+balance_record_config_4:
+      id: 4
+      account_number: 78901
+      is_payer_the_patient: true
+      category: "Unreadable Image"
+      source_of_adjustment: "check"
+      facility_id: 25
+
+balance_record_config_5:
+      id: 5
+      account_number: 78901
+      is_payer_the_patient: true
+      category: "Balancing Eob"
+      source_of_adjustment: "check"
+      facility_id: 25
+
+balance_record_config_6:
+      id: 6
+      account_number: 78901
+      is_payer_the_patient: true
+      category: "Correspondence"
+      source_of_adjustment: "check"
+      facility_id: 25

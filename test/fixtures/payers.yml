@@ -1,0 +1,523 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: payers
+#
+#  id                :integer(11)   not null, primary key
+#  date_added        :date          
+#  initials          :string(255)   
+#  from              :string(255)   
+#  gateway           :string(255)   
+#  payid             :string(255)   
+#  payer             :string(255)   
+#  gr_name           :string(255)   
+#  pay_address_one   :text          
+#  pay_address_two   :text          
+#  pay_address_three :text         
+#  phone             :string(255)   
+#
+
+first:
+      id:         1
+      gateway:    'gateway1'
+      payid:      '1'
+      payer:      'anand'
+
+another:
+      id:         2
+      gateway:    'gateway2'
+      payid:      '2'
+      payer:      'karu'
+
+payer_name:
+      id:         3
+      gateway:    facility_1
+      payer:      payer_1
+      
+#payer_4:
+#  id: 4
+#  reason_code_set_name: 15
+two:
+      id: 213
+      payer_type: 'Commercial'
+      payer: MOLINA
+      pay_address_one: ADD ONE
+      pay_address_two:
+      payer_city:
+      payer_state:
+      payer_zip: 55555
+
+non_patpay_payer:
+      id: 77
+      payer_type: 'Commercial'
+      payer: Non Patpay Payer
+      pay_address_one: ADD ONE
+      pay_address_two:
+      payer_city:
+      payer_state:
+      payer_zip: 55555
+
+payer_southcoast:
+      id:  343
+      payer: payer_southcoast
+
+payer7: #owner: sunil
+      id:               7
+      payid:            123481
+      payer:            'payer'
+      pay_address_one:  'postbox 56'
+      pay_address_two:  'DEMO ADD2'
+      payer_city: "city"
+      payer_state: "state"
+      payer_zip: "55555"
+      payer_tin: '3123123'
+      status: 'MAPPED'
+      reason_code_set_name_id: 18
+
+payer1:
+      id:  11
+      payer: 'Cigna'
+      pay_address_one: 'PO BOX 14079'
+      pay_address_two: ''
+      payer_city: 'NEWARK'
+      payer_state: 'OH'
+      payer_zip: '2345'
+      payer_type: 'Commercial'
+
+payer2:
+      id:              12
+      payid:           1
+      payer:           'NO PAYER'
+      pay_address_one: 'PO BOX 14072'
+      pay_address_two: ''
+      payer_city:      'NEWARK'
+      payer_state:     'OH'
+      payer_zip:       '88888'
+
+patient_payer:
+      id:               14
+      payid:            123481
+      payer:            'raman'
+      pay_address_one:  'postbox 56'
+      pay_address_two:  'DEMO ADD2'
+      payer_type:       'PatPay'
+
+insurance_payer:
+      id:               15
+      payid:            123481
+      payer:            'aetna'
+      pay_address_one:  'postbox 56'
+      pay_address_two:  'DEMO ADD2'
+      payer_type:        13
+
+payer4:
+      id:  4
+      payer: 'Humana'
+      pay_address_one: 'PO BOX 14079'
+      pay_address_two: 'HN JJ N'
+      payer_city: 'NEWARK'
+      payer_state: 'OH'
+      payer_zip: '2345'
+      payer_type: 'Commercial'
+      payer_tin: 898989
+      
+payer5:
+      id:  5
+      
+payer16:
+      id:  16
+      payer: 'Cigna'
+      pay_address_one: 'PO BOX 14079'
+      pay_address_two: ''
+      payer_city: 'NEWARK'
+      payer_state: 'OH'
+      payer_zip: '2345'
+      payer_type: 'PatPay'
+      
+payer13:
+      id:  13
+      payer: 'Aetna'
+      pay_address_one: 'PO BOX 15079'
+      pay_address_two: ''
+      payer_city: 'NEWARK'
+      payer_state: 'CH'
+      payer_zip: '32345'
+      payer_type: '13'
+      
+first:
+      id:         50
+      gateway:    'gateway1'
+      payid:      '1'
+      payer:      'anand'
+      reason_code_set_name_id: 3
+
+payer17:
+      id: 17
+      payer: 'Payer 17'
+      footnote_indicator: 0
+      status: APPROVED
+      reason_code_set_name_id: 1
+
+payer18:
+      id: 18
+      gateway: 'SOUTH'
+      status: 'MAPPED'
+  
+unclassified_non_footnote_payer:
+      id: 19
+      payer: UNCLASSIFIED NON FOOTNOTE
+      footnote_indicator:
+      status: New
+      payer_type: 19
+      reason_code_set_name_id: 4
+
+classified_non_footnote_payer:
+      id: 20
+      payer: NON FOOTNOTE
+      footnote_indicator: 0
+      status: CLASSIFIED
+      reason_code_set_name_id: 19
+      
+unclassified_footnote_payer:
+      id: 21
+      payer: UNCLASSIFIED FOOTNOTE
+      footnote_indicator:
+      status: New
+      payer_type: 21
+
+classified_footnote_payer:
+      id: 22
+      payer: FOOTNOTE
+      footnote_indicator: 1
+      status: CLASSIFIED
+      reason_code_set_name_id: 5
+
+mapped_payer:
+      id: 23
+      payer: MAPPED PAYER
+      status: MAPPED
+      payid: 7710p
+
+unmapped_payer:
+      id: 24
+      payer: UNMAPPED PAYER
+      status: UNMAPPED
+      reason_code_set_name_id: 2
+
+approved_payer:
+      id: 25
+      payer: APPROVED PAYER
+      status: APPROVED
+
+not_accepted_payer:
+      id: 26
+      payer: NOT ACCEPTED
+      status: NEW
+
+payer_27:
+      id: 27
+      payer: Payer27
+      payid: CMUN1
+
+payer_28:
+      id: 28
+      payer: Payer28
+      payid: 60054
+
+payer_29:
+      id: 29
+      payer: Payer29
+      payid: 23222
+
+payer_30:
+      id: 30
+      payer: Payer30
+      payid: 55247
+
+payer_31:
+      id: 31
+      payer: Payer31
+      payid: D9998
+
+payer_32:
+      id: 32
+      payer: Payer32
+      payid: 
+
+payer_33:
+      id: 33
+      payer: Payer33
+      footnote_indicator:
+      status: New
+      payer_type: 33
+
+payer_34:
+      id: 34
+      payer: Payer34
+      footnote_indicator:
+      status: New
+      payer_type: 34
+
+payer_35:
+      id: 35
+      payid:  'CMUN1'
+      payer:  'United'
+      status: 'MAPPED'
+
+payer_36:
+      id:     36
+      payid:  '60054'
+      payer:  'Aetna'
+      status: 'MAPPED'
+
+payer_37:
+      id:    37
+      payid: '23222'
+      payer: 'Aetna'
+      status: 'MAPPED'
+
+payer_38:
+      id: 38
+      payid: '55247'
+      payer: 'HIP'
+      status: 'MAPPED'
+
+payer20_not_excluded_has_micr:
+      id: 40
+
+payer21_excluded_based_on_payerid:
+      id: 41
+
+payer22_not_excluded:
+      id: 42
+
+payer_43:
+      id: 43
+      payer: Payer43
+      footnote_indicator:
+      status: New
+      payer_type: PatPay
+
+payer_44:
+      id: 44
+      payer: First Last
+      footnote_indicator:
+      status: New
+      payer_type: PatPay
+
+payer_45:
+      id: 45
+
+payer_205:
+      id: 205
+      payer: 'Payer205'
+      payid: '1232'
+      status: 'MAPPED'
+
+payer_206:
+      id: 206
+      payer: 'GEORGIA BLUE CROSS'
+      payid: '12312'
+
+payer_207:
+      id: 207
+      payer: 'Payer207'
+      payid: '12327'
+
+payer_208:  #Owner: Dhanya
+      id: 208
+      payer: 'Payer208'
+      payid: 'P2109'
+      status: 'MAPPED'
+  
+payer_209:  #Owner: Dhanya 
+      id: 209
+      payer: 'Payer209'
+      payid: '0SELF'
+      status: 'MAPPED'
+  
+payer_210:
+      id: 210
+      payer: 'Payer210'
+      payid: '4567'
+
+payer_211: #owner :Dhanya
+      id: 211
+      payer: 'Payer211'
+      payid: '3534'
+      status: 'MAPPED'
+ 
+
+payer_212: #owner :Dhanya
+      id: 212
+      payer: 'Payer212'
+      payid: 'P0730'
+      status: 'MAPPED'
+      
+footnote_payer:
+      id: 218
+      gateway:    'gateway1'
+      payid:      '1'
+      payer:      'footnote'
+      footnote_indicator: true
+
+payer_219:
+      id: 219
+      payer: 'Payer219'
+      status: 'MAPPED'
+      payid: 'D167'
+  
+new_payer_46:
+      id: 46
+      payer: Payer46
+      status: NEW
+      footnote_indicator:
+
+payer_220:
+      id: 220
+      payid: "P9888"
+      status: ""
+
+payer_221:  #owner :Ramya
+      id: 221
+      payid: "P9888"
+      status: 'MAPPED'
+      payer_type: 'PatPay'
+
+payer_222:  #owner :Ramya
+      id: 222
+      payid: "P9888"
+      status: 'NEW'
+      footnote_indicator: 0
+      payer_type: 'Commercial'
+
+payer_223:
+      id: 223
+      payer: FOOTNOTE
+      footnote_indicator: 1
+      status: 
+      reason_code_set_name_id: 7
+
+payer_224:
+      id: 224
+      payer: NONFOOTNOTE
+      footnote_indicator: 0
+      status: 
+      reason_code_set_name_id: 8
+
+payer_225:  #owner :Ramya
+      id: 225
+      payid: "D9888"
+      status: 'NEW'
+      footnote_indicator: 0
+
+payer_226:  #owner :Ramya
+      id: 226
+      payid: "888"
+      status: ""
+      footnote_indicator: 0
+
+payer_237: #owner :Dhanya
+      id: 237
+      payer: 'Payer237'
+      payid: '96563'
+      status: 'MAPPED'
+
+payer_238: #owner :Dhanya
+      id: 238
+      payer: 'Payer238'
+      payid: 'NADX1'
+      status: 'MAPPED'
+
+payer_239: #owner :Dhanya
+      id: 239
+      payer: 'Payer239'
+      payid: '87726'
+      status: 'MAPPED'
+
+payer_240: #owner :Dhanya
+      id: 240
+      payer: 'Payer240'
+      payid: '60054'
+      status: 'MAPPED'
+
+payer_241: #owner :Dhanya
+      id: 241
+      payer: 'Payer241'
+      payid: 'P9998'
+      status: 'MAPPED'
+
+payer_242: #owner :Dhanya
+      id: 242
+      payer: 'Payer242'
+      payid: 'P7736'
+      status: 'MAPPED'
+
+payer_243: #owner :Dhanya
+      id: 243
+      payer: 'Payer243'
+      payid: 'M96563'
+      status: 'MAPPED'
+      footnote_indicator: 0
+
+payer_47:
+      id: 47
+      footnote_indicator: 0
+      reason_code_set_name_id: 12
+
+payer_48:
+      id: 48
+      footnote_indicator: 0
+      eobs_per_image: 5
+      status:
+
+payer_to_reclassify_49:
+      id: 49
+      footnote_indicator: 1
+      reason_code_set_name_id: 13
+
+payer_to_reclassify_51:
+      id: 51
+      footnote_indicator: 0
+      reason_code_set_name_id: 14
+
+payer_with_nil_footnote_indicator:
+      id: 52
+      footnote_indicator: NULL
+      payer: Empty Payer
+      pay_address_one:
+      pay_address_two:
+      payer_city: 
+      payer_state:
+      payer_zip:
+
+
+payer1_sharing_the_set_name_with_another:
+      id: 53
+      reason_code_set_name_id: 15
+
+payer2_sharing_the_set_name_with_another:
+      id: 54
+      reason_code_set_name_id: 15
+
+payer_with_an_exclusive_set_name:
+      id: 55
+      reason_code_set_name_id: 16
+
+payer_301:
+      id: 301
+      payer: 'quadax_payer'
+
+payer_302:
+       id: 302
+       payer: 'test_payer'
+
+payer_303:
+       id: 303
+       payer: 'payer303'
+       reason_code_set_name_id: 20
+
+payer_304:
+       id: 304
+       payer: 'WPS Payer'
+       company_id: "9166123060"

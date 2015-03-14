@@ -1,0 +1,112 @@
+facility_user_1:
+      id: 1
+      user_id: 13
+      facility_id: 211
+      eobs_processed: 10
+      eligible_for_auto_allocation:
+
+facility_user_2:
+      id: 2
+      user_id: 17
+      facility_id: 288
+      eobs_processed: 10
+      eligible_for_auto_allocation: 1
+
+facility_user_3:
+      id: 3
+      user_id: 17
+      facility_id: 20
+      eobs_processed: 10
+      eligible_for_auto_allocation: 1
+
+facility_user_4:
+      id: 4
+      user_id: 19
+      facility_id: 288
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_5:
+      id: 5
+      user_id: 23
+      facility_id: 33
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_6:
+      id: 6
+      user_id: 23
+      facility_id: 34
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_7:
+      id: 7
+      user_id: 23
+      facility_id: 35
+      eobs_processed: 5
+      eligible_for_auto_allocation: 0
+
+facility_user_8:
+      id: 8
+      user_id: 24
+      facility_id: 34
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_11:
+      id: 11
+      user_id: 26
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_12:
+      id: 12
+      user_id: 27
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_13:
+      id: 13
+      user_id: 28
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_14:
+      id: 14
+      user_id: 30
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 0
+
+facility_user_15:
+      id: 15
+      user_id: 31
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_16:
+      id: 16
+      user_id: 32
+      facility_id: 36
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_17:
+      id: 17
+      user_id: 25
+      facility_id: 37
+      eobs_processed: 5
+      eligible_for_auto_allocation: 1
+
+facility_user_18:
+      id: 18
+      user_id: 14
+      facility_id: 32
+      eobs_processed: 10
+      eligible_for_auto_allocation:
+

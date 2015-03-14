@@ -1,0 +1,27 @@
+CK:
+    BATCH:
+        batchid: [ 15, 19 ]
+        lockbox: [ 9, 14 ]
+        date: [ 1, 8, date ]
+        bank_deposit_date: [ 1, 8, date ]
+    JOB:
+        check_number: [ 35, 44 ]
+    CHEQUE:
+        check_number: [ 35, 44 ]
+        check_amount: [ 23, 34, float ]
+    MICR:  
+        aba_routing_number: [ 45, 53 ]
+        payer_account_number: [ 54, 67 ]
+    IMAGE:
+        image_file_name: [ 68, 147 ]
+
+IN:
+    BATCH:
+        batchid: [ 15, 19 ]
+        lockbox: [ 9, 14 ]
+        date: [ 1, 8, date ]
+        bank_deposit_date: [ 1, 8, date ]
+    IMAGE:
+        image_file_name: [ 45, 124 ]
+      
+

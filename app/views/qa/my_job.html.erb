@@ -1,0 +1,103 @@
+<div id="login_main">
+  <h1>Listing my jobs</h1>
+  <%= render "shared/error_messages", :target => @job %>
+  <!-- %= error_messages_for 'job' % -->
+  <%= will_paginate @jobs %>
+  <% unless @jobs.empty? %>
+    <%= show_legend({"white" => "Allocated", "red" => "Rejected", "blue" => "Processor Completed"}) %>
+    <table style="width: 100%">
+      <tr>
+        <th>
+          Batch ID
+        </th>
+        <th>
+          Facility
+        </th>
+        <th>
+          Check Number
+        </th>
+        <th>
+          Processor
+        </th>
+        <th>
+          Processor Status
+        </th>
+        <th>
+          QA Status
+        </th>
+        <th>
+          Job Status
+        </th>
+        <th>
+          Estimated EOB
+        </th>
+        <th>
+          Comment for QA
+        </th>
+        <th>
+          Processor Comment
+        </th>
+      </tr>
+      <% @jobs.each do |job|
+        cls=""
+        if job.job_status == JobStatus::REJECTED
+          cls = 'red'
+        elsif ((!job.check_informations.blank? || !job.parent_job_id.blank?) && job.processor_status == ProcessorStatus::COMPLETED)
+          cls = 'blue'
+        else
+          cls = 'white'
+        end %>
+        <tr>
+          <td class="<%= cls %>" align='right'>
+            <div style="text-align:center;"><%= job.batchid %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.facility_name %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.display_check_number %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><% unless job.processor_name.nil? %>
+                <%= job.processor_name %>
+              <% else %>
+                None<% end %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.processor_status %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.qa_status %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:center;"><%= job.job_status %></div>
+          </td>
+          <td class="<%= cls %>" align='right'>
+            <div style="text-align:center;"><%= job.estimated_eob.to_f.round %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:left;"><%if job.comment_for_qa.blank? or job.comment_for_qa == ''%>
+                <%="-" %>
+              <%elsif job.comment_for_qa == 'null'%>
+                <%="-" %>
+              <%else %>
+                <%=job.comment_for_qa %>
+              <%end %></div>
+          </td>
+          <td class="<%= cls %>">
+            <div style="text-align:left;"><%if job.processor_comments.blank? or job.processor_comments == 'null'%>
+                <%="-" %>
+              <%else%>
+                <%=job.processor_comments  %>
+              <%end%></div>
+          </td>
+          <td>
+            <div style="text-align:center;"><%= link_to 'Verify/Reject',:controller => 'insurance_payment_eobs', :action => 'claimqa',:image_number => job.image_page_no, :job_id => job.id, :batch_id => job.batch_id,:checknumber =>  job.check_number,:first_qa => 1 %></div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h4>You don't have any assigned jobs!!</h4>
+  <% end %>
+</div>

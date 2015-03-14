@@ -1,0 +1,243 @@
+<div id="idletimeout" style="display: none">
+	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity.
+  <a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
+</div>
+<% unless current_user.nil? %>
+  <script type="text/javascript">
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    sessionTimeOut();
+    window.onbeforeunload = function() {
+      sessionTimeOutOnBrowserCloseInIframe();
+    }
+  </script>
+<% end %>
+<div style="height:55%; width:99.8%; float:left; clear:both;" id="resizable" onmouseover="setPointerAboveImage();" onmouseout="resetPointerAboveImage();">
+  <script LANGUAGE="JavaScript">
+    imagedisply('<%=@single_page_tiff_files%>', '<%=@multi_page_tiff_file%>')
+    //This will return the sub-uri if any
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+  </script>
+</div>
+<%= hidden_field_tag :user_id, (current_user.id if current_user)%>
+<% if current_user
+  roles = current_user.roles
+  current_user_role = roles.first.name if roles
+end %>
+<%= hidden_field_tag :user_role, current_user_role %>
+<%= hidden_field_tag :image_count_in_a_job, @image_count_in_a_job %>
+<%= hidden_field_tag :mode_value,@mode%>
+<%= hidden_field_tag :job_id, params[:job_id]%>
+<%= hidden_field_tag :check_id, @check_information.id %>
+<%= hidden_field_tag :claim_enabled_for_patient_pay, @claim_enabled_for_patient_pay%>
+<%= hidden_field_tag :claim_enabled_for_insurance_pay, @claim_enabled_for_insurance_pay%>
+<table width="98.5%">
+  <tr><td valign="top">
+      <%= link_to "FULL IMAGES [f]", {:controller => 'insurance_payment_eobs',
+        :action => 'show_eob_grid', :tab => "insurance_pay",:mode =>@mode, :job_id => params[:job_id]},  {:target => "myiframe",
+        :onclick=>"popup_image(#{@parent_job_id}); return false;",
+        :style =>"background:#087792; color: #FFFFFF; padding:2px; margin-right:3px;",
+        :class => "title_link popping_up_link", :accesskey => "f",:completed_eob_value => 'false'} %>
+      <%= link_to "IMAGE TYPE [t]", {:controller => 'image_types',:action => 'list',
+        :job_id => params[:job_id], :tab => "image_type"},  {:target => "myiframe",
+        :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;",
+        :class => "title_link", :accesskey => "t",
+        :onclick=>"uncheckClaimLevelEob();disableComplete();"} %>
+
+      <% if @show_orbograph_correspondance_link %>
+        <%= link_to "CORRESPONDANCE", {:controller => 'insurance_payment_eobs',
+          :action => 'show_orbograph_correspondance_grid', :job_id => params[:job_id], :tab => "correspondance"},
+          {:target => "myiframe", :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;",
+          :class => "title_link",:onclick=>"uncheckClaimLevelEob();enableComplete_patientpay()",:completed_eob_value => 'false'} %>
+      <%else%>
+        <% if @show_insurance_link %>
+          <%= link_to "INSURANCE PAYMENT", {:controller => 'insurance_payment_eobs',
+            :action => 'show_eob_grid', :tab => "insurance_pay", :job_id => params[:job_id]},
+            {:target => "myiframe", :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;",
+            :class => "title_link",:onclick=>"uncheckClaimLevelEob();enableComplete_patientpay();",:completed_eob_value => 'false'} %>
+        <% end %>
+
+        <% if @show_patpay_simplified_link %>
+          <%= link_to "PATIENT PAY [y]", {:controller => 'insurance_payment_eobs',:action => 'show_eob_grid', :tab => "patient_pay", :job_id => params[:job_id]},
+            {:target => "myiframe", :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;", :class => "title_link", :accesskey => "y",:onclick=>"uncheckClaimLevelEob();enableComplete_patientpay();",:completed_eob_value => 'false'} %>
+        <% end %>
+        <% if @show_patpay_nextgen_link %>
+          <%= link_to "PATIENT PAY [y]", {:controller => "datacaptures", :action => "patient_pay", :tab => "patient_pay", :job_id => params[:job_id]}, {:target => "myiframe",
+            :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;", :class => "title_link", :accesskey => "y" ,:onclick=>"uncheckClaimLevelEob();enableComplete_patientpay()",:completed_eob_value => 'false'} %>
+        <% end %>
+        <%= link_to "EOB SUMMARY [e]", {:controller => 'insurance_payment_eobs',
+          :action => 'show_eob_grid', :job_id => params[:job_id]},  {:target => "myiframe",
+          :onclick=>"popup_eob_summary(#{params[:job_id]}); return false;",
+          :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;",
+          :class => "title_link popping_up_link", :accesskey => "e"} %>
+        <%= link_to "PROVIDER ADJUSTMENT SUMMARY", {:controller => 'insurance_payment_eobs',:action => 'show_eob_grid', :job_id => params[:job_id]},  {:target => "myiframe",:onclick=>"popup_prov_adjustment_summary(#{params[:job_id]}); return false;", :style => "background:#195b6b;color: #FFFFFF; padding:2px; margin-right:3px;", :class => "title_link popping_up_link"} %>
+
+        <% if @client_name.upcase != "MEDISTREAMS"
+          display_style = ""
+        else
+          display_style = 'none'%>
+        <% end %>
+        <%= check_box_tag "claim_level_grid", "",false,:style =>"display: #{display_style};font-weight:normal;",
+          :onclick=>"show_claim_level_grid(this.checked,'processor')", :accesskey => "g" %>
+        <label id ="claim_level_eob_check_box" style ="display:<%=display_style%>; font-weight:normal;">
+          Claim Level Eob (g)
+        </label>
+
+        <%= parent_job_id_of_child_job %>
+        <% if @show_prov_adj_chk_box %>
+          <%= check_box_tag "prov_adjustment_grid", "", false, :onclick => "show_prov_adjustment_grid(this.checked, 'processor')" %>  Enable Provider Adjustment
+        <% end %>
+        <% if @facility.details[:interest_only_835] %>
+          <%= check_box_tag "interest_only_check", "", false,
+            :id => 'interest_only_check', :onclick => "displayProviderAdjustmentGrid(this.checked, 'processor', id)" %>  Interest Only Check
+        <% end %>
+        <%= sp_checkbox nil, "additional_job_creation_request", @facility.new_job_creation_applicable, nil, :onclick => "showAdditionalJobCreationRequest(id)", :checked => false %>
+        <%= sp_label 'Additional Job Request', @facility.new_job_creation_applicable , nil %>
+      <%end%>
+    </td>
+    <td>
+      <%if !@orbograph_correspondence_condition %>
+        <%action = 'insurance_eob_save'%>
+
+      <%else%>
+        <%action = 'orbo_correspondance_eob_save'%>
+      <%end%>
+
+      <%= form_tag :name=>'form1',:controller=>"datacaptures",:action => action do %>
+        <% eob_count_status = params[:eob_count_status] %>
+        <%= correspondence_batch(@check_information) %>
+        <%= hidden_field_tag :job_id, params[:job_id], :id =>'job_id' %>
+        <%= interest_only_check %>
+        <%= set_payer_details %>
+        <%= set_check_details %>
+        <% validation_functions = validation_on_completing_a_job(@parent_job_id, @eobs_count_on_job, eob_count_status, @client_name, @is_partner_bac) %>
+        <input type = "hidden" name = "total_claim_interest" id = "total_claim_interest" />
+        <input type = "hidden" name = "complete_button_flag" id = "complete_button_flag" />
+        <input type = "hidden" name = "image_type" id = "image_type" />
+        <%=  set_submit_button_value %>
+        <input type = "hidden" name = "option1" id = "after_button_hiding" />
+        <input type = "hidden" name = "flag_for_offset_eob" id = "flag_for_offset_eob" />
+        <%=hidden_field_tag :offset_eob_present, @offset_eob_present %>
+        <% if !@orbograph_correspondence_condition %>
+          <%validation_on_complete = " getSavedTT();#{validation_functions}"%>
+        <%else%>
+          <%validation_on_complete =  "return validateOrboComplete()"%>
+        <%end%>
+        <div id = "additional_job_creation_request_div"  style = "display:none;margin-left:2%;width:100%;height:100%;">
+          <%= text_area :additional_job_request, :comment, :style => "border: 1px solid",
+            :size => "20x2"%>
+          <%= submit_tag "Additional Job Request", :class => 'submit_button',
+            :name => "option1", :id => "additional_job_request_id",
+            :onclick => "return functionsToSubmitAdditionalJobRequest();" %>
+        </div>
+        <div>
+          <div id="complete_button" style="float:left" align="right">
+            <%= submit_tag "COMPLETE", :class => 'submit_button', :name => "option1",
+              :id => "complete_button_id", :accesskey=>"t", :onclick =>  "#{validation_on_complete}"%>
+            &nbsp;
+          </div>
+          <% if !@orbograph_correspondence_condition %>
+            <div id='complete_comment_text_area' style="display:none; float:left" align="left">
+              <%= select_tag "complete_processor_comment", options_for_select(@complete_job_comment_list.sort << ['Other', 'Other'], '--'),
+                {:onchange => 'makeCompleteCommentVisible()', :style => "width:67px;height:13px"}%>
+              &nbsp;
+              <textarea name="complete_proc_comment_other" cols="20" rows="2" class="content"
+                        id = 'complete_proc_comment_other' style="border: 1px solid; display:none;">
+              </textarea>
+            </div>
+          <%end%>
+          <% incomplete_validation_functions = validation_on_incompleting_a_job( @client_name, @eobs_count_on_job) %>
+          &nbsp;
+          <%= client_name %>
+          <% display_value = condition_to_hide_incomplete_button ? 'none' : 'block' %>
+          <span id="hide_incomplete_button" style="display:<%= display_value%>; float:left" align="right">
+            <%= submit_tag "INCOMPLETE", :class => 'submit_button',
+              :name => "option1", :id => "incomplete_button_id", :accesskey=>"e",
+              :onclick =>  "#{incomplete_validation_functions}" %>
+            &nbsp;
+          </span>
+          <% if(@client_name.upcase.strip != 'UPMC' && @client_name.upcase.strip != 'UNIVERSITY OF PITTSBURGH MEDICAL CENTER' )
+            incomplete_comment_list = @incomplete_job_comment_list.sort << ['Other', 'Other']
+          else
+            incomplete_comment_list = @incomplete_job_comment_list.sort
+          end%>
+          <div id='incomplete_comment_text_area' style="display:<%= display_value%>; float:left" align="left">
+            <%= select_tag "incomplete_processor_comment", options_for_select(incomplete_comment_list, '--'),
+              {:onchange => 'makeIncompleteCommentVisible()', :style => "width:67px;height:13px"} %>
+            &nbsp;
+            <textarea name="incomplete_proc_comment_other" cols="20" rows="2" class="content"
+                      id = 'incomplete_proc_comment_other' style="border: 1px solid; display:none;">
+            </textarea>
+          </div>
+        </div>
+      <%end %>
+    </td>
+    <td valign="top">
+      <%= image_tag "my_home.png", :border=>"0", :width=>"20", :height=>"21", :align=>"right" , :onclick=>"showInfo('info_div',1)" %>
+      <div id="info_div" class='overlay' style="background-color:#B0E0E6; visibility:hidden; " >
+
+
+        <%=link_to "View Knowledge Base (u)", {}, :class => "popping_up_link",
+          :accesskey => "u",
+          :onclick => "return popup_window('/documentupload/uploadfile?layout=false', 'document_upload', 'height=300, width=600, statusbar=0, menubar=0, resizable=0');"%>
+
+        <br>
+        <%= link_to image_tag("home.gif", :alt => "home",:border=>'0',:align=>'absmiddle'), :controller => '/dashboard' %>
+        <br>
+        <%= link_to image_tag("logout.gif", :alt => "Logout",:border=>'0',:align=>'absmiddle'), :controller => '/logout' %>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<%if flash[:notice] %>
+  <div id="message" class="alert" style:align="absmiddle">
+    <%= image_tag "alert.gif", :border=>"0", :width=>"20", :height=>"21", :align=>"absmiddle" %>&nbsp;<%= flash[:notice] %>
+  </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('message');", 15000)
+  </script>
+<%end %>
+<div style="clear:both; width:99.8%; height:38%">
+  <% if(is_eob_saved?) %>
+    <%  if(@insurance_eobs_saved == true)%>
+      <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" onmouseover="getFocus()" onblur="removeFocus()" src="<%= url_for(:action => 'show_eob_grid',
+        :controller => 'insurance_payment_eobs', :tab => "insurance_pay",:view => @view, :job_id => params[:job_id],:mode =>@mode,
+                :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+      </iframe>
+    <%  elsif(@patient_pay_eobs_saved  == true)%>
+      <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" onmouseover="getFocus()" onblur="removeFocus()" src="<%= url_for(:action => 'patient_pay',
+        :controller => 'datacaptures', :tab => "patient_pay",:view => @view, :job_id => params[:job_id],
+                :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+      </iframe>
+    <%end%>
+  <%else%>
+    <%if @show_orbograph_correspondance_link%>
+      <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" src="<%= url_for(:action => 'show_orbograph_correspondance_grid', :controller => 'insurance_payment_eobs', :tab => "correspondance",:view => @view, :job_id => params[:job_id],
+                :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+      </iframe>
+    <%else%>
+      <% if @show_patient_pay_grid_by_default %>
+        <% if @facility_pat_pay_format == "Simplified Format" %>
+          <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" onfocus="getFocus()" onmouseover="getFocus()" onblur="removeFocus()" src="<%= url_for(:action => 'show_eob_grid',
+            :controller => 'insurance_payment_eobs', :tab => "patient_pay",:view => @view, :job_id => params[:job_id],
+                    :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+          </iframe>
+        <% elsif @facility_pat_pay_format == "Nextgen Format" %>
+          <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" onfocus="getFocus()" onmouseover="getFocus()" onblur="removeFocus()" src="<%= url_for(:action => 'patient_pay',
+            :controller => 'datacaptures', :tab => "patient_pay",:view => @view, :job_id => params[:job_id],
+                    :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+          </iframe>
+        <% end %>
+      <% else %>
+        <iframe name="myiframe" id = "myiframe" class="myiframe" width="100%" height="100%" onfocus="getFocus()" onmouseover="getFocus()" onblur="removeFocus()" src="<%= url_for(:action => 'show_eob_grid',
+          :controller => 'insurance_payment_eobs', :tab => "insurance_pay",:view => @view, :job_id => params[:job_id],:mode =>@mode,
+                  :allow_special_characters => params[:allow_special_characters]) %>" style="border:1px #087792 solid; border-collapse:collapse;">
+        </iframe>
+      <% end %>
+    <% end %>
+  <%end%>
+</div>

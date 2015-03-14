@@ -1,0 +1,44 @@
+  <?xml version="1.0" encoding="utf-8" ?><%check=@checks.first%>
+ <BATCH COUNT="<%= count(@checks)%>" DOCTYPE="<%=doc_type(check)%>" DUETIME="<%=due_time(check)%>" PRIORITY="<%=priority(check)%>"  PROVIDERID="<%=provider_id(check)%>">
+  <% @checks.each_with_index do|check,counter| %>
+   <DOCUMENT NAME="<%=  image_name(check)%>" PAGES="<%=  pages(check)%>">
+     <EOB CHECKAMOUNT="<%= check_amount(check) %>" CHECKNUMBER="<%= check_number(check)%>" CHECKDATE="<%=check_date(check)%>">
+      <INSURANCECOMPANY NAME="<%=payer_name(check)%>" NAME2="<%=payer_address2(check)%>" ZIP="<%=payer_zip(check)%>" STATE="<%=payer_state(check)%>" CITY="<%=payer_city(check)%>" ADDRESS="<%=payer_address1(check)%>">
+          <PROVIDER NAME="<%=provider_name(check)%>" NAME2="<%=provider_address2(check)%>" ZIP="<%=provider_zip(check)%>" STATE="<%=provider_state(check)%>" CITY="<%=provider_city(check)%>" ADDRESS="<%=provider_address1(check)%>" />
+           <CLAIMS><%ins_eobs = get_ordered_insurance_payment_eobs(check)%><% ins_eobs.each_with_index do|ins_eob,counter1| %>
+              <CLAIM NUMBER="<%=transaction_control_number(counter1)%>" PATIENTFIRSTNAME="<%= ins_eob.patient_first_name%>" PATIENTLASTNAME="<%=ins_eob.patient_last_name%>" MEMBERFIRSTNAME="<%=ins_eob.subscriber_first_name%>" MEMBERLASTNAME="<%=ins_eob.subscriber_last_name%>" PATIENTACCOUNTNUMBER="<%=ins_eob.patient_account_number%>" MEMBERNUMBER="<%=ins_eob.subscriber_identification_code%>" CLAIMNUMBER="<%=ins_eob.claim_number%>" BILLEDAMOUNT="<%=ins_eob.total_submitted_charge_for_claim %>" ALLOWEDAMOUNT="<%=ins_eob.total_allowable%>" DISALLOWED="<%=ins_eob.disallowed%>" DEDUCTIBLE="<%=ins_eob.total_deductible%>" PAIDAMOUNT="<%=ins_eob.total_amount_paid_for_claim%>">
+                <SERVICELINES>
+                 <% service_eobs = ins_eob.service_payment_eobs%>
+                  <% service_eobs.each_with_index do|service_eob,counter2| %>
+                  <SERVICELINE SERVICELINENUMBER="<%=transaction_control_number(counter2)%>"><%service_line_count=0%>
+                    <BEGINDOS VALUE="<%=service_from_date(service_eob)%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <PROCEDURECODE VALUE="<%=service_eob.service_procedure_code%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <BILLEDAMOUNT VALUE="<%=service_eob.service_amount%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <ALLOWEDAMOUNT VALUE="<%=service_eob.service_allowable%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <DISALLOWED VALUE="<%=service_eob.service_disallowed%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <DEDUCTIBLE VALUE="<%=service_eob.service_deductible%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <DRGAMOUNT VALUE="<%=service_eob.drg_amount%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <PAIDAMOUNT VALUE="<%=service_eob.service_paid_amount%>" LINE="<%=transaction_control_number(service_line_count)%>" />
+                    <% @remarks=service_eob.ansi_remark_codes %>
+                    <%@remarks.each_with_index do|remark,counter3|%>
+                    <REMARKCODE VALUE="<%=remark_code(remark)%>" LINE="<%=transaction_control_number(counter3)%>" />
+                    <%end%>
+                   </SERVICELINE>
+                   <%end%>
+            </SERVICELINES>
+        </CLAIM>
+       <%end%>
+        <REMARKS>
+        <%@remarks.each_with_index do |remark,counter4|%>
+         <REMARK NUMBER="<%= transaction_control_number(counter4)%>">
+           <REMARKCODE VALUE="<%=remark_code(remark)%>" />
+           <REMARKCODEDESCRIPTION VALUE="<%=remark_description(remark)%>" />
+         </REMARK>
+         <%end%>
+        </REMARKS>
+        </CLAIMS>
+         </INSURANCECOMPANY>
+         </EOB>
+       </DOCUMENT>
+       <%end%>
+ </BATCH>

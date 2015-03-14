@@ -1,0 +1,9 @@
+<h1>New job</h1>
+
+<%= form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :class => 'button' %>
+<% end %>
+
+<br/>
+<%= link_to 'Cancel', :controller => 'batch', :action => 'list' %>

@@ -1,0 +1,112 @@
+<%= javascript_include_tag "report" %>
+<div id="login_main">
+<h1>Listing Batches Without TAT Comments that missed TAT </h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'batches_without_tat_comment' do %>
+    <%= select_tag 'criteria', optionize_custom(['Date', 'Batch ID'],params[:criteria]),
+      :onchange => "clearFindField()"%>
+    <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+    <%= text_field_tag 'to_find', params[:to_find], :size => '10',
+      :onFocus => "return showUserMessages()", :onBlur => "return clearUserMessages()"  %>
+    <%= submit_tag 'Filter', :class => 'button' %>
+  <div id="message1" style="font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-weight: bold;Color: #FF6600;text-decoration: none;"></div>
+    <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border => "0",
+      :id => "spinner", :style => "display: none;" ) %>
+  <% end %>
+</div>
+
+<% unless @batches_without_tat_comment.blank? %>
+    <%= show_legend({"white" => "New", "palered" => "Half Allocated", "lightblue" => "Processor Completed", "blue" => "Processing"}) %>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @batches_without_tat_comment, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]}%>
+    </div>
+  <table style="width:100%">
+    <tr>
+        <th>
+            Batch Date
+        </th>
+        <th>
+            <a>Batch ID</a>
+        </th>
+        <th>
+            Site
+        </th>
+        <th>
+            Arrival Time (EST)
+        </th>
+        <th>
+            Expected Completion Time (EST)
+        </th>
+        <th>
+            Estimated EOBs
+        </th>
+        <th>
+            Completed EOBs
+        </th>
+        <th>
+            Status
+        </th>
+        <%unless current_user.has_role?(:TL)%>
+        <th>
+            TAT Comment
+        </th>
+        <%end%>
+    </tr>
+    <% for batch in @batches_without_tat_comment %>
+    <% cls = ''
+      cls = case batch.status
+              when 'Processing'
+                'blue'
+              else
+                if batch.allocated.to_i > 0
+                  'palered'
+                elsif batch.processor_allocated.to_i > 0
+                  'lightblue'
+                end
+
+                unless batch.expected_completion_time.nil?
+                  'red' if batch.expected_completion_time.to_i >  batch.facility_tat.to_i
+                end
+            end
+    %>
+
+    <tr class="<%= cls %>">
+        <td><div style="text-align:center;">
+            <%= format_datetime(batch.date,'%m/%d/%y') unless batch.date.nil?  %>
+          </div></td>
+        <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>
+        <td><div style="text-align:center;">
+            <%= link_to batch.batchid, :controller => '/admin/job', :action => 'allocate', :id => batch, :back_page => params[:back_page] %>
+          </div></td>
+        <% else %>
+          <td><div style="text-align:center;"><%= batch.batchid %></div></td>
+        <% end %>
+        <td><div style="text-align:center;">
+          <%= batch.facility_name %>(<%= batch.facility_sitecode %>)</div></td>
+        <td><div style="text-align:center;">
+          <%= format_datetime(batch.arrival_time) %></div></td>
+        <td><div style="text-align:center;">
+            <% if batch.status == BatchStatus::NEW or batch.expected_completion_time.nil? %>
+            N/A<% else %>
+            <%= format_datetime(batch.expected_completion_time) %>
+            <% end %></div></td>
+        <td><div style="text-align:center;"><%= batch.tot_estimated_eobs %></div></td>
+        <td><div style="text-align:center;"><%= batch.tot_completed_eobs %></div></td>
+        <td><div style="text-align:center;"><%= batch.status %></div></td>
+        <%unless current_user.has_role?(:TL)%>
+        <td><div style="text-align:center;">
+          <%= batch.tat_comment %>&nbsp;&nbsp;<%= link_to image_tag("report_edit.png",
+              :alt => "Add TAT Comment",:border=>"0"), :action => 'comments',
+              :id => batch, :editable_field => 'tat_comment', :redirect_window => 'batches_without_tat_comment' %>
+          </div>
+        </td>
+        <%end%>
+    </tr>
+    <% end %>
+</table>
+<% else %>
+  <h4> No matching batches found. </h4>
+<% end %>
+</div>
+

@@ -1,0 +1,176 @@
+Lockbox_Array: "373769,373931,931311,931431,931469,931475,931625,931627,931628,931629,931630,931631,931632,931646,931752,931755,951190"
+Lockbox_373769:
+  Batch_id: "PNCB_0000373769_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 73769"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_373931:
+  Batch_Id: "PNCB_0000373931_ALL_L002_"
+  Facility_Name: "METRO HEALTH MEDICAL STR DENTAL"
+  NPI: 1346282324
+  TIN: 346004382
+  Address_one: "PO BOX 73931"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931311:
+  Batch_Id: "PNCB_0000931311_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931311"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931431:
+  Batch_Id: "PNCB_0000931431_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931431"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931469:
+  Batch_Id: "PNCB_0000931469_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931469"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931475:
+  Batch_Id: "PNCB_0000931475_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931475"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931625:
+  Batch_Id: "PNCB_0000931625_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931625"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931627:
+  Batch_Id: "PNCB_0000931627_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931627"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931628:
+  Batch_Id: "PNCB_0000931628_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931628"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931629:
+  Batch_Id: "PNCB_0000931629_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931629"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931630:
+  Batch_Id: "PNCB_0000931630_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931630"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931631:
+  Batch_Id: "PNCB_0000931631_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931631"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931632:
+  Batch_Id: "PNCB_0000931632_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931632"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931646:
+  Batch_Id: "PNCB_0000931646_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931646"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931752:
+  Batch_Id: "PNCB_0000931752_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931752"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_931755:
+  Batch_Id: "PNCB_0000931755_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 931755"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+Lockbox_951190:
+  Batch_Id: "PNCB_0000951190_ALL_L002_"
+  Facility_Name: "METRO HEALTH PROFESSIONAL GROUP"
+  NPI: 1053353896
+  TIN: 346004382
+  Address_one: "PO BOX 951190"
+  City: "CLEVELAND"
+  State: "OH"
+  Zip_code: "44193"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

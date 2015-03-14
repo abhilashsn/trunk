@@ -1,0 +1,23 @@
+<h1><%= @message if !@message.blank?%></h1>
+<br/><br/>
+<%if @batchwise_file_array and  @batchwise_file_array.length>0%>
+  <b>Batchwise Report</b><br/>
+<%for i in 0..@batchwise_file_array.length-1%>
+  <%= @batchwise_file_array[i]%><br/>
+    <%end%>
+  <%end%>
+  
+<br/><br/>
+<%if @patient_report_array and @patient_report_array.length>0%>
+  <b>PatientpayEob Report</b><br/>
+<%for j in 0..@patient_report_array.length-1%>
+  <%= @patient_report_array[j]%><br/>
+    <%end%>
+  <%end%>
+
+<br/>
+
+  
+  
+  
+

@@ -1,0 +1,204 @@
+<%= javascript_include_tag "batch" %>
+<%= javascript_include_tag "datacapture" %>
+<script LANGUAGE="JavaScript">
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+</script>
+<div id="ajax_container">
+  <div id="login_main">
+    <h1>Work List</h1>
+    <%= link_to 'Batches Without TAT Comments that missed TAT ', :controller => '/admin/batch',
+      :action => 'batches_without_tat_comment' %> |
+    <%=link_to 'Idle Processor UI', {}, :class => "popping_up_link",
+      :onclick => "return popup_window('/admin/user/idle_processors', 'idle_processors', 'height=300, width=900, statusbar=0, menubar=0, resizable=1');"%> |
+    <%= link_to 'Unattended Jobs with Offline Processors UI', :controller => '/admin/job',
+      :action => 'unattended_jobs' %> |
+    <%= link_to 'Export Work List', :controller => '/admin/batch',
+      :action => 'export_work_list', :criteria => params[:criteria],
+          :compare => params[:compare], :to_find => params[:to_find]  %>
+    <div class="light_info">
+      <%= form_tag :action => 'work_list' do %>
+        <%= select_tag 'criteria', optionize_custom(@field_options, params[:criteria]) %>
+        <%= select_tag 'compare', optionize_custom(['=','>', '<'], params[:compare])%>
+        <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+        <%= submit_tag 'Filter', :class => 'button' %>
+      <% end %>
+    </div>
+
+    <% unless @batches.blank? %>
+      <%= show_legend({"white" => "New", "blue" => "Processing",
+          "green" => "Keying Complete", "grey" => "QA Processing",
+          "palered" => "Output Ready", "orange" => "Partially Allocated Batch",
+          "orangered" => "TAT Missed","darkred" => "Late arrivals" }) %>
+      <br>
+      <div style="background-color:#e9eef2; width:100%;" class="black_text">
+        <%= will_paginate @batches, :params => {:criteria => params[:criteria],
+          :compare => params[:compare], :to_find => params[:to_find]}%>
+      </div>
+      <%= form_tag({:action => 'update_allocation_type_and_batch_status', :id => @batches_to_select,
+          :page=> params[:page] ,:back_page => params[:back_page]}, :id =>'my_form') do %>
+      <%unless current_user.has_role?(:TL)%>
+        <div style="clear:both;">
+          <%= submit_tag "Facility Wise Auto Allocation", :class => 'button', :name => "submit_param",
+            :onclick => "return validateForAddingToFacilityWiseAllocationQueue();" %>
+          <%= submit_tag "Payer Wise Auto Allocation", :class => 'button', :name => "submit_param",
+            :onclick => "return validateForAddingToPayerWiseAllocationQueue();" %>
+          <%= submit_tag "Remove From Auto Allocation", :class => 'button', :name => "submit_param" %>
+          <%= submit_tag "Make Output Ready", :class => 'button', :name => "submit_param",
+            :onclick => "validateForChangingStatusToComplete()" %>&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+          <%= submit_tag "#{@label_for_button}", :class => 'button',
+            :name => "submit_param", :id => 'ocr_auto_allocation_button_id'%>
+        </div>
+      <%end%>
+        <table style="width:100%;float:left;">
+          <tr>
+            <%= hide_and_seek_label :batch, :date, 'Batch Date', true, "th" %>
+            <%= hide_and_seek_label :batch, :batchid, 'Batch ID', true, "th" %>
+            <%= hide_and_seek_label :batch, :type, 'Type', true, "th" %>
+            <%= hide_and_seek_label :batch, :site, 'Site', true, "th" %>
+            <%= hide_and_seek_label :batch, :provider_code, 'RMS Provider ID', @is_rms, "th" %>
+            <%= hide_and_seek_label :batch, :arrival_time, 'Arrival Time', true, "th" %>
+            <%= hide_and_seek_label :batch, :facility_tat, 'Facility TAT', true, "th" %>
+            <%= hide_and_seek_label :batch, :number_of_checks, 'Number of checks', true, "th" %>
+            <%= hide_and_seek_label :batch, :number_of_images, 'Number of images', true, "th" %>
+            <%= hide_and_seek_label :batch, :index_file_amount, 'Index File Amount', true, "th" %>
+            <%= hide_and_seek_label :batch, :check_amount, 'Check Amount', true, "th" %>
+            <%= hide_and_seek_label :batch, :amount_so_far, 'Amount So Far', true, "th" %>
+            <%= hide_and_seek_label :batch, :balance, 'Balance', true, "th" %>
+            <%= hide_and_seek_label :batch, :eft_amount, 'EFT Amount', true, "th" %>
+            <%= hide_and_seek_label :batch, :internal_tat, 'Internal TAT', $IS_PARTNER_BAC, "th" %>
+            <%= hide_and_seek_label :batch, :completion_time, 'Production Completion Time', true, "th" %>
+            <%= hide_and_seek_label :batch, :exp_completion_time, 'Exp Completion Time', true, "th" %>
+            <%= hide_and_seek_label :batch, :estimated_eob, 'Estimated EOBs', true, "th" %>
+            <%= hide_and_seek_label :batch, :completed_eob, 'Completed EOBs', true, "th" %>
+            <%= hide_and_seek_label :batch, :status, 'Status', true, "th" %>
+            <%= hide_and_seek_label :batch, :tat_comment, 'TAT Comment', true, "th" %>
+            <%= hide_and_seek_label :batch, :priority, 'Priority', true, "th" %>
+            <%= hide_and_seek_label :batch, :allocation_type, 'Allocation Type', true, "th" %>
+            <%unless current_user.has_role?(:TL)%>
+            <th>
+              <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))"/>
+            </th>
+            <%end%>
+          </tr>
+          <% @batches.each_with_index do |batch, index|
+            @batch = batch
+            @index = index
+            total_chk_amt_of_chk_or_oth, total_eft_amt = @batch.totals
+            total_index_file_chk_amt = @batch.get_total_index_file_amount
+            provider_adj_amount = @batch.get_provider_adjustment_amount
+            asf = @batch.tot_amount_so_far.to_f + provider_adj_amount.to_f
+            %>
+          <% @batch.set_batch_type%>
+           <tr class="<%= legend_color_for_work_list %>">
+              <%= hide_and_seek_label :batch, :date,
+                (format_datetime(@batch.date,'%m/%d/%y') unless @batch.date.nil?), true, "td" %>
+              <td>
+                <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:TL) %>
+                  <%= link_to @batch.batchid, :controller => '/admin/job', :action => 'allocate', :id => @batch, :back_page => 'work_list' %>
+                <% end %>
+                <%= hidden_field_tag :batchid, @batch.batchid, :id => "batchid_#{@batch.id}" %>
+              </td>
+              <%= hide_and_seek_label :batch, :batch_type,(@batch.batch_type || '-'), true, "td" %>
+              <td nowrap>
+                <%= @batch.facility_name %>
+                <br>
+                (<%= @batch.facility_sitecode %>)
+              </td>
+              <%= hide_and_seek_label :batch, :provider_code, (@batch.provider_code || '-'), @is_rms, "td" %>
+              <%= hide_and_seek_label :batch, :arrival_time,
+                format_datetime(@batch.arrival_time), true, "td nowrap" %>
+              <% td_color_for_late_arrivals = @batch.target_time <(@batch.arrival_time + (@batch.facility_tat.to_i).hour) ?  "td nowrap bgcolor='#FF0000' " :"td nowrap" %>
+              <%= hide_and_seek_label :batch, :facility_tat,
+                format_datetime(@batch.batch_facility_tat(@batch.facility_tat)) || '-',
+                true,  td_color_for_late_arrivals %>
+              <%= hide_and_seek_label :batch, :number_of_checks, @batch.checks_count, true, "td"  %>
+              <%= hide_and_seek_label :batch, :number_of_images, (@batches_with_image_count[batch.id] || '-'), true, "td" %>
+              <%= hide_and_seek_label :batch, :index_file_amount, total_index_file_chk_amt.blank? ? " " :(sprintf("%.2f", total_index_file_chk_amt.to_f)), true, "td" %>
+              <%= hide_and_seek_label :batch, :check_amount, total_chk_amt_of_chk_or_oth.blank? ? " " :(sprintf("%.2f",total_chk_amt_of_chk_or_oth.to_f)), true, "td" %>
+              <%= hide_and_seek_label :batch, :amount_so_far, asf.blank? ? " " :(sprintf("%.2f",asf)), true, "td" %>
+              <% balance = total_chk_amt_of_chk_or_oth.to_f -  asf
+              balance = balance.zero? ? balance.abs : balance %>
+              <%= hide_and_seek_label :batch, :balance, balance.blank? ? " " :(sprintf("%.2f",balance)), true, "td" %>
+              <%= hide_and_seek_label :batch, :eft_amount, total_eft_amt.blank? ? " " :(sprintf("%.2f", total_eft_amt.to_f)), true, "td" %>
+             <%= hide_and_seek_label :batch, :internal_tat,
+                format_datetime(@batch.batch_internal_tat(@batch.client_internal_tat)) || '-' ,
+                $IS_PARTNER_BAC, "td nowrap" %>
+              <%= hide_and_seek_label :batch, :completion_time,
+                (format_datetime(@batch.completion_time) || '-'), true, "td" %>
+              <%= hide_and_seek_label :batch, :exp_completion_time,
+                format_datetime(@batch.expected_completion_time) || '-', true, "td nowrap" %>
+              <%= hide_and_seek_label :batch, :total_estimated_eobs,
+                (@batches_with_estimated_eob_count[batch.id].to_f.round || '-'),
+                true, "td" %>
+              <%= hide_and_seek_label :batch, :total_completed_eobs,
+                @batch.total_completed_eobs, true, "td" %>
+              <%= hide_and_seek_label :batch, :status,
+                @batch.status, true, "td" %>
+              <%= hidden_field_tag :status, @batch.status, :id => "status_#{@batch.id}" %>
+              
+              <td>
+                <% unless @batch.tat_comment.blank? %>
+                  <%= @batch.tat_comment %>
+                <%unless current_user.has_role?(:TL)%>
+                  <%= link_to image_tag("report_edit.png", :alt => "Edit", :title => "Edit", :border=>"0"),
+                    {:controller => '/admin/batch', :action => 'comments',
+                    :id => @batch, :editable_field => 'tat_comment', :redirect_window => 'unprocessed_batches'} %>|
+                  <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+                    {:controller => '/admin/batch',:action => "delete_batch_tat_comment",
+                      :id => @batch.id, :redirect_window => 'unprocessed_batches'},
+                    :remote => true) %>
+                <%end%>
+                <% else %>-
+                <% end %>
+              </td>
+              
+              <%= hide_and_seek_in_place_editor_field :batch, :priority, true, 'td',
+                "<span id='priority_edit_#{@index}'></span>", {},
+                {:script => true, :rows => 1, :cols => 10, :external_control => "priority_edit_#{@index}"} %>
+              <%= hide_and_seek_label :batch, :allocation_type,
+                @batch.allocation_type, true, "td nowrap" %>
+              <%= hidden_field_tag :allocation_type, @batch.allocation_type, :id => "allocation_type_#{@batch.id}" %>
+              <%unless current_user.has_role?(:TL)%>
+              <td>
+                <%= check_box :batches_to_select, @batch.id, :id => @batch.id, :class => 'checkbox'%>
+              </td>
+              <td>
+                <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"),
+                  :action => 'edit', :id => @batch, :from => 'work_list'  %>
+              </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+
+         <%unless current_user.has_role?(:TL)%>
+        <div style="clear:both;">
+          <%= submit_tag "Facility Wise Auto Allocation", :class => 'button', :name => "submit_param",
+            :onclick => "return validateForAddingToFacilityWiseAllocationQueue();" %>
+          <%= submit_tag "Payer Wise Auto Allocation", :class => 'button', :name => "submit_param",
+            :onclick => "return validateForAddingToPayerWiseAllocationQueue();" %>
+          <%= submit_tag "Remove From Auto Allocation", :class => 'button', :name => "submit_param" %>
+          <%= submit_tag "Make Output Ready", :class => 'button', :name => "submit_param",
+            :onclick => "validateForChangingStatusToComplete()" %>
+        </div>
+      <% end %>
+      <% end %>
+    <% else %>
+      <h4> No matching batches found. </h4>
+    <% end %>
+  </div>
+</div>
+<%= javascript_tag do %>
+  document.on('ajax:complete','#ajax_container', function(event,con){
+  con.update(event.memo.responseText);
+  Element.hide('spinner');
+  })
+  document.on('ajax:before','#ajax_container', function(event,con){
+  Element.show('spinner');
+
+  })
+<% end %>

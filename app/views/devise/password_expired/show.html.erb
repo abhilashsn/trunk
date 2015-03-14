@@ -1,0 +1,34 @@
+<h2>Your Current Password has Expired. Please Renew your Password</h2>
+
+<%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <p><%= f.label :current_password, "Current password" %><br />
+  <%= f.password_field :current_password %></p>
+
+  <p><%= f.label :password, "New password" %><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation, "Confirm new password" %><br />
+  <%= f.password_field :password_confirmation %></p>
+
+  <p><%= f.submit "Change my password" ,:onclick => "return checkPresenceOfConfirmPassword()"%></p>
+<% end %>
+
+<script>
+  function checkPresenceOfConfirmPassword(){
+    var confrim_password = $('user_password_confirmation').value;
+    var password_value = $('user_password').value;
+    if(confrim_password == '' || confrim_password == null){
+      alert("Please enter confirm password");
+      return false;
+    }
+    else if(password_value != confrim_password){
+      alert("Password and confrim password should be same")
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+</script>

@@ -1,0 +1,252 @@
+<%
+if !@opconfig.blank? && !@opconfig.operation_log_config.blank?
+  hsh = @opconfig.operation_log_config
+else
+  hsh = {}
+end
+%>
+<h1>Configure Operation Log for <%=@config_object.name.titlecase%></h1>
+
+<%= form_tag :action => 'config_oplog_save' ,:id => @config_object.id, :obj_type => params[:obj_type] do %>
+<table width="90%" cellspacing="0" cellpadding="0" border="0">
+
+  <tr>
+    <td width="50%" valign="top">
+      <table width="100%" cellspacing="0" cellpadding="0" border="1">
+        <tr>
+          <th colspan="2"><b>Format :</b></th>
+        </tr>        
+        <tr>
+          <td><b>Format:</b></td>
+          <td>
+            <%= op_config_select "oplogformat",@parameters, hsh, "format", :style=>"width:100%" %>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2"><b>File Name Format :</b></th>
+        </tr>
+        
+        <tr>
+          <td colspan="2">
+            <table width="100%">
+              <tr>
+                <td>
+                  <%= op_config_select "file_format_options",@parameters, hsh, "file_name_format", :style=>"width:100%;height:100px;",:multiple=>"multiple" %>
+                </td> 
+                <td valign="center" ><div id="sel_div" style="font-size:26px;color:blue;"> >> </div></td>
+                <td><%= text_area_tag "file_name_format", hsh["file_name_format"], :size=>"40x5"  %></td>
+              </tr>
+            </table>
+        </tr>
+  <tr>
+          <th colspan="2"><b>Folder Name :</b></th>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <table width="100%">
+              <tr>
+                <td>
+                  <%= op_config_select "folder_format_options",@parameters, hsh, "folder_name_format", :style=>"width:100%;height:100px;",:multiple=>"multiple" %>
+                </td>
+                <td valign="center" ><div id="sel_folder_div" style="font-size:26px;color:blue;"> >> </div></td>
+                <td><%= text_area_tag "folder_name_format", hsh["folder_name_format"], :size=>"40x5"  %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2"><b>Content Layout:</b></th>
+        </tr>
+
+
+        <tr>
+          <td><b>Content Layout: </b></td>
+          <td><%= op_config_select "content_layout",@parameters, hsh, "content_layout", :style=>"width:100%" %></td>
+        </tr>
+
+        <tr>
+          <th colspan="2"><b>Job Status Grouping:</b></th>
+        </tr>
+
+
+        <tr>
+          <td><b>Job Status Grouping: </b></td>
+          <td><%= op_config_select "job_status_grouping",@parameters, hsh, "job_status_grouping", :style=>"width:100%" %></td>
+        </tr>
+
+  <tr>
+    <th colspan="2"><b>Group By:</b></th>
+  </tr>
+  <% @parameters.select{|k| k.name=="group_by"}.size.times do |g|  %>
+  <tr>
+    <td>Group By</td>
+    <td>
+      <%= op_config_select "group_by[#{g}]",@parameters, hsh, "group_by", :style=>"width:100%" %>
+    </td>
+  </tr>
+  <% end %> 
+
+  
+  <tr>
+    <th colspan="2"><b>Summary:</b></th>
+  </tr>
+  <% @parameters.select{|k| k.name=="summary_fields"}.size.times do |g|  %>
+  <tr>
+    <td>
+      <%= op_config_select "summary_field[#{g}]",@parameters, hsh, "summary_fields", :style=>"width:100%" %> 
+    </td>
+    <td>
+      <%= text_field_tag "summary_field_label[#{g}]", (hsh["summary_field_label"][g.to_s] if hsh["summary_field_label"])  %>
+    </td>
+  </tr>
+  <% end %>
+
+  
+  <!-- <tr> -->
+  <!--   <th colspan="2"><b>Summarize By:</b></th> -->
+  <!-- </tr> -->
+  
+  <!-- <tr> -->
+  <!--   <td><b>Summarize By:</b></td> -->
+  <!--   <td> -->
+  <!--     <%= op_config_select "summarize_by",@parameters, hsh, "summarize_by", :style=>"width:100%" %> -->
+  <!--   </td> -->
+  <!-- </tr> -->
+
+  <tr>
+    <th colspan="2"><b>Summary header:</b></th>
+  </tr>
+  
+  <tr>
+    <td colspan="2">
+      <%= text_field_tag "summary_header", (hsh["summary_header"] if hsh["summary_header"]) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th colspan="2"><b>Summary Position:</b></th>
+  </tr>
+  
+  <tr>
+    <td><b>Summary Position:</b></td>
+    <td>
+      <%= op_config_select "summary_position",@parameters, hsh, "summary_position", :style=>"width:100%" %>
+    </td>
+  </tr>
+
+
+  <tr>
+    <th colspan="2"><b>Prefix With Quotes:</b></th>
+  </tr>
+  
+  <tr>
+    <td colspan="2">
+      <%= op_config_select "prefix_quotes",@parameters, hsh, "prefix_quotes", :style=>"width:100%" %>
+    </td>
+  </tr>
+
+  <tr>
+    <th colspan="2"><b>Totaling:</b></th>
+  </tr>
+  <% @parameters.select{|k| k.name=="total"}.size.times do |g|  %>
+  <tr>
+    <td>
+      <%= op_config_select "total[#{g}]",@parameters, hsh, "total", :style=>"width:100%" %>
+    </td>
+    <td>
+    <%= text_field_tag "total_label[#{g}]", (hsh["total_label"][g.to_s] if hsh["total_label"])  %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <th colspan="2"><b>PLB Information:</b></th>
+  </tr>
+  
+  <tr>
+    <td colspan="2">
+      <%= op_config_select "print_plb",@parameters, hsh, "print_plb", :style=>"width:100%" %>
+    </td>
+  </tr>
+
+  <tr>
+    <th colspan="2"><b>Print Rejected Check</b></th>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <%= op_config_select "print_reject_check",@parameters, hsh, "print_reject_check", :style=>"width:100%" %>
+    </td>
+  </tr>
+  </table>
+     </td>
+
+
+<td width="50%">
+  <table width="100%" cellspacing="0" cellpadding="0" border="1">
+    <tr><th colspan="3">Required Fields</th></tr>
+    <% @parameters.select{|p| p.name == "headers"}.size.times do |k|%>        
+    <tr>
+      <td>
+        <%= op_config_select "header[#{k}]",@parameters, hsh, "headers", :style=>"width:100%" %>
+      </td>
+      <td><%= text_field_tag "header_label[#{k}]", (hsh["header_label"][k.to_s] if hsh["header_label"]) %></td>
+      <td><%= text_field_tag "header_rules[#{k}]", (hsh["header_rules"][k.to_s] if hsh["header_rules"]) %></td>
+    </tr>
+    <% end %>
+    <tr><th colspan="2">Custom Fields</th></tr>
+    <% @parameters.select{|p| p.name=="custom_header_count"}[0].value.to_i.times do |j| %>
+    <tr><td colspan="2" align="left"><%= text_field_tag "custom_header[#{j}]", (hsh["custom_header"][j.to_s] if hsh["custom_header"]) %></td></tr>
+    <% end %>
+  </table>      
+</td>
+
+</tr>  
+
+
+
+<tr>
+  <td style="border:none;" colspan="2">
+    <%= submit_tag 'Save', :class => 'button', :obj_type => params[:obj_type] if current_user[:fc_edit_permission] %>
+    <%= submit_tag("Reset", { :class => 'button', :name => 'reset', :id => 'reset_bn', :type => "reset" }) %>
+  </td>
+</tr>
+
+
+</table>
+<% end %>
+
+<script>
+  byId = function(id){
+    return document.getElementById(id);
+  }
+  selected_options = function() {
+    j = byId("file_format_options").options.length;
+    for(k=0; k< j; k++) {
+   opt = byId("file_format_options").options[k];
+  if(opt.selected){
+           byId('file_name_format').value = byId("file_name_format").value +  "[" + opt.value + "]";
+         }
+     }               
+  }
+
+
+  selected_folder_options = function() {
+    j = byId("folder_format_options").options.length;
+    for(k=0; k< j; k++) {
+   opt = byId("folder_format_options").options[k];
+  if(opt.selected){
+           byId('folder_name_format').value = byId("folder_name_format").value +  "[" + opt.value + "]";
+         }
+     }
+  }
+
+  byId("sel_div").addEventListener("click", function() {
+      selected_options();
+   },false);
+
+   byId("sel_folder_div").addEventListener("click", function() {
+      selected_folder_options();
+   },false);
+
+</script>

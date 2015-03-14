@@ -1,0 +1,25 @@
+<%= javascript_include_tag "jq_timepicker" %>
+<%= stylesheet_link_tag "jquery-ui"%>
+
+<h4>Configure the Cuts for <%= @facility.name %></h4>
+<%= form_tag url_for(:action => :save_facility_cut_configurations), :remote=>true, :method => :post do %>
+  <table  width ="100%">
+   <tr>
+     <th width ="20%">Cut</th>
+     <th width ="20%">Day (Batch Date)</th>
+     <th width ="20%">Expected Time</th>
+     <th width ="10%">Lockbox No</th>
+     <th width ="10%">Expected Day of File Arrival</th>
+   </tr>
+   <tr>
+     <td width ="20%"><%= select(:facility_cut_relationship, :cut, @cuts,{},:style=>"width:60px;") %></td>
+     <td width ="20%"><%= select(:facility_cut_relationship, :day, @days,{},:style=>"width:70px") %></td>
+     <td width ="20%"><%= text_field "facility_cut_relationship","time",:style=>"width:60px" %></td>
+     <td width ="10%"><%= select(:facility_cut_relationship, :lockbox_number, @lockbox_numbers,{},:style=>"width:75px") %></td>
+     <td width ="10%"><%= select(:facility_cut_relationship, :expected_day_of_arrival, @days,{},:style=>"width:70px") %></td>
+     <%= hidden_field(:facility_cut_relationship, :facility_id, :value => params[:id]) %>
+     <td style="border:0px"><%= submit_tag "Add", :style => "width:70px" if current_user[:fc_edit_permission] %></td>
+   </tr>
+  </table>
+<% end %>
+  <div id="list"><%= render :partial => 'cuts' %></div>

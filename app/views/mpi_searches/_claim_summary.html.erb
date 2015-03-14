@@ -1,0 +1,73 @@
+
+
+<% if @claim_search_result.response_code == 200 %>
+<div class="scrollWrapper">
+  <%= form_tag url_for(:action => 'index', :controller => 'mpi_searches') do %>
+    <table class="table-striped table-hover table-bordered table-condensed" 
+      <thead>
+        <tr>
+          <th>Row </th>
+          <th><%= sort_claim_header("Pt.Last Name", "patient_last_name")%></th>
+          <th><%= sort_claim_header("Pt.First Name", 'patient_first_name') %></th>
+          <th><%= sort_claim_header("Pt.Account Number", "patient_account_number")%></th>
+          <th> Claim Type</th>
+          <th> Payer Name</th> 
+          <th><%= sort_claim_header("Member ID", 'insured_id') %></th>
+          <th>Total Charge</th>
+          <th><%= sort_claim_header("Service Date", 'service_from_date') %></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @mpi_results.each_with_index do |mpi_result, row| %>
+          <% @mpi_start_time = Time.now.in_time_zone %>
+          <% @mpi_found_time = Time.now.in_time_zone %>
+          <% service_line_count = mpi_result.claim_service_informations.size %>
+          <% claimleveleob = (params[:claimleveleob]) == "true" ? 'true' : 'false' %>
+          <% csi = mpi_result.claim_service_informations.get_more rescue nil %>
+          <% claim_id = "claim_#{mpi_result.id}" %>
+          <tr id="<%= claim_id %>">
+            <td><%= row + 1 %></td>
+            <td><%= mpi_result.patient_last_name %></td>
+            <td><%= mpi_result.patient_first_name %></td>
+            <td><%= mpi_result.patient_account_number %></td>
+            <td><%= mpi_result.claim_type unless mpi_result.blank? %></td>
+            <td><%= truncate(mpi_result.payer_name)  unless mpi_result.blank? %></td>
+
+            <td><%= mpi_result.insured_id %></td>
+            <td class="numeric"><%= number_to_currency(mpi_result.total_charges) rescue "--" %></td>
+            <td><%= DateTime.strptime(csi.service_frm_date.split(",").first, '%Y-%m-%d').to_date.strftime('%m/%d/%Y') rescue "--" %></td>
+
+
+            <td><%= radio_button_tag("claim_selection", mpi_result.id, false, data: {qa_flag: params[:role],
+                  claim_id: mpi_result.id, mpi_start_time: @mpi_start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                  mpi_found_time: @mpi_found_time.strftime("%Y-%m-%d %H:%M:%S"), mpi_used_time: Time.now.in_time_zone,
+                  service_line_count: service_line_count, account_number: params[:patient_no],
+                  patient_last_name: params[:patient_lname], patient_first_name: params[:patient_fname],
+                  date_of_service_from: params[:date_of_service_from], page_no: params[:page_no],
+                  claim_level_eob: params[:claimleveleob],job: params[:job_id],mode: params[:mode],
+                  proc_start_time: params[:proc_start_time]}) %></td>
+            <td><%= check_box_tag "#{mpi_result.id}", 'yes', false, :onclick => "store_value(#{mpi_result.id})" %></td>
+
+
+          </tr>
+        <% end %>
+      <% end %>
+
+    </tbody>
+  </table>
+
+    </div>
+
+
+<div id="mpi-result-pagination">
+    <%= will_paginate @mpi_results, :class => "digg_pagination" %>
+  </div>
+  
+  <%= render "claim_details" %>
+<% else %>
+  <div class="alert alert-error"><h4>Error</h4><%= @claim_search_result.user_message %></div>
+<% end %>
+

@@ -1,0 +1,51 @@
+ansi_remark_code1:
+      id: 1
+      adjustment_code: AB
+      adjustment_code_description: NON COVERED
+
+ansi_remark_code2:
+      id: 2
+      adjustment_code: AC
+      adjustment_code_description: COVERED
+
+ansi_remark_code_1:
+      id: 3
+      adjustment_code: 1
+      adjustment_code_description: description1
+
+
+ansi_remark_code_2:
+      id: 4
+      adjustment_code: 12
+      adjustment_code_description: desc4
+
+ansi_remark_code_3:
+      id: 5
+      adjustment_code: NC
+      adjustment_code_description: desc5
+
+ansi_remark_code_6:
+      id: 6
+      adjustment_code: ABC
+      adjustment_code_description: NON COVERED
+
+ansi_remark_code_7:
+      id: 7
+      adjustment_code: ACC
+      adjustment_code_description: COVERED
+
+ansi_remark_code_8:
+      id: 8
+      adjustment_code: 122
+      adjustment_code_description: description1
+
+ansi_remark_code_9:
+      id: 9
+      adjustment_code: 121
+      adjustment_code_description: desc4
+
+ansi_remark_code_10:
+      id: 10
+      adjustment_code: NCC
+      adjustment_code_description: desc5
+

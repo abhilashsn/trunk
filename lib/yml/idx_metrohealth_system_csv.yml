@@ -1,0 +1,85 @@
+PARSER: 'csv'
+COL_SEP: ','
+BANK_OF_AMERICA:
+   PAYMENT:
+        HEADER_ROW: 3
+        BATCH:
+            batchid: 7
+            lockbox: 4
+            date: [ 5, date ]
+            bank_deposit_date: [ 5, date ]
+            index_batch_number: 7
+            batch_time: 6
+        JOB:
+            check_number: 13
+            transaction_number: 3
+            details: 
+                 envelope_sequence: 1
+                 envelope_number: 2
+                 batch_item_sequence: 8
+        CHEQUE:
+            check_number: 13
+            check_amount: [ 10, float ]
+            check_date: [15, date]
+            details:
+                 check_sequence: 9
+        MICR:
+            aba_routing_number: 11
+            payer_account_number: 12
+        IMAGE:
+            image_folder: 'images/'
+            image_file_name: [14]
+
+   CORRESP:
+        HEADER_ROW: 1
+        BATCH:
+            lockbox: 2
+        JOB:
+            check_number: 
+            details:
+                envelope_number: 1
+        IMAGE:
+            image_folder: 'images/'
+            image_file_name: [5]
+GENERAL:
+   PAYMENT:
+        HEADER_ROW: 3
+        BATCH:
+            batchid: 7
+            lockbox: 4
+            date: [ 5, date ]
+            bank_deposit_date: [ 5, date ]
+            index_batch_number: 7
+            batch_time: 6
+        JOB:
+            check_number: 13
+            transaction_number: 3
+            details:
+                 envelope_sequence: 1
+                 envelope_number: 2
+                 batch_item_sequence: 8
+        CHEQUE:
+            check_number: 13
+            check_amount: [ 10, float ]
+            details:
+                 check_sequence: 9
+        MICR:
+            aba_routing_number: 11
+            payer_account_number: 12
+        IMAGE:
+            image_folder: 'images/'
+            image_file_name: [14]
+
+   CORRESP:
+        HEADER_ROW: 1
+        BATCH:
+            lockbox: 2
+        JOB:
+            check_number:
+            details:
+                envelope_number: 1
+        IMAGE:
+            image_folder: 'images/'
+            image_file_name: [5]
+
+

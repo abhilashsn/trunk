@@ -1,0 +1,8 @@
+claim_lookup_service: database
+
+rms_claim_lookup:
+  base_uri: https://ws.example.com
+  username: username
+  password: password
+
+cms_host: "https://edi-ola.revenuemed.com/"

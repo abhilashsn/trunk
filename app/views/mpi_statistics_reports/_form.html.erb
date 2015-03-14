@@ -1,0 +1,16 @@
+<%= simple_form_for(@mpi_statistics_report) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :batch %>
+    <%= f.input :user %>
+    <%= f.input :mpi_status %>
+    <%= f.input :search_criteria %>
+    <%= f.input :start_time %>
+    <%= f.input :eob %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

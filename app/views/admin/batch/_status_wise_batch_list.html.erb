@@ -1,0 +1,101 @@
+<% unless @batches.blank? %>
+  <%= form_tag :action => 'update_client_comment' do %>
+<br/>
+ <div style="float:left"><%= will_paginate @batches, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]} %></div>
+ <br/>
+    <table width="100%">
+      <tr>
+        <th width="08%"> Batch Date </th>
+        <th width="17%"> Facility </th>
+        <th width="17%"> Client Code </th>
+        <th> Batch ID </th>
+        <th width="10%"> Batch Type </th>
+        <th width="10%"> Arrival Time </th>
+        <th width="10%"> Turn Around<br> Time </th>
+        <th width="15%"> Estimated Completion<br> Time </th>
+        <th width="15%"> Number of Checks </th>
+        <th width="15%"> Batch Amount </th>
+        <th> Completed<br> EOBs </th>
+        <th> Status </th>
+        <th width="20%"> Comment </th>
+        <% if current_user.has_role?(:supervisor) %>
+          <th></th>
+        <% end %>
+      </tr>
+     
+      <%  @batches.each do|batch| %>
+        <%
+        cls = ''
+        if !batch.comment.blank?
+          batch_status = "Pending"
+          cls = "grey67"
+        elsif batch.status == BatchStatus::NEW
+          batch_status = "New"
+          cls = "white"
+        elsif batch.status == BatchStatus::PROCESSING
+          batch_status = "In Process"
+          cls = "lightsteelblue2"
+        elsif (batch.status == BatchStatus::COMPLETED || batch.status == BatchStatus::OUTPUT_READY)
+          if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)
+            if OutputActivityLog.find_by_batch_id(batch.id) != nil
+                batch_status = "Output Generated"
+                cls = "palered"
+            else
+                batch_status = "Complete"
+                cls = "darkseagreen"
+            end
+          else
+            batch_status = "Complete"
+            cls = "darkseagreen"
+          end
+        end
+      %>
+
+        <%
+        @batch_id = batch.id
+      %>
+
+        <%  @id = batch.id %>
+        <tr>
+          <td nowrap class="<%= cls %>"><%= format_date(batch.date) %> </td>
+          <td nowrap class="<%= cls %>"><%= batch.facility.name%></td>
+          <td nowrap class="<%= cls %>"><%= batch.facility.sitecode%></td>
+          <td nowrap class="<%= cls %>"><%= batch.batchid %>&nbsp;&nbsp; </td>
+          <td nowrap class="<%= cls %>">
+            <% if batch.correspondence == true %>
+              Correspondence
+            <% else %>
+              Payment
+            <% end %>
+          </td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.arrival_time) %></td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.target_time) %></td>
+          <td nowrap class="<%= cls %>"><%= format_datetime(batch.estimated_completion_time) unless batch.estimated_completion_time.blank? %></td>
+          <td nowrap class="<%= cls %>"><%= batch.total_check_count %></td>
+          <td nowrap class="<%= cls %>"><%=( batch.total_check_amount.blank? ? "-" :(sprintf("%.2f",batch.total_check_amount)) )%></td>
+          <td nowrap class="<%= cls %>"><%= batch.get_completed_eobs %></td>
+          <td nowrap class="<%= cls %>"><%=  batch_status%></td>
+          <td class="<%= cls %>">
+            <% if current_user.has_role?(:supervisor) %>
+                <textarea id="batch_comment" name="batch_comment[<%=batch.id%>]" cols="35" rows="1" class="black_text"><%= (batch.comment.blank? ? "" : batch.comment)%></textarea>
+            <% else %>
+              <%= (batch.comment.blank? ? "-" : batch.comment)%>
+            <% end %>
+          </td>
+          <% if current_user.has_role?(:supervisor) %>
+            <td><%= check_box :batch_to_delete, batch.id, :id => 'toggle' %> </td>
+          <% end %>
+        </tr>
+      <% end %>
+
+    </table>
+    <div style="float:left"><%=will_paginate @batches,:params => { 'search_field' => @search_field, 'compare' => @compare, 'criteria' => @criteria }%></div>
+    <br/><br/>
+    <% if current_user.has_role?(:supervisor) %>
+      <%= submit_tag "Update Comment", :class => 'button', :name => "option1" %>
+    <% end %>
+  <% end %>
+  <br/>
+<% else %>
+  <h4> No matching Batches found. </h4>
+<% end %>

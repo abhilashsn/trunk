@@ -1,0 +1,27 @@
+<div id="login_main">
+<% unless @users.blank? %>
+  <table>
+    <tr>
+      <th>User ID</th>
+      <th>Accuracy %</th>
+      <th>Jobs Completed</th>
+      <th>EOBs Completed</th>
+    </tr>
+    <% u = current_user%>
+    <% @users.each do |user| %>
+    <tr>
+    <% if u.roles[0] == 'Supervisor' or u.roles[0] == 'Admin' %>
+    	<td><%= link_to user.userid, :action => 'processor_facility_jobs', :user => user, :date_from => @date_from, :date_to => @date_to %></td>
+    <% else %>
+    	<td><%= user.login%></td>
+    <% end %>
+      <td><%= user.field_accuracy %></td>
+      <td><%= user.completed_jobs %></td>
+      <td align=right><% if user.completed_eobs.nil? %>0<% else %><%= user.completed_eobs %><% end %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+<br/>
+
+</div>

@@ -1,0 +1,53 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+#one:
+#      id: 1
+#      service_from_date: 2009-03-25
+#      claim_information_id: 1
+#  
+#two:
+#      id: 2
+#      service_from_date: 
+#      claim_information_id: 2
+#  
+#three:
+#      id: 3
+#      service_from_date: 
+#      claim_information_id: 3
+#        
+#four:
+#      id: 4
+#      service_from_date: 
+#      claim_information_id: 4
+#
+#five:
+#      id: 5
+#      claim_information_id: 5
+#
+#claim_service_234:
+#      id: 234
+#      claim_information_id: 234
+#
+#claim_svc_6:
+#      id: 6
+#      service_from_date: '2011-09-09' 
+#      claim_information_id: 9
+#
+#claim_svc_7:
+#      id: 7
+#      service_from_date: '2011-09-10' 
+#      claim_information_id: 9
+#
+#claim_svc_8:
+#      id: 8
+#      service_from_date: '2011-09-11' 
+#      claim_information_id: 9
+#
+#claim_svc_9:
+#      id: 9
+#      service_from_date: '2011-09-22' 
+#      claim_information_id: 10
+#
+#claim_svc_10:
+#      id: 10
+#      service_from_date: '2011-09-22' 
+#      claim_information_id: 10

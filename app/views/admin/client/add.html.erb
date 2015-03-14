@@ -1,0 +1,55 @@
+
+<%= form_tag :action => 'add' do %>
+
+  <%if @client.errors.any?%>
+    <%@client.errors.full_messages.each do |msg|%>
+      <font color="red" class = "error"><%= msg %></font><br />
+    <%end%>
+  <%end%>
+
+  <table id="tabletwo" class="add">
+    <tr>
+      <td width="216">Client Name</td>
+      <td><%= text_field 'client', 'name',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr> <td width="216">Partner Name</td>
+      <td><%= select_tag 'partner_id',options_for_select(@partners)%></td></tr>
+    <tr><td width="216">Group Code</td>
+      <td><%= text_field 'client', 'group_code',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Client TAT</td>
+      <td><%= text_field 'client', 'tat',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Internal TAT </td>
+      <td><%= text_field 'client', 'internal_tat',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Max # EOBs to Auto Allocate</td>
+      <td><%= text_field 'client', 'max_eobs_per_job',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Max # Jobs Client Wise to Auto Allocate </td>
+      <td><%= text_field 'client', 'max_jobs_per_user_client_wise',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Max # Jobs Payer Wise to Auto Allocate</td>
+      <td><%= text_field 'client', 'max_jobs_per_user_payer_wise',:class => 'black_text',:onblur => "changeToCapital(this.id)" %></td></tr>
+    <tr><td width="216">Partner Group code</td>
+      <td><%= select_tag 'partener_bank_group_code', options_for_select(['NBAC'])%></td></tr>
+    <tr><td width="216">Associate Claim based on NPI</td>
+      <td><%= check_box 'client', 'associate_claim_npi', :checked => @client.associate_claim_npi %></td></tr>
+    <tr><td width="216" height="44"></td>
+      <td  align="left" width="183"><%= link_to 'Back', :controller => 'admin/client',:action => 'list' %> <%= submit_tag "save", :class => 'button' %></td>
+    </tr>
+  <%end%>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

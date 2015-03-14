@@ -1,0 +1,24 @@
+<h1> Batch details <%= @batch.batchid %></h1>
+<table>
+  <tr>
+    <th> Batch ID </th>
+    <th> Date </th>
+    <th> Facility </th>
+    <th> Client </th>
+    <th> Check Volume </th>
+    <th> Arrival Time (EST) </th>
+    <th> Target Time (EST) </th>
+  </tr>
+  <tr>
+    <td> <%= @batch.batchid %> </td>
+    <td> <%= format_date(@batch.date) %> </td>
+    <td> <%= @batch.facility %> </td>
+    <td> <%= @batch.facility.client.name %> </td>
+    <td> <%= @batch.eob %> </td>
+    <td> <%= format_datetime(@batch.arrival_time) %> </td>
+    <td> <%= format_datetime(@batch.target_time) %> </td>
+  </tr>
+</table>
+
+<br/>
+<a href="javascript:history.go(-1)">Back</a>

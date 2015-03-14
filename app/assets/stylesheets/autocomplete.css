@@ -1,0 +1,33 @@
+div.auto_complete {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11px;
+    width: 50px;
+    background-color: #fff;
+}
+div.auto_complete ul {
+    border:1px solid #888;
+    margin:0;
+    padding:0;
+    width:350px;
+    text-align:left;
+    list-style-type:none;
+}
+div.auto_complete ul li {
+    margin:0;
+    padding:3px;
+    background-color: #fff;
+}
+div.auto_complete ul li.selected {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11px;
+    background-color: #ffb;
+    width:350px;
+    text-align:left;
+}
+div.auto_complete ul strong.highlight {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11px;
+    color: #800;
+    margin:0;
+    padding:0;
+}

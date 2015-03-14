@@ -1,0 +1,13 @@
+<%= javascript_include_tag  "payer" %>
+<div id="login_main">
+<h1>New payer</h1>
+<span class="alert">( * ) Mandatory Fields</span>
+<%= form_tag({:action => 'create'}, :id => "payer_form") do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :onclick => "return mustPassValidationsForPayer()",
+    :class => 'button' %>
+<% end %>
+
+<br/>
+<%= link_to 'Back', :action => 'list_approved_payers' %>
+</div>

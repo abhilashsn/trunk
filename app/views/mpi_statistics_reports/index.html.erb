@@ -1,0 +1,31 @@
+<h1>Listing mpi_statistics_reports</h1>
+
+<table>
+  <tr>
+    <th>Batch</th>
+    <th>User</th>
+    <th>Mpi status</th>
+    <th>Search criteria</th>
+    <th>Start time</th>
+    <th>Eob</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mpi_statistics_reports.each do |mpi_statistics_report| %>
+  <tr>
+    <td><%= mpi_statistics_report.batch %></td>
+    <td><%= mpi_statistics_report.user %></td>
+    <td><%= mpi_statistics_report.mpi_status %></td>
+    <td><%= mpi_statistics_report.search_criteria %></td>
+    <td><%= mpi_statistics_report.start_time %></td>
+    <td><%= mpi_statistics_report.eob %></td>
+    <td><%= link_to 'Show', mpi_statistics_report %></td>
+    <td><%= link_to 'Edit', edit_mpi_statistics_report_path(mpi_statistics_report) %></td>
+    <td><%= link_to 'Destroy', mpi_statistics_report, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

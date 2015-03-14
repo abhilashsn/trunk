@@ -1,0 +1,69 @@
+<% if resource.login.present?
+  if User.is_locked?(resource.login)
+    flash[:notice] = "Your account is locked. Please contact the RevRemit Administrators or Supervisors"
+  else
+    flash[:notice] = "Invalid user/password combination."
+  end
+end
+%>
+<div id="login_right">
+  <%= image_tag("lock_2.png", :class=>"imglock", :width=>"73", :align=>"absmiddle") %><strong class="sub_title">&nbsp;&nbsp;Restricted Access</strong>
+  <ul class="bullet_links">
+    <li class="black_text">&nbsp;&nbsp;Please login to continue</li>
+  </ul>
+</div>
+
+<div class="login">
+  <div class="roundtop"><span class="sec_title">Login</span></div>
+  <% if resource.login.present?
+    ip_address = request.env["REMOTE_ADDR"]
+    User.track_unsuccessful_login_attempts(resource.login, ip_address)
+  end %>
+  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+
+    <table style=width:263px>
+      <tr>
+        <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;User Name: </td>
+      </tr>
+      <tr>
+        <td> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= f.text_field :login, :required => false, :autofocus => true, :autocomplete=>"off", :oncopy=>"return false",
+            :onpaste=>"return false", :oncut=>"return false",:id=>"userid", :style => "width:160px;"  %>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Password: </td>
+      </tr>
+      <tr>
+
+        <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+          <%= f.password_field :password, :required => false, :oncopy=>"return false",
+            :onpaste=>"return false", :oncut=>"return false", :style => "width:160px;" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;  &nbsp;
+
+          <%= f.button :submit, "Login" , :class => 'black_text', :onclick=>"setuserdetails()"%>
+        </td>
+      </tr>
+    </table>
+
+
+
+
+  <% end %>
+
+
+
+  <div class="roundbottom">
+    <%= image_tag("bl.gif", :class=>"corner", :width=>"10", :height=>"9", :style=>"display: none;") %>
+  </div>
+
+</div>
+

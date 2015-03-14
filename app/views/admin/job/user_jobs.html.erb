@@ -1,0 +1,110 @@
+<div id="login_main">
+<% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+<h1>Allocate QA for <%= @selected_user.name %>'s Jobs</h1>
+<% else %>
+<h1>Jobs for <%= @selected_user.name %></h1>
+<% end %>
+
+<%= show_legend({"white" => "New", "blue" => "Processing", "green" => "Completed", "darkgreen" => "Batch Completed", "red" => "Rejected"}) %>    
+
+<% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+<% pagination = create_pagination(@job_pages, 'job', params[:page]) %>
+<%= pagination %>
+
+<% unless @jobs.blank? %>
+
+  <%= form_tag :controller => 'job', :action => 'allocate_deallocate', :id => @jobs_to_allocate ,:page=>params[:page] ,:back_page => params[:back_page], :from => 'user', :jobs_of_user => @user.id do %>
+
+  <table>
+    <tr>
+      <th>Batch ID</th>
+      <th>Check <br/>Number </th>
+      <th>Tiff <br/>Number </th>
+      <th>EOBs<br/><font size='1'>Est./Completed</font></th>
+      <th>Processor</th>
+      <th>Processors <br/> Status</th>
+      <th>QA </th>
+      <th>QAs <br/>status</th>
+      <th>Job Status</th>
+      <th>Payer</th>
+      <th>Comment</th>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <th><input type="checkbox" name="all" onClick="checkAll(document.forms[0].toggle,this)"></th>
+      <% end %>
+    </tr>
+
+    <%@jobs.each do |job| %>
+    <%cls=''%>
+    <%if job.job_status == JobStatus::REJECTED
+        cls = 'red'
+      elsif job.job_status == JobStatus::PROCESSING
+        cls = 'blue'
+      elsif job.job_status == JobStatus::COMPLETED and job.batch.status == BatchStatus::COMPLETED
+        cls = 'darkgreen'
+      elsif job.job_status == JobStatus::COMPLETED
+        cls = 'green'
+      else
+        cls = 'white'
+       end
+    %>
+    <tr>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <td class="<%= cls %>" align='right'><strong><%= link_to "#{job.batch.batchid}", :controller => 'job', :action => 'allocate', :id => job.batch, :back_page => params[:back_page] %></strong></td>
+      <% else %>
+      <td class="<%= cls %>" align='right'><strong><%= job.batch.batchid %></strong></td>
+      <% end %>
+      <td class="<%= cls %>"><%= job.check_number %></td>
+      <td class="<%= cls %>"><%= job.tiff_number %></td>
+      <td class="<%= cls %>" align='right'><%= job.estimated_eob %> / <%= job.count %></td>
+      <td class="<%= cls %>">
+      <% if job.processor %>
+          <%= link_to job.processor.name, :controller => '/admin/user', :action => 'show', :id => job.processor,:back_page=>params[:back_page]%>
+      <% end %>
+      </td>
+      <td class="<%= cls %>"><%= job.processor_status %>
+      </td>
+      <td class="<%= cls %>">
+      <% if job.qa %>
+          <%= link_to job.qa.name, :controller => '/admin/user', :action => 'show', :id => job.qa ,:back_page=>params[:back_page]%>
+      <% end %>
+      </td>
+      <td class="<%= cls %>"><%= job.qa_status %></td>
+      <td class="<%= cls %>"><%= job.job_status %></td>
+      <td class="<%= cls %>">
+        <% if job.payer.nil? %>
+          No Payer
+        <% else %>
+          <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <strong><%= link_to "#{job.payer.payer}", :action => 'allocate_payer_jobs', :payer => job.payer %></strong>
+          <% else %>
+          <strong><%= job.payer.payer %></strong>
+          <% end %>
+        <% end %>
+      </td>
+      <td><textarea readonly='true' cols="20" rows="2" class="black_text"><%= job.comment %></textarea></td>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <td><%= check_box :jobs_to_allocate, job.id, :id => 'toggle' %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+    <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+    <%= submit_tag "Allocate QA", :class => 'button', :name => "option1" %>
+    <%= submit_tag "Deallocate QA", :class => 'button', :name => "option1" %>
+    <% end  %>
+  <% end %>
+<% else %>
+  <h4> No Jobs Found! </h4>
+<% end %>
+  </div>
+
+<br/>
+<%= pagination %>
+<% end %>
+<br/>
+<% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"),:page => params[:page],:controller => '/admin/user', :action => 'list_processor_occupancy' %>
+<% else %>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"),:page => params[:page],:controller => '/admin/user', :action => 'list_members' %>
+<% end %>
+

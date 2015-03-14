@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    
+   <%  if @bool_ok %>
+    <p>
+        The batch <b><%=@filename%></b> of facility <b><%=@facility_name%></b> is copied successfully at <b><%=  Time.now.strftime("%Y-%m-%d %H:%M:%S") %></b>.
+        This request for batch loading is raised by user <b><%=  @user_name %></b> from IP <b><%= @ip_adder %></b> at <b><%=  Time.now.strftime("%Y-%m-%d %H:%M:%S") %></b>.
+        The batch size is <b><%= @file_size %></b>. The batch is now ready for loading.
+     </p>
+     <%  else %>
+     <h1> Zip File uploading was Unsuccessful </h1>     
+     <% end  %>
+  </body>
+</html>

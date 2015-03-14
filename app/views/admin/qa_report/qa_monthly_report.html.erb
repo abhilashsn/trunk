@@ -1,0 +1,57 @@
+<div id="login_main">
+<h1>QA Monthly report</h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'qa_monthly_report' do %>
+    <%= select_tag 'criteria', optionize('Date', 'Processor', 'Error %', 'Total EOBs QA Checked','Total EOBS QA Rejected')%>
+    <%= select_tag 'compare', optionize('=','>', '<')%>
+    <%= text_field_tag 'to_find', nil, :size => '10' %>
+    <%= submit_tag 'Filter', :class => 'button' %>
+  <% end %>
+</div>
+
+
+<% if @errors.size > 0 %>
+<div class="right">
+  <%= link_to 'Export to CSV', :controller => '/report', :action => "export_qa_monthly_report", :from_date => @from_date, :to_date => @to_date, :search_field => @search_field, :compare => @compare, :criteria => @criteria %>
+</div>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @errors%>
+</div>
+<div id="table">
+  <table style="width: 95%">
+    <tr>
+      <th> Date </th>
+      <th> Processor </th>
+      <th> QA Staff </th>
+      <th> Total EOB's QA Checked </th>
+      <th> Total EOB's QA Rejected </th>
+      <th> Errors (%) </th>
+    <tr>
+    <% for error in @errors%>
+      <% qa = User.find_by_userid(error.qa) %>
+      <% processor = User.find_by_userid(error.processor) %>
+     <% currect_eobs = qa.eobs_qaed(processor) unless qa.nil? %>
+     <% incorrect_eobs = qa.rejected_eobs_qaed(processor) unless qa.nil? %>
+    <tr>
+      <td><%= format_datetime(error.verify_time) %></td>
+      <td><%= error.processor %></td>
+      <td><%= error.qa %></td>
+      <td><%= currect_eobs %></td>
+      <td><%= incorrect_eobs %></td>
+      <% if currect_eobs == 0 %>
+        <td> -NA- </td>
+      <% else %>
+      <td><%= sprintf("%.2f",((incorrect_eobs.to_f / currect_eobs.to_f) * 100)) %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @errors%>
+</div>
+</div>
+<% else %>
+  <h4> No Matching Report Found. </h4>
+<% end %>
+</div>

@@ -1,0 +1,88 @@
+<h1>Listing newly added payers</h1>
+<%= will_paginate @payers %>
+<% if @payers.size > 0 %>
+<table>
+    <tr>
+        <th>
+            Gateway
+        </th>
+        <th>
+            Payer ID
+        </th>
+        <th>
+            Payer
+        </th>
+        <th>
+            GR Name
+        </th>
+        <th>
+            Address One
+        </th>
+        <th>
+            Address Two
+        </th>
+
+        <th>
+            Address Three
+        </th>
+        </tr>
+    <% for payer in @payers %>
+    <tr>
+        <td>
+            <%= payer.gateway %>
+        </td>
+        <td>
+            <%= payer.supply_payid %>
+        </td>
+        <td>
+            <%= payer.payer %>
+        </td>
+        <td>
+            <%if  payer.gr_name.blank? %>
+            <%='-' %>
+            <%else %>
+            <%=payer.gr_name %>
+            <%end %>
+        </td>
+        <td>
+            <%if payer.pay_address_one.blank? %>
+            <%='-' %>
+            <%else %>
+            <%=payer.pay_address_one %>
+            <%end %>
+        </td>
+        <td>
+            <%if payer.pay_address_two.blank? %>
+            <%='-' %>
+            <%else %>
+            <%=payer.pay_address_two %>
+            <%end %>
+        </td>
+        <td>
+            <%if payer.pay_address_three.blank? %>
+            <%='-' %>
+            <%else %>
+            <%=payer.pay_address_three %>
+            <%end %>
+        </td>
+        <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+        <td>
+            <%= link_to image_tag("report_edit.png", :alt => "Edit"), :action => 'edit', :id => payer, :flag => 'new' %>
+        </td>
+        <% end %>
+         <%if  payer.payer_type == 'Commercial' %>
+        <td>
+            <%= link_to 'Accept ', :controller => 'admin/payer', :action => 'accept_payer', :id => payer %>
+        </td>
+        <%else %>
+        <td>
+            -
+        </td>
+        <% end %>
+    </tr>
+    <% end %>
+</table>
+<% else %>
+<h4>No Payers found. Click 'New Payer' to create one. </h4>
+<% end %>
+<%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :action => 'index' %>

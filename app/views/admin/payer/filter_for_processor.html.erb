@@ -1,0 +1,62 @@
+<h1>Listing payers</h1>
+
+<% if @payers.size > 0 %>
+<div class="light_info">
+  <%= form_tag :action => 'filter_for_processor' do %>
+    <%= select 'payer', 'criteria', ['Date Added', 'Initials','From Date' ,'Gateway', 'Payer Id', 'Payer', 'Address-1','Address-2','Address-3','Phone'] %> 
+    <%= select 'payer', 'compare', ['=','>=', '<=']%>
+    <%= text_field 'payer', 'to_find', :size => '10' %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+</div>
+<% end %>
+
+
+<% unless @payers.empty? %>
+  
+<table class="sortable" id="batch_filter">
+  <tr>
+  <% for column in Payer.content_columns %>
+      <%if column.human_name == 'Payor' %>
+        <th><%= 'Payer' %></th>
+      <% else %>
+      <%if column.human_name == 'Pay address one' %>
+      <th><%= 'Address -1' %></th>
+       <% else %>
+      <%if column.human_name == 'Pay address two' %>
+      <th><%= 'Address -2' %></th>
+     
+      <% else %>
+      <%if column.human_name == 'Pay address three' %>
+      <th><%= 'Address -3' %></th>
+     
+      <% else %>
+       
+       <th><%= column.human_name %></th>
+       <% end%>
+       <%end%>
+       <% end%>
+       <%end%>
+  <% end %>
+  </tr>
+  
+<% for payer in @payers %>
+  <tr>
+  <% for column in Payer.content_columns %>
+    <td><%=h payer.send(column.name) %></td>
+  <% end %>
+    
+  </tr>
+<% end %>
+</table>
+
+
+<% else %>
+  <h4> No Payers found. </h4>
+<% end %>
+
+<%= link_to 'Back', :controller => '/' %>
+
+
+
+

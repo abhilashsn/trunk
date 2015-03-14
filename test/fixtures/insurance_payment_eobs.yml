@@ -1,0 +1,1263 @@
+ # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+      id: 1
+      check_information_id: 4445
+      category: "claim"
+      claim_from_date: 2009-02-16
+      claim_to_date: 2009-02-17 
+
+two:
+      id: 938
+      check_information_id: 909
+      claim_interest: 100.00
+      category: "service"
+      claim_from_date: 
+      claim_to_date: 
+
+ins_pay_eob_3:
+      id: 77
+      check_information_id: 77
+      rejection_comment: Rejection Comment
+
+ins_pay_eob_4:
+      id: 78
+      check_information_id: 77
+      rejection_comment:
+
+three:
+      id:                           3
+      check_information_id:         18
+      claim_interest:               12.00
+      patient_account_number:       '89898'
+      rendering_provider_last_name: ''
+      image_page_no:                5  
+      claim_information_id:         312
+      provider_tin:                 '769898798'
+
+four:
+      id:                                4
+      check_information_id:              18
+      claim_interest:                    10.00
+      patient_account_number:            '9898'
+      rendering_provider_last_name:      'DEGLER  ' 
+      rendering_provider_first_name:     'DIANE'
+      rendering_provider_middle_initial: ''
+      claim_information_id:              313
+      provider_tin:                      '78978798'
+
+ins_pay_eob_1:
+      id: 111
+      check_information_id: 4
+      category: 'claim'
+      patient_last_name: 'abc'
+      patient_first_name: 'def'
+      patient_middle_initial: 'r'
+      patient_suffix: 'tyu'
+      patient_account_number: '12345'
+      subscriber_identification_code: '2345'
+      subscriber_last_name: 'hi'
+      subscriber_first_name: 'jkl'
+      subscriber_middle_initial: 't'
+      subscriber_suffix: 'rr'
+      provider_organisation: 'gghg'
+      rendering_provider_last_name: 'bnm'
+      rendering_provider_first_name: 'jklu'
+      rendering_provider_middle_initial: 'f'
+      rendering_provider_suffix: 'bc'
+      provider_npi: '34242'
+      provider_tin: '235255'
+      claim_number: 'sdfn'
+      insurance_policy_number: 7878
+      patient_identification_code: 8989
+      patient_identification_code_qualifier: 'bvbn'
+      claim_interest: 10
+      plan_type: 'HH'
+      claim_type: 'Primary'
+      image_page_no: 1
+      image_page_to_number: 2 
+      patient_type: 'we'
+      carrier_code: 12
+      hcra: 'bbnn'
+      date_received_by_insurer: '2003-01-12'
+      drg_code: 345
+      late_filing_charge: 23.00
+      claim_from_date: '2009-02-12'
+      claim_to_date: '2008-02-12'
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+      primary_payment_reason_code_id: 1
+      deductible_reason_code_id: 1
+      discount_reason_code_id: 1
+      noncovered_reason_code_id: 1
+      denied_reason_code_id: 1
+      total_non_covered: 20
+      total_discount: 20
+      total_co_insurance: 20
+      total_deductible: 20
+      total_co_pay: 100
+      total_primary_payer_amount: 100
+      total_contractual_amount: 200
+      total_submitted_charge_for_claim: 45.00
+      total_amount_paid_for_claim: 200
+      total_denied: 100
+      total_expected_payment: 100
+
+merit_mountain:
+      id:  8898
+      check_information_id: 4556
+      patient_account_number: 123123
+      total_submitted_charge_for_claim: 456.50
+      total_amount_paid_for_claim: 420.50
+      total_co_insurance: 54.10
+      total_deductible: 62.10
+      total_co_pay: 70.20
+      claim_number: 342
+      drg_code: 998
+      claim_type: 'Primary'
+      claim_information_id: 1718
+
+rumc:
+      id:  8899
+      check_information_id: 4557
+      patient_account_number: 223344
+      total_submitted_charge_for_claim: 645.70
+      total_amount_paid_for_claim: 314.60
+      total_co_insurance: 54.10
+      total_deductible: 62.10
+      total_co_pay: 70.20
+      claim_number: 234
+      claim_type: 'Primary'
+      drg_code: 197
+      claim_information_id: 1719
+   
+five:
+      id: 5
+      check_information_id: 19
+      total_amount_paid_for_claim: 50.00
+      sub_job_id: 56
+      processor_id: 1
+      late_filing_charge: 20.00
+
+ins_pay_eob_6:
+      id: 6
+      check_information_id: 4
+      category: 'service'
+      patient_last_name: 'abc'
+      patient_first_name: 'def'
+      patient_middle_initial: 'r'
+      patient_suffix: 'tyu'
+      patient_account_number: '12345'
+      subscriber_identification_code: '2345'
+      subscriber_last_name: 'hi'
+      subscriber_first_name: 'jkl'
+      subscriber_middle_initial: 't'
+      subscriber_suffix: 'rr'
+      provider_organisation: 'sdfsdf'
+      rendering_provider_last_name: 'bnm'
+      rendering_provider_first_name: 'jklu'
+      rendering_provider_middle_initial: 'f'
+      rendering_provider_suffix: 'bc'
+      claim_number: 12
+      insurance_policy_number: 123123
+      patient_identification_code: 1111
+      patient_identification_code_qualifier: 'M'
+      claim_interest: 50
+      plan_type: 'C'
+      claim_type: 'Primary'
+      image_page_no: 1
+      image_page_to_number: 2 
+      rejection_comment: 'EOB/EOR missing'
+      patient_type: 'inpatient'
+      carrier_code: '123'
+      hcra: 'hcra'
+      date_received_by_insurer: '2002-11-10'
+      drg_code: 567
+      late_filing_charge: 23.00
+
+ins_pay_eob_7:
+      id: 7
+      check_information_id: 4
+      category: 'service'
+      patient_last_name: 'abc'
+      patient_first_name: 'def'
+      patient_middle_initial: 'r'
+      patient_suffix: 'tyu'
+      patient_account_number: '12345'
+      subscriber_identification_code: '2345'
+      subscriber_last_name: 'hi'
+      subscriber_first_name: 'jkl'
+      subscriber_middle_initial: 't'
+      subscriber_suffix: 'rr'
+      provider_organisation: 'sdfsdf'
+      rendering_provider_last_name: 'bnm'
+      rendering_provider_first_name: 'jklu'
+      rendering_provider_middle_initial: 'f'
+      rendering_provider_suffix: 'bc'
+      provider_npi: '34242'
+      provider_tin: '235255'
+      claim_number: 12
+      insurance_policy_number: 123123
+      patient_identification_code: 1111
+      patient_identification_code_qualifier: 'M'
+      claim_interest: 50
+      plan_type: 'C'
+      claim_type: 'Primary'
+      image_page_no: 1
+      image_page_to_number: 2 
+      rejection_comment: 'Bankruptcy'
+
+ins_pay_eob_8:
+      id: 8
+      check_information_id: 4
+      category: 'claim'
+      patient_last_name: 'abc'
+      patient_first_name: 'def'
+      patient_middle_initial: 'r'
+      patient_suffix: 'tyu'
+      patient_account_number: '12345'
+      subscriber_identification_code: '2345'
+      subscriber_last_name: 'hi'
+      subscriber_first_name: 'jkl'
+      subscriber_middle_initial: 't'
+      subscriber_suffix: 'rr'
+      provider_organisation: 'gghg'
+      rendering_provider_last_name: 'bnm'
+      rendering_provider_first_name: 'jklu'
+      rendering_provider_middle_initial: 'f'
+      rendering_provider_suffix: 'bc'
+      claim_number: 'sdfn'
+      insurance_policy_number: 7878
+      patient_identification_code: 8989
+      patient_identification_code_qualifier: 'bvbn'
+      claim_interest: 10
+      plan_type: 'HH'
+      claim_type: 'Primary'
+      image_page_no: 1
+      image_page_to_number: 2 
+      rejection_comment: 'Image missing'
+      coinsurance_reason_code_id: 76
+      contractual_reason_code_id: 77
+      copay_reason_code_id: 78
+      primary_payment_reason_code_id: 1
+      deductible_reason_code_id: 1
+      discount_reason_code_id: 1
+      noncovered_reason_code_id: 1
+      total_non_covered: 20
+      total_discount: 20
+      total_co_insurance: 20
+      total_deductible: 100
+      total_co_pay: 100
+      total_primary_payer_amount: 100
+      total_contractual_amount: 200
+      total_submitted_charge_for_claim: 45.00
+      total_amount_paid_for_claim: 200
+
+ins_pay_eob_9:
+      id: 9
+      check_information_id: 6
+      claim_number: '111'
+
+ins_pay_eob_10:
+      id: 10
+      check_information_id: 6
+      claim_number: ''
+
+ins_pay_eob_11:
+      id: 11
+      check_information_id: 7
+      claim_number: ''
+
+ins_pay_eob_12:
+      id: 12
+      check_information_id: 8
+      claim_number: ''
+
+ins_pay_eob_13:
+      id: 13
+      check_information_id: 10
+      claim_number: ''
+
+ins_pay_eob_14:
+      id: 14
+      check_information_id: 11
+      claim_number: ''
+
+ins_pay_eob_15:
+      id: 15
+      check_information_id: 12
+      claim_number: ''
+
+ins_pay_eob_16:
+      id: 16
+      check_information_id: 12
+      claim_number: '233'
+      payer_control_number: 'S234'
+      marital_status: 'M'
+      secondary_plan_code: 'A90'
+      tertiary_plan_code: 'B90'
+      state_use_only: 'SD'
+      fund: 10
+      total_retention_fees: 100
+      total_pbid: 100
+
+ins_pay_eob_17: #owner: sunil
+      id: 17
+      check_information_id: 4
+      total_amount_paid_for_claim: 100
+      total_submitted_charge_for_claim: 40
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 50
+      rendering_provider_last_name: 'provider'
+      rendering_provider_first_name: 'firstname'
+      rendering_provider_middle_initial: 'M'
+      rendering_provider_suffix: 'P'
+      patient_first_name: 'Patient'
+      subscriber_last_name: 'subscriber_last_name'
+      subscriber_first_name: 'subscriber_first_name'
+      subscriber_middle_initial: 'M'
+      subscriber_suffix: 'sx'
+      subscriber_identification_code: "123"
+      rendering_provider_identification_number: "67898"
+      claim_interest: 40.0
+
+# ppp_non_zero
+ins_pay_eob_18:
+      id: 18
+      check_information_id: 4
+      total_amount_paid_for_claim: 100
+      total_submitted_charge_for_claim: 40
+      total_co_insurance: 50
+      total_primary_payer_amount: 10
+      total_deductible: 50
+
+ins_pay_eob_19:
+      id: 19
+      check_information_id: 4
+      total_non_covered: 20
+      total_discount: 20
+      total_co_insurance: 20
+      total_deductible: 100
+      total_co_pay: 100
+      total_primary_payer_amount: 0
+      total_contractual_amount: 200
+      total_submitted_charge_for_claim: 45.00
+      total_amount_paid_for_claim: 200
+      total_denied: 100
+      total_expected_payment: 100
+
+# negative_total_charge_and_total_payment
+ins_pay_eob_20:
+      id: 20
+      check_information_id: 4
+      total_amount_paid_for_claim: -100
+      total_submitted_charge_for_claim: 140
+      total_co_insurance: 50
+      total_primary_payer_amount: 100
+      total_deductible: 50
+
+ins_pay_eob_21:
+      id: 21
+      check_information_id: 4
+      total_amount_paid_for_claim: -100
+      total_submitted_charge_for_claim: -140
+      total_co_insurance: 50
+      total_primary_payer_amount: 100
+      total_deductible: 50
+
+# zero_total_coinsurance_and_deductible_and_payment
+ins_pay_eob_22:
+      id: 22
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 100
+      total_co_insurance: 0
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      total_co_pay: 100
+      copay_reason_code_id: 2
+
+# zero_pay_claim_having_crosswalk_with_denied_and_normal_claim_status_code_nil
+ins_pay_eob_23:
+      id: 23
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 50
+      total_co_insurance: 0
+      total_primary_payer_amount: 50
+      total_deductible: 0
+      primary_payment_reason_code_id: 5
+
+# zero_pay_claim_having_crosswalk_with_denied_status_code_nil
+ins_pay_eob_24:
+      id: 24
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 50
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      coinsurance_reason_code_id: 3
+
+# zero_pay_claim_having_crosswalk_with_claim_status_code_nil
+ins_pay_eob_25:
+      id: 25
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 50
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      coinsurance_reason_code_id: 4
+
+# service_level_eob_having_with_multiple_reason_codes_and_one_crosswalk_record
+ins_pay_eob_26:
+      id: 26
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 0
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+  
+# service_level_eob_having_with_multiple_reason_codes_and_no_crosswalk_record
+ins_pay_eob_27:
+      id: 27
+      check_information_id: 4
+      total_amount_paid_for_claim: 0
+      total_submitted_charge_for_claim: 0
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+# EOB w/o reason code
+ins_pay_eob_28:
+      id: 32
+      check_information_id: 4
+      total_amount_paid_for_claim: 100
+      total_submitted_charge_for_claim: 40
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 50
+      rendering_provider_last_name: 'provider'
+      rendering_provider_first_name: 'firstname'
+      rendering_provider_middle_initial: 'M'
+      rendering_provider_suffix: 'P'
+  
+ins_pay_eob_201:
+      id: 201
+      check_information_id: 201
+      total_amount_paid_for_claim: 10
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_202:
+      id: 202
+      check_information_id: 202
+      total_amount_paid_for_claim: 10
+      total_submitted_charge_for_claim: 5
+      total_co_insurance: 50
+      total_primary_payer_amount: 2
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_203:
+      id: 203
+      check_information_id: 203
+      claim_information_id: 203
+      payer_indicator: 'ABC'
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_204:
+      id: 204
+      check_information_id: 204
+      total_amount_paid_for_claim: 10
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_205:
+      id: 205
+      check_information_id: 2015
+      payer_indicator: 'ABC'
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_206:
+      id: 206
+      check_information_id: 2016
+      payer_indicator: 'BC'
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_207:
+      id: 207
+      check_information_id: 2017
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 10
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_208:
+      id: 208
+      check_information_id: 2018
+      payer_indicator: 'ABC'
+      patient_account_number: 'WR12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_209:
+      id: 209
+      check_information_id: 2019
+      payer_indicator: 'ABC'
+      patient_account_number: 'W3412345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_210:
+      id: 210
+      check_information_id: 210
+      payer_indicator: 'BC'
+      patient_account_number: 'WLB12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_211:
+      id: 211
+      check_information_id: 211
+      payer_indicator: 'ABC'
+      patient_account_number: 'WHS12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+
+svc_line_with_zero_payment:
+      id: 28
+      total_amount_paid_for_claim: 0
+
+svc_line_with_non_zero_payment:
+      id: 29
+      total_amount_paid_for_claim: 1.00
+
+svc_with_reason_codes:
+      id: 30
+      total_co_insurance: 1.00
+      total_deductible: 1.00
+      total_non_covered: 2.0
+      total_discount: 2.0
+      total_co_pay: 1.00
+      total_primary_payer_amount: 1.00
+      total_contractual_amount: 2.00
+      total_denied: 1.00
+      coinsurance_reason_code_id: 51
+      contractual_reason_code_id: 52
+      copay_reason_code_id: 53
+      deductible_reason_code_id: 54
+      denied_reason_code_id: 55
+      discount_reason_code_id: 56
+      noncovered_reason_code_id: 57
+      primary_payment_reason_code_id: 58
+
+balance_record_eob:
+      id: 31
+      check_information_id: 1
+      patient_account_number: 78901
+      patient_first_name: Patient
+      patient_last_name: Name
+      subscriber_first_name: Patient
+      subscriber_last_name: Name
+      total_submitted_charge_for_claim: 50.00
+      total_amount_paid_for_claim: 50.00
+      total_service_balance: 0.00
+      image_page_no: 1
+      image_page_to_number: 1
+      balance_record_type: Missing Image
+      sub_job_id: 1
+
+eob_33:
+      id: 33
+      check_information_id: 22
+
+eob_34:
+      id: 34
+      check_information_id: 23
+
+eob_35:
+      id: 35
+      patient_first_name: First
+      patient_middle_initial: M
+      patient_last_name: Last
+      patient_suffix: s
+      check_information_id: 36
+
+eob_36:
+      id: 36
+      patient_first_name: First
+      patient_middle_initial:
+      patient_last_name: Last
+      patient_suffix:
+      check_information_id: 37
+
+eob_37:
+      id: 37
+      patient_first_name: ''
+      patient_middle_initial:
+      patient_last_name: ''
+      patient_suffix:
+
+eob_38:
+      id: 38
+      patient_first_name: NULL
+      patient_middle_initial: NULL
+      patient_last_name: NULL
+      patient_suffix: NULL
+
+
+eob_39:
+      id: 39
+      check_information_id: 34
+
+eob_40:
+      id: 40
+      check_information_id: 35
+
+eob_41:
+      id: 41
+      check_information_id: 46
+      payer_indicator: "UHC"
+
+eob_42:
+      id: 42
+      check_information_id: 47
+      payer_indicator: "AET"
+
+eob_43:
+      id: 43
+      check_information_id: 38
+      payer_indicator: "APP"
+
+eob_44:
+      id: 44
+      check_information_id: 39
+      payer_indicator: ""
+
+eob_45:
+      id: 45
+      total_co_insurance: 1.00
+      total_deductible: 1.00
+      total_non_covered: 2.0
+      total_discount: 2.0
+      total_co_pay: 1.00
+      total_primary_payer_amount: 1.00
+      total_contractual_amount: 2.00
+      total_denied: 1.00
+      check_information_id: 43
+
+ins_pay_eob_2206:
+      id: 2206
+      check_information_id: 2206
+      payer_indicator: 'BC'
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2207:
+      id: 2207
+      check_information_id: 2207
+      payer_indicator: 'BC'
+      patient_account_number: '45SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2208:
+      id: 2208
+      check_information_id: 2208
+      payer_indicator: 'BC'
+      patient_account_number: 'SAL12345'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2209:
+      id: 2209
+      check_information_id: 2209
+      payer_indicator: 'BC'
+      patient_account_number: '999999999'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2210:
+      id: 2210
+      check_information_id: 2210
+      payer_indicator: 'AB'
+      patient_account_number: 'I56798890'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2211:
+      id: 2211
+      check_information_id: 2211
+      payer_indicator: 'BC'
+      patient_account_number: '03M1234'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2212:
+      id: 2212
+      check_information_id: 2212
+      payer_indicator: 'AB'
+      patient_account_number: '756798890'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2213:
+      id: 2213
+      check_information_id: 2213
+      payer_indicator: 'BC'
+      patient_account_number: '203M1234'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2214:
+      id: 2214
+      check_information_id: 2214
+      payer_indicator: 'AB'
+      patient_account_number: '57567988'
+      total_amount_paid_for_claim: 50
+      total_submitted_charge_for_claim: 2
+      total_co_insurance: 50
+      total_primary_payer_amount: 0
+      total_deductible: 0
+      primary_payment_reason_code_id: 1
+
+ins_pay_eob_2215: #Owner : Sunil
+      id: 2215
+
+ins_pay_eob_46: #owner: sunil
+      id: 46
+      check_information_id: 4
+      category: 'claim'
+      claim_from_date: '2002-11-10'
+      claim_to_date: '2002-11-10'
+
+ins_pay_eob_47: #owner: sunil
+      id: 47
+      check_information_id: 4
+      patient_account_number: 'SAL23423'
+      
+eob_48:
+      id: 48
+      total_co_insurance: 1.00
+      total_deductible: 1.00
+      total_non_covered: 2.0
+      total_discount: 2.0
+      total_co_pay: 1.00
+      total_primary_payer_amount: 0.00
+      total_contractual_amount: 2.00
+      total_denied: 1.00
+      total_submitted_charge_for_claim: 1
+      total_amount_paid_for_claim: 1
+
+ins_pay_eob_for_gcbs_49: #owner: Ramya
+      id: 49
+      check_information_id: 49
+      category: "claim"
+      noncovered_reason_code_id: 72
+      denied_reason_code_id: 74
+      discount_reason_code_id: 74
+      coinsurance_reason_code_id: 75
+      total_non_covered: 2.0
+      total_discount: 2.0
+      total_co_insurance: 1.00
+      total_denied: 1.00
+
+ins_pay_eob__for_pm_facility_50: #owner: Ramya
+      id: 50
+      check_information_id: 50
+      category: "service"
+
+ins_pay_eob_247: #owner: Dhanya
+      id: 247
+      check_information_id: 2216
+      patient_account_number: '78923423'
+
+ins_pay_eob_248: #owner: Dhanya
+      id: 248
+      check_information_id: 2217
+      patient_account_number: '17893423'
+
+ins_pay_eob_249: #owner: Dhanya
+      id: 249
+      check_information_id: 2218
+      patient_account_number: '578923423'
+
+ins_pay_eob_250: #owner: Dhanya
+      id: 250
+      check_information_id: 2219
+      patient_account_number: '5617893423'
+
+
+ins_pay_eob_2220: #owner: Dhanya
+      id: 2220
+      check_information_id: 2220
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2221: #owner: Dhanya
+      id: 2221
+      check_information_id: 2221
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2222: #owner: Dhanya
+      id: 2222
+      check_information_id: 2222
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2223: #owner: Dhanya
+      id: 2223
+      check_information_id: 2223
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2224: #owner: Dhanya
+      id: 2224
+      check_information_id: 2224
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2225: #owner: Dhanya
+      id: 2225
+      check_information_id: 2225
+      patient_account_number: '5617893423'
+
+ins_pay_eob_2226: #owner: Dhanya
+      id: 2226
+      check_information_id: 2226
+      patient_account_number: '5617893423'
+      claim_information_id: 234
+
+eob_51:
+      id: 51
+
+eob_52:
+      id: 52
+      check_information_id: 55
+      claim_information_id: 7
+
+eob_53:
+      id: 53
+      check_information_id: 55
+      total_primary_payer_amount: 10
+      claim_information_id: 7
+
+eob_54:
+      id: 54
+      check_information_id: 55
+      patient_account_number: 0003123ABC
+      total_primary_payer_amount: 10
+      claim_information_id: 8
+
+eob_55:
+      id: 55
+      check_information_id: 60
+      claim_information_id: 9
+
+eob_56:
+      id: 56
+      check_information_id: 60
+      claim_information_id: 10
+      image_page_no: 6
+
+eob_57:
+      id: 57
+      check_information_id: 60
+      claim_interest: 23.00
+      total_amount_paid_for_claim: 25.00
+      image_page_no: 7
+
+eob_58:
+      id: 58
+      check_information_id: 60
+      claim_interest: 50.00
+      total_amount_paid_for_claim: 100.00
+      image_page_no: 8
+
+insurance_eob_with_svc_lines_without_interest:
+      id: 59
+      patient_account_number : 'XYZ'
+      check_information_id: 60
+      total_amount_paid_for_claim: 100.00
+  
+insurance_eob_of_a_patient_pay_check:
+      id: 60
+      patient_account_number : 'XYZ'
+      check_information_id: 60      
+      
+eob_61:
+      id: 61
+      check_information_id: 62
+      sub_job_id: 28
+
+eob_62:
+      id: 62
+      check_information_id: 63
+      image_page_no:
+
+eob_63:
+      id: 63
+      check_information_id: 62
+      sub_job_id: 28
+
+eob_64:
+      id: 64
+      check_information_id: 64
+      image_page_no: 5
+      sub_job_id: 31
+      
+eob_65:
+      id: 65
+      check_information_id: 64
+      image_page_no: 6
+      sub_job_id: 31
+
+eob_66:
+      id: 66
+      check_information_id: 64
+      image_page_no: 6
+      sub_job_id: 31
+
+eob_67:
+      id: 67
+      check_information_id: 64
+      image_page_no: 7
+      sub_job_id: 60
+
+eob_68:
+      id: 68
+      patient_account_number : 'XYZ'
+      check_information_id: 65
+      total_amount_paid_for_claim: 100.00
+
+eob_69:
+      id: 69
+      patient_account_number : 'XYZAA'
+      check_information_id: 65
+      total_amount_paid_for_claim: 200.00
+
+eob_70:
+      id:                                70
+      check_information_id:              4
+      category:                          'claim'
+      claim_interest:                    10.00
+      patient_account_number:            '9898'
+      rendering_provider_last_name:      'DEGLER  '
+      rendering_provider_first_name:     'DIANE'
+      rendering_provider_middle_initial: ''
+      claim_information_id:              313
+      provider_tin:                      '78978798'
+
+eob_71:
+      id:                                71
+      check_information_id:              4
+      category:                          'service'
+      claim_interest:                    10.00
+      patient_account_number:            '9898'
+      rendering_provider_last_name:      'DEGLER  '
+      rendering_provider_first_name:     'DIANE'
+      rendering_provider_middle_initial: ''
+      claim_information_id:              313
+      provider_tin:                      '78978798'
+
+ins_pay_eob_72: #owner: Ramya
+      id: 72
+      check_information_id: 45
+      category: "service"
+      sub_job_id: 225
+
+ins_pay_eob_73: #owner: Ramya
+      id: 73
+      check_information_id: 69
+      category: "service"
+
+eob_74:
+  id: 74
+  check_information_id: 70
+
+eob_75:
+  id: 75
+  check_information_id: 71
+  total_amount_paid_for_claim: 100
+  claim_interest: 20
+  late_filing_charge: 5
+  fund: 20
+
+eob_76:
+  id: 76
+  check_information_id: 72
+  total_amount_paid_for_claim: 
+  claim_interest: 20.78
+  late_filing_charge: 
+  fund:
+    
+eob_79:
+  id: 79
+  check_information_id: 74
+  total_amount_paid_for_claim: 4.55
+  claim_interest:
+  late_filing_charge:
+  fund: 23.67
+
+eob_80:
+  id: 80
+  check_information_id: 75
+  total_amount_paid_for_claim: 4.55
+  claim_interest: 34.90
+  late_filing_charge: 67.45
+  fund: 23.67
+
+insurance_payment_eob_81:
+  id: 81
+  check_information_id: 80
+  claim_type: "Denial"
+  
+insurance_payment_eob_82:
+  id: 82
+  check_information_id: 80
+  claim_type: "Denial"
+
+insurance_payment_eob_83:
+  id: 83
+  check_information_id: 81
+  claim_type: "Primary"
+
+eob_without_svc_88: #owner :Ramya
+  id: 88
+  check_information_id: 82
+  total_amount_paid_for_claim: 0.00
+  claim_interest: 0.00
+  late_filing_charge: 0.00
+  fund: 0.00
+  category: "service"
+
+eob_with_svc_85: #owner :Ramya
+  id: 85
+  check_information_id: 85
+  total_amount_paid_for_claim: 10
+  claim_interest: 1
+  fund: 1
+  category: "service"
+
+eob_without_svc_86: #owner :Ramya
+  id: 86
+  check_information_id: 83
+  total_amount_paid_for_claim: 0.00
+  claim_interest: 0.00
+  late_filing_charge: 0.00
+  fund: 0.00
+  category: "service"
+
+eob_with_svc_87: #owner :Ramya
+  id: 87
+  check_information_id: 88
+  total_amount_paid_for_claim: 10
+  claim_interest: 1
+  fund: 1
+  category: "service"
+
+eob_with_svc_89: #owner :Ramya
+  id: 89
+  check_information_id: 89
+  total_amount_paid_for_claim: 10
+  claim_interest: 1
+  late_filing_charge: 1
+  fund: 1
+  category: "service"
+
+eob_without_svc_90: #owner :Ramya
+  id: 90
+  check_information_id: 90
+  total_amount_paid_for_claim: 0.00
+  claim_interest: 0.00
+  late_filing_charge: 0.00
+  fund: 0.00
+  category: "service"
+
+eob_91:
+  id: 91
+  check_information_id: 90
+  total_amount_paid_for_claim: 0.00
+  claim_interest: 0.00
+  late_filing_charge: 0.00
+  fund: 0.00
+  category: "service"
+
+eob_without_svc_92: #owner :Ramya
+  id: 92
+  check_information_id: 105
+  total_amount_paid_for_claim: 0.00
+
+eob_without_svc_93: #owner :Ramya
+  id: 93
+  check_information_id: 104
+  total_amount_paid_for_claim: 10
+
+ins_pay_eob_200:
+      id: 200
+      check_information_id: 107
+      category: 'service'
+      patient_last_name: 'abc'
+      patient_first_name: 'def'
+      patient_middle_initial: 'r'
+      patient_suffix: 'tyu'
+      patient_account_number: '12345'
+      subscriber_identification_code: '2345'
+      subscriber_last_name: 'hi'
+      subscriber_first_name: 'jkl'
+      subscriber_middle_initial: 't'
+      subscriber_suffix: 'rr'
+      provider_organisation: 'sdfsdf'
+      rendering_provider_last_name: 'bnm'
+      rendering_provider_first_name: 'jklu'
+      rendering_provider_middle_initial: 'f'
+      rendering_provider_suffix: 'bc'
+      claim_number: 12
+      insurance_policy_number: 123123
+      patient_identification_code: 1111
+      patient_identification_code_qualifier: 'M'
+      claim_interest: 50
+      plan_type: 'C'
+      claim_type: 'Primary'
+      image_page_no: 1
+      image_page_to_number: 2
+      rejection_comment: 'EOB/EOR missing'
+      patient_type: 'inpatient'
+      carrier_code: '123'
+      hcra: 'hcra'
+      date_received_by_insurer: '2002-11-10'
+      drg_code: 567
+      late_filing_charge: 23.00
+
+eob_94:
+   id: 94
+   patient_account_number: 1234567
+
+eob_95:
+   id: 95
+   patient_account_number: 1234567
+
+eob_96:
+   id: 96
+   patient_account_number: 1234567
+
+eob_97:
+   id: 97
+   patient_account_number: 1234567
+
+eob_98:
+   id: 98
+   patient_account_number: 1234567
+
+eob_99:
+   id: 99
+   patient_account_number: 1234567
+
+eob_100:
+   id: 100
+   patient_account_number: 1234567
+
+eob_101:
+   id: 101
+   patient_account_number: 1234567
+
+eob_102:
+   id: 102
+   patient_account_number: 1234567
+   category: claim
+   total_co_insurance: 1.00
+   coinsurance_reason_code_id: 51
+   total_discount: 2.0
+   discount_reason_code_id: 18
+
+eob_103:
+   id: 103
+   patient_account_number: 1234567
+   total_co_insurance: 1.00
+   total_non_covered: 2.0
+   total_discount: 2.0
+   total_deductible: 20
+   coinsurance_reason_code_id: 51
+   discount_reason_code_id: 56
+   noncovered_reason_code_id: 57
+   deductible_reason_code_id: 22
+

@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+General:
+      id: 1
+      name: "General"
+      start_time: <%= Time.local(2000, "Jan", 1, Time.now.hour, Time.now.min, 0).to_s(:db) %>
+      duration: 24
+
+Morning:
+      id: 2
+      name: "Morning"
+      start_time: <%= Time.local(2000, "Jan", 1, Time.now.hour, Time.now.min, 0).to_s(:db) %>
+      duration: 8

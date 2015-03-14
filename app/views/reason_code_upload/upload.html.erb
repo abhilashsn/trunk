@@ -1,0 +1,27 @@
+<div id="login_main">
+<% case @type
+   when 'hipaa' %>
+    <h1> Importing HIPAA from CSV file</h1>
+  <% when 'client' %>
+    <h1> Importing Client Code from CSV file</h1>
+    <% when 'reasoncode' %>
+    <h1> Importing Payer Reason Code from CSV file</h1>
+  <% end %>
+<h4> Upload files for parsing </h4>
+
+<%= form_tag({:action => 'create', :type => @type, :batch => @batch, :id => @payer_id }, :multipart => true) do %>
+  <p class="black_text">Local File : <%= file_field "upload", "file"%> </p>
+  <p> <%= submit_tag "Import", :class => 'button' %> </p>
+<% end  %>
+
+<% case @type 
+    when 'user' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/admin/user' %>
+  <% when 'batch' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/admin/batch' %>
+  <% when 'payer' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/admin/payer' %>
+  <% when 'job' %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/admin/batch', :action => 'add_job',  :id => @batch %>
+<% end %>
+</div>

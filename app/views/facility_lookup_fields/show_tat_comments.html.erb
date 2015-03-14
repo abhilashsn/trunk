@@ -1,0 +1,63 @@
+<%= javascript_include_tag "ansi_remark_code" %>
+<div id="ajax_container">
+<h1> Listing TAT Comments </h1>
+<table>
+    <tr>
+      <td>
+        <span class="sec_title">New TAT Comment </span>
+        <%= link_to image_tag("toggle.jpg", :border=>0),'#',:onclick => "toggleDisplay();", :style => "width:20;height:18;align:absmiddle" %>
+        <% unless @facility_lookup_fields.blank? %>
+        <br/>
+        <table>
+          <tr>
+              <th style="width:100%"> Comment </th>
+              <th></th>
+              <th></th>
+          </tr>
+          <% @facility_lookup_fields.each_with_index do |facility_lookup_field, ind|
+          @i = ind
+          @facility_lookup_field = facility_lookup_field %>
+          <tr>
+              <td style="width:100%">
+                <span id="name_edit_<%= @i %>"></span>
+                <%= in_place_editor_field :facility_lookup_field, :name, {},
+                  {:script => true, :rows => 1, :cols => 15, :external_control => "name_edit_#{@i}"} %>
+              </td>
+              <td align='right'>
+                <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+                    {:action => "delete_tat_comment", :id => @facility_lookup_field.id},
+                     :remote => true) %>
+              </td>
+          </tr>
+          <% end %>
+        </table>
+        <% else %>
+          <h3>No records found!</h3>
+        <% end %>
+      </td>
+      <td width="2" valign="top" bgcolor="#ECE9D8" ></td>
+      <td valign="top" id="toggleMe" width="20%" style="display:none">
+        <%= form_tag :controller => :facility_lookup_fields,:action => "create_tat_comment" do %>
+          <table border="0" cellspacing="0" cellpadding="0">
+             <tr>
+                <th>TAT Comment</th>
+                <td valign="top"><%= text_field_tag :name %><br/></td>
+             </tr>
+             <tr><td> <%= submit_tag "SAVE", :onclick => "return validate_presence_of('name', 'TAT Comment')" %></td></tr>
+          </table>
+        <% end %>
+      </td>
+    </tr>
+</table>
+</div>
+<%= javascript_tag do %>
+document.on('ajax:complete','#ajax_container', function(event,con){
+   con.update(event.memo.responseText);
+   Element.hide('spinner');
+})
+document.on('ajax:before','#ajax_container', function(event,con){
+   Element.show('spinner');
+
+})
+<% end %>
+

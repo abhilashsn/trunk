@@ -1,0 +1,26 @@
+PAYMENT:
+    HEADER: true
+    BATCH:
+        bank_deposit_date: [ 2, date ]
+        date: [ 2, date ]
+    JOB:
+        check_number: 3
+    CHEQUE:
+        check_number: 3
+        check_amount: [ 4, float ]
+    MICR:  
+        aba_routing_number: 5
+        payer_account_number: 1
+    IMAGE:
+        image_file_name: 0
+
+CORRESP:
+    HEADER: true
+    BATCH:
+        bank_deposit_date: [ 1, date ]
+        date: [ 1, date ]
+    JOB:
+        check_number: 3
+    IMAGE:
+        image_file_name: 0
+  

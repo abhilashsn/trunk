@@ -1,0 +1,22 @@
+ITERATORS:
+  IBAT: /searchXml/searchResults
+  IJOB: dataRow
+  ICHK: check
+  IEOB: document
+
+BATCH:
+  batchid: "Fld/@ID"
+   
+JOB:
+  check_number: "@SerialNumber"
+
+CHEQUE:
+  check_number: "@SerialNumber"
+  check_amount: [ "@Amount", float ]
+
+MICR:
+  aba_routing_number: "@RT"
+  payer_account_number: "@AccountNumber"
+  
+IMAGE:
+  image_file_name: "@imagePath"

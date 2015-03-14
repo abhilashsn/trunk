@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Batch:</b>
+  <%= @mpi_statistics_report.batch %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @mpi_statistics_report.user %>
+</p>
+
+<p>
+  <b>Mpi status:</b>
+  <%= @mpi_statistics_report.mpi_status %>
+</p>
+
+<p>
+  <b>Search criteria:</b>
+  <%= @mpi_statistics_report.search_criteria %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @mpi_statistics_report.start_time %>
+</p>
+
+<p>
+  <b>Eob:</b>
+  <%= @mpi_statistics_report.eob %>
+</p>
+
+
+<%= link_to 'Edit', edit_mpi_statistics_report_path(@mpi_statistics_report) %> |
+<%= link_to 'Back', mpi_statistics_reports_path %>

@@ -1,0 +1,381 @@
+<script>
+  function show_bar(){
+    $('loader').show();
+  }
+</script>
+<style>
+  #loader {
+    position:absolute;
+    left:45%;
+    top:45%;
+    border-collapse:collapse;
+    width:200px;
+    height:100px;
+    z-index:1000;
+    background-repeat:no-repeat;
+    background-position: -60px -100px;
+  }
+</style>
+<div id = "loader" style="display:none">
+  <%= image_tag "loading.gif" %>
+</div>
+<div id="main_title">
+  <div id="title_container">
+  </div>
+  <div id="userbox">
+    <div class="t">
+      <div class="b">
+        <div class="l">
+          <div class="r">
+            <div class="bl">
+              <div class="br">
+                <div class="tl">
+                  <div class="tr">
+                    <div id='eob'>
+                      <%= link_to "Change Password",:controller=>"admin/user", :action => "change_password" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="width:1000px">
+  <div id="innercontent">
+    <div style="min-height:450px">
+
+      <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:manager) %>
+        <div class="roundcont">
+          <div class="roundtop">
+            <span class="sec_title">Administration</span>
+          </div>
+          <ul class="bullet_links">
+            <% if current_user.has_role?(:admin) %>
+              <li>
+                <%= link_to 'User Administration', :controller => 'admin/user' %>
+              </li>
+            <%end %><% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>
+              <li>
+                <%= link_to 'Client Administration', :controller => 'admin/client', :action => 'list' %>
+              </li>
+              <li>
+                <%= link_to 'Default 835 config', :controller => 'admin/config_settings', :action => 'partners_list' %>
+              </li>
+              <li>
+                <%= link_to 'Batch Administration', :controller => 'admin/batch' %>
+              </li>
+              <li>
+                <%= link_to 'Pop-Up Administration' , :controller => 'admin/pop_up', :action => 'add_message' %>
+              </li>
+            <%end %>
+            <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+              <%payer_value =1 %>
+              <li>
+                <%= link_to 'Facility Administration', :controller => 'admin/facility' %>
+              </li>
+              <li>
+                <%= link_to "Payer Administration (#{@new_payer_count})", :controller => 'admin/payer', :action => 'list_new_payers'%>
+              </li>
+              <li>
+                <%= link_to 'Reason Code Crosswalk Administration', :controller => 'reason_code_crosswalks', :action => 'index' %>
+              </li>
+              <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>
+                <li>
+                  <%= link_to 'Error Administration', :controller => 'admin/eob_error' %>
+                </li>
+                <li>
+                  <%= link_to 'Image Shuffle Administration', :controller => '/image_shuffle'  %>
+                </li>
+              <%end %>
+            <%end %>
+            <% if current_user.has_role?(:manager) or current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>
+              <%doc_value =1 %>
+              <li>
+                <%= link_to ' Provider Administration', :controller => '/provider' %>
+              </li>
+            <%end %>
+            <% if current_user.has_role?(:manager) or current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:TL)%>
+              <li>
+                <%= link_to ' TAT Comment Administration', :controller => 'facility_lookup_fields', :action => 'show_tat_comments' %>
+              </li>
+            <%end %>
+            <% if current_user.has_role?(:supervisor) %>
+              <li>
+                <%= link_to "Capitation Account", {:controller => "datacaptures", :action => "capitation_account"}, {:target => "_blank"} %>
+              </li>
+            <% end %>
+            <% if current_user.has_role?(:admin) || current_user.has_role?(:supervisor)%>
+              <li>
+                <%= link_to 'Client Reported Errors ', {:controller => "client_reported_errors", :action => 'new'} %>
+              </li>
+            <%end %>
+
+          </ul>
+          <div class="roundbottom">
+            <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+          </div>
+        </div><%end %>
+
+      <% if    (current_user.has_role?(:admin) or
+            current_user.has_role?(:supervisor) or
+            current_user.has_role?(:partner) or
+            current_user.has_role?(:client) or
+            current_user.has_role?(:facility)) %>
+        <% if current_user.has_role?(:admin) or  current_user.has_role?(:supervisor)%>
+          <div class="roundcont4" style="left:26px!important; margin-top:10px;" >
+            <div class="roundtop">
+              <span class="sec_title">Reports</span>
+            </div>
+          <% elsif current_user.has_role?(:partner) or
+              current_user.has_role?(:facility) or
+              current_user.has_role?(:client) %>
+            <div class="roundcont5" >
+              <div class="roundtop">
+                <span class="sec_title">Reports</span>
+              </div>
+            <% end %>
+            <ul class="bullet_links">
+              <%session[:client_id] = @current_user.id %>
+              <%session[:client_recored_id] %>
+              <li>
+                <%= link_to '837 File Arrival Report', :controller => 'file837_informations',
+                  :action => 'list' %>
+              </li>
+              <% if current_user.has_role?(:admin) or  current_user.has_role?(:supervisor)%>
+                <li>
+                  <%= link_to 'Double Keying Report', :controller => 'twice_keying_fields_statistics',
+                    :action => 'list' %>
+                </li>
+              <% end %>
+              <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:TL)%>
+                <li>
+                  <%= link_to 'EOB Report', :controller => 'eob_reports', :action => 'list' %>
+                </li>
+              <% end %>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+          </div>
+        <%end %>
+
+        <% if current_user.has_role?(:processor) or current_user.has_role?(:qa) or current_user.has_role?(:TL) %>
+          <div class="roundcont">
+            <div class="roundtop">
+              <span class="sec_title">Tasks</span>
+            </div>
+            <ul class="bullet_links">
+              <% if payer_value!=1 and doc_value!=1 %>
+                <li>
+                  <%= link_to 'Client Documentation', :controller => 'documentupload/uploadfile' %>
+                </li>
+                <li>
+                  <%= link_to 'View Payer Information', :controller => 'admin/payer', :action => 'list_approved_payers', :approved => true%>
+                </li>
+              <% end %>
+            <% end %>
+            <% if current_user.has_role?(:processor) or current_user.has_role?(:qa) or current_user.has_role?(:TL) %>
+              <% if current_user.has_role?(:processor) %>
+                <li>
+                  <%= link_to 'My Tasks', :controller => 'processor/my_job',
+                    :location => 'dashboard' %>
+                </li>
+                <li>
+                  <%= link_to 'Productivity Report', :controller => 'processor/productivity_report' %>
+                </li>
+                <li>
+                  <%= link_to "Capitation Account", {:controller => "datacaptures", :action => "capitation_account"}, {:target => "_blank"} %>
+                </li>
+                <li>
+                  <%= link_to 'Stop Allocate ' ,{:controller => 'datacaptures',
+                    :action => 'stop_allocate', :location => 'dashboard'}  %>
+                </li>
+                <li>
+                  <%= link_to 'Report' ,{:controller => 'report',
+                    :action => 'listing_my_jobs', :location => 'dashboard'}  %>
+                </li>
+              <% end %>
+              <% if current_user.has_role?(:qa) or current_user.has_role?(:TL) %>
+                <li>
+                  <%= link_to 'View Online Processors', :controller => 'admin/user', :action => 'list_processor_occupancy' %>
+                </li>
+                <% if current_user.has_role?(:qa) %>
+                  <li>
+                    <%= link_to 'My Tasks', :controller => 'qa/my_job' %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+          </div>
+        <%end %>
+        <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:manager) or current_user.has_role?(:TL) %>
+          <div class="roundcont1">
+            <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:manager)  or current_user.has_role?(:TL)%>
+              <div class="roundtop">
+                <span class="sec_title">Workflow</span>
+              </div>
+              <ul class="bullet_links">
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)%>
+                  <li>
+                    <%= link_to 'Upload Batch', :controller => 'admin/batch_upload/upload_zipfile' %>
+                  </li>
+                <%end%>
+                <li>
+                  <%= link_to 'Work List', :controller => 'admin/batch', :action => 'work_list' %>
+                </li>
+    <%#*commenting the below two links as they are obsolete%>
+    <%#*<li>%>
+    <%#= link_to 'Start Batch Loader', :controller => 'admin/batch', :action => 'batch_load' %>
+    <%#*</li>%>
+    
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:TL)%>
+                  <li>
+                    <%= link_to 'Batch Allocation', :controller => 'admin/batch', :action => 'allocate' %>
+                  </li>
+                <% end %>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)%>
+                  <li>
+                    <%= link_to 'Download Output', :controller => 'admin/download_output/index' %>
+                  </li>
+                <%end%>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)%>
+                  <li>
+                    <%= link_to 'Download Client Level Output', :controller => 'admin/download_client_level_output/index' %>
+                  </li>
+                <%end%>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)%>
+                  <li>
+                    <%= link_to '837 Import', :controller => 'admin/import837' %>
+                  </li>
+                <%end%>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)%>
+                  <li>
+                    <%= link_to "New Job Creation Request Queue(#{@additional_job_request_queue_count})", :controller => 'admin/job', :action => 'additional_job_request_queue' %>
+                  </li>
+                <% end %>
+              </ul>
+              <div class="roundbottom">
+                <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+              </div>
+            <%end %>
+            <div class="ans">
+            </div>
+            <ul class="bullet_links">
+              <% if current_user.has_role?(:admin) or current_user.has_role?(:manager)  or current_user.has_role?(:supervisor)%>
+                <li>
+                  <%= link_to 'Processor Allocated Jobs', :controller => 'admin/job',:action => "processor_allocated_jobs" %>
+                </li>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor)  or current_user.has_role?(:TL) %>
+                  <li>
+                    <%= link_to 'Incomplete Batches', :controller => 'admin/batch',:action=>"batchlist" %>
+                  </li>
+                <%end %>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) %>
+                  <li>
+                    <%= link_to 'Completed Batches ',:controller => 'batch', :action => 'batch_status' %>
+                  </li>
+                <%end %>
+                <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) %>
+                  <li>
+                    <%= link_to 'Output Ready Batches', :controller => 'admin/batch',:action=>"batch_payer_report_835" %>
+                  </li>
+                <%end %>
+                <li>
+                  <%= link_to 'Archived Batches', :controller => 'admin/batch',:action=>"archive_batch" %>
+                </li>
+              <%end %>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+          </div>
+        <%end %>
+        <% if current_user.batch_status_permission == '1' && !(current_user.has_role?(:processor) or current_user.has_role?(:qa) or current_user.has_role?(:TL)) %>
+          <div class="roundcont1">
+            <div class="roundtop">
+              <span class="sec_title">Batch Status </span>
+            </div>
+            <ul class="bullet_links">
+              <li>
+                <%= link_to 'Batch Status', :controller => 'admin/batch', :action => 'status_wise_batch_list' %>
+              </li>
+              <li>
+                <%= link_to 'Completed Batches ',:controller => 'admin/batch', :action => 'batches_completed' %>
+              </li>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+            <div style="height:10px;background-color:#fff;"></div>
+          </div>
+        <%end %>
+        <% if current_user.has_role?(:admin) or current_user.has_role?(:manager) or current_user.has_role?(:supervisor) %>
+          <div class="roundcont1">
+            <div class="roundtop">
+              <span class="sec_title">Manage Reason Codes </span>
+            </div>
+            <ul class="bullet_links">
+              <li>
+                <%= link_to 'Manage HIPAA Codes',:controller => 'hipaa_codes' %>
+              </li>
+              <li>
+                <%= link_to 'Manage Client Codes',:controller => 'client_codes' %>
+              </li>
+              <li>
+                <%= link_to 'Manage ANSI Remark Codes',:controller => 'ansi_remark_code' %>
+              </li>
+              <li>
+                <%= link_to 'Manage New Reason Codes' , :controller => 'admin/payer', :action => 'manage_newly_added_codes' %>
+              </li>
+              <li>
+                <%= link_to "ACH File Exceptions (#{CrTransaction.exceptions.count})", :controller => 'admin/ach_exception', :action => 'index' %>
+              </li>
+              <li>
+                <%= link_to "ERA File Exceptions (#{EraCheck.exceptions.count})", :controller => 'admin/era_exception', :action => 'index' %>
+              </li>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+            <div style="height:10px;background-color:#fff;"></div>
+          </div><%end %>
+        <% if current_user.has_role?(:facility)or current_user.has_role?(:manager)or  current_user.has_role?(:partner) or current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or current_user.has_role?(:processor) or current_user.has_role?(:qa) or current_user.has_role?(:client)%>
+          <div class="roundcont1" >
+            <div class="roundtop">
+              <span class="sec_title">Images &amp; EOBs</span>
+            </div>
+            <ul class="bullet_links">
+              <%session[:client_id] = @current_user.id %>
+              <%session[:client_recored_id] %>
+              <li>
+                <%= link_to 'Image Retrieval' , :controller => 'archive', :action => 'search' %>
+              </li>
+              <% if current_user.claim_retrieval_permission == '1' %>
+                <li>
+                  <%= link_to 'Claim Retrieval' , :controller => 'file837_informations', :action => 'claim_retrieval' %>
+                </li>
+              <% end %>
+
+              <% if current_user.has_role?(:manager) or current_user.has_role?(:supervisor) or current_user.has_role?(:admin) %>
+                <%doc_value =1 %>
+
+                <li>
+                  <%= link_to 'Client Documentation', :controller => 'documentupload/uploadfile' %>
+                </li>
+              <%end %>
+            </ul>
+            <div class="roundbottom">
+              <%= image_tag "bl.gif", :alt=>"", :width=>"10", :height=>"9", :class=>"corner", :style=>"display: none;" %>
+            </div>
+          </div><%end %>
+      </div>
+    </div>
+  </div>
+</div>

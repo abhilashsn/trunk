@@ -1,0 +1,2060 @@
+<%= javascript_include_tag "show_eob_grid_consolidated" %>
+<input type ="hidden" id="claim_level_eob" value="<%= h @claim_level_eob%>">
+<%= tab_type %>
+<%= grid_type %>
+<div id="spinner" class="spinner" style="display:none;">
+  <img id="img-spinner" src="/assets/ajaxloader.gif" alt="Loading"/>
+</div>
+<input type ="hidden" id="view" value="proc_view"><%= correspondence_batch(@check_information) %>
+<%= correspondence_check %>
+<% alert_ids, alert_fields, alert_qns, alert_id_with_questions, alert_comments = ErrorPopup.get_all_alerts(@batch, session[:user_id], @rc_set_name_id) %>
+<%=hidden_field_tag :error_popup_ids, alert_ids unless alert_ids.blank? %>
+<%=hidden_field_tag :error_popup_fields, alert_fields unless alert_fields.blank? %>
+<%=hidden_field_tag :alert_qns, alert_qns unless alert_qns.blank?%>
+<%=hidden_field_tag :alert_id_with_questions, alert_id_with_questions unless alert_id_with_questions.blank? %>
+<%=hidden_field_tag :alert_comments, alert_comments unless alert_comments.blank? %>
+<%=hidden_field_tag :insurance, 0 %>
+<%=hidden_field_tag :test, 0 %>
+<%=hidden_field_tag :test2, 0 %>
+<%=hidden_field_tag :question_check ,0 %>
+<%=hidden_field_tag :cms_url,Settings.cms_host %>
+<%=hidden_field_tag :popup_params %>
+<%=hidden_field_tag :relative_url %>
+<%=hidden_field_tag :rc_set_name_id,@rc_set_name_id unless @rc_set_name_id.blank? %>
+<%=hidden_field_tag :client_id,@batch.client_id %>
+<%=hidden_field_tag :facility_id,@batch.facility_id %>
+<%=hidden_field_tag :mpi_search_type,@facility.mpi_search_type %>
+<%=hidden_field_tag :fcui_random_sampling_percentage,@facility.random_sampling_percentage %>
+<%=hidden_field_tag :fcui_random_sampling,@facility.random_sampling %>
+<%=hidden_field_tag :default_provider_configuration,@facility.details[:default_rendering_provider_details] %>
+<%=hidden_field_tag :mpi_serach_facility_group,@facility.details[:facility_ids] %>
+<%=hidden_field_tag :facility_npi, default_npi(@facility)%>
+<%=hidden_field_tag :facility_tin, default_tin(@facility)%>
+
+<%=hidden_field_tag :hide_modifiers,@facility.details[:hide_modifiers] %>
+<%=hidden_field_tag :provider_id, @batch.meta_batch_information.try(:provider_code) %>
+<%= hidden_field_tag :is_partner_bac, @is_partner_bac %>
+<%= hidden_field_tag :twice_keying_fields, @twice_keying_fields %>
+<%= hidden_field_tag :twice_keying_fields_for_random_sampling %>
+<%= hidden_fields_for_twice_keying_previous_values %>
+<%= hidden_field_tag :hide_incomplete_button_for_non_zero_payment, @facility.details[:hide_incomplete_button_for_non_zero_payment] %>
+<%= hidden_field_tag :hide_incomplete_button_for_all, @facility.details[:hide_incomplete_button_for_all] %>
+<%= hidden_field_tag :hide_incomplete_button_for_correspondance, @facility.details[:hide_incomplete_button_for_correspondance]  %>
+<%= hidden_field_tag :facility, @facility.name.upcase %>
+<%= hidden_field_tag :claim_level_allowed_amount_in_grid, @facility.details[:claim_level_allowed_amount_in_grid] %>
+<%= hipaa_adjustment_codes_field %>
+<%= hidden_field_tag :refresh_page_iframe, false %>
+<%= hidden_field_tag :refresh_page, false %>
+<%= hidden_field_for_multiple_reason_codes_in_adjustment_field  %>
+
+
+<input type ="hidden" id ="fc_npi_or_tin_validation" value = "<%= h @facility.details[:npi_or_tin_validation]  %>"/>
+
+<% if (params[:mode] == 'VERIFICATION') && @verification_mode_with_saved_eobs
+  action =  'insurance_eob_save_update'
+else # could be in OCR mode with no eobs read or non-ocr mode
+  action =  'insurance_eob_save'
+end %>
+
+<input type = 'hidden' value ='<%= h @client_name%>' id='client_type'/>
+<div id='claim_div'>
+  <div id="message" class="alert" style:align="absmiddle; width:90%;">
+    <%if flash[:notice] %><img border="0" src="/assets/alert.gif" width="20" height="21" align="absmiddle">&nbsp;<%=flash[:notice] %><%end %>
+  </div><%params[:page]=1 if !params[:page] %>
+  <table>
+    <tr>
+      <td style="height:19px;">
+        <div style="width:100%;height:100%;overflow:hidden;">
+          <%= form_tag url_for(:action => 'show_eob_grid', :controller => 'insurance_payment_eobs') do %>
+            <%= hidden_field_tag :job_id, @job.id, :id =>'job_id' %>
+            <%= hidden_field_tag :batch_id,params[:batch_id] %>
+            <%=text_field_tag :page,params[:page],:class=>"gotopage" ,:style=>"border: 1px solid ;" %>/<%=@insurance_eobs_unsaved.length if @insurance_eobs_unsaved %>&nbsp;
+            <%=image_submit_tag "/assets/icon/2.png",:onclick=>"return selectTheValue();" %>&nbsp;
+            <%=image_submit_tag "/assets/icon/1.png",:onclick=>"return selectTheValue();" %>
+          <%end %>
+        </div>
+      </td>
+      <%= hidden_field_tag :ocr_eob_length, @insurance_eob_unsaved_data_length%>
+      <td style="height:23px;">
+        <div style="width:100%;height:100%;">
+          <input type = "button" tabindex = "41" name = "button2" class = "reason_code_grid_button" value = "Reason Code Grid" onclick ="showRCGrid()"/>
+          &nbsp;
+          <%= link_to 'Completed EOBs' ,{:controller => 'insurance_payment_eobs',:action => 'claimqa',:batch_id => params[:batch_id],:checknumber => params[:checknumber],:job_id => params[:job_id], :view =>"CompletedEOB" }, :target => "_blank", :class =>"submit_link" %>
+          &nbsp;
+          <%= link_to 'Stop Allocate ' ,{:controller => 'datacaptures',
+            :action => 'stop_allocate', :location => 'grid', :job_id => params[:job_id]}, :id => "stop_allocate",
+            :class =>"submit_link",  :method => :post %>
+          &nbsp;<%batchid = @batch.id %>
+          <%= link_to "Add EOB",{:controller => "insurance_payment_eobs", :action => "claim",:job_id=>params[:job_id],:batch_id=>batchid, :view => "Add_EOB", :mode => params[:mode]},:target => "_blank", :class =>"submit_link_green" %>
+        </div>
+      </td>
+
+
+      <% if !@is_partner_bac %>
+        <td style="height:23px;">
+          <div id = "capitation_account_grid" style="margin-left:2%;width:100%;height:100%;" >
+            <%= render :partial => 'capitation_account' %>
+          </div>
+        </td>
+      <% end %>
+      <td style="height:23px;">
+        <div id = "provider_adjustment_grid"  style = "visibility:hidden;margin-left:2%;width:100%;height:100%;">
+          <%= render :partial => 'provider_adjustments/list' %>
+        </div>
+      </td>
+  </table>
+  <% if current_user.has_role?(:qa) %>
+    <div style="float:right; background:#FFFFA6">
+      <%= hide_and_seek_label '', 'label',
+        'Current EOB count -',(params[:verify_grid].blank?) , "th width='80'",:onclick => "onlineReportForUser()" %>  <%=  @current_eob_count %>
+      <%= hide_and_seek_label '', 'label',
+        'Hourly EOB count-',(params[:verify_grid].blank?) , "th width='80'",:onclick => "onlineReportForUser()" %>  <%=  @hourly_eob_count %>
+    </div>
+  <%elsif current_user.has_role?(:processor) %>
+    <div style="margin-left:80%; background:#FFFFA6">
+      <%= hide_and_seek_label '', 'label',
+        'Current Shift EOB Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+      <%= @eob_count %>
+      &nbsp;&nbsp;&nbsp;
+      <%= hide_and_seek_label '', 'label',
+        'Hourly EOB Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+      <%= @hourly_eob_count %>
+      <br>
+      <%= hide_and_seek_label '', 'label',
+        'Current Shift SVC Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+      <%= @svc_count %>
+      &nbsp;&nbsp;&nbsp;
+    </div>
+  <%end%>
+
+  <%= hidden_field 'claim_info','footnote_payer', :value => @is_footnote_payer, :id => 'is_footnote_payer_id' %>
+  <%= form_tag({:controller=>:datacaptures,:action =>action},:id => 'form1',:name => 'form1', :method=>"post",:onKeyUp=>"highlight1(event)", :onClick=>"highlight1(event)")  do %>
+    <%= hidden_field_tag :job_id, @job.id, :id =>'job_id' %>
+    <%if @patient_837_information %>
+      <%= hidden_field 'insurancepaymenteob','claim_type',:value => @patient_837_information.claim_type %>
+      <%= hidden_field 'claim_info','payer_name',:value => @patient_837_information.payer_name %>
+    <%end %>
+    <input type ="hidden" id="claimleveleob" name ="claimleveleob" value="<%= @claim_level_eob%>">
+    <%= adjustment_line_to_hide %>
+    <%= stand_alone_remark_code(@facility) %>
+    <%= is_role_processor %>
+    <%= service_line_serial_numbers %>
+    <%= service_lines_to_delete %>
+    <%= service_line_delete_all %>
+    <%= interest_only_eob_id %>
+    <%= does_check_have_interest_eob %>
+    <%= parent_job_id_of_child_job %>
+    <%= interest_in_service_line %>
+    <%= claim_level_service_lines_applicable %>
+    <%= hidden_field_for_default_claim_number %>
+    <%= hidden_field_tag :twice_keying_first_attempt_statistics %>
+
+    <!-- Check Level-->
+    <div id="topbar_grid">
+      <table  class="check_info" width="99%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <%= sp_label 'Payment Method', !@facility.details[:transaction_type], 'th style="width:40px;"' %>
+          <%= payment_method_hidden_field %>
+          <%= sp_select_tag :check, :payment_method, !@facility.details[:transaction_type], 'td width="40px"',
+            options_for_select(payment_method_values, @check_information.payment_method),
+            :id => "payment_method", :onblur => " return alertForValidPaymentMethod(); setValidationForPaymentMethod();",
+            :onchange => "setDocumentClassification(); setPaymentMethodHiddenField(); return setPaymentMethodInRelationToMicr();" %>
+          <th width="40px">
+            Check #
+          </th>
+          <td width="100px">
+            <%= generated_check_number %>
+
+            <%= text_field 'checkinforamation', 'check_number',
+              :class => "fullwidth #{class_for_check_number} #{@check_information.style("check_number")}" ,
+              :coordinates => @check_information.coordinates("check_number") ,
+              :page => @check_information.page("check_number"),
+              :id => 'checknumber_id',:value=>(@check_information.check_number).strip ,
+              :onblur => "changeToCapital('checknumber_id'); setRequiredOnChecknumberOrCheckAmount();",
+              :readonly => @has_system_generated_check_number, :style => "#{bg_color_to_check_number} width:60px",
+              :onkeypress => "increaseFieldWidth(id, '82')", :onblur => "decreaseFieldWidth(id, '60')" %>
+          </td>
+          <th width="60px">
+            Image From
+          </th>
+          <td width="4px">
+            <%= text_field 'job','pages_from',:value=>@job.pages_from,:readonly=>true,:size=>4 %>
+          </td>
+          <th width="60px">
+            Image To
+          </th>
+          <td width="4px">
+            <%= text_field 'job','pages_to',:value=>@job.pages_to,:readonly=>true,:size=>4 %>
+          </td>
+          <%= sp_label 'Check Date (k)', (!@facility.is_check_date_as_batch_date), 'th width="70px"' %>
+
+
+          <%= sp_text_field :checkinforamation, :check_date,
+            (!@facility.is_check_date_as_batch_date), "td width='50px'", :id => 'checkdate_id',
+            :class => "datebox #{class_for_check_date} #{@check_information.style("check_date")}" ,
+            :value => "#{check_date}", :tabindex => "10", :accesskey => "k",
+            :coordinates => @check_information.coordinates("check_date") ,
+            :page => @check_information.page("check_date")%>
+          <%= check_date_hidden_field %>
+          <th width="90">
+            Check Amount:
+          </th>
+          <td width="40">
+            <%check_amount = sprintf("%.2f", @check_information.check_amount) unless (@check_information.check_amount).blank? %>
+            <%= text_field 'checkinforamation', 'check_amount',:id => 'checkamount_id',
+              :value=>check_amount, :tabindex=>"1" ,
+              :class => "amount #{class_for_check_amount} #{@check_information.style("check_amount")}",
+              :coordinates => @check_information.coordinates("check_amount"),
+              :page => @check_information.page("check_amount"),
+              :onblur => "setRequiredOnChecknumberOrCheckAmount();HideIncompleteButtonBasedOnCheckAmount();",
+              :onchange => "negativeValidationForCheckAmount();"   %>
+          </td>
+          <th width="80">
+            Amount So Far:
+          </th>
+          <td width="40">
+            <input name="amount_so_far" type="text" class ="amount" id="amount_so_far" value="<%= sprintf("%.2f", @amount_so_far)  %>" />
+          </td>
+          <th width="60">
+            Balance:
+          </th>
+          <%
+          provider_adj_amount = @job.get_provider_adjustment_amount
+          provider_adj_amount =  sprintf("%.2f", provider_adj_amount) unless (provider_adj_amount).blank?
+        %>
+          <%balance = (check_amount.to_f - (@amount_so_far.to_f + provider_adj_amount.to_f).round(2)) %>
+          <%balance =  sprintf("%.2f", balance) unless (balance).blank? %>
+          <td width="40">
+            <input type="text" id="balance" name="balance" readonly = "readonly" class ="amount <% if balance.to_f.zero? %>certain<%else %>uncertain<%end %>" value = "<%= h balance %>" />
+          </td>
+          <% if @facility.details[:default_payee_details]
+            if(!@faciltiy_lockbox.blank?)
+              payee_npi_value = @check_information.payee_npi.blank? ? @facility_lock_box_npi  :  @check_information.payee_npi
+              payee_tin_value = @check_information.payee_tin.blank? ? @facility_lock_box_tin  :  @check_information.payee_tin
+              payee_name_value = @check_information.payee_name.blank? ? @faciltiy_lockbox.payee_name.to_s :  @check_information.payee_name
+            else  @patient_837_information.blank?
+              payee_npi_value = @check_information.payee_npi.blank? ? @facility.facility_npi  :  @check_information.payee_npi
+              payee_tin_value = @check_information.payee_tin.blank? ? @facility.facility_tin  :  @check_information.payee_tin
+              payee_name_value = @check_information.payee_name.blank? ? @facility_name.to_s :  @check_information.payee_name
+            end
+            else
+              if(@patient_837_information.blank? && !@faciltiy_lockbox.blank?)
+                payee_npi_value = @check_information.payee_npi.blank? ? @facility_lock_box_npi  :  @check_information.payee_npi
+                payee_tin_value = @check_information.payee_tin.blank? ? @facility_lock_box_tin  :  @check_information.payee_tin
+                payee_name_value = @check_information.payee_name.blank? ? @faciltiy_lockbox.payee_name.to_s :  @check_information.payee_name
+              elsif  @patient_837_information.blank?
+                payee_npi_value = @check_information.payee_npi.blank? ? @facility.facility_npi  :  @check_information.payee_npi
+                payee_tin_value = @check_information.payee_tin.blank? ? @facility.facility_tin  :  @check_information.payee_tin
+                payee_name_value = @check_information.payee_name.blank? ? @facility_name.to_s :  @check_information.payee_name
+              else
+                payee_tin_value  = @check_information.payee_tin.blank? ? @patient_837_information.billing_provider_tin  :  @check_information.payee_tin
+                payee_npi_value= @check_information.payee_npi.blank? ? @patient_837_information.billing_provider_npi :  @check_information.payee_npi
+                payee_name_value = @check_information.payee_name.blank? ? @patient_837_information.billing_provider_organization_name :  @check_information.payee_name
+                if(!@insurance_eob_unsaved_data.first.patient_account_number.blank?)
+                  payee_tin_class = "imported" if(@check_information.payee_tin.blank? && !@patient_837_information.billing_provider_tin.blank?)
+                  payee_npi_class = "imported" if(@check_information.payee_npi.blank? && !@patient_837_information.billing_provider_npi.blank?)
+                  payee_name_class = "imported" if(@check_information.payee_name.blank? && !@patient_837_information.billing_provider_organization_name.blank?)
+                end
+              end
+            end%>
+            <% readonly_attribute_for_payee_name = @check_information.payee_name.blank? ? false  : true
+            readonly_attribute_for_payee_npi = @check_information.payee_npi.blank? ? false  : true
+            readonly_attribute_for_payee_tin = @check_information.payee_tin.blank? ? false  : true
+          %>
+
+          <th width="70">
+            Payee Name:
+          </th>
+
+
+          <%= sp_text_field 'checkinforamation', 'payee_name',
+            (@client_name.upcase.strip != 'UPMC' && @client_name.upcase.strip != 'UNIVERSITY OF PITTSBURGH MEDICAL CENTER' ),
+            'td',
+            :id => 'payee_name',
+            :value=>payee_name_value, :tabindex=>"1" ,
+            :coordinates => @check_information.coordinates("payee_name"),
+            :page => @check_information.page("payee_name"),
+            :onblur => "changeToCapital('payee_name')",
+            :onchange => "alert('You have edited the payee name. Are you sure?')",
+            :readonly => readonly_attribute_for_payee_name, :size=>"40",:class => "#{double_keying_class('billing_provider_organization_name')} #{payee_name_class}"%>
+
+
+          <%= (auto_complete_text_field :checkinforamation, :payee_name, (@client_name.upcase.strip == 'UPMC' || @client_name.upcase.strip == 'UNIVERSITY OF PITTSBURGH MEDICAL CENTER' ), 'td',
+            {:value=>@check_information.payee_name, :tabindex=>"1" ,
+              :coordinates => @check_information.coordinates("payee_name"),
+              :page => @check_information.page("payee_name"),
+              :onblur => "changeToCapital('payee_name')",
+              :readonly => readonly_attribute_for_payee_name, :size=>"40",:class => "#{double_keying_class('billing_provider_organization_name')} #{payee_name_class} required"
+            },
+            {:skip_style => true, :url => {:action => 'auto_complete_for_payee_name',
+                :job_id => params[:job_id], :facility_id => @facility.id}, :after_update_element =>"function (ele, value){autoPopulateTinAndProviderName();}"}).to_s.html_safe %>
+
+          <th width="50">
+            Payee NPI:
+          </th>
+          <td width="50">
+            <%= text_field 'checkinforamation', 'payee_npi',:id => 'payee_npi',
+              :value=>payee_npi_value, :tabindex=>"1" ,
+              :coordinates => @check_information.coordinates("payee_npi"),
+              :page => @check_information.page("payee_npi"),
+              :onblur => "changeToCapital('payee_npi');validateLengthOfPayeeNpi();",
+              :readonly => readonly_attribute_for_payee_npi,:size=>"10",:class => "validate-npi  #{double_keying_class('billing_provider_npi')} #{payee_npi_class} "
+          %>
+          </td>
+          <th width="50">
+            Payee TIN:
+          </th>
+          <td width="50">
+            <%= text_field 'checkinforamation', 'payee_tin',:id => 'payee_tin',
+              :value=>(@client_name.upcase.strip == 'UPMC' || @client_name.upcase.strip == 'UNIVERSITY OF PITTSBURGH MEDICAL CENTER' )? @check_information.payee_tin : payee_tin_value, :tabindex=>"1" ,
+              :coordinates => @check_information.coordinates("payee_tin"),
+              :page => @check_information.page("payee_tin"),
+              :onblur => "changeToCapital('payee_tin');validateLengthOfPayeeTin();",
+              :readonly => readonly_attribute_for_payee_tin,:size=>"10",:class => "validate-tin #{double_keying_class('billing_provider_tin')} #{payee_tin_class}"
+          %>
+
+          </td>
+
+          <td>
+            <input type="reset" class = "submit_link_green" value="Refresh" onclick = "hideRejectReason()" />
+          </td>
+          <% if @insurance_pay and @facility.details[:mismatch_transaction] %>
+          <div align="right">
+            <td>
+              <%= check_box 'checkinforamation', 'mismatch_transaction', :checked => @check_information.mismatch_transaction, :onclick => 'alertForMismatchTransaction();'%> MMT
+            </td>
+          </div>
+        <% end %>
+        <td>
+        <td width="11%">
+          <div align="right">
+            <%= sp_label 'Default values', @populate_values_for_eob_incompletion , nil %>
+            <%= hidden_field 'insurance', 'grid', :value => @insurance_pay %>
+            <%= sp_checkbox nil, 'populate_default_values', @populate_values_for_eob_incompletion, nil, :onclick => 'defaultValues()', :id => 'populate_default_values' %>
+            <% if @facility.details[:eob_must_present_for_job_completion] %>
+              <%= image_tag "copy.gif", :border=>"0", :onclick => "setDefaultValuesForJobIncompletion()",
+                :alt => "Default Values For Job Incompletion", :title => "Default Values For Job Incompletion" %>
+            <% end %>
+            <%= image_tag "collapse.gif", :border=>"0", :onclick=>"togleDiv()" %>
+          </div>
+        </td>
+        </tr>
+      </table>
+    </div>
+
+    <input type="hidden" id="interest_eob" name="interest_eob" value ="false"/>
+    <div id = "check_patient_info">
+      <div id="check_info">
+        <table id="check_level" cellpadding="0" cellspacing="0" class="check_info">
+          <tr>
+            <%= sp_label 'ABA Routing #', @facility.details[:micr_line_info], 'th' %>
+            <%= sp_label 'Edit', @facility.details[:micr_line_info] && !is_eob_saved?, 'th' %>
+            <%= sp_label 'Payer Account #', @facility.details[:micr_line_info], 'th' %>
+            <%= sp_label 'Edit', @facility.details[:micr_line_info] && !is_eob_saved?, 'th' %>
+            <%= sp_label 'Mailed Date', (@facility.details[:check_received_and_mailed_date] && @insurance_pay), 'th' %>
+            <%= sp_label 'Received Date', (@facility.details[:check_received_and_mailed_date] && @insurance_pay), 'th' %>
+            <%= sp_label 'Payer Type', @insurance_pay, 'th width="100px"' %>
+            <%= sp_label 'Payment Type', (@facility.details[:payment_type] && !@insurance_pay), 'th width="100px"' %>
+            <th>
+              Payer Name (n)
+            </th>
+            <th>
+              Payer Add 1
+            </th>
+            <th>
+              Payer Add 2
+            </th>
+            <th>
+              Payer City
+            </th>
+            <th width="30px">
+              State
+            </th>
+            <th width="50px">
+              Payer Zip
+            </th>
+            <%= sp_label 'Payer TIN #', @facility.details[:payer_tin], 'th width="70px"' %>
+
+          </tr>
+
+          <%if params[:mpi_used_time].blank?%>
+
+            <%= hidden_field 'mpi_search', 'mpi_used_time',:value => "" %>
+          <%else %>
+            <%= hidden_field 'mpi_search', 'mpi_used_time',:value => Time.now.in_time_zone %>
+          <%end %>
+          <% if @current_time.blank?
+
+            @current_time = Time.now.in_time_zone
+
+          end %>
+
+          <%= hidden_field 'insurancepaymenteob', 'start_time',:value => (params[:proc_start_time].present? ? params[:proc_start_time] : @current_time) %>
+          <%= hidden_field 'mpi_search', 'mpi_start_time',:value => params[:mpi_start_time] %>
+          <%= hidden_field 'mpi_search', 'mpi_found_time',:value => params[:mpi_found_time] %>
+          <%= hidden_field 'mpi_search', 'account_number',:value => params[:account_number], :id => 'mpi_search_acc_no_id' %>
+          <%= hidden_field 'mpi_search', 'patient_last_name',:value => params[:patient_last_name], :id => 'mpi_search_pln_id' %>
+          <%= hidden_field 'mpi_search', 'patient_first_name',:value => params[:patient_first_name], :id => 'mpi_search_pfn_id' %>
+          <%= hidden_field 'mpi_search', 'date_of_service_from',:value => params[:date_of_service_from], :id => 'mpi_search_dos_id' %>
+          <tr>
+            <%= hidden_field 'insurancepaymenteob', 'total_edited_fields',
+              :id => 'total_edited_fields'%>
+            <%= hidden_field_tag "eob_count_value", @eobs_count_on_job %>
+            <%= is_any_eob_present  %>
+            <%= sp_text_field :micr_line_information, :aba_routing_number,
+              @facility.details[:micr_line_info], 'td', :id => 'aba_routing_number_id',
+              :class => "fullwidth #{class_for_aba}" ,
+              :value => (@micr_line_information.aba_routing_number unless @micr_line_information.blank? ),
+              :readOnly => readonly_attribute_for_routing_number,
+              :style => "#{bg_color_attribute_for_routing_number} width:52px",
+              :onchange => "micrwise_payerInformations('set payer')",
+              :onblur => "validateRoutingNumberAndMakeReadOnly(id, #{@facility.details[:micr_line_info]})" %>
+            <%= sp_checkbox 'edit', 'aba_routing_number_id', @facility.details[:micr_line_info] && !is_eob_saved?,
+              'td',{ :onclick => "changeReadOnlyAttributeOfMicrLineInformation('aba_routing_number_id')", :checked => false} %>
+            <%= sp_text_field :micr_line_information, :payer_account_number,
+              @facility.details[:micr_line_info], 'td', :id => 'payer_account_number_id',
+              :class => "fullwidth #{class_for_payer_acc_num}" ,
+              :value => (@micr_line_information.payer_account_number unless @micr_line_information.blank?),
+              :onchange => "micrwise_payerInformations('set payer')",
+              :readOnly => readonly_attribute_for_account_number,
+              :style => "#{bg_color_attribute_for_account_number} width:82px",
+              :onblur => "validatePayerAccountNumberAndMakeReadOnly(id, #{@facility.details[:micr_line_info]})" %>
+            <%= sp_checkbox 'edit', 'payer_account_number_id', @facility.details[:micr_line_info] && !is_eob_saved?,
+              'td',{ :onclick => "changeReadOnlyAttributeOfMicrLineInformation('payer_account_number_id')", :checked => false} %>
+            <%= sp_text_field :checkinforamation, :check_mailed_date, (@facility.details[:check_received_and_mailed_date] && @insurance_pay), 'td',
+              :class => "datebox #{@check_information.style("check_date")}", :id => 'check_mailed_date_id',
+              :value => (@check_information.check_mailed_date.blank? ? "mm/dd/yy" : @check_information.check_mailed_date.strftime("%m/%d/%y")),
+              :tabindex => "1" %>
+            <%= sp_text_field :checkinforamation, :check_received_date, (@facility.details[:check_received_and_mailed_date] && @insurance_pay), 'td',
+              :class => "datebox #{@check_information.style("check_date")}", :id => 'check_received_date_id',
+              :value => (@check_information.check_received_date.blank? ? "mm/dd/yy" : @check_information.check_received_date.strftime("%m/%d/%y")),
+              :tabindex => "1" %>
+            <% if @insurance_pay %>
+              <td>
+                <select name="payer_type" id = "payer_type" onChange ="setPayerTin('<%= @facility.default_insurance_payer_tin%>', '<%=@facility.default_patpay_payer_tin%>'); setTransactionType() " onBlur ="isPayerTypeSet()">
+                  <% # Facility Commission parameter checking to decide whether commercial payer option should be displayed in the Payer type dropdown box %>
+                  <%unless @facility.commercial_payerid.blank? %>
+                    <%if @payer_type == 'Commercial' %>
+                      <option value="Commercial" selected>Commercial</option>
+                    <%else %>
+                      <option value="Commercial">Commercial</option>
+                    <%end %>
+                  <% end %>
+                  <%if !@facility.patient_payerid.blank? && @client_name == "GOODMAN CAMPBELL" && @job.payer_group != 'Insurance' %>
+                    <%if @payer_type == 'PatPay' %>
+                      <option value="PatPay" selected>PatPay</option>
+                    <%else %>
+                      <option value="PatPay">PatPay</option>
+                    <%end %>
+                  <% end %>
+                  <% # -- (Payer from client list option) display logic in dropdown box for Payer type %>
+                  <%if @payer_type == 'Commercial' || @payer_type == 'PatPay' %>
+                    <option value="--">--</option>
+                  <%elsif @payer_type.blank? || @payer_type != 'Commercial' || @payer_type != 'PatPay' %>
+                    <option value="--" selected> --  </option>
+                  <%end %>
+                </select>
+                <%= tab_type %>
+                <%= patient_pay_format(@facility) %>
+                <%= commercial_payerid(@facility) %>
+              </td>
+            <% else %>
+            <input name="payer_type" id = "payer_type" type="hidden" value="PatPay">
+          <% end %>
+          <%= type_of_payer_created_by_admin %>
+          <% if (@check_information.payer.nil?)
+            payer = Payer.new
+          else
+            payer = @check_information.payer
+          end %>
+          <%= sp_select_tag 'checkinforamation', 'payment_type', (@facility.details[:payment_type] && !@insurance_pay), 'td', options_for_select(@payment_type_items, @check_information.payment_type), :id=>"payment_type_id",
+            :class => "#{@check_information.style("payment_type")}", :coordinates =>@check_information.coordinates("payment_type") %>
+          <%= payer_status %>
+          <%= payer_payid(@payid) %>
+          <%= payer_from_check_or_micr %>
+          <%= payer_name_from_check_or_micr %>
+          <%= hidden_payer_name %>
+          <%= facility_sitecode %>
+          <%= charge_amount_in_denied %>
+          <% make_payer_name_readonly = set_payer_name_as_readonly
+          bg_color_to_payer_name = bg_color_attribute_for_payer_name(make_payer_name_readonly)%>
+          <td>
+            <%= (text_field_with_auto_complete :payer, :popup ,{
+                :tabindex=>"4",:class => "fullwidth required #{payer.style("payer")}" ,
+                :value => @payer_name ,:accesskey => "n", :min_chars => "3",
+                :onkeypress => "enlargeTextfieldSize('payer_popup',30)",
+                :onblur => "resetTextfieldSize('payer_popup',30);changeToCapital('payer_popup'); populatePayerInfo('payer_popup');  isPatientThePayer(); resetPayerAssociatedData();" ,
+                :coordinates => payer.coordinates("payer") ,
+                :page => payer.page("payer"),
+                :readonly => make_payer_name_readonly,
+                :style => bg_color_to_payer_name},{:skip_style => true,
+                :url => {:action => 'auto_complete_for_payer_popup',
+                :job_id => params[:job_id]}, :with => " 'payer_name=' + $F('payer_popup') +'&payer_address_one=' + $F('payer_pay_address_one')"}).to_s.html_safe %>
+          </td>
+          <% make_payer_address_readonly = readonly_attribute_for_payer_address
+          bg_color_to_payer_address = bg_color_attribute_for_payer_address(make_payer_address_readonly)
+          required_class_for_payer_address = is_payer_address_mandatory %>
+          
+          <td>
+            <%= (text_field_with_auto_complete :payer, :pay_address_one, {
+              :value => @payer_address_one,
+              :class => "fullwidth #{required_class_for_payer_address} #{payer.style("pay_address_one")}",
+              :onkeypress => "enlargeTextfieldSize('payer_pay_address_one',15)", :tabindex=>"5",
+              :onblur => "resetTextfieldSize('payer_pay_address_one',15);changeToCapital('payer_pay_address_one'); populatePayerInfo('payer_pay_address_one');",
+              :coordinates => payer.coordinates("pay_address_one") ,
+              :page => payer.page("pay_address_one"),
+              :readonly => make_payer_address_readonly,
+              :style => bg_color_to_payer_address},{:skip_style => true,
+              :url => {:action => 'auto_complete_for_payer_pay_address_one',
+              :job_id => params[:job_id]}, :with => " 'payer_name=' + $F('payer_popup') +'&payer_address_one=' + element.value"}).to_s.html_safe  %>
+          </td>
+          <td>
+            <%= text_field 'payer', 'pay_address_two',:id => 'payer_address_two',
+              :class => "fullwidth #{payer.style("pay_address_two")}",:tabindex=>"6" ,
+              :value => @payer_address_two,:onkeypress => "enlargeTextfieldSize('payer_address_two',15)",
+              :onblur => "resetTextfieldSize('payer_address_two',15);changeToCapital('payer_address_two')",
+              :coordinates => payer.coordinates("pay_address_two"),
+              :page => payer.page("pay_address_two"),
+              :readonly => make_payer_address_readonly,
+              :style => bg_color_to_payer_address %>
+          </td>
+          <td>
+            <%= text_field 'payer', 'payer_city',:id => 'payer_city_id',
+              :class => "fullwidth #{required_class_for_payer_address} validate-alpha #{payer.style("payer_city")}",
+              :tabindex=>"7" , :value => @payer_city,
+              :onkeypress => "enlargeTextfieldSize('payer_city_id',10)",
+              :onblur => "resetTextfieldSize('payer_city_id',10);changeToCapital('payer_city_id')",
+              :coordinates => payer.coordinates("payer_city"),
+              :page => payer.page("payer_city"),
+              :readonly => make_payer_address_readonly,
+              :style => bg_color_to_payer_address %>
+          </td>
+          <td>
+            <%= (text_field_with_auto_complete 'payer', 'payer_state', {
+              :class => "textbox #{required_class_for_payer_address} validate-capital validate-payer_state #{payer.style("payer_state")}",
+              :style => "width:20px",:tabindex=>"8" ,:value => @payer_state,
+              :onblur => "changeToCapital('payer_payer_state'); formatPayerState(); validatePayerStateAndType('payer_payer_state')",
+              :coordinates => payer.coordinates("payer_state"), :maxlength => '2',
+              :page => payer.page("payer_state"),
+              :readonly => make_payer_address_readonly,
+              :style => bg_color_to_payer_address}, {:skip_style => true,
+                :url => {:action => 'auto_complete_for_payer_payer_state'}}).to_s.html_safe %>
+          </td>
+          <td>
+            <%= text_field 'payer', 'payer_zip',:id => 'payer_zipcode_id',
+              :class => "fullwidth #{required_class_for_payer_address} validate-zipcode #{payer.style("payer_zip")}",
+              :size => "10", :tabindex => "9" , :value => @payer_zip,
+              :onblur => "changeToCapital('payer_zipcode_id');", :onchange => "validateZipCode(id)",
+              :coordinates => payer.coordinates("payer_zip"),
+              :page => payer.page("payer_zip"),
+              :readonly => make_payer_address_readonly,
+              :style => bg_color_to_payer_address %>
+          </td>
+          <%= sp_text_field :payer, :payer_tin, @facility.details[:payer_tin], 'td',
+            :class => "textbox validate-payer_tin #{payer.style("payer_tin")}",
+            :size=>"10",:id => 'payer_tin_id',:onblur =>"changeToCapital('payer_tin_id')",
+            :coordinates => payer.coordinates("payer_tin") ,:page => payer.page("payer_tin"),
+            :value => @payer_tin, :readonly => make_payer_address_readonly,
+            :style => bg_color_to_payer_address %>
+          <%= hidden_field 'payer', 'payer_id',:id=>'payer_id' ,:size => 3 ,:value => @payer_id %>
+          <%= hidden_field 'client', 'name',:id=>'client_name' ,:value => @client_name %>
+          <%=hidden_field_tag :payer_details_string %>
+          <%=hidden_field_tag :is_payercomment_present %>
+          <%=hidden_field_tag :is_multiple_comment_present %>
+          </tr>
+        </table>
+      </div>
+      <% if @insurance_eob_unsaved_data.respond_to?("total_pages") %>
+        <div style="height:16px; width:99%; margin-top:5px;"onclick ="remove_highlight() ">
+          <strong><b><%= will_paginate  @insurance_eob_unsaved_data unless @insurance_eob_unsaved_data.blank? %></b></strong>
+        </div>
+      <% end %>
+      <input type ="hidden" id = "page_no" value = "<%= h params[:page]%>"/><%=hidden_field_tag(:page, params[:page]) %>
+      <% if (@check_information.payer.nil?)
+        payer = Payer.new
+      else
+        payer = @check_information.payer
+      end %>
+      <%@insurance_eob_unsaved_data.each do |patient| %>
+        <%= hidden_field_tag :insurance_id,  patient.id,:id=>'insurance_id' %>
+        <%= hidden_field_tag :mode_value,@mode_value %>
+        <%= balance_record_type(patient) %>
+        <% if @patient_pay %>
+          <% insurance_payment_eob_temp = patient %>
+          <%= hidden_field 'patdetails', 'patient_id',:id=>'patient_id' ,:size => 3 ,:value => (insurance_payment_eob_temp.patients.first.id unless insurance_payment_eob_temp.patients.blank?) %>
+        <% end %>
+        <div id="patient_info">
+          <table cellpadding="0" cellspacing="0" class="patient_info">
+            <tr>
+              <th>
+                Patient Name ( Last | First | Middle | Suffix ) (p)
+              </th>
+              <%if(@client_name.to_s == $HLSC_CLIENT_F.to_s) %>
+                <th>
+                  Invoice # [n]
+                </th>
+              <%else %>
+                <th>
+                  Patient A/C # (a)
+                </th>
+              <%end %>
+              <th width="35px">
+                (m)
+              </th>
+              <%=  hidden_field_for_account_num_prefix %>
+              <%= sp_label 'Self', @patient_pay && !@facility.details[:patient_address].blank? , 'th' %>
+              <%= sp_label 'Patient Add 1', @patient_pay && !@facility.details[:patient_address].blank? , 'th' %>
+              <%= sp_label 'Patient Add 2', @patient_pay && !@facility.details[:patient_address].blank? , 'th' %>
+              <%= sp_label 'Patient City', @patient_pay && !@facility.details[:patient_address].blank? , 'th' %>
+              <%= sp_label 'State', @patient_pay && !@facility.details[:patient_address].blank? , "th width='30px'" %>
+              <%= sp_label 'Patient Zip', @patient_pay && !@facility.details[:patient_address].blank? , "th width='50px'" %>
+              <%= sp_label 'Carrier Code', (@facility.details[:carrier_code] && @insurance_pay), 'th width="50px"' %>
+              <% conditions_for_claim_or_control_number = false %>
+              <% label_for_control_or_claim = "" %>
+              <% if @facility.details[:number] == 'claim'
+                label_for_control_or_claim = 'Claim # (c)'
+                conditions_for_claim_or_control_number = true
+              elsif (@facility.details[:number] == 'control' && @insurance_pay)
+                label_for_control_or_claim = 'Control #'
+                conditions_for_claim_or_control_number = true
+              end %>
+              <%= sp_label label_for_control_or_claim, conditions_for_claim_or_control_number, 'th' %>
+              <%= sp_label 'Policy #', @insurance_pay, 'th width="70px"' %>
+              <%= sp_label 'Payer Control #', (@facility.details[:payer_control_number] && @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'Marital Status', (@facility.details[:marital_status] && @insurance_pay), 'th width="100px"' %>
+              <%= sp_label 'Patient ID #', @insurance_pay, 'th width="70px"' %>
+              <%= sp_label 'Qualifier #', @insurance_pay, 'th width="50px"' %>
+              <th width="70px">
+                Member ID (i)
+              </th>
+              <%= sp_label 'MRN', (@facility.details[:medical_record_number] && @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'POS', (@facility.details[:place_of_service]), 'th width="50px"' %>
+              <%= sp_label 'Secondary Plan Code', (@facility.details[:secondary_plan_code] && @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'Tertiary Plan Code', (@facility.details[:tertiary_plan_code] && @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'Over Pay Recovery', (@facility.details[:over_payment_recovery] &&
+                  @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'Interest', @insurance_pay, 'th' %>
+              <%= sp_label 'HCRA', (@facility.details[:hcra] && @insurance_pay), 'th width="50px"' %>
+              <%= sp_label 'Fund', (@facility.details[:fund] && @insurance_pay), 'th' %>
+              <%= sp_label 'IPlan', @insurance_pay, 'th width="40px"' %>
+              <%= sp_label 'Payer Indicator', (@facility.details[:payer_indicator] &&
+                  @insurance_pay), 'th width="40px"' %>
+              <%= sp_label 'Claim Type', !@show_patpay_statement_fields, 'th' %>
+              <th>
+                Image Type
+              </th>
+              <%= sp_label 'Transaction Type', @facility.details[:transaction_type] && @insurance_pay, 'th width="40px"' %>
+              <%= sp_label 'Format', @show_patpay_statement_fields, 'th' %>
+              <%= sp_label 'Payee Type', @show_patpay_statement_fields, 'th' %>
+              <%= sp_label 'Pt Statement?', @show_patpay_statement_fields, 'th width="54px"' %>
+              <%= sp_label 'Multiple Account# ?', @show_patpay_statement_fields, 'th width="54px"' %>
+              <%= sp_label 'Multiple Statement?', @show_patpay_statement_fields, 'th width="54px"' %>
+              <%= sp_label 'Re-pricer Info' , @facility.details[:re_pricer_info] &&
+                @insurance_pay && @client_name.upcase.strip == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" , 'th width=""54px"' %>
+              <%= sp_label 'Class of Contract' , @facility.details[:re_pricer_info] &&
+                @insurance_pay && @client_name.upcase.strip != "UNIVERSITY OF PITTSBURGH MEDICAL CENTER", 'th width="54px"' %>
+              <%= sp_label 'Apply To All Claims' , @facility.details[:re_pricer_info] &&
+                @insurance_pay, 'th width="54px"' %>
+            </tr>
+            <tr>
+              <td>
+                <input type ="hidden" id ="fc_def_pat_name" value = "<%= h @facility.default_patient_name %>"/>
+                <table width="99.5%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <%= text_field 'insurancepaymenteob', 'patient_last_name',
+                        :id => 'patient_last_name_id',
+                        :class => "fullwidth required #{set_patient_name_validation} #{double_keying_class('patient_last_name')} #{(@patient_837_information.blank? ? patient.style("patient_last_name"): @patient_837_information.patient_last_name.blank? ? patient.style("patient_last_name"): "imported")unless(patient.patient_account_number.blank?)}",
+                        :tabindex=>"10", :accesskey => "p",
+                        :value => (@patient_837_information.blank? ? patient.patient_last_name : get_value( patient.patient_last_name,@patient_837_information.patient_last_name)),
+                        :onkeypress => "enlargeTextfieldSize('patient_last_name_id',20)",
+                        :onblur=> "resetTextfieldSize('patient_last_name_id',20);changeToCapital('patient_last_name_id')",
+                        :ondblclick => "setFCDefaultPatName('fc_def_pat_name', id)",
+                        :coordinates => patient.coordinates("patient_last_name"),
+                        :page => patient.page("patient_last_name") %>
+                    </td>
+                    <%= hidden_field 'insurancepaymenteob', 'patient_medistreams_id',:id => 'patient_medistreams_id',:value => (@patient_837_information.blank? ? patient.patient_medistreams_id : @patient_837_information.patient_medistreams_id ) %>
+                    <%= hidden_field 'insurancepaymenteob', 'facility_type_code',:id => 'facility_type_code_id',:value => (@patient_837_information.blank? ? patient.facility_type_code : @patient_837_information.facility_type_code ) %>
+                    <td>
+                      <%= text_field 'insurancepaymenteob', 'patient_first_name',
+                        :id => 'patient_first_name_id',
+                        :class => "fullwidth required #{set_patient_name_validation} #{double_keying_class('patient_first_name')} #{(@patient_837_information.blank? ? patient.style("patient_first_name"): @patient_837_information.patient_first_name.blank? ? patient.style("patient_first_name"): "imported")unless(patient.patient_account_number.blank?)}" ,
+                        :tabindex => "11" ,
+                        :value => (@patient_837_information.blank? ? patient.patient_first_name : get_value( patient.patient_first_name,@patient_837_information.patient_first_name)),
+                        :onkeypress => "enlargeTextfieldSize('patient_first_name_id',20)",
+                        :onblur => "resetTextfieldSize('patient_first_name_id',20);changeToCapital('patient_first_name_id')",
+                        :coordinates =>patient.coordinates("patient_first_name"),
+                        :page => patient.page("patient_first_name"),
+                        :ondblclick => "setFCDefaultPatName('fc_def_pat_name', id)" %>
+                    </td>
+                    <td width="15px">
+                      <%= text_field 'insurancepaymenteob', 'patient_middle_initial',
+                        :id => 'patient_initial_id',
+                        :class => "validate-alpha-without-space  #{double_keying_class('patient_middle_initial')} #{(@patient_837_information.blank? ? patient.style("patient_middle_initial") : @patient_837_information.patient_middle_initial.blank? ? patient.style("patient_middle_initial"): "imported")unless(patient.patient_account_number.blank?)}",
+                        :style => "width:10px",:tabindex=>"12" ,
+                        :value => (@patient_837_information.blank? ? patient.patient_middle_initial : get_value( patient.patient_middle_initial,@patient_837_information.patient_middle_initial)),
+                        :onblur=> "changeToCapital('patient_initial_id')",
+                        :coordinates =>patient.coordinates("patient_middle_initial"),
+                        :page =>patient.page("patient_middle_initial") %>
+                    </td>
+                    <td width="20px">
+                      <%= text_field 'insurancepaymenteob', 'patient_suffix',
+                        :id => 'patient_suffix_id',
+                        :class => "validate-alpha #{double_keying_class('patient_suffix')} #{(@patient_837_information.blank? ? patient.style("patient_suffix") : @patient_837_information.patient_suffix.blank? ? patient.style("patient_suffix"): "imported")unless(patient.patient_account_number.blank?)}" ,
+                        :style => "width:15px",
+                        :value => (@patient_837_information.blank? ? patient.patient_suffix : get_value( patient.patient_suffix,@patient_837_information.patient_suffix)) ,
+                        :onblur=>"changeToCapital('patient_suffix_id')" ,
+                        :coordinates =>patient.coordinates("patient_suffix"),
+                        :page =>patient.page("patient_suffix") %>
+                    </td>
+                    <% if @insurance_pay %>
+                      <td width="20px">
+                        <input type="checkbox" id="copy_patient" onclick='copyPatientName()' tabindex="13"/>
+                      </td>
+                    <% end %>
+                  </tr>
+                </table>
+              </td><input type ="hidden" id ="fc_def_ac_num" value = "<%= h @facility.default_account_number %>"/>
+            <td>
+              <input type ="hidden" id="provider_adjustment_amount" value="<%= provider_adj_amount %>"/>
+              <input type ="hidden" id="current_provider_adjustment_amount" />
+              <input type ="hidden" id ="pages_from" value = "<%= h @job.pages_from %>"/>
+              <input type ="hidden" id ="image_type" value = "<%= h @job.batch.facility.image_type %>"/>
+              <input type ="hidden" id ="pages_to" value = "<%= h @job.pages_to %>"/>
+              <input type ="hidden" name = "acc_no_captured_time" id  = "acc_no_captured_time_id" />
+              <%= (text_field 'insurancepaymenteob', 'patient_account_number',
+                :id => 'patient_account_id',
+                :class => "fullwidth required  #{double_keying_class('patient_account_number')} #{@facility.account_number_validation} #{(@patient_837_information.blank? ? patient.style("patient_account_number") : @patient_837_information.patient_account_number.blank? ? patient.style("patient_account_number"): "imported")unless(patient.patient_account_number.blank?)}",
+                :tabindex => "2" ,:accesskey => "a" ,
+                :value => (@patient_837_information.blank? ? patient.patient_account_number  : get_value(patient.patient_account_number ,@patient_837_information.patient_account_number)),
+                :onblur => "changeToCapital('patient_account_id'); getImagePage(); disablePageNumber(); setAccountNoCapturedTime('#{Time.now}');",
+                :coordinates => patient.coordinates("patient_account_number"),
+                :page => patient.page("patient_account_number"),
+                :ondblclick => "defaultPatientAccountNumber('fc_def_ac_num')").to_s.html_safe %>
+            </td>
+            <input type = "hidden" name = 'mpi_search_start_time' id = "mpi_search_start_time_id"/>
+            <td>
+              <input type ="hidden" id ="mpi_apply_id" value = "true"/><input type ="hidden" id = "page_no" value = "0"/>
+              <div align="center">
+                <input type="button" name="MPI" id ="mpi_button" value="MPI" onclick='mpiPopup("processor","<%=Time.now.in_time_zone%>","<%= @claim_level_eob%>","<%=@current_time%>","<%=@mode_value%>")' accesskey="m" tabindex= "3" class ="submit_mpi"/>
+                <%= sp_checkbox nil, 'mpi_selected_or_not', @claim_linkage_present,nil,{ :onclick => 'populate_ocr_data(this.checked)', :id => 'mpi_selected_or_not',:checked => !@patient_837_information.blank?} %>
+              </div>
+            </td>
+            <%= sp_checkbox :patient_add, :same_as_payer, @patient_pay && !@facility.details[:patient_address].blank?,
+              'td', :onclick => "copyPayerAddressToPatientAddress()", :tabindex => "14" %>
+            <%= sp_text_field :patient, :address_one,
+              @patient_pay && !@facility.details[:patient_address].blank?, 'td',
+              :id => 'patient_address_one', :class => "fullwidth required",
+              :tabindex => "14", :onkeypress => "enlargeTextfieldSize(id, 15)",
+              :onblur => "resetTextfieldSize(id, 15); changeToCapital(id)" %>
+            <%= sp_text_field :patient, :address_two,
+              @patient_pay && !@facility.details[:patient_address].blank?, 'td',
+              :id => 'patient_address_two', :class => "fullwidth",
+              :tabindex => "15", :onkeypress => "enlargeTextfieldSize(id, 15)",
+              :onblur => "resetTextfieldSize(id, 15); changeToCapital(id)" %>
+            <%= sp_text_field :patient, :city,
+              @patient_pay && !@facility.details[:patient_address].blank?, 'td',
+              :id => 'patient_city_id', :class => "fullwidth required validate-alpha",
+              :tabindex => "16", :onkeypress => "enlargeTextfieldSize(id, 10)",
+              :onblur => "resetTextfieldSize(id, 10); changeToCapital(id)" %>
+            <%= sp_text_field :patient, :state,
+              @patient_pay && !@facility.details[:patient_address].blank?, 'td',
+              :id => 'patient_state_id', :class => "textbox required validate-capital",
+              :style => "width:20px", :tabindex => "17",
+              :onblur => "changeToCapital(id); validateState(id)" %>
+            <%= sp_text_field :patient, :zip_code,
+              @patient_pay && !@facility.details[:patient_address].blank?, 'td',
+              :id => 'patient_zipcode_id',:size => "10",
+              :class => "fullwidth required validate-zipcode",
+              :tabindex => "17", :onblur => "changeToCapital(id)" %>
+            <%= sp_text_field :insurancepaymenteob, :carrier_code, (@facility.details[:carrier_code] && @insurance_pay),
+              'td width="50px" ',  :id=>'carrier_code_id',:class => "textbox validate-carrier_code" , :maxlength => 3, :style => "text-align:left" ,:size => "10" %>
+            <%= sp_text_field :insurancepaymenteob, :claim_number, conditions_for_claim_or_control_number,
+              'td width="75px" ', :id => 'claimnumber_id',
+              :class => "fullwidth  #{double_keying_class('claim_number')} #{(@patient_837_information.blank? ? patient.style("claim_number") : @patient_837_information.claim_number.blank? ? patient.style("claim_number") : "imported")unless(patient.patient_account_number.blank?)} #{@facility.claim_number_validation}",
+              :style => "width:75px", :accesskey => "c", :tabindex => "14",
+              :onblur => "changeToCapital('claimnumber_id');getthewindow();",
+              :coordinates => patient.coordinates("claim_number"), :page => patient.page("claim_number"),
+              :ondblclick => "populateClaimNumber();",
+              :value => (@patient_837_information.blank? ? patient.claim_number  : get_value(patient.claim_number ,@patient_837_information.claim_number)) %>
+            <%= sp_text_field :insurancepaymenteob, :insurance_policy_number, @insurance_pay,
+              'td', :id => 'insurance_policy_number_id',:class => "textbox   #{patient.style("insurancei_policy_number")}", :tabindex=>"15" ,
+              :size => "9",:onblur =>"changeToCapital('insurance_policy_number_id')", :coordinates =>patient.coordinates("insurancei_policy_number"),
+              :page =>patient.page("insurancei_policy_number"), :value => (@patient_837_information.blank? ? patient.insurance_policy_number  : get_value(patient.insurance_policy_number ,@patient_837_information.policy_number))%>
+            <%= sp_text_field :insurancepaymenteob, :payer_control_number, (@facility.details[:payer_control_number] && @insurance_pay),
+              'td', :id => 'payer_control_number_id', :tabindex => "16",
+              :class => "textbox" , :style => "text-align:left", :size => "5", :maxlength => 29,
+              :onblur =>"changeToCapital('payer_control_number_id')" %>
+            <% value_for_marital_status = "" %>
+            <% if !@patient_837_information.blank?
+              value_for_marital_status = @patient_837_information.find_key('marital_status')
+            end %>
+            <%= sp_select_tag 'insurancepaymenteob', 'marital_status', (@facility.details[:marital_status] && @insurance_pay),
+              'td', options_for_select(['','S','M','D'].sort, value_for_marital_status),
+              :id => "marital_status_id", :tabindex => "16", :class => "textbox #{double_keying_class('marital_status')}" %>
+            <%= sp_text_field :insurancepaymenteob, :patient_identification_code, @insurance_pay,
+              'td', :id => 'patient_identification_code_id',:class => "fullwidth #{double_keying_class('patient_identification_number')} #{@patient_837_information.blank? ? patient.style("patient_identification_code") : @patient_837_information.patient_identification_number.blank? ? patient.style("patient_identification_code") : "imported"}",:tabindex=>"16",
+              :onblur =>"changeToCapital('patient_identification_code_id')", :coordinates =>patient.coordinates("patient_identification_code"),
+              :page =>patient.page("patient_identification_code"),
+              :value => (@patient_837_information.blank? ? patient.patient_identification_code  : get_value(patient.patient_identification_code,@patient_837_information.patient_identification_number))  %>
+            <%= sp_select_tag 'insurancepaymenteob', 'patient_identification_code_qualifier', @insurance_pay, 'td',
+              options_for_select(['--','SSN','HIC'],patient.patient_identification_code_qualifier),
+              :class => "textbox  #{patient.style("patient_identification_code_qualifier")}",
+              :id=>"qualifier", :onchange => "setPatientIdentificationCodeForSitecode896();",
+              :onblur => "checkQualifier('patient_identification_code_id','qualifier')",
+              :coordinates =>patient.coordinates("patient_identification_code_qualifier"),
+              :page =>patient.page("patient_identification_code_qualifier") %>
+            <td>
+              <%= text_field 'insurancepaymenteob', 'subscriber_identification_code',
+                :tabindex => "17", :accesskey => "i",
+                :class => "textbox #{double_keying_class('insured_id')} #{(@patient_837_information.blank? ? patient.style("subscriber_identification_code") : @patient_837_information.insured_id.blank? ? patient.style("subscriber_identification_code") : "imported")unless(patient.patient_account_number.blank?)}",
+                :size => "9", :id => 'member_id',
+                :onfocus => "checkQualifier('patient_identification_code_id','qualifier');",
+                :value =>  (@patient_837_information.blank? ? patient.subscriber_identification_code  : get_value(patient.subscriber_identification_code,@patient_837_information.insured_id)),
+                :onblur => "changeToCapital('member_id')",
+                :coordinates => patient.coordinates("subscriber_identification_code"),
+                :page => patient.page("subscriber_identification_code") %>
+            </td>
+            <%= sp_text_field :insurancepaymenteob, :medical_record_number,
+              (@facility.details[:medical_record_number] && @insurance_pay),
+              'td', :class => "textbox #{double_keying_class('medical_record_number')} #{(@patient_837_information.blank? ? patient.style("medical_record_number")  : @patient_837_information.medical_record_number.blank? ? patient.style("medical_record_number")  : "imported")unless(patient.patient_account_number.blank?)} ",
+              :style => "text-align:left", :size => "9", :maxlength => 50,
+              :onblur => "validateAlphaNumeric(id);changeToCapital(id)", :tabindex => "17",
+              :id => 'medical_record_number_id',
+              :value =>(@patient_837_information.blank? ? patient.medical_record_number  : get_value(patient.medical_record_number,@patient_837_information.medical_record_number)) %>
+
+            <%= (auto_complete_text_field :insurancepaymenteob, :place_of_service, (@facility.details[:place_of_service]), 'td',
+              { :class => 'textbox validate-2numeric', :size => 6,
+                :tabindex => "17", :onblur => "validatePlaceOfService()",
+                :value => (@patient_837_information.blank? ? (patient.place_of_service.blank? ? '' : "%02d" % patient.place_of_service) : (@patient_837_information.facility_type_code.blank? ? '' : "%02d" % @patient_837_information.facility_type_code))},
+              {:skip_style => true, :url => {:action => 'auto_complete_for_insurancepaymenteob_place_of_service',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <% value_for_secondary_plan_code = "" %>
+            <% value_for_tertiary_plan_code = "" %>
+            <% if !@patient_837_information.blank?
+              value_for_secondary_plan_code = @patient_837_information.find_key('secondary_plan_code')
+              value_for_tertiary_plan_code = @patient_837_information.find_key('tertiary_plan_code')
+            end %>
+            <%= sp_text_field :insurancepaymenteob, :secondary_plan_code, (@facility.details[:secondary_plan_code] && @insurance_pay),
+              'td', :class => "textbox", :style => "text-align:left", :maxlength => 5,
+              :onblur =>"changeToCapital(id)", :tabindex=>"17",:id => 'secondary_plan_code_id',
+              :value => value_for_secondary_plan_code, :size => '9' %>
+            <%= sp_text_field :insurancepaymenteob, :tertiary_plan_code, (@facility.details[:tertiary_plan_code] && @insurance_pay),
+              'td', :class => "textbox", :value => value_for_tertiary_plan_code,
+              :style => "text-align:left", :id => 'tertiary_plan_code_id', :maxlength => 5,
+              :onblur =>"changeToCapital(id)", :tabindex=>"17", :size => '9' %>
+            <%= sp_text_field :insurancepaymenteob, :over_payment_recovery,
+              (@facility.details[:over_payment_recovery] && @insurance_pay),
+              'td width="50px"', :id => 'over_payment_recovery_id',
+              :class => "amount", :style => "text-align:right", :tabindex => "17"%>
+            <%= sp_text_field :insurancepaymenteob, :claim_interest, @insurance_pay,
+              'td width="45px"', :class => "amount #{patient.style("claim_interest")}",
+              :size => "4", :style => "text-align:right",:id => 'interest_id',
+              :onblur =>"changeToCapital('interest_id'); ",
+              :onchange => "clearBalance();validateAndCreateInterestEob();",
+              :coordinates =>patient.coordinates("claim_interest"),
+              :page =>patient.page("claim_interest"),
+              :value => (sprintf("%.2f", patient.claim_interest.to_f) unless patient.claim_interest.blank?) %>
+            <%= sp_text_field :insurancepaymenteob, :hcra, (@facility.details[:hcra] && @insurance_pay) ,
+              'td width="50px"',:id => 'hcra_id', :class => "amount", :style => "text-align:left" %>
+            <%= sp_text_field :insurancepaymenteob, :fund, (@facility.details[:fund] && @insurance_pay),
+              'td width="50px"', :id => 'fund_id', :class => "amount", :maxlength => 8,
+              :style => "text-align:right" %>
+            <input type ="hidden" id ="fc_plan_type" value = "<%= h @facility.plan_type %>"/>
+            <%= sp_text_field :insurancepaymenteob, :plan_type, @insurance_pay,
+              'td id="add"', :class => "textbox #{patient.style("plan_type")}",
+              :id => 'plan_type_id', :style => "width:15px", :value => @plan_type || patient.plan_type,
+              :maxlength => 2, :onblur =>"changeToCapital('plan_type_id')",
+              :coordinates =>patient.coordinates("plan_type"),
+              :page =>patient.page("plan_type") %>
+            <% payer_indicator_hash, chosen_payer_indicator = payer_indicator_values(@check_information,
+              patient, @payer_indicator_hash, @default_payer_indicator) %>
+            <%= sp_select_tag :insurancepaymenteob, :payer_indicator,
+              (@facility.details[:payer_indicator] && @insurance_pay), "td width='40px'",
+              options_for_select(payer_indicator_hash, chosen_payer_indicator),
+              :id => "payer_indicator", :tabindex => "17", :class => "required",
+              :onblur => "return confirmPayerIndicator();" %>
+            <% if !@show_patpay_statement_fields %>
+      <%#*For claim type population, 837 data takes precedence. %>
+      <%#*If 837 data is not available then populate from insurance payment eob - in case of OCR %>
+      <%#*or leave it blank with '--' selected %>
+              <%if !@patient_837_information.blank? %>
+                <%my_patient = @patient_837_information %>
+              <%else %>
+                <%my_patient = patient %>
+              <%end %>
+              <% if my_patient.claim_type.blank?
+                existing_claim_type = "--"
+              else
+                existing_claim_type = my_patient.claim_type
+              end %>
+            <% end %>
+            <%= sp_select_tag '', :claim_type, !@show_patpay_statement_fields, "td width='40px'",
+              options_for_select(@claim_type_hash.sort, existing_claim_type),
+              :id => "claim_type", :tabindex => "17" %>
+            <td>
+              <%= select_tag 'image_type', options_for_select(['EOB', 'OTH'], ''), :id => "classified_image_type", :tabindex=>"1" %>
+            </td>
+            <% logger.debug "**** TODO: Refactor job.parent_job_id.nil? ****" %>
+            <input type = 'hidden' value ='<%= h @facility.image_type %>' id='image_type'/>
+            <% normal_or_parent_job = @parent_job %>
+            <%= any_eob_processed(@job) %>
+            <% logger.debug "**** TODO: Refactor job.images_for_jobs.first.transaction_type.to_s ****" %>
+            <% if (@facility.image_type.to_s == "1" && @any_eob_processed) %>
+              <% images_for_job = normal_or_parent_job.images_for_jobs.first
+              if !images_for_job.blank?
+                @transaction_type_selection_value = images_for_job.transaction_type.to_s
+              end %>
+            <%end %>
+            <%= default_payer($DEFAULT_PAYER) %>
+            <% mic = micr_line_information(@micr_line_information) %>
+            <%= mic ? mic.to_s.html_safe : "" %>
+
+            <input type = 'hidden' value = '<%= h @job_payment_so_far %>' id='job_payment_so_far'/>
+            <input type = 'hidden' value = '<%= h @transaction_type_possible_value %>' id='transaction_type_possible_value'/>
+            <%= saved_transaction_type %>
+            <%= hidden_field_for_transaction_type_config %>
+            <%= sp_select_tag 'images_for_jobs', 'transaction_type',
+              @facility.details[:transaction_type] && @insurance_pay, "td width='40px'",
+              options_for_select(@transaction_type_hash.sort, @transaction_type_selection_value),
+              :class => "patient_info", :id => "transaction_type",
+              :onblur => "transactionTypePossibleValue(); transactionTypeDefaultValues()" %>
+
+            <%=  hidden_field_for_lockbox_number%>
+            <%=  hidden_field_for_batch_date%>
+            <%= hidden_field_tag :current_user_id, (current_user.id if current_user)%>
+            <% if current_user
+              roles = current_user.roles
+              current_user_role = roles.first.name if roles
+            end %>
+            <%= hidden_field_tag :current_user_role, current_user_role %>
+
+            <%=  hidden_field_for_patient_stmt_flds_present%>
+            <%= sp_select_tag 'insurancepaymenteob', 'payee_type_format', @show_patpay_statement_fields,
+              "td", options_for_select(@hash_for_payee_type_format, ''),
+              :id => 'payee_type_format', :class => 'required',
+              :style => "border : 1px solid #C0C0C0" , :tabindex => "17",
+              :onchange => "set_default_values_with_statement_fields();" %>
+            <%= sp_select_tag 'insurancepaymenteob', 'statement_receiver', @show_patpay_statement_fields,
+              "td", options_for_select(@hash_for_statement_receiver, ''),
+              :id => 'statement_receiver', :class => 'required',
+              :style => "border : 1px solid #C0C0C0" , :tabindex => "17",
+              :onchange => "set_default_values_with_statement_fields();" %>
+            <%= sp_select_tag 'insurancepaymenteob', 'statement_applied', @show_patpay_statement_fields,
+              "td", options_for_select(@hash_for_patpay_statement_fields, ''),
+              :id => 'statement_applied', :class => 'required',
+              :style => "border : 1px solid #C0C0C0; width:54px", :tabindex => "17",
+              :onchange => "set_default_values_with_statement_fields();" %>
+            <%= sp_select_tag 'insurancepaymenteob', 'multiple_invoice_applied', @show_patpay_statement_fields,
+              "td", options_for_select(@hash_for_patpay_statement_fields, ''),
+              :id => 'multiple_invoice_applied', :class => 'required',
+              :style => "border : 1px solid #C0C0C0; width:54px", :tabindex => "17",
+              :onchange => "set_default_values_with_statement_fields();" %>
+            <%= sp_select_tag 'insurancepaymenteob', 'multiple_statement_applied', @show_patpay_statement_fields,
+              "td", options_for_select(@hash_for_patpay_statement_fields, ''),
+              :id => 'multiple_statement_applied', :class => 'required',
+              :style => "border : 1px solid #C0C0C0; width:54px", :tabindex => "17",
+              :onchange => "set_default_values_with_statement_fields();" %>
+            <%reprice_info = @alternate_payer_name.blank? ? '--'  :  @alternate_payer_name %>
+            <%= hidden_field '', 'apply_to_all_checked_or_not',:id=>'apply_to_all_checked_or_not' ,:value => false %>
+            <%= hidden_field '', 'alternate_payer_name_for_eob',:id=>'alternate_payer_name_for_eob' ,:value => @alternate_payer_name %>
+            <%= sp_text_field :insurancepaymenteob, :alternate_payer_name,
+              (@facility.details[:re_pricer_info] && @insurance_pay && @client_name.upcase.strip != "UNIVERSITY OF PITTSBURGH MEDICAL CENTER"),
+              'td width = "70px" ', :class => "textbox" ,:id=>"alternate_payer_name_id",:disabled => @job.apply_to_all_claims,:onblur => "", :onchange => "changeToCapital('alternate_payer_name_id'); updateTextFieldWithAltternateValueInProcView()",:value => @alternate_payer_name , :size => "15",:maxlength => 50%>
+            <%= sp_select_tag 'insurance_payment_eob', 'alternate_payer_name',
+              (@facility.details[:re_pricer_info] && @insurance_pay && @client_name.upcase.strip == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER"), 'td', options_for_select(repricer_values,reprice_info ),  :class => "textbox" ,:id=>"alternate_payer_name_id",:disabled => @job.apply_to_all_claims,:onchange => "updateTextFieldWithAltternateValueInProcView()";%>
+            <%= sp_checkbox '', 'apply_to_all_claims', @facility.details[:re_pricer_info] && @insurance_pay,
+              'td',{:onclick => 'setAlternatePayerNameInProcView(this.checked)', :id => 'apply_to_all_claims',:checked => @job.apply_to_all_claims,:disabled => true} %>
+            <input type ="hidden" id="apply_to_all_claims_hidden_field" name ="apply_to_all_claims_hidden_field" value="<%= @job.apply_to_all_claims %>" />
+
+          </table>
+        </div>
+        <% if @insurance_pay %>
+          <div id="subscriber_info">
+            <table cellpadding="0" cellspacing="0" class="patient_info">
+              <tr>
+                <th>
+                  Subscriber Name ( Last | First | Middle | Suffix )
+                </th>
+                <%= sp_label 'Date Received', (@facility.details[:date_received_by_insurer]), 'th' %>
+                <th>
+                  Provider
+                </th>
+                <th>
+                  Provider Name ( Last | First | Middle | Suffix )
+                </th>
+                <%= sp_label 'Provider Add 1', (@facility.details[:provider_address]), 'th' %>
+                <%= sp_label 'Provider Add 2', (@facility.details[:provider_address]), 'th' %>
+                <%= sp_label 'Provider City', (@facility.details[:provider_address]), 'th' %>
+                <%= sp_label 'Provider State', (@facility.details[:provider_address]), 'th' %>
+                <%= sp_label 'Provider Zip', (@facility.details[:provider_address]), 'th' %>
+                <th width="50px">
+                  Prov NPI
+                </th>
+                <th width="50px">
+                  Prov TIN
+                </th>
+                <%= sp_label 'State Use Only', (@facility.details[:state_use_only]), 'th width="50px"' %>
+                <%= sp_label 'LF Charge', @facility.details[:late_fee_charge], 'th' %>
+                <%= sp_label 'DRG', @facility.details[:drg_code], 'th' %>
+                <%= sp_label 'Patient Type', @facility.details[:patient_type], 'th' %>
+              </tr>
+              <tr>
+                <td>
+                  <table width="99.5%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>
+                        <%= text_field 'insurancepaymenteob', 'subscriber_last_name',:id => 'subcriber_last_name_id',:class => "fullwidth required #{double_keying_class('subscriber_last_name')} #{set_patient_name_validation} #{(@patient_837_information.blank? ? patient.style("subscriber_last_name")  : @patient_837_information.subscriber_last_name.blank? ? patient.style("subscriber_last_name")  : "imported")unless(patient.patient_account_number.blank?)}",:value=> (@patient_837_information.blank? ? patient.subscriber_last_name : get_value(patient.subscriber_last_name ,@patient_837_information.subscriber_last_name )),:coordinates =>patient.coordinates("subscriber_last_name"), :page =>patient.page("subscriber_last_name"), :onkeypress => "enlargeTextfieldSize('subcriber_last_name_id',20)",:onblur=> "resetTextfieldSize('subcriber_last_name_id',20);changeToCapital('subcriber_last_name_id')" %>
+                      </td>
+                      <td>
+                        <%= text_field 'insurancepaymenteob', 'subscriber_first_name',:id => 'subcriber_firstname_id',:class => "fullwidth required #{double_keying_class('subscriber_first_name')} #{set_patient_name_validation} #{(@patient_837_information.blank? ? patient.style("subscriber_first_name")  : @patient_837_information.subscriber_first_name.blank? ? patient.style("subscriber_first_name")  : "imported")unless(patient.patient_account_number.blank?)}",:value=> (@patient_837_information.blank? ? patient.subscriber_first_name  : get_value(patient.subscriber_first_name  ,@patient_837_information.subscriber_first_name )), :coordinates =>patient.coordinates("subscriber_first_name"), :page =>patient.page("subscriber_first_name"),:onkeypress => "enlargeTextfieldSize('subcriber_firstname_id',20)",:onblur=> "resetTextfieldSize('subcriber_firstname_id',20);changeToCapital('subcriber_firstname_id')" %>
+                      </td>
+                      <td width="15px">
+                        <%= text_field 'insurancepaymenteob', 'subscriber_middle_initial',:id => 'subcriber_initial_id', :style => "width:10px",:class => "fullwidth validate-alpha #{double_keying_class('subscriber_middle_initial')} #{(@patient_837_information.blank? ? patient.style("subscriber_middle_initial")  : @patient_837_information.subscriber_middle_initial.blank? ? patient.style("subscriber_middle_initial")  : "imported")unless(patient.patient_account_number.blank?)}" , :value=> (@patient_837_information.blank? ? patient.subscriber_middle_initial  : get_value(patient.subscriber_middle_initial  ,@patient_837_information.subscriber_middle_initial)) , :coordinates =>patient.coordinates("subscriber_middle_initial"), :page =>patient.page("subscriber_middle_initial"),:onblur=>"changeToCapital('subcriber_initial_id')" %>
+                      </td>
+                      <td width="20px">
+                        <%= text_field 'insurancepaymenteob', 'subscriber_suffix',:id => 'subcriber_suffix_id',:class => "fullwidth validate-alpha #{double_keying_class('subscriber_suffix')} #{(@patient_837_information.blank? ? patient.style("subscriber_suffix")  : @patient_837_information.subscriber_suffix.blank? ? patient.style("subscriber_suffix")  : "imported")unless(patient.patient_account_number.blank?)}" ,:style => "width:15px",:value=> (@patient_837_information.blank? ? patient.subscriber_suffix  : get_value(patient.subscriber_suffix  ,@patient_837_information.subscriber_suffix)),:coordinates =>patient.coordinates("subscriber_suffix"), :page =>patient.page("subscriber_suffix"),:onblur=>"changeToCapital('subcriber_suffix_id')" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <%= sp_text_field :insurancepaymenteob, :date_received_by_insurer,
+                  (@facility.details[:date_received_by_insurer]),
+                  'td width = "70px" ', :id =>'date_received_by_insurer_id',
+                  :value => "mm/dd/yy", :class => "datebox" , :style => "text-align:left" ,
+                  :size => "10", :tabindex => 24 %>
+                <% if @facility.details[:default_rendering_provider_details]
+                  provider_npi_value = patient.provider_npi
+                  provider_tin_value = patient.provider_tin
+                  provider_first_name = ''
+                  provider_last_name = ''
+                  provider_middle_name = ''
+                  provider_suffix = ''
+                  provider_organisation = @facility.name
+                  provider_middle_name_display = true
+                  provider_suffix_display = true
+                  provider_organisation_display = true
+                  font_color = 'grey'
+                else
+                  provider_first_name = (@patient_837_information.blank? ? patient.rendering_provider_first_name  : get_value(patient.rendering_provider_first_name,@patient_837_information.provider_first_name ))
+                  provider_last_name =  (@patient_837_information.blank? ? patient.rendering_provider_last_name  : get_value(patient.rendering_provider_last_name,@patient_837_information.provider_last_name))
+                  provider_middle_name =  ( @patient_837_information.blank?  ?  patient.rendering_provider_middle_initial  :  get_value(patient.rendering_provider_middle_initial,@patient_837_information.provider_middle_initial ))
+                  provider_suffix = (@patient_837_information.provider_suffix unless @patient_837_information.blank? )
+                  provider_organisation = (@organization || (patient.provider_organisation if patient && @client_name.upcase.strip != 'UNIVERSITY OF PITTSBURGH MEDICAL CENTER'))
+                  if  @patient_837_information.blank?
+                    provider_npi_value = patient.provider_npi.blank? ? @facility.facility_npi  :  patient.provider_npi
+                    provider_tin_value = patient.provider_tin.blank? ? @facility.facility_tin  :  patient.provider_tin
+                  else
+                    provider_npi_value = @patient_837_information.provider_npi.blank? ? patient.provider_npi : @patient_837_information.provider_npi
+                    provider_npi_class = (@patient_837_information.provider_npi.blank? ? patient.style("provider_npi") : "imported") unless(patient.patient_account_number.blank?)
+                    provider_tin_value = @patient_837_information.provider_ein.blank? ? patient.provider_tin : @patient_837_information.provider_ein
+                    provider_tin_class = (@patient_837_information.provider_ein.blank? ? patient.style("provider_tin") : "imported") unless(patient.patient_account_number.blank?)
+                  end
+                end%>
+                <td>
+                  <%= (text_field 'insurancepaymenteob', 'provider_organisation',:readonly => provider_organisation_display, :style => "color:#{font_color}", :class => "fullwidth #{patient.style("provider_organisation")}",:id => 'provider_organisation_id',:value => provider_organisation , :onkeypress => "enlargeTextfieldSize('provider_organisation_id',20)",:onblur => "resetTextfieldSize('provider_organisation_id',20);changeToCapital('provider_organisation_id')", :coordinates =>patient.coordinates("provider_organisation"), :page =>patient.page("provider_organisation")).to_s.html_safe %>
+                </td>
+                <td>
+                  <table width="99.5%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>
+                        <%= (text_field_with_auto_complete :provider, :provider_last_name ,
+                          {:tabindex => "21",
+                            :style => "color:#{font_color}",
+                            :class => "fullwidth #{set_patient_name_validation} #{double_keying_class('provider_last_name')} #{(@patient_837_information.blank? ? patient.style("rendering_provider_last_name")  : @patient_837_information.provider_last_name.blank? ? patient.style("rendering_provider_last_name")  : "imported")unless(patient.patient_account_number.blank?)}",
+                            :onkeypress => "enlargeTextfieldSize(id,20)",
+                            :onblur => "resetTextfieldSize(id, 20);changeToCapital(id)",
+                            :readonly => true ,
+                            :value=> provider_last_name,
+                            :coordinates =>patient.coordinates("rendering_provider_last_name"),
+                            :page =>patient.page("rendering_provider_last_name"), :ondblclick => "setDefaultProvider()"},
+                          { :skip_style => true, :url => {:action => 'auto_complete_for_provider_provider_last_name',
+                              :job_id => params[:job_id], :facility_id => @facility.id}}).to_s.html_safe %>
+                      </td>
+                      <td>
+                        <%= (text_field 'insurancepaymenteob', 'rendering_provider_first_name', :style => "color:#{font_color}", :id => 'prov_firstname_id' ,:readonly=>true ,:tabindex=>"22" ,:class => "fullwidth #{set_patient_name_validation} #{double_keying_class('provider_first_name')} #{(@patient_837_information.blank? ? patient.style("rendering_provider_first_name")  : @patient_837_information.provider_first_name.blank? ? patient.style("rendering_provider_first_name")  : "imported")unless(patient.patient_account_number.blank?)}",:value=> provider_first_name ,:onkeypress => "enlargeTextfieldSize('prov_firstname_id',20)",:onblur => "resetTextfieldSize('prov_firstname_id',20);changeToCapital('prov_firstname_id')" , :coordinates =>patient.coordinates("rendering_provider_first_name"), :page =>patient.page("rendering_provider_first_name")).to_s.html_safe %>
+                      </td>
+                      <td width="15px">
+                        <%= (text_field 'insurancepaymenteob', 'rendering_provider_middle_initial', :style => "color:#{font_color}", :id => 'prov_initial_id',:readonly => provider_middle_name_display, :tabindex=>"23" ,:class => "fullwidth validate-alpha #{double_keying_class('provider_first_name')} #{(@patient_837_information.blank? ? patient.style("rendering_provider_middle_initial")  : @patient_837_information.provider_first_name.blank? ? patient.style("rendering_provider_middle_initial")  : "imported")unless(patient.patient_account_number.blank?)}",:style => "width:10px",:value=> provider_middle_name,:onblur=>"changeToCapital('prov_initial_id')", :coordinates =>patient.coordinates("rendering_provider_middle_initial"), :page =>patient.page("rendering_provider_middle_initial")).to_s.html_safe %>
+                      </td>
+                      <td width="20px">
+                        <%= (text_field 'insurancepaymenteob', 'rendering_provider_suffix', :style => "color:#{font_color}", :id => 'prov_suffix_id',:readonly => provider_suffix_display, :tabindex=>"23" ,:class => "fullwidth validate-alpha #{double_keying_class('provider_suffix')} #{patient.style("rendering_provider_suffix") if @patient_837_information.blank?}",:style => "width:15px",:value=> provider_suffix,:coordinates =>patient.coordinates("rendering_provider_suffix"), :page =>patient.page("rendering_provider_suffix"),:onblur=>"changeToCapital('prov_suffix_id')").to_s.html_safe %>
+                      </td>
+                      <td width="20px">
+                        <input type="checkbox" tabindex="18" id="provider_check" onclick='enableOrganisation()'/>
+                      </td>
+                    </tr>
+                  </table>
+                  <% if  @patient_837_information.blank?
+                    provider_address_line_one = patient.contact_information.blank? ? ""  :  patient.contact_information.address_line_one
+                    provider_address_line_city = patient.contact_information.blank? ? ""   :  patient.contact_information.city
+                    provider_address_line_state = patient.contact_information.blank? ? ""  :  patient.contact_information.state
+                    provider_address_line_zip = patient.contact_information.blank?? ""  :  patient.contact_information.zip
+                  else
+                    provider_address_line_one = @patient_837_information.billing_provider_address_one.blank? ? patient.contact_information.blank? ? ""  :  patient.contact_information.address_line_one : @patient_837_information.billing_provider_address_one
+                    provider_address_line_city = @patient_837_information.billing_provider_city.blank? ? patient.contact_information.blank? ? ""   :  patient.contact_information.city : @patient_837_information.billing_provider_city
+                    provider_address_line_state =   @patient_837_information.billing_provider_state.blank? ? patient.contact_information.blank? ? ""  :  patient.contact_information.state : @patient_837_information.billing_provider_state
+                    provider_address_line_zip =  @patient_837_information.billing_provider_zipcode.blank? ? patient.contact_information.blank?? ""  :  patient.contact_information.zip :  @patient_837_information.billing_provider_zipcode
+
+                  end %>
+                </td><%= sp_text_field :provider_address, :address_line_one, @facility.details[:provider_address],
+                  'td', :class => "textbox", :style => "width:30px", :tabindex => "23", :maxlength => 50,
+                  :onfocus => "increaseFieldSize(id, 50)",
+                  :onblur => "decreaseFieldSize(id, 15); changeToCapital(id)",
+                  :value => provider_address_line_one %>
+                <%= sp_text_field :provider_address, :address_line_two, @facility.details[:provider_address],
+                  'td', :class => "textbox", :style => "width:30px", :tabindex => "23", :maxlength => 50,
+                  :onfocus => "increaseFieldSize(id, 50)",
+                  :onblur => "decreaseFieldSize(id, 15); changeToCapital(id)",
+                  :value =>  patient.contact_information.blank? ? "" : patient.contact_information.address_line_two %>
+                <%= sp_text_field :provider_address, :city, @facility.details[:provider_address],
+                  'td', :class => "textbox", :style => "width:30px", :tabindex => "23", :maxlength => 40,
+                  :onfocus => "increaseFieldSize(id, 40)",
+                  :onblur => "decreaseFieldSize(id, 15); changeToCapital(id)",
+                  :value => provider_address_line_city %>
+                <%= sp_text_field :provider_address, :state, @facility.details[:provider_address],
+                  'td', :class => "textbox", :style => "width:30px", :tabindex => "23", :maxlength => 2,
+                  :value => provider_address_line_state,
+                  :onblur => "validateState(id); changeToCapital(id)" %>
+                <%= sp_text_field :provider_address, :zip, @facility.details[:provider_address],
+                  'td', :class => "textbox validate-zipcode", :style => "width:30px", :tabindex => "23", :maxlength => 9,
+                  :value => provider_address_line_zip %>
+                <td width="50px">
+                  <%= (text_field_with_auto_complete :provider, :provider_npi_number ,
+                    {:tabindex => "23",
+                      :class => "textbox validate-npi #{double_keying_class('provider_npi')} #{provider_npi_class}",
+                      :size => "10",:onblur => "providerInformations();changeToCapital(id)" ,
+                      :value => provider_npi_value,  :coordinates =>patient.coordinates("provider_npi"),
+                      :page =>patient.page("provider_npi")},{ :skip_style => true,
+                      :url => {:action => 'auto_complete_for_provider_provider_npi_number',
+                        :job_id => params[:job_id], :facility_id => @facility.id}}).to_s.html_safe %>
+                </td>
+                <td width="50px">
+                  <%= text_field 'insurancepaymenteob', 'provider_tin',:id => 'provider_tin_id',:maxlength => 9,:class => "textbox validate-tin #{double_keying_class('provider_ein')} #{provider_tin_class}",:size => "10",:tabindex=>"23",:value => provider_tin_value ,  :onblur =>"changeToCapital('provider_tin_id')", :coordinates =>patient.coordinates("provider_tin"), :page =>patient.page("provider_tin") %>
+                </td>
+                <% value_for_status_use_only = "" %>
+                <% if !@patient_837_information.blank?
+                  value_for_status_use_only = @patient_837_information.find_key('status_use_only')
+                end %>
+                <%= sp_text_field :insurancepaymenteob, :state_use_only, (@facility.details[:state_use_only]),
+                  'td', :tabindex => 23, :id => 'state_use_only_id', :class => "textbox",
+                  :maxlength => 2, :value => value_for_status_use_only, :size => "3",
+                  :onblur => "changeToCapital(id)" %>
+                <%= sp_text_field :insurancepaymenteob, :late_filing_charge, @facility.details[:late_fee_charge], 'td', :tabindex=>23, :id=>'late_filing_charge_id',:class => "amount",:value => "" %>
+                <%= sp_text_field :insurancepaymenteob, :drg_code, @facility.details[:drg_code], 'td width="50px" ',  :tabindex=>24, :id=>'drg_code_id',:class => "validate-3numeric" , :style => "text-align:left" %>
+                <% if !@patient_837_information.blank?
+                  patient_type_value =  @patient_837_information.patient_type.blank? ? patient.patient_type : @patient_837_information.patient_type
+                elsif !patient.patient_type.nil? || !patient.patient_type.blank?    # Default patient_type of NON_VERIFICATION is OUTPATIENT
+                  patient_type_value = patient.patient_type
+                end
+                if(patient_type_value.blank?)
+                  patient_type_value = "OUTPATIENT"
+                end%>
+                <%= sp_select_tag 'patient_type', nil, @facility.details[:patient_type], "td width='50px'",options_for_select({"OUTPATIENT" => "OUTPATIENT", "INPATIENT" => "INPATIENT"}, patient_type_value ), :class => "patient_info #{double_keying_class('patient_type')}", :id => "patient_type_id", :onchange=> 'enablePaymentcode();' %>
+              </tr>
+            </table>
+          </div>
+        <% end %>
+      </div>
+      <!-- Service Level-->
+      <div id="data_entry" style="height:auto; width:99.9%;">
+        <table cellpadding="0" cellspacing="0" class="service_line" id="service_line_details">
+          <tr id="labels">
+            <th> No. </th>
+            <%= sp_label 'From Date (d)', @facility.details[:service_date_from] , "th id='label_from_date' " %>
+            <%= sp_label 'To Date', @facility.details[:service_date_from] , "th id='label_to_date' " %>
+            <th width="30px" id='label_procedure_code' >
+              <%= @facility.label_name_new('CPT', @claim_level_eob) %>
+            </th>
+            <%= sp_label @facility.label_name_new('Bundled CPT',@claim_level_eob),
+              @facility.details[:bundled_procedure_code] && @insurance_pay, "th 'width:30px' id='label_bundled_procedure_code' " %>
+            <%= sp_label @facility.label_name_new('RX No',@claim_level_eob),
+              @facility.details[:rx_code] && @insurance_pay, "th id='label_rx_code' " %>
+            <%= sp_label @facility.label_name_new('Rev',@claim_level_eob),
+              @facility.details[:revenue_code] && ((!@claim_level_eob && @patient_pay) || @insurance_pay),
+              "th id='label_revenue_code' " %>
+            <%= sp_label @facility.label_name_new('Line Item #',@claim_level_eob),
+              (@facility.details[:line_item] && !@claim_level_eob && @insurance_pay), "th id='label_line_item' " %>
+            <%= sp_label @facility.label_name_new('Ref#',@claim_level_eob),
+              @facility.details[:reference_code] && ((!@claim_level_eob && @patient_pay) || @insurance_pay),
+              "th id='label_reference_code' " %>
+            <th width="25px" id='label_units' >
+              <%= @facility.label_name_new('Qty (q)',@claim_level_eob) %>
+            </th>
+            <%= sp_label @facility.label_name_new('Modifier',@claim_level_eob),
+              (@facility.details[:hide_modifiers] == false ||  @facility.details[:hide_modifiers].blank? || (@claim_level_eob && @insurance_pay)) , "th id='label_modifier' colspan= #{colspan_for_modifier(@facility, @claim_level_eob)}" %>
+            <%= sp_label 'Tooth Num', @facility.details[:tooth_number] && @insurance_pay, "th id='label_tooth_number' " %>
+            <%= sp_label @facility.label_name_new('Pay Status', @claim_level_eob),
+              @facility.details[:payment_status_code] && @insurance_pay && !@claim_level_eob, "th id='label_payment_status_code' " %>
+            <%= sp_label 'Remark Code', @facility.details[:remark_code] && @insurance_pay , "th id='label_remark_code' " %>
+            <th id='label_charge' > Charge (1) </th>
+            <%= sp_label 'PBID', (@facility.details[:pbid] && @insurance_pay && !@claim_level_eob), "th id='label_pbid' " %>
+            <%= sp_label 'Allow', (@insurance_pay && !@claim_level_eob) || (@claim_level_eob &&  @facility.details[:claim_level_allowed_amount_in_grid]), "th id='label_allow' " %>
+            <%= sp_label 'Plan %', (@facility.details[:plan_coverage] &&
+                @insurance_pay), "th 'width:40px' id='label_plan_coverage' " %>
+            <%= sp_label 'DRG Amt', @facility.details[:drg_amount] && !@claim_level_eob, "th id='label_drg_amount' "  %>
+            <%= sp_label 'Exp Payment', ((@facility.details[:expected_payment_insurance] &&
+                  @insurance_pay) || (@facility.details[:expected_payment_pat_simplified] &&
+                  @patient_pay)), "th id='label_expected_payment'" %>
+            <%= sp_label 'Retention', (@facility.details[:retention_fee] && !@claim_level_eob &&
+                @insurance_pay), "th id='label_retention_fee' " %>
+            <th id='label_payment' >
+              Payment(2)
+            </th>
+            <%= sp_label 'Non Covered (3)', @insurance_pay, "th colspan='2' id='label_non_covered'" %>
+            <%= sp_label "#{denied_label(@client_name)} (4)", (@facility.details[:denied] && @insurance_pay), "th colspan='2' id='label_denied'" %>
+            <%= sp_label 'Discount (5)', @insurance_pay, "th colspan='2' id='label_discount'" %>
+            <%= sp_label 'Co-Insurance (6)', @insurance_pay, "th colspan='2' id='label_coinsurance'" %>
+            <%= sp_label 'Deductible (7)', @insurance_pay, "th colspan='2' id='label_deductible'" %>
+            <% copay_header_number = (@insurance_pay ? 8 : 3) %>
+            <% copay_label = (@show_patpay_statement_fields ? 'Patient Responsibility' : 'Copay') %>
+            <%= sp_label "#{copay_label}(" + copay_header_number.to_s + ")", true, "th colspan='2' id='label_copay'" %>
+            <%= sp_label 'Patient Responsibility', (@facility.details[:patient_responsibility] && @insurance_pay),
+              "th colspan='2' id='label_patient_responsibility' " %>
+            <%= sp_label 'PPP (9)', @insurance_pay, "th colspan='2' id='label_primary_payment'" %>
+            <%= sp_label 'Prepaid', (@facility.details[:prepaid] && @insurance_pay),
+              "th colspan='2' id='label_prepaid' " %>
+            <% contractual_allowance_header_number = (@insurance_pay ? 0 : 4) %>
+            <% cotractual_label = (@show_patpay_statement_fields ? 'Discounted Total' : 'Con: Adjustment') %>
+            <%= sp_label "#{cotractual_label}(" + contractual_allowance_header_number.to_s + ")", !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay) , "th colspan='2' id='label_contractual'" %>
+            <%= sp_label 'Misc Adj1', (@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), "th colspan='2' id='label_miscellaneous_one'" %>
+            <%= sp_label 'Misc Adj2', (@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), "th colspan='2' id='label_miscellaneous_two'" %>
+            <%= sp_label 'Misc Balance', (@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), "th width:40px id='label_miscellaneous_balance'" %>
+            <th id='label_balance' >
+              Balance
+            </th>
+            <%= sp_label '+/-', @insurance_pay, "th id='label_add_or_delete' " %>
+          </tr>
+          <%= set_reason_code_id("", @claim_level_eob, "", "") %>
+          <%= set_default_unique_codes(@is_partner_bac) %>
+          <%= is_reason_code_mandatory %>
+          <%= is_adjustment_amount_mandatory %>
+          <%= is_adjustment_amount_zero %>
+          <% def_sdate = default_service_date(@facility, @batch, @check_information) %>
+          <input type ="hidden" id="service_start_time" name="service_start_time"  />
+          <input type = 'hidden' value ='<%= h def_sdate %>' id='fc_def_sdate'/>
+          <input type = 'hidden' value ='<%= h @facility.default_service_date %>' id='fc_def_sdate_choice'/>
+          <% # Block contains Add Service Line Row, <n> number of service lines added through MPI/Non MPI Search
+          # Needed for Insurance Payment Grid and Simplified Patpay Grid with multiple Service Line options enabled %>
+          <% if @insurance_pay %>
+            <tr valign="top" id="adding_row">
+              <td> A </td>
+              <%= create_hidden_fields(@facility) %>
+
+              <%= sp_text_field :lineinformation, :dateofservice_from,
+                @facility.details[:service_date_from] || @claim_level_eob, 'td',
+                :value => "mm/dd/yy" , :id => 'dateofservicefrom',
+                :class => 'datebox',
+                :tabindex => 24, :accesskey => "d",:onclick => "getStarttimeOFSVC()" %>
+              <%= sp_text_field :lineinformation, :dateofservice_to,
+                @facility.details[:service_date_from] || @claim_level_eob, 'td',
+                :value => "mm/dd/yy" , :id => 'dateofserviceto',
+                :class => 'datebox validate-date-comparision',
+                :tabindex => 24,:onclick => "getStarttimeOFSVC();" %>
+            <input type ="hidden" id ="fc_def_cpt_code" value = "<%= h @facility.default_cpt_code %>"/>
+            <input type ="hidden" id ="fc_def_cdt_qualifier" value = "<%= h @facility.details[:default_cdt_qualifier]  %>"/>
+            <td>
+              <div style="display: inline">
+                <div id="cpt_code" style="float:left">
+                  <%= text_field 'lineinformation', 'cpt_procedure_code',
+                    :id=>'cpt_procedure_code', :class => "textbox", :style=>"width:30px" ,
+                    :tabindex=>"26" , :onclick => "showReEntryCptCodeField();",
+                    :onblur =>"changeToCapital('cpt_procedure_code');",
+                    :onchange => "validateProcedureCodeLength(id); validateUpmcCptOrRevenueCodeLength(id)",
+                    :ondblclick => "setFCDefault(this,'fc_def_cpt_code');getStarttimeOFSVC();" %>
+                </div>
+                <div id="confirm_cpt_div" style="float:left; display:none;">
+                  <%= text_field 'lineinformation', 'confirm_cpt_procedure_code',
+                    :id=>'confirm_cpt_procedure_code', :class => "textbox",
+                    :style=>"width:30px" ,:tabindex=>"26", :onblur => "hideReEntryCptCodeField();"%>
+                </div>
+              </div>
+            </td>
+            <%= sp_text_field :lineinformation, :bundled_procedure_code,  @facility.details[:bundled_procedure_code] && @insurance_pay, 'td', :id => 'bundled_procedure_code', :class => "textbox", :style=>"width:30px", :tabindex => "26" ,:onblur => "changeToCapital(id); bundled_procedure_code_validation('bundled_procedure_code'); " %>
+            <%= sp_text_field :lineinformation, :rx_number, @facility.details[:rx_code] && @insurance_pay, 'td', :tabindex=>26, :id=>'rx_code', :onblur =>"changeToCapital('rx_code')", :class => "textbox",:style=>"width:49px" %>
+            <%= sp_text_field :lineinformation, :revenue_code, @facility.details[:revenue_code] && ((!@claim_level_eob && @patient_pay) || @insurance_pay), 'td', :tabindex=>26, :id=>'revenue_code', :onblur =>"changeToCapital('revenue_code');", :class => "textbox ",:style=>"width:30px" %>
+            <% value_for_line_item_number = "" %>
+            <% if !@patient_837_information.blank?
+              value_for_line_item_number = @patient_837_information.find_key('line_item_number')
+            end %>
+            <%= sp_text_field :lineinformation, :line_item_number,
+              (@facility.details[:line_item] && !@claim_level_eob && @insurance_pay),
+              'td', :tabindex => 26, :id => 'line_item_number_id', :maxlength => 24,
+              :onblur => "changeToCapital(id)",
+              :class => "textbox #{double_keying_class('line_item_number')}", :size => '8',
+              :value => value_for_line_item_number %>
+            <input type ="hidden" id ="fc_def_ref_num" value = "<%= h @facility.default_ref_number %>"/><%= sp_text_field :lineinformation, :provider_control_number, @facility.details[:reference_code] && ((!@claim_level_eob && @patient_pay) || @insurance_pay), 'td',  :tabindex=>26, :id=>'provider_control_number', :style=>"width:30px", :ondblclick => "setFCDefault(this,'fc_def_ref_num')" ,:onblur => "refNumCheck('provider_control_number')" %>
+            <td>
+              <%= text_field 'lineinformation', 'units', :id => 'units_id',
+                :class => "textbox", :style => "width:30px;", :tabindex => "27",
+                :onblur => "validateQuantity(id)", :accesskey => "q" %>
+            </td>
+
+            <%= sp_text_field 'lineinformation', 'modifier1',
+              (!@facility.details[:hide_modifiers]),
+              'td', :id=>'modifier_id1',:class => "textbox",:style=>"width:15px" ,:tabindex=>"28",:onblur =>"changeToCapital('modifier_id1'); modifier_validate('modifier_id1');"  %>
+
+
+            <%= sp_text_field 'lineinformation', 'modifier2',
+              (!@facility.details[:hide_modifiers]),
+              'td', :id=>'modifier_id2',:class => "textbox",:style=>"width:15px" ,:tabindex=>"29",:onblur =>"changeToCapital('modifier_id2'); modifier_validate('modifier_id2');" %>
+
+            <%= sp_text_field 'lineinformation', 'modifier3',
+              (!@facility.details[:hide_modifiers]),
+              'td', :id=>'modifier_id3',:class => "textbox",:style=>"width:15px",:onblur =>"changeToCapital('modifier_id3'); modifier_validate('modifier_id3');" %>
+
+            <%= sp_text_field 'lineinformation', 'modifier4',
+              (!@facility.details[:hide_modifiers]),
+              'td', :id=>'modifier_id4',:class => "textbox",:style=>"width:15px",:onblur =>"changeToCapital('modifier_id4'); modifier_validate('modifier_id4');" %>
+
+            <%= sp_text_field :lineinformation, :tooth_number,
+              @facility.details[:tooth_number] && @insurance_pay, 'td',
+              :id => 'tooth_number', :tabindex => '30', :class => "textbox",
+              :size => 8, :maxlength => 30,:onkeypress => "enlargeTextbox(id)", :style => "width:58px",
+              :onblur => "changeToCapital(id); resetTextfieldSize(id, '8')" %>
+
+            <%= sp_text_field :lineinformation, :payment_status_code,
+              (@facility.details[:payment_status_code] && @insurance_pay && !@claim_level_eob), 'td',
+              :id => 'payment_status_code_id', :tabindex => '30', :class => "textbox", :maxlength => 4,
+              :onblur => "changeToCapital(id);",  :style => "width:51px" %>
+            <%= sp_text_field :lineinformation, :remark_code,
+              @facility.details[:remark_code] && @insurance_pay, 'td',
+              :id => 'remark_code', :tabindex => '30', :class => "textbox",
+              :size => 8,:onkeypress => "enlargeTextbox(id)", :style => "width:58px",
+              :onblur => "changeToCapital(id); resetTextfieldSize(id, '8')" %>
+            <td>
+              <%= text_field 'lineinformation', 'charges', :id => 'charges_id',
+                :onblur => "validateDollarAmount(id);sumbalance()", :class => "amount",
+                :tabindex => "30" ,:accesskey => "1" %>
+            </td>
+            <%= sp_text_field :lineinformation, :pbid, (@facility.details[:pbid] && !@claim_level_eob && @insurance_pay),
+              'td', :tabindex => 30, :id => 'pbid_id', :class => "amount",
+              :maxlength => 10 %>
+            <%= sp_text_field :lineinformation, :allowable, @insurance_pay, 'td',
+              :id => 'allowable_id', :class => "amount", :tabindex => "31" %>
+            <%= sp_text_field :lineinformation, :plan_coverage,
+              (@facility.details[:plan_coverage] && @insurance_pay ),
+              'td', :id => 'plan_coverage_id', :class => "textbox", :style=>"width:40px",
+              :maxlength => 3,
+              :tabindex => "32", :onblur => "validatePlanCoverage(id)" %>
+            <%= sp_text_field :lineinformation, :drg_amount, @facility.details[:drg_amount],
+              'td', :id => 'drg_amount_id', :class => "amount", :tabindex => "32" %>
+            <%= sp_text_field :lineinformation, :expected_payment, ((@facility.details[:expected_payment_insurance] && @insurance_pay) || (@facility.details[:expected_payment_pat_simplified] && @patient_pay)), 'td', :id => 'expected_payment_id',:class => "amount" ,:tabindex=>"32" %>
+            <%= sp_text_field :lineinformation, :retention_fees, (@facility.details[:retention_fee] && @insurance_pay && !@claim_level_eob),
+              'td', :id => 'retention_fees_id',:class => "amount",
+              :tabindex => "32", :maxlength => "7" %>
+
+            <td>
+              <div>
+                <%= text_field 'lineinformation', 'payment', :id => 'payment_id',
+                  :class => "amount", :onblur => "validateDollarAmount(id);sumbalance()",
+                  :tabindex => "33", :accesskey => "2",
+                  :ondblclick => "setBalancevalue('payment_id')" %>
+                <% if @insurance_pay && @facility.details[:patient_type] && @facility.details[:payment_code]  && @client_name.upcase.strip == 'MEDASSETS'%>
+                  <input type = "checkbox" title = "Allowance Code" name = "allowance_code" id = "allowance_code_id" /><input type = "checkbox" title = "Capitation Code" name = "capitation_code" id = "capitation_code_id" /><%end %>
+              </div>
+            </td>
+            <td>
+              <%= text_field 'lineinformation', 'non_covered', :id => 'non_covered_id',
+                :class => "amount", :onblur => "validateDollarAmount(id);sumbalance();",
+                :tabindex => "34", :accesskey => "3",
+                :ondblclick => "setBalancevalue('non_covered_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'noncovered', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "34", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <%= sp_text_field :lineinformation, :denied, @facility.details[:denied],
+              'td', :id => 'denied_id', :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "35", :class => "amount", :accesskey => "4",
+              :ondblclick => "setBalancevalue('denied_id')" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:denied], 'td',
+              { :index => 'denied', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "35", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style => true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]} }).to_s.html_safe %>
+            <td>
+              <%= text_field 'lineinformation', 'discount', :id => 'discount_id',
+                :onblur => "validateDollarAmount(id);sumbalance();",
+                :tabindex => "35", :class => "amount",
+                :accesskey => "5", :ondblclick => "setBalancevalue('discount_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'discount', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "35", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <td>
+              <%= text_field 'lineinformation', 'co_insurance',
+                :id => 'co_insurance_id', :class => "amount", :tabindex => "36",
+                :onblur => "validateDollarAmount(id);sumbalance();populateDefaultRcOnTabout('co_insurance',
+      'co_insurance_id', 'reason_code_coinsurance_unique_code',
+      '#{@facility.details[:hipaa_code]}')", :accesskey => "6",
+                :ondblclick => "setBalancevalue('co_insurance_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'coinsurance', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "36", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()", :ondblclick => "populateDefaultRcOnDoubleClick('co_insurance',
+          'co_insurance_id', 'reason_code_coinsurance_unique_code',
+          '#{@facility.details[:hipaa_code]}')"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <td>
+              <%= text_field 'lineinformation', 'deductable',
+                :id => 'deductable_id', :class => "amount", :tabindex => "37",
+                :onblur => "validateDollarAmount(id);sumbalance();populateDefaultRcOnTabout('deductible',
+      'deductable_id', 'reason_code_deductible_unique_code',
+      '#{@facility.details[:hipaa_code]}')", :accesskey => "7",
+                :ondblclick => "setBalancevalue('deductable_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'deductible', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "37", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()", :ondblclick => "populateDefaultRcOnDoubleClick('deductible',
+          'deductable_id', 'reason_code_deductible_unique_code',
+          '#{@facility.details[:hipaa_code]}')"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <td>
+              <%= text_field 'lineinformation', 'copay',
+                :id => 'copay_id', :class => "amount", :tabindex => "38",
+                :onblur => "validateDollarAmount(id);sumbalance();populateDefaultRcOnTabout('copay',
+      'copay_id','reason_code_copay_unique_code',
+      '#{@facility.details[:hipaa_code]}')", :accesskey => copay_header_number.to_s,
+                :ondblclick => "setBalancevalue('copay_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'copay', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "38", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()", :ondblclick => "populateDefaultRcOnDoubleClick('copay',
+          'copay_id','reason_code_copay_unique_code',
+          '#{@facility.details[:hipaa_code]}')"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+
+            <%= sp_text_field :lineinformation, :patient_responsibility,
+              @facility.details[:patient_responsibility],
+              'td', :id => 'patient_responsibility_id',
+              :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "39", :class => "amount",
+              :ondblclick => "setBalancevalue('patient_responsibility_id')"%>
+
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              @facility.details[:patient_responsibility], 'td',
+              { :index => 'patient_responsibility', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "39", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style => true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]} }).to_s.html_safe %>
+            <td>
+              <%= text_field 'lineinformation', 'primary_pay_payment',
+                :id => 'primary_pay_payment_id', :class => "amount",
+                :onblur => "validateDollarAmount(id);sumbalance();reasoncodeprimarypayment('primary_pay_payment_id',
+      'reason_code_primary_payment_unique_code')" ,
+                :tabindex => "39", :accesskey => "9",
+                :ondblclick => "setBalancevalue('primary_pay_payment_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'primary_payment', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "39", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+
+            <%= sp_text_field :lineinformation, :prepaid, @facility.details[:prepaid],
+              'td', :id => 'prepaid_id',
+              :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "39", :class => "amount",
+              :ondblclick => "setBalancevalue('prepaid_id')"%>
+            <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:prepaid], 'td',
+              { :index => 'prepaid', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "39", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style => true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]} }).to_s.html_safe %>
+
+            <%= sp_text_field :lineinformation, :contractualamount,
+              !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay),
+              'td', :id => 'contractualamount_id',
+              :onblur => "validateDollarAmount(id);sumbalance();",
+              :tabindex => "40", :class => "amount", :accesskey => contractual_allowance_header_number.to_s,
+              :ondblclick => "setBalancevalue('contractualamount_id')"%>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), 'td',
+              { :index => 'contractual', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "40", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()" }, {:tokens => ';',:skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <%= sp_text_field :lineinformation, :miscellaneous_one,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'miscellaneous_one_id', :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "40", :class => "amount", :accesskey => "4",
+              :ondblclick => "setBalancevalue(id)" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, 'td',
+              { :index => 'miscellaneous_one', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "40", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style => true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]} }).to_s.html_safe %>
+            <%= sp_text_field :lineinformation, :miscellaneous_two,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'miscellaneous_two_id', :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "40", :class => "amount", :accesskey => "4",
+              :ondblclick => "setBalancevalue(id)" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, 'td',
+              { :index => 'miscellaneous_two', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "40", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :onfocus => "set_payer()"}, {:tokens => ';', :skip_style => true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]} }).to_s.html_safe %>
+            <%= sp_text_field :lineinformation, :miscellaneous_balance,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'miscellaneous_balance_id', :onblur => "validateDollarAmount(id);sumbalance();" ,
+              :tabindex => "40", :class => "amount", :accesskey => "4",
+              :ondblclick => "setBalancevalue(id)" %>
+            <td>
+              <%= text_field 'lineinformation', 'balance', :id => 'balance_id',
+                :class => "balance_amount", :onblur => "sumbalance()" %>
+            </td>
+            <td align="center" valign="middle" id ="add_button">
+              <input type="button" tabindex="41" name="button" value="+" id="add"  accesskey="+" onclick ="disableServiceLine(); addServiceLine()" style="width:20px;" class = "submit_add"/>
+            </td>
+            </tr>
+          <% end %>
+          <% @service_line = @service_line || [] %>
+          <% if ((@insurance_eob_unsaved_data && @insurance_eob_unsaved_data.length > 0) && !patient.patient_account_number.blank? ) %>
+            <% @service_line = @service_line.concat(@ocr_service_line.to_a).flatten%>
+          <% elsif not @patient_837_information.blank? %>
+            <% @service_line = @service_line.concat(@mpi_service_line.to_a).flatten %>
+          <% end %>
+
+          <% # Service Line Total displaying Row block %>
+          <tr id="service_total">
+            <td> T </td>
+            <%if (@claim_level_eob == "true" && !@patient_837_information.blank? )
+            claim_from_date = @patient_837_information.claim_statement_period_start_date
+            claim_to_date =@patient_837_information.claim_statement_period_end_date
+          else
+            claim_from_date = claim_level_earliest_dt( @service_line )
+            claim_to_date = claim_level_latest_date( @service_line )
+          end
+        %>
+            <%= sp_text_field :insurance_payment_eob, :claim_from_date,
+              @facility.details[:service_date_from] && @claim_level_eob, 'td',
+              :value => claim_from_date, :id => 'claim_from_date_id',
+              :class => "set-default-value-from-fc required datebox",
+              :tabindex => "41", :accesskey => "d" %>
+            <%= sp_text_field :insurance_payment_eob, :claim_to_date,
+              @facility.details[:service_date_from] && @claim_level_eob, 'td',
+              :value => claim_to_date, :id => 'claim_to_date_id',
+              :class => "set-default-value-from-fc required datebox" ,
+              :tabindex => "41" %>
+            <% if @insurance_pay %>
+              <td colspan="<%=@facility.total_col_span(@claim_level_eob, true)%>">
+              <% elsif @patient_pay %>
+              <td colspan="<%=@facility.total_col_span_patpay(@claim_level_eob, false)%>">
+              <% end %>
+              <% if !@claim_level_eob || @claim_level_eob.nil? %>
+                <input type="button" name="button" value="Delete All Rows" class="submit_add" id="delete" accesskey= "-" onclick ="return confirmDeleteAllRows();"/>
+              <% end %>
+              <strong>TOTAL</strong>
+            </td>
+            <% readonly = !@claim_level_eob %>
+            <% tooth_value =  claim_level_tooth_number( @service_line, @claim_level_eob ) %>
+            <%= sp_text_field :insurance_payment_eob, :claim_tooth_number,
+              @facility.details[:tooth_number] && @insurance_pay && @claim_level_eob , 'td',:id => 'claim_tooth_number',
+              :class => "textbox validate-tooth-number", :size => 8, :style => "width:58px", :onkeypress => "enlargeTextbox(id)", :maxlength => 30,
+              :value => tooth_value,
+              :tabindex => "42", :onblur => "changeToCapital(id); resetTextfieldSize(id, '8')" %>
+
+            <%= sp_text_field :claim_level, :remark_code,
+              @facility.details[:remark_code] && @insurance_pay && @claim_level_eob, 'td',
+              :class => "textbox", :size => 8, :style => "width:58px", :onkeypress => "enlargeTextbox(id)",:tabindex => "42",
+              :onblur => "changeToCapital(id); resetTextfieldSize(id, '8')" %>
+            <td>
+              <% charge_value =  claim_level_charge( @service_line ) %>
+              <% if @claim_level_eob
+                sum_claim_balance = "validateDollarAmount(id);sumClaimbalance()"
+              else
+                sum_claim_balance = ""
+              end %>
+              <%= text_field 'insurancepaymenteob', 'total_submitted_charge_for_claim',
+                :id => 'total_charge_id', :tabindex => "42",
+                :class => "set-default-value-from-fc amount  #{required_validation(@claim_level_eob)} #{charge_must_be_nonzero(@site_code)} #{patient.style("total_submitted_charge_for_claim")}",
+                :coordinates => patient.coordinates("total_submitted_charge_for_claim"),
+                :page => patient.page("total_submitted_charge_for_claim"),
+                :value => charge_value, :readonly => readonly,
+                :onblur => sum_claim_balance, :accesskey => "1",
+                :onfocus => "setBlank('total_charge_id')" %>
+            </td>
+            <%= sp_text_field :insurancepaymenteob, :total_pbid, (@facility.details[:pbid] && @insurance_pay && !@claim_level_eob ),
+              'td', :id => 'total_pbid_id' , :tabindex => "42",
+              :class => "amount",  :readonly => readonly,
+              :onfocus => "setBlank(id)", :maxlength => 10,
+              :value => (patient.sum('pbid').blank? ? '0.00':patient.sum('pbid')) %>
+            <%= sp_text_field :insurancepaymenteob, :total_allowable, (@insurance_pay && !@claim_level_eob) || (@claim_level_eob && @facility.details[:claim_level_allowed_amount_in_grid]) , 'td',
+              :id => 'total_allowable_id', :tabindex => "42",
+              :class => "amount #{allowable_validation_claim_level} #{patient.style("total_allowable")}",
+              :coordinates => patient.coordinates("total_allowable"),
+              :page => patient.page("total_allowable"),
+              :value => (patient.sum('service_allowable').blank? ? '0.00' :patient.sum('service_allowable')),
+              :readonly => readonly, :onfocus => "setBlank('total_allowable_id')" %>
+            <%= sp_text_field :insurancepaymenteob, :total_plan_coverage,
+              (@facility.details[:plan_coverage] && @insurance_pay ),
+              'td', :id => 'total_plan_coverage_id', :tabindex => "42",
+              :readonly => readonly, :class => "textbox", :style=>"width:40px",
+              :onfocus => "setBlank(id)", :onblur => "validatePlanCoverage(id)",
+              :value => "" %>
+
+            <%= sp_text_field :insurancepaymenteob, :total_drg_amount,
+              @facility.details[:drg_amount] && !@claim_level_eob , 'td',
+              :id => 'total_drg_amount_id', :value => (patient.sum('drg_amount').blank? ?
+                '0.00' : patient.sum('drg_amount')) ,
+              :tabindex => "42", :class => "amount", :readonly => readonly,
+              :onfocus => "setBlank(id)" %>
+            <%= sp_text_field :insurancepaymenteob, :total_expected_payment, ((@facility.details[:expected_payment_insurance] && @insurance_pay) || (@facility.details[:expected_payment_pat_simplified] && @patient_pay)), 'td', :id => 'total_expected_payment_id',:tabindex=>"42", :class => "amount #{patient.style("total_expected_payment")}",:coordinates => patient.coordinates("total_expected_payment"), :page => patient.page("total_expected_payment") ,:value => (@patient_837_information.blank? ? patient.sum('expected_payment'):'0.00') ,:readonly => readonly, :onfocus => "setBlank('total_expected_payment_id')" %>
+            <%= sp_text_field :insurancepaymenteob, :total_retention_fees, (@facility.details[:retention_fee] && @insurance_pay && !@claim_level_eob),
+              'td', :id => 'total_retention_fees_id', :tabindex => "42",
+              :class => "amount", :readonly => readonly,
+              :onfocus => "setBlank(id)", :maxlength => "10",
+              :value => (patient.sum('retention_fees').blank? ?  '0.00' : patient.sum('retention_fees')) %>
+            <td>
+              <%= text_field 'insurancepaymenteob', 'total_amount_paid_for_claim',
+                :id => 'total_payment_id', :tabindex => "42",
+                :class => "amount #{required_validation(@claim_level_eob)} #{patient.style("total_amount_paid_for_claim")}",
+                :coordinates => patient.coordinates("total_amount_paid_for_claim"),
+                :page => patient.page("total_amount_paid_for_claim"),
+                :value => (patient.sum('service_paid_amount').blank? ? '0.00' : patient.sum('service_paid_amount')),
+                :readonly => readonly, :onblur => sum_claim_balance,
+                :ondblclick => "setBalancevalue('total_payment_id')",
+                :onfocus => "setBlank('total_payment_id')", :accesskey => "2" %>
+            </td>
+            <% if @insurance_pay %>
+              <td>
+                <% non_covered_value =  patient.total("total_non_covered",
+                  "service_no_covered", @patient_837_information, @claim_level_eob) %>
+                <%= text_field 'insurancepaymenteob', 'total_non_covered',
+                  :id => 'total_non_covered_id', :tabindex => "42",
+                  :class => "amount validate-presence-of-unique-code #{patient.style("total_non_covered")}",
+                  :coordinates => patient.coordinates("total_non_covered"),
+                  :page => patient.page("total_non_covered"),
+                  :value => non_covered_value , :readonly => readonly,
+                  :onblur => sum_claim_balance, :accesskey => "3",
+                  :ondblclick => "setBalancevalue('total_non_covered_id')",
+                  :onfocus => "setBlank('total_non_covered_id')" %>
+              </td>
+              <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+                { :index => 'claim_noncovered', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <%= sp_text_field :insurancepaymenteob, :total_denied,
+                @facility.details[:denied], 'td', :id => 'total_denied_id',
+                :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("total_denied")}",
+                :coordinates => patient.coordinates("total_denied"),
+                :page => patient.page("total_denied"), :accesskey => "4",
+                :value => patient.total("total_denied",
+                "denied", @patient_837_information, @claim_level_eob),
+                :readonly => readonly, :onblur => sum_claim_balance,
+                :ondblclick => "setBalancevalue('total_denied_id')",
+                :onfocus => "setBlank('total_denied_id')" %>
+              <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:denied], 'td',
+                { :index => 'claim_denied', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <td>
+                <%= text_field 'insurancepaymenteob', 'total_discount',
+                  :id => 'total_discount_id', :tabindex => "42",
+                  :class => "amount validate-presence-of-unique-code #{patient.style("total_discount")}",
+                  :coordinates => patient.coordinates("total_discount"),
+                  :page => patient.page("total_discount"), :accesskey => "5",
+                  :value => patient.total("total_discount",
+                  "service_discount", @patient_837_information, @claim_level_eob),
+                  :readonly => readonly, :onblur => sum_claim_balance,
+                  :ondblclick => "setBalancevalue('total_discount_id')",
+                  :onfocus => "setBlank('total_discount_id')" %>
+              </td>
+              <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+                { :index => 'claim_discount', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <td>
+                <%= text_field 'insurancepaymenteob', 'total_co_insurance',
+                  :id => 'total_coinsurance_id', :tabindex => "42",
+                  :class => "amount validate-presence-of-unique-code #{patient.style("total_co_insurance")}",
+                  :coordinates => patient.coordinates("total_co_insurance"),
+                  :page => patient.page("total_co_insurance"), :accesskey => "6",
+                  :value => patient.total("total_co_insurance",
+                  "service_co_insurance", @patient_837_information, @claim_level_eob),
+                  :readonly => readonly, :onblur => "#{sum_claim_balance};populateDefaultRcOnTabout('co_insurance',
+      'total_coinsurance_id', 'reason_code_claim_coinsurance_unique_code',
+      '#{@facility.details[:hipaa_code]}')",
+                  :ondblclick => "setBalancevalue('total_coinsurance_id')",
+                  :onfocus => "setBlank('total_coinsurance_id')" %>
+              </td>
+              <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+                { :index => 'claim_coinsurance', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)" ,
+                  :ondblclick => "populateDefaultRcOnDoubleClick('co_insurance',
+          'total_coinsurance_id', 'reason_code_claim_coinsurance_unique_code',
+          '#{@facility.details[:hipaa_code]}')", :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <td>
+                <%= text_field 'insurancepaymenteob', 'total_deductible',
+                  :id => 'total_deductable_id', :accesskey => "7",
+                  :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("total_deductible")}",
+                  :coordinates => patient.coordinates("total_deductible"),
+                  :page => patient.page("total_deductible"),
+                  :value => patient.total("total_deductible", "service_deductible",
+                  @patient_837_information, @claim_level_eob),
+                  :readonly => readonly, :onblur => "#{sum_claim_balance};populateDefaultRcOnTabout('deductible',
+      'total_deductable_id', 'reason_code_claim_deductible_unique_code',
+      '#{@facility.details[:hipaa_code]}')",
+                  :ondblclick => "setBalancevalue('total_deductable_id')" ,
+                  :onfocus => "setBlank('total_deductable_id')" %>
+              </td>
+              <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+                { :index => 'claim_deductible', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :ondblclick => "populateDefaultRcOnDoubleClick('deductible',
+          'total_deductable_id', 'reason_code_claim_deductible_unique_code',
+          '#{@facility.details[:hipaa_code]}')", :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+            <% end %>
+            <td>
+              <%= text_field 'insurancepaymenteob', 'total_co_pay', :id => 'total_copay_id',
+                :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("total_co_pay")}",
+                :coordinates => patient.coordinates("total_co_pay"),
+                :page => patient.page("total_co_pay"), :accesskey => copay_header_number.to_s,
+                :value => patient.total("total_co_pay",
+                "service_co_pay", @patient_837_information, @claim_level_eob),
+                :readonly => readonly_attribute_for_total_adjustment_amounts,
+                :onblur => "#{sum_claim_balance};populateDefaultRcOnTabout('copay',
+    'total_copay_id', 'reason_code_claim_copay_unique_code',
+    '#{@facility.details[:hipaa_code]}')",
+                :ondblclick => set_balance_amount_in_total_dollar_field("'total_copay_id'"),
+                :onfocus => "setBlank('total_copay_id')" %>
+            </td>
+            <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+              { :index => 'claim_copay', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "42", :readonly => readonly_attribute_for_total_adjustment_amounts,
+                :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :ondblclick => "populateDefaultRcOnDoubleClick('copay',
+        'total_copay_id', 'reason_code_claim_copay_unique_code',
+        '#{@facility.details[:hipaa_code]}')"}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <% if @insurance_pay %>
+              <%= sp_text_field :insurancepaymenteob, :total_patient_responsibility,
+                @facility.details[:patient_responsibility], 'td', :id => 'total_patient_responsibility_id',
+                :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("total_patient_responsibility")}",
+                :coordinates => patient.coordinates("total_patient_responsibility"),
+                :page => patient.page("total_patient_responsibility"),
+                :value => patient.total("total_patient_responsibility", "patient_responsibility", @patient_837_information, @claim_level_eob),
+                :readonly => readonly,
+                :onblur => "#{sum_claim_balance};",
+                :ondblclick => "setBalancevalue('total_patient_responsibility_id')",
+                :onfocus => "setBlank('total_patient_responsibility_id')" %>
+
+              <%= (auto_complete_text_field :reason_code, :unique_code,
+                @facility.details[:patient_responsibility], 'td',
+                { :index => 'claim_patient_responsibility', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <td>
+                <%= text_field 'insurancepaymenteob', 'total_primary_payer_amount',
+                  :id => 'total_primary_payment_id', :tabindex => "42",
+                  :class => "amount validate-presence-of-unique-code #{patient.style("total_primary_payer_amount")}",
+                  :coordinates => patient.coordinates("total_primary_payer_amount"),
+                  :page => patient.page("total_primary_payer_amount"), :readonly => readonly,
+                  :value => patient.total("total_primary_payer_amount",
+                  "primary_payment", @patient_837_information, @claim_level_eob),
+                  :onblur => "#{sum_claim_balance}; reasoncodeprimarypayment('total_primary_payment_id',
+      'reason_code_claim_primary_payment_unique_code')", :accesskey => "9",
+                  :ondblclick => "setBalancevalue('total_primary_payment_id')",
+                  :onfocus => "setBlank('total_primary_payment_id')" %>
+              </td>
+              <%= (auto_complete_text_field :reason_code, :unique_code, true, 'td',
+                { :index => 'claim_primary_payment', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+              <%= sp_text_field :insurancepaymenteob, :total_prepaid,
+                @facility.details[:prepaid], 'td', :id => 'total_prepaid_id',
+                :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("total_prepaid")}",
+                :coordinates => patient.coordinates("total_prepaid"),
+                :page => patient.page("total_prepaid"),
+                :value => patient.total("total_prepaid", "prepaid", @patient_837_information, @claim_level_eob),
+                :readonly => readonly,
+                :onblur => "#{sum_claim_balance}; reasoncodeprepaid('total_prepaid_id',
+      'reason_code_claim_prepaid_unique_code')",
+                :ondblclick => "setBalancevalue('total_prepaid_id')",
+                :onfocus => "setBlank('total_prepaid_id')" %>
+              <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:prepaid], 'td',
+                { :index => 'claim_prepaid', :class => 'unique_code proprietary_code', :size => 6,
+                  :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                  :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                  :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                  :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                    :job_id => params[:job_id]}}).to_s.html_safe %>
+            <% end %>
+            <%= sp_text_field :insurancepaymenteob, :total_contractual_amount,
+              !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), 'td',
+              :id => 'total_contractual_amount_id', :tabindex => "42",
+              :class => "amount validate-presence-of-unique-code #{patient.style("total_contractual_amount")}",
+              :coordinates => patient.coordinates("total_contractual_amount"),
+              :page => patient.page("total_contractual_amount"), :accesskey => contractual_allowance_header_number.to_s,
+              :value =>  patient.total("total_contractual_amount",
+              "contractual_amount", @patient_837_information, @claim_level_eob),
+              :readonly => readonly_attribute_for_total_adjustment_amounts, :onblur => sum_claim_balance,
+              :ondblclick => set_balance_amount_in_total_dollar_field("'total_contractual_amount_id'") ,
+              :onfocus => "setBlank('total_contractual_amount_id')" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), 'td',
+              { :index => 'claim_contractual', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "42", :readonly => readonly_attribute_for_total_adjustment_amounts,
+                :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)" }, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+
+            <%= sp_text_field :insurancepaymenteob, :miscellaneous_one_adjustment_amount,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'total_miscellaneous_one_id',
+              :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("miscellaneous_one_adjustment_amount")}",
+              :coordinates => patient.coordinates("miscellaneous_one_adjustment_amount"),
+              :page => patient.page("miscellaneous_one_adjustment_amount"), :accesskey => "4",
+              :value => patient.total("miscellaneous_one_adjustment_amount",
+              "miscellaneous_one_adjustment_amount", @patient_837_information, @claim_level_eob),
+              :readonly => readonly, :onblur => sum_claim_balance,
+              :ondblclick => "setBalancevalue('total_miscellaneous_one_id')",
+              :onfocus => "setBlank('total_miscellaneous_one_id')" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, 'td',
+              { :index => 'claim_miscellaneous_one', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+
+            <%= sp_text_field :insurancepaymenteob, :miscellaneous_two_adjustment_amount,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'total_miscellaneous_two_id',
+              :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("miscellaneous_two_adjustment_amount")}",
+              :coordinates => patient.coordinates("miscellaneous_two_adjustment_amount"),
+              :page => patient.page("miscellaneous_two_adjustment_amount"), :accesskey => "4",
+              :value => patient.total("miscellaneous_two_adjustment_amount",
+              "miscellaneous_two_adjustment_amount", @patient_837_information, @claim_level_eob),
+              :readonly => readonly, :onblur => sum_claim_balance,
+              :ondblclick => "setBalancevalue('total_miscellaneous_two_id')",
+              :onfocus => "setBlank('total_miscellaneous_two_id')" %>
+            <%= (auto_complete_text_field :reason_code, :unique_code,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, 'td',
+              { :index => 'claim_miscellaneous_two', :class => 'unique_code proprietary_code', :size => 6,
+                :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+                :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+                :readonly => readonly}, {:tokens => ';', :skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_unique_code',
+                  :job_id => params[:job_id]}}).to_s.html_safe %>
+            <%= sp_text_field :insurancepaymenteob, :miscellaneous_balance,
+              @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+              'td', :id => 'total_miscellaneous_balance_id',
+              :tabindex => "42", :class => "amount validate-presence-of-unique-code #{patient.style("miscellaneous_balance")}",
+              :coordinates => patient.coordinates("miscellaneous_balance"),
+              :page => patient.page("miscellaneous_balance"), :accesskey => "4",
+              :value => patient.total("miscellaneous_balance",
+              "miscellaneous_balance", @patient_837_information, @claim_level_eob),
+              :readonly => readonly, :onblur => sum_claim_balance,
+              :ondblclick => "setBalancevalue('total_miscellaneous_balance_id')",
+              :onfocus => "setBlank('total_miscellaneous_balance_id')" %>
+            <td>
+              <%= text_field 'insurancepaymenteob', 'total_service_balance',
+                :id => 'total_service_balance_id', :readonly => true,
+                :coordinates => patient.coordinates("total_service_balance"),
+                :page => patient.page("total_service_balance"),
+                :value =>  ( patient.total_service_balance.blank? ?  "" : patient.total_service_balance  ),
+                :class => "amount validate-balance #{patient.style("total_service_balance")}" %>
+            </td>
+          </tr>
+
+          <% if !@service_line.blank? %>
+            <input type ="hidden" id="service_line_count" name="service_line_count" value="<%=@service_line.length%>" />
+            <%= render :partial => 'ocr_service_line', :target => @service_line %>
+
+          <% end %>
+
+        </table>
+        <%=hidden_field 'line inforamtions','totalline',:id => 'total_line_count_remove',:value => (@service_line.length if @service_line) %>
+        <input type ="hidden" id="total_line_count" value="<%=(@service_line.length if @service_line)%>">
+        <%= hidden_field_tag :claim_information_id, @patient_837_information.id unless @patient_837_information.blank? %>
+
+
+      </div>
+      <div>
+        <table  width="99%">
+          <tr>
+            <%=  set_submit_button_value %>
+            <td>
+              <% unless @insurance_eobs_unsaved.blank? %>
+                &nbsp;
+                <%= submit_tag "Delete EOB" ,:onclick=>"setSubmitButtonValue('Delete EOB'); setValidationForPaymentMethod(); ",
+                  :name => "option1", :class => "submit_save" %>
+              <%end %>
+
+              &nbsp;&nbsp;&nbsp;<%= sp_label 'Balance Record : ',
+                ((@display_balance_record_field || !patient.balance_record_type.blank?) &&
+                  @insurance_pay && !@claim_level_eob), nil %>
+              <%= sp_select_tag 'balance_record_type', nil,
+                ((@display_balance_record_field || !patient.balance_record_type.blank?) &&
+                  @insurance_pay && !@claim_level_eob), nil,
+                options_for_select(@balance_record_types, patient.balance_record_type),
+                :title => 'Balance Record', :style => "border : 1px solid ",
+                :onchange => "getImagePage(); setImagePageToNumber(); balanceRecordCreation()" %>
+            </td>
+            <%= sp_select_tag nil, 'rejection_comment',
+              (@populate_values_for_eob_incompletion), 'td',
+              options_for_select(@incomplete_comment_list.sort << ['Other', 'Other'], '--'),
+              :id => 'rejection_comment', :class => 'textbox', :accesskey => "r",
+              :onchange => 'makeCommentVisible()', :style => "border : 1px solid ;display : none" %>
+            <%= sp_text_field :rejection, :comment_area,
+              (@populate_values_for_eob_incompletion), 'td',
+              :id => 'comment', :size => 70,
+              :style => "border : 1px solid; display : none" %>
+            <td>
+              &nbsp;
+            </td>
+            <% if @check_information.correspondence?(@batch, @facility)
+              td_style_drop_down = 'td width="100px" align="right"'
+            else
+              td_style_drop_down = 'td width="180px" align="right"'
+            end
+          %>
+            <% if @claim_level_eob && @facility.details[:claim_level_service_lines] %>
+              <td width="100px">
+                <div align="right">
+                  <input type="button" name="claim_level_svc_line" value="Claim Level Service Details" id = "claim_level_svc_line" class = "submit_link_green" onclick = "toggleClaimLevelSvcWindow();" />
+                </div>
+              </td>
+            <% end %>
+            <%= sp_label 'Document Classification:', @facility.details[:document_classification],
+              'th width="70px" align="right"' %>
+            <%= sp_select_tag 'insurancepaymenteob', 'document_classification',
+              (@facility.details[:document_classification]), td_style_drop_down,
+              options_for_select(get_document_classification_list, patient.document_classification),
+              :id => 'document_classification_id',
+              :class => "textbox #{is_document_classification_mandatory}",
+              :style => "border : 1px solid" %>
+            <% if(@client_name.to_s != 'MEDISTREAMS') %>
+              <% if !(@claim_level_eob == "true") || @claim_level_eob.nil? %>
+                <% if @insurance_pay %>
+                  <td width="100px">
+                    <div align="right">
+                      <label "adjustment_line",  id = "adjustment_line",  class = "submit_link_green",  onclick = "toggleAdjustmentLine(); setTotalBalance($F('total_service_balance_id'));">
+                        Adjustment Line
+                    </label>
+                  </div>
+                </td>
+              <% end %>
+            <% end %>
+          <% end %>
+          <td width="160px">
+            <%if patient.blank?
+              image_page_no = ""
+              image_page_to_number = ""
+            else
+              image_page_no = patient.image_page_no
+              image_page_to_number = patient.image_page_to_number
+            end %>
+            <div align="right">
+              <% unless @insurance_eob_unsaved_data.blank? %>
+                <label for="image_page_no">
+                  &nbsp;&nbsp;EOB page:
+                </label>
+                <%= text_field 'insurancepaymenteob', 'image_page_no',
+                  :id => 'image_page_number', :value => image_page_no,
+                  :style => "border: 2px solid ;", :class=>"required gotopage" %>
+                &nbsp;&nbsp;&nbsp;
+              <% end %>
+              <%= hidden_field 'insurancepaymenteob', 'image_page_to_number',
+                :id => 'image_page_to_number', :value => image_page_to_number,
+                :style => "border: 2px solid ;", :maxlength => "3" %>
+
+              <input type = "hidden" name = "option1" id = "submit_button_after_hiding" />
+              <%= submit_tag "SAVE EOB", :name => "option1", :tabindex => "801",
+                :class => "submit_save",:accesskey => "s", :id => 'proc_save_eob_button_id',
+                :onclick=>" setSubmitButtonValue('SAVE EOB'); setValuesForEobSaveOnProcView();alertForConfirmingPaymentMethod(); return mustPassValidations(\"#{@client_name.to_s}\");",
+                :onkeyup => "getthewindow();" %>
+
+            </div>
+          </td>
+        </tr>
+
+      </table>
+      <div id="claim_level_service_lines_div" style="display:none;">
+        <%= render :partial => "claim_level_service_lines" %>
+      </div>
+    </div>
+  <%end %>
+  <% if(@client_name.to_s == $HLSC_CLIENT_A.to_s || @client_name.to_s == $HLSC_CLIENT_B.to_s || @client_name.to_s == $HLSC_CLIENT_C.to_s || @client_name.to_s == $HLSC_CLIENT_D.to_s || @client_name.to_s == $HLSC_CLIENT_E.to_s || @client_name.to_s == $HLSC_CLIENT_F.to_s)
+    hlsc_client = true
+  else
+    hlsc_client = false
+  end %>
+  <input type ="hidden" id="hlsc_client" value="<%=hlsc_client%>">
+<%end %>
+</div>
+<div id = "reason_code_grid" style="display:none;">
+  <%= render :partial => "reason_code_informations/list", :target => @reason_codes %>
+</div>
+<script type="text/javascript">
+  Event.observe(window, 'load', function(){
+    var valid = new Validation('form1');
+    window.document.form1.patient_account_id.focus();
+    Event.observe('stop_allocate','click', function(event){
+      event.stop();
+      var newwindow = window.open(this.href,'true','height=100,width=400');
+      newwindow.focus();
+      return false;
+    });
+  });
+  setValidUniqueCodes("<%= @total_hipaa_and_unique_codes_of_parent_job %>");
+</script>

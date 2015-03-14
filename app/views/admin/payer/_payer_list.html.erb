@@ -1,0 +1,34 @@
+  <table width="" cellspacing="" cellpadding="" border="">    
+    <tr>
+      <th></th>
+      <th>Payer</th>
+      <th>Payer ID</th>
+      <th>Payer Type</th>
+      <th>Address One</th>
+      <th>Address Two</th>
+      <th>Address Three</th> 
+      <th>City</th>
+      <th>state</th>
+      <th>ZIP</th>
+      <th>Payer Status</th>
+      <th>Footnote Indicator</th>
+      <th></th>
+    </tr>
+    <% payers_to_list.each do |payer| %>
+    <tr>
+      <td><%= payer.id %></td>
+      <td><%= payer.payer%></td>
+      <td><%= payer.supply_payid%></td>
+      <td><%= payer.payer_type%></td> 
+      <td><%= (payer.pay_address_one.present? ? payer.pay_address_one : "-") %></td>
+      <td><%= (payer.pay_address_two.present? ? payer.pay_address_two : "-") %></td>
+      <td><%= (payer.pay_address_three.present? ? payer.pay_address_three : "-") %></td>
+      <td><%= (payer.payer_city.present? ? payer.payer_city : "-") %></td>
+      <td><%= (payer.payer_state.present? ? payer.payer_state : "-") %></td>
+      <td><%= (payer.payer_zip.present? ? payer.payer_zip : "-") %></td>
+      <td><%= payer.status %></td>
+      <td><%= (payer.footnote_indicator ? "yes": "no") %></td>
+      <td><%= link_to "Verifiy", :controller=>'/admin/payer', :id=>payer.id, :action =>"verify_payer_without_micr" %></td>     
+    </tr>
+    <% end %>
+  </table>

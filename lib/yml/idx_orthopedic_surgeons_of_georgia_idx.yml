@@ -1,0 +1,14 @@
+BATCH:
+  date: [ 0, 7, date ]
+  bank_deposit_date: [ 0, 7, date ]
+JOB:
+  check_number: [ 47, 56 ]
+CHECK:
+  check_number: [ 47, 56 ]
+  check_amount: [ 8, 19 ]
+MICR:
+  aba_routing_number: [ 23, 31 ]
+  payer_account_number: [ 32, 43 ]
+IMAGE:
+  image_file_name: [ 57, 67 ]
+

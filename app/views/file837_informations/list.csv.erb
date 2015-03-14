@@ -1,0 +1,7 @@
+Client Code,File Name,Zip File Name,File Arrival Time,File Size(KB),File Load Start Time,File Load End Time,Total Claim Count,Loaded Claim Count,Total SVC Count,Loaded SVC Count,Loading Status
+
+<% @file_837_informations.each do |claim_file|
+   fac = claim_file.facility
+%>
+  <%= fac.nil? ? '-' : fac.sitecode %>,<%= claim_file.name %>,<%= claim_file.zip_file_name %>,<%= claim_file.arrival_time %>,<%= claim_file.size %>,<%= claim_file.load_start_time %>,<%= claim_file.load_end_time %>,<%= claim_file.total_claim_count %>,<%= claim_file.loaded_claim_count %>,<%= claim_file.total_svcline_count %>,<%= claim_file.loaded_svcline_count %>,<%= claim_file.status %>
+<% end %>

@@ -1,0 +1,19 @@
+<%= render "shared/error_messages", :target => @job %>  
+<!-- %= error_messages_for 'job' % -->
+
+<!--[form:job]-->
+<table>
+  <tr>
+    <th><label for="job_check_number">Check number</label></th>
+    <th><label for="job_tiff_number">Tiff number</label></th>
+    <!-- <th><label for="job_image_count">Image Count</label></th> -->
+    <th><label for="job_image_count">Estimated EOBs</label></th>
+  </tr>
+  <tr>
+    <td><%= text_field 'job', 'check_number' %></td>
+    <td><%= text_field 'job', 'tiff_number'  %></td>
+    <!-- <td><%= text_field 'job', 'image_count'  %></td> -->
+    <td><%= text_field 'job', 'estimated_eob'  %></td>
+  </tr>
+</table>
+<!--[eoform:job]-->

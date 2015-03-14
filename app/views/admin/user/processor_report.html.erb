@@ -1,0 +1,29 @@
+<div id="login_main">
+<h5><%= link_to 'Online Processors', :action => 'list_processor_occupancy' %>&nbsp;&nbsp;|&nbsp;&nbsp;Processor Report</h5>
+
+<h1>Processor Report</h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'processor_report' do %>
+  <table>
+    <tr>
+      <td>
+        <strong class="black_text">UserID</strong> <%= text_field_tag :userid, @userid, :size => 25,:class => 'dropdown' %>
+      </td>
+      <td>
+        <strong class="black_text">From</strong> <%= text_field_tag 'date_from', @date_from, :size => 15,:class => 'dropdown' %> <%= date_picker("date_from", "mdy", "/") %><%= spacer(2) %>
+        <strong class="black_text">To</strong> <%= text_field_tag 'date_to', @date_to, :size => 15,:class => 'dropdown' %>  <%= date_picker("date_to", "mdy", "/") %><%= spacer(2) %>
+      </td>
+      <td><%= submit_tag 'Search', :class => 'button' %></td>  
+    </tr>
+  </table>
+  
+  <% end %>
+</div>
+
+<% if @users.blank? %>
+  <h4> No Information available.</h4>
+<% else %>
+  <%= render :partial => 'processor_report_list'%>
+<% end %>
+</div>

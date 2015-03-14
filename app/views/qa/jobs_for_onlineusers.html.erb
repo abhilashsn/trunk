@@ -1,0 +1,43 @@
+<h1>Listing all Jobs of <%= params[:name]%></h1>
+<% unless @jobs.empty? %>
+<% if @job_pages.current.previous %>
+  <%= link_to 'Prev', { :page => @job_pages.current.previous } %>
+<% end %>
+<% if @job_pages.length > 1 %>
+  <% @job_pages.each do |page| %>
+    <% params[:controller] = 'qa' %>
+    <%= link_to_unless(params[:page].to_i == page.number, page.number, {:params => params.merge('page' => page)})%>
+  <% end %>
+<% end %>
+
+<% if @job_pages.current.next %>
+  <%= link_to 'Next', { :page => @job_pages.current.next } if @job_pages.current.next %>
+<% end %>
+	<table>
+		<tr>
+			<th>Batch ID</th>
+			<th>Facility</th>
+			<th>Check number</th>
+			<th>Tiff number</th>
+			<th>Processor</th>
+			<th>Status</th>
+			<th>EOB Count</th>
+		</tr>
+		<% @jobs.each do |job| %>
+		<tr>
+			<td><%= job.batch.batchid %></td>
+			<td><%= job.batch.facility %></td>
+			<td><%= job.check_number %></td>
+			<td><%= job.tiff_number %></td>
+			<td><%= job.processor.name %></td>
+			<td><%= job.processor_status %></td>
+			<td><%= job.count %></td>
+			
+		</tr>
+		<% end %>
+	</table>
+	<% else %>
+<h4>No assigned jobs!</h4>
+<% end %>
+
+<%= link_to 'Back',:controller => 'qa/online_users' %>

@@ -1,0 +1,77 @@
+<div id="login_main">
+  <% unless @jobs.blank? %>
+    <h1>Incompleted Jobs - Batch
+      <%= @jobs[0].batch.batchid %>
+      (Batch Date: <%= format_date(@jobs[0].batch.date) %>,
+    Client: <%= @jobs[0].batch.facility.client.name %>)</h1>
+  
+  <% else %>
+    <h1> </h1>
+  
+  <% end %>
+  
+  
+ 
+  <% unless @jobs.blank? %>
+            <%= will_paginate @jobs%>
+               <%= form_tag :action => 'allocate_deallocate', :id => @jobs_to_allocate ,:page=> params[:page] ,:back_page => params[:back_page] do %>
+  
+      <table>
+        <tr>
+          <th>Batch ID</th>
+          <th>Check #  </th>
+          
+          <th>Processor ID</th>
+          <th>Processor Comments</th>
+          <th>QA ID</th>
+          <th>QA Comments</th>
+          <th>Job Status</th>
+      
+      
+      
+      
+        </tr>
+        <%@jobs.each do |job| %>
+                    <% cls='white'%>
+
+          <tr>
+            <td class="<%= cls %>" align='right'><%= job.batch.batchid %></td>
+            <td class="<%= cls %>"><%= job.check_number %></td>
+            
+            <%
+            if job.qa_id.blank?
+                qaid = "-"
+            else
+                
+              qaid = job.qa.login
+            end
+            %>
+            <%
+            if job.processor_id.blank?
+                procid = "-"
+            else
+            procid = job.processor.login
+            end
+            %>
+             
+            <td class="<%= cls %>"><%= procid %></td>
+            <td class="<%= cls %>"><%= job.processor_comments %></td>
+            <td class="<%= cls %>"><%= qaid %></td>
+            <td class="<%= cls %>"><%= job.qa_comment %></td>
+            <td class="<%= cls %>"><%= job.job_status %></td>
+            <td class="<%= cls %>"><%= link_to 'Redo', :controller => './insurance_payment_eobs', :action => 'claimqa', :job_id => job.id , :batch_id => job.batch_id, :checknumber => job.check_number %></td>
+      
+          </tr>
+        <% end %>
+      </table>
+  
+                <% end %>
+  <% else %>
+    
+  <% end %>
+  <br/>
+  <br/>
+  
+  <br/>
+  <br/>
+</div>

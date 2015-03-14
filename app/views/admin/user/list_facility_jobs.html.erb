@@ -1,0 +1,74 @@
+<table>
+      <tr>
+      <th>Batch ID</th>
+      <th>Check <br/>Number </th>
+      <th>Tiff <br/>Number </th>
+      <th>EOBs<br/><font size='1'>Est./Completed</font></th>
+      <th>Processor</th>
+      <th>Processors <br/> Status</th>
+      <th>QA </th>
+      <th>QAs <br/>status</th>
+      <th>Job Status</th>
+      <th>Payer</th>
+      <th>Comment</th>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <th><input type="checkbox" name="all" onClick="checkAll(document.forms[1].toggle,this)"></th>
+      <% end %>
+    </tr>
+
+    <% unless @jobs.blank?%>
+    <% @jobs.each do |job| %>
+    <%cls=''%>
+  	<%if job.job_status == JobStatus::REJECTED
+        cls = 'red'
+      elsif job.job_status == JobStatus::PROCESSING
+        cls = 'blue'
+      elsif job.job_status == JobStatus::COMPLETED and job.batch.status == BatchStatus::COMPLETED
+        cls = 'darkgreen'
+      elsif job.job_status == JobStatus::COMPLETED
+        cls = 'green'
+      else
+        cls = 'white'
+       end
+  	%>
+    <tr>
+      <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+      <td class="<%= cls %>" align='right'><strong><%= link_to "#{job.batch.batchid}", :controller => 'job', :action => 'allocate', :id => job.batch, :back_page => params[:back_page] %></strong></td>
+      <% else %>
+      <td class="<%= cls %>" align='right'><strong><%= job.batch.batchid %></strong></td>
+      <% end %>
+      <td class="<%= cls %>"><%= job.check_number %></td>
+      <td class="<%= cls %>"><%= job.tiff_number %></td>
+      <td class="<%= cls %>" align='right'><%= job.estimated_eob %> / <%= job.count %></td>
+      <td class="<%= cls %>">
+      <% if job.processor %>
+          <%= link_to job.processor.name, :controller => '/admin/user', :action => 'show', :id => job.processor,:back_page=>params[:back_page]%>
+      <% end %>
+      </td>
+      <td class="<%= cls %>"><%= job.processor_status %>
+      </td>
+      <td class="<%= cls %>">
+      <% if job.qa %>
+          <%= link_to job.qa.name, :controller => '/admin/user', :action => 'show', :id => job.qa ,:back_page=>params[:back_page]%>
+      <% end %>
+      </td>
+			<td class="<%= cls %>"><%= job.qa_status %></td>
+      <td class="<%= cls %>"><%= job.job_status %></td>
+      <td class="<%= cls %>">
+        <% if job.payer.nil? %>
+          No Payer
+        <% else %>
+          <% if @user.role == 'Supervisor' or @user.role == 'Admin' %>
+          <strong><%= link_to "#{job.payer.payer}", :action => 'allocate_payer_jobs', :payer => job.payer %></strong>
+          <% else %>
+          <strong><%= job.payer.payer %></strong>
+          <% end %>
+        <% end %>
+      </td>
+		 <td><textarea readonly='true' cols="10" rows="2"><%= job.comment %></textarea></td>
+    </tr>
+    <% end %>
+    <% else %>
+      Click on facility name for jobs.
+    <% end %>
+  </table>

@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <!-- XML Schema Generated from XML Document on Wed Jun 05 2013 20:15:57 GMT+0530 (IST) -->
+         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+         <xs:element name="Batch">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="EOBRecord">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="Grid" maxOccurs="unbounded">
+                                                   <xs:complexType>
+                                                         <xs:sequence>
+                                                               <xs:element name="ProviderName">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="StartPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="EndPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="DataValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:sequence>
+                                                                                                                     <xs:element name="Name">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="StreetAddress">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="City">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="State">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="Zip">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                               </xs:sequence>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ErrorValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="OriginalValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:sequence>
+                                                                                                                     <xs:element name="Name">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="StreetAddress">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="City">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="State">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="Zip">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                               </xs:sequence>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="LookedUp" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Page" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Score" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Time" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="UserName" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Valid" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="ZoneName" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                               <xs:element name="CheckNumber">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="StartPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="EndPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="DataValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:int"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ErrorValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                             <xs:attribute name="Value" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="OriginalValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="LookedUp" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Page" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Score" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Time" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="UserName" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Valid" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="ZoneName" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                               <xs:element name="CheckDate">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="StartPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="EndPoint">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="X" type="xs:double"></xs:attribute>
+                                                                                             <xs:attribute name="Y" type="xs:double"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="DataValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ErrorValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                             <xs:attribute name="Value" type="xs:int"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="OriginalValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="PageNumber" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:double"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="DateFormat" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="LookedUp" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Page" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Score" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Time" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="UserName" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Valid" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="ZoneName" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                               <xs:element name="INSURANCECOMPANYNAME">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="DataValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:sequence>
+                                                                                                                     <xs:element name="Name" maxOccurs="unbounded">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="StreetAddress">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="City">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="State">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="Zip">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:int"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                               </xs:sequence>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ErrorValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="OriginalValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Address">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:sequence>
+                                                                                                                     <xs:element name="Name" maxOccurs="unbounded">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="StreetAddress">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="City">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="State">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:string"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                                     <xs:element name="Zip">
+                                                                                                                           <xs:complexType>
+                                                                                                                                 <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                                                 <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                                                 <xs:attribute name="WORD" type="xs:int"></xs:attribute>
+                                                                                                                           </xs:complexType>
+                                                                                                                     </xs:element>
+                                                                                                               </xs:sequence>
+                                                                                                               <xs:attribute name="AddressStructure" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="AddressType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="LookedUp" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Score" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Time" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="UserName" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Valid" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="ZoneName" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                               <xs:element name="CheckAmount">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="Errors">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="Error">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="ErrorMessage" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="ErrorType" type="xs:string"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="DataValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:double"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="ErrorValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:int"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                                 <xs:element name="OriginalValue">
+                                                                                       <xs:complexType>
+                                                                                             <xs:sequence>
+                                                                                                   <xs:element name="TEXTSTRING">
+                                                                                                         <xs:complexType>
+                                                                                                               <xs:attribute name="BOTTOM" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="CONSECUTIVE" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTNAME" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="FONTSIZE" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="LEFT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="NoLocation" type="xs:string"></xs:attribute>
+                                                                                                               <xs:attribute name="RIGHT" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="TOP" type="xs:int"></xs:attribute>
+                                                                                                               <xs:attribute name="WORD" type="xs:double"></xs:attribute>
+                                                                                                         </xs:complexType>
+                                                                                                   </xs:element>
+                                                                                             </xs:sequence>
+                                                                                             <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                                       </xs:complexType>
+                                                                                 </xs:element>
+                                                                           </xs:sequence>
+                                                                           <xs:attribute name="Datatype" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="LookedUp" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Score" type="xs:int"></xs:attribute>
+                                                                           <xs:attribute name="Time" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="UserName" type="xs:string"></xs:attribute>
+                                                                           <xs:attribute name="Valid" type="xs:string"></xs:attribute>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                         </xs:sequence>
+                                                         <xs:attribute name="Name" type="xs:string"></xs:attribute>
+                                                   </xs:complexType>
+                                             </xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+                     <xs:attribute name="BatchNumber" type="xs:string"></xs:attribute>
+                     <xs:attribute name="CheckAmount" type="xs:double"></xs:attribute>
+                     <xs:attribute name="CheckBatch" type="xs:string"></xs:attribute>
+                     <xs:attribute name="DocID" type="xs:int"></xs:attribute>
+                     <xs:attribute name="LockboxID" type="xs:int"></xs:attribute>
+                     <xs:attribute name="Name" type="xs:string"></xs:attribute>
+                     <xs:attribute name="PageCount" type="xs:int"></xs:attribute>
+                     <xs:attribute name="PayerID" type="xs:int"></xs:attribute>
+                     <xs:attribute name="ProcType" type="xs:string"></xs:attribute>
+                     <xs:attribute name="Product" type="xs:string"></xs:attribute>
+                     <xs:attribute name="ProviderID" type="xs:int"></xs:attribute>
+                     <xs:attribute name="WorkflowID" type="xs:int"></xs:attribute>
+               </xs:complexType>
+         </xs:element>
+   </xs:schema>
+ 

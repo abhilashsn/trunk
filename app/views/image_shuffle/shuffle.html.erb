@@ -1,0 +1,29 @@
+<h1> Image Shuffle Management - Shuffle Images </h1>
+<%= form_tag({:name => 'form',:action => 'update_image_shuffle', :job_id => @job.id, :batch_id => params[:batch_id]},:id => 'form') do %>
+<table>
+    <tr>
+        <th style="width: 100px;">
+            Job Id
+        </th>
+        <th>
+            IMAGE FROM
+        </th>
+        <th>
+            IMAGE TO
+        </th>
+    </tr>
+    <tr>
+        <td  style="text-align: center;">
+            <%= @job.id %>
+        </td>
+        <td>
+            <%= text_field_tag 'image_from' %>
+        </td>
+        <td>
+            <%= text_field_tag 'image_to' %>
+        </td>
+    </tr>
+</table>
+    <%= submit_tag "Update " , :name => "option" %>
+    
+<%end %>

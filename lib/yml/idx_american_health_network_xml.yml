@@ -1,0 +1,30 @@
+ITERATORS:
+  IBAT: /Header
+  ICHK: Transaction
+  IEOB: EOB
+  ICLAIM: Claim
+BATCH:
+  batchid: "@ImageFolder"
+  file_name: "@ImageFolder"
+  date: [ "@ICLDate", date, "%m%d%Y" ]
+  bank_deposit_date: [ "@ICLDate", date, "%m%d%Y" ]
+JOB:
+  check_number: "CheckF/@CheckNum"
+  pages_to: "@ImageCount"
+CHEQUE:
+  check_number: "CheckF/@CheckNum"
+  check_date: [ "CheckF/@CheckDate", date, "%m%d%Y" ]
+  check_amount: [ "CheckF/@CheckAmount", float ]
+PAYER:
+  payer: "@PayID"
+MICR:
+  aba_routing_number: "CheckF/@RouteNum"
+  payer_account_number: "CheckF/@AccNum"
+IMAGE:
+  image_file_name: "@ImageFileName"
+CLAIM:
+  patient_account_number: "@MemAccNum"
+  claim_number: "@ClaimNum"
+  subscriber_identification_code: "@PatIDNum"
+SVC:
+  service_paid_amount: "@ClaimAmt"

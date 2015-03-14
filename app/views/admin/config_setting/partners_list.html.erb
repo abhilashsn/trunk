@@ -1,0 +1,23 @@
+<%= javascript_include_tag "batch" %>
+<div id="login_main">
+  <h1>Listing clients</h1>
+  <% if @partners.present? %>
+    <table>
+      <tr>
+        <th> Name </th>
+        <th> Settings </th>
+      </tr>
+      <% @partners.each do |p| %>
+        <tr>
+          <td><%=p.name.upcase %></td>
+          <td><%= link_to image_tag("835.gif", :alt => "835 Configuration",:border=>"0",:style=>"padding:2px"), :action => 'default_config_835', :id => p.id %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h4> No Clients Found! </h4>
+  <% end %>
+  <br/>
+  <%= link_to 'Back', :controller => '/dashboard' %>
+</div>
+

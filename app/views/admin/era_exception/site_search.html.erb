@@ -1,0 +1,76 @@
+<% if !@facilities.blank? %>
+<table>
+  <tr>
+      <th style="width: 180px">
+          Site Name
+      </th>
+      <th style="width: 180px">
+          Site Code
+      </th>
+      <th style="width: 180px">
+          Client
+      </th>
+      <th style="width: 100px">
+          Site NPI(s)
+      </th>
+      <th style="width: 180px">
+          Site TIN(s)
+      </th>
+      <th style="width: 100px">
+          Site Address
+      </th>
+      <th style="width: 180px">
+          
+      </th>
+  </tr>
+  <% for facility in @facilities %>
+    <tr>
+      <td>
+        <%= facility.name %>
+      </td>
+      <td>
+        <% if @era_client.try(:name).try(:upcase) == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" %>
+          <%= facility.lockbox.try(:sitecode) %>
+        <% else %>
+          <%= facility.sitecode %>
+        <% end %>
+      </td>
+      <td>
+        <% if @era_client.try(:name).try(:upcase) == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" %>
+          <%= @era_client.name %>
+        <% else %>
+          <%= facility.client.name %>
+        <% end %>
+      </td>
+      <td>
+        <% if @era_client.try(:name).try(:upcase) == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" %>
+          <%= facility.facilities_npi_and_tins.collect(&:npi).uniq.join(", ") %>
+        <% else %>
+          <%= facility.facility_npi %>
+        <% end %>
+      </td>
+      <td>
+        <% if @era_client.try(:name).try(:upcase) == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" %>
+          <%= facility.facilities_npi_and_tins.collect(&:tin).uniq.join(", ") %>
+        <% else %>
+          <%= facility.facility_tin %>
+        <% end %>
+      </td>
+      <td>
+        <% if @era_client.try(:name).try(:upcase) == "UNIVERSITY OF PITTSBURGH MEDICAL CENTER" %>
+          <%= facility.address_one %> <%= facility.city %> <%= facility.state %> <%= facility.zip %>
+        <% else %>
+          <%= facility.address_one %> <%= facility.city %> <%= facility.state %> <%= facility.zip_code %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "Map This Site", {:action => 'approve_site', :id => facility, :job_id => params[:job_id]}, :remote => true, :confirm => "Are you sure you want to map the ERA transaction to the selected site?" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate @facilities %>
+<% else %>
+  <h4>Facility Not Found. </h4>
+<% end %>
+

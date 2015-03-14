@@ -1,0 +1,20 @@
+<h1>Editing HIPAA Code</h1>
+
+<%= form_tag :action => 'update_hipaa', :id => params[:id], :payer_id => @payer_id, :view => params[:view] do %>
+
+  HIPAA Code:
+
+  <%  if @reason_code.hipaa_code.blank?
+    hipaa_code = ""
+  else
+    hipaa_code = @reason_code.hipaa_code.hipaa_adjustment_code
+  end %>
+
+  <%= text_field_with_auto_complete 'hipaa_code', 'hipaa_adjustment_code', :value=> hipaa_code, :class => "black_text", :style => "width:55px; text-align:right;" %>
+
+  <br>
+  <%= submit_tag "Update", :class => 'button' %>
+
+<% end %>
+
+

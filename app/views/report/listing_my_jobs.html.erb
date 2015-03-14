@@ -1,0 +1,231 @@
+<div id="login_main">
+  <li> <%= link_to 'Report', :controller => 'report/completed_eobs_report' %> </li>
+  <h1>Listing my jobs</h1>
+  <%
+  unless params[:page]
+    page = 0
+  else
+    page = (params[:page].to_i * 30 - 30)
+  end
+%>
+  <div class="light_info">
+    <% unless @ins_eobs.blank? %>
+      <table width="100%">
+        <tr>
+          <th colspan="14">Insurance EOBs</th>
+        </tr>
+        <tr>
+          <th>Sl.No</th>
+          <th>Batch Id</th>
+          <th>Batch Date</th>
+          <th>Client</th>
+          <th>Facility</th>
+          <th>Check Number</th>
+          <th>Account Number</th>
+          <th>Comp.SVC Count</th>
+          <th>Normalized EOB #</th>
+          <th>Normalized SVC #</th>
+          <th>EOB Start.time</th>
+          <th>EOB Comp.Time</th>
+          <th>EOB QA'ed</th>
+          <th width="7.14%"></th>
+        </tr>
+        <% @ins_eobs.each_with_index do |ins_eob, index| %>
+          <tr>
+            <td><%= page + index + 1 %></td>
+            <td><%= ins_eob.batchid %></td>
+            <td><%= ins_eob.date.to_date %></td>
+            <td><%= ins_eob.client_name %></td>
+            <td><%= ins_eob.facility_name %></td>
+            <td><%= ins_eob.check_number %></td>
+            <td><%= link_to "#{ins_eob.account_number}", {:controller => 'archive',:action => "view_835",
+                :eob_check_number => ins_eob.id, :eob_id => ins_eob.eob_id, :job_id => ins_eob.job_id,
+                :page => InsurancePaymentEob.page_number(ins_eob.id, ins_eob.eob_id),
+                :from => 'processor_reports'}, {:target => '_blank'} %>
+            </td>
+            <td><%= ins_eob.service_payment_eobs_count %></td>
+            <td><%= ins_eob.normalised_eob(ins_eob.facility_name).to_f %></td>
+            <td><%= ins_eob.normalised_svc(ins_eob.facility_name).to_f * (ins_eob.service_payment_eobs_count).to_i %></td>
+            <td><%= format_datetime(ins_eob.start_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (ins_eob.blank? && ins_eob.start_time.blank?)%></td>
+            <td><%= format_datetime(ins_eob.end_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (ins_eob.blank? && ins_eob.end_time.blank?)%></td>
+            <% eob = EobQa.find_by_eob_id_and_eob_type_id(ins_eob.eob_id, 1) %>
+            <td><%= (eob) ? "Yes" : "No" %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @ins_eobs, :page => params[:page] %><br />
+      <label id="count">Completed Insurance EOBs: <%= @total_ins_eobs %></label><br />
+      <label id="count">Completed Service Lines: <%= @total_ins_service_lines %></label><br/>
+      <label id="count" >Completed Normalized Insurance EOBs: <%= @total_ins_normalised_eob.to_i %></label><br />
+      <label id="count">Completed Normalized Insurance Service Lines: <%= @total_ins_normalised_svc.to_i %></label><br />
+    <% else %>
+      <label id="count">No Insurance EOBs<br/></label>
+    <% end %>
+  </div>
+
+  <div class="light_info">
+    <% unless @pat_eobs.blank? %>
+      <table width="100%">
+        <tr>
+          <th colspan="14">PatientPay EOBs</th>
+        </tr>
+        <tr>
+          <th>Sl.No</th>
+          <th>Batch Id</th>
+          <th>Batch Date</th>
+          <th>Client</th>
+          <th>Facility</th>
+          <th>Check Number</th>
+          <th>Account Number</th>
+          <th>Comp.SVC Count</th>
+          <th>Normalized EOB #</th>
+          <th>Normalized SVC #</th>
+          <th>EOB Start.time</th>
+          <th>EOB Comp.Time</th>
+          <th>EOB QA'ed</th>
+          <th width="7.14%"></th>
+        </tr>
+        <% @pat_eobs.each_with_index do |pat_eob, index| %>
+          <tr>
+            <td><%= page + index + 1 %></td>
+            <td><%= pat_eob.batchid %></td>
+            <td><%= pat_eob.date.to_date %></td>
+            <td><%= pat_eob.client_name %></td>
+            <td><%= pat_eob.facility_name %></td>
+            <td><%= pat_eob.check_number %></td>
+            <td>
+              <%= link_to "#{pat_eob.account_number}", {:controller => 'archive',:action => "view_835",
+                :eob_check_number => pat_eob.id, :eob_id => pat_eob.eob_id, :job_id => pat_eob.job_id,
+                :page => InsurancePaymentEob.page_number(pat_eob.id, pat_eob.eob_id),
+                :from => 'processor_reports'}, {:target => '_blank'} %>
+            </td>
+            <td><%= pat_eob.service_payment_eobs_count %></td>
+            <td><%= pat_eob.normalised_eob(pat_eob.facility_name).to_f %></td>
+            <td><%= pat_eob.normalised_svc(pat_eob.facility_name).to_f * (pat_eob.service_payment_eobs_count).to_i %></td>
+            <td><%= format_datetime(pat_eob.start_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (pat_eob.blank? && pat_eob.start_time.blank?)%></td>
+            <td><%= format_datetime(pat_eob.end_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (pat_eob.blank? && pat_eob.end_time.blank?)%></td>
+            <% eob = EobQa.find_by_eob_id_and_eob_type_id(pat_eob.eob_id, 1) %>
+            <td><%= (eob) ? "Yes" : "No" %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @pat_eobs, :page => params[:page] %><br />
+      <label id="count">Completed PatientPay EOBs: <%= @total_pat_eobs %> </label><br/>
+      <label id="count">Completed PatientPay Service Lines: <%= @total_pat_service_lines %></label><br />
+      <label id="count">Completed Normalized PatientPay EOBs: <%= @total_pat_normalised_eob.to_i %></label><br />
+      <label id="count">Completed Normalized PatientPay Service Lines: <%= @total_pat_normalised_svc.to_i %></label><br /><br />
+    <% else %>
+      <label id="count">No PatientPay EOBs<br/></label>
+    <% end %>
+  </div>
+
+  <div class="light_info">
+    <% unless @corres_eobs.blank? %>
+      <table width="100%">
+        <tr>
+          <th colspan="14">Correspondence EOBs</th>
+        </tr>
+        <tr>
+          <th>Sl.No</th>
+          <th>Batch Id</th>
+          <th>Batch Date</th>
+          <th>Client</th>
+          <th>Facility</th>
+          <th>Check Number</th>
+          <th>Account Number</th>
+          <th>Comp.SVC Count</th>
+          <th>Normalized EOB #</th>
+          <th>Normalized SVC #</th>
+          <th>EOB Start.time</th>
+          <th>EOB Comp.Time</th>
+          <th>EOB QA'ed</th>
+          <th width="7.14%"></th>
+        </tr>
+        <% @corres_eobs.each_with_index do |ins_eob, index| %>
+          <tr>
+            <td><%= page + index + 1 %></td>
+            <td><%= ins_eob.batchid %></td>
+            <td><%= ins_eob.date.to_date %></td>
+            <td><%= ins_eob.client_name %></td>
+            <td><%= ins_eob.facility_name %></td>
+            <td><%= ins_eob.check_number %></td>
+            <td><%= link_to "#{ins_eob.account_number}", {:controller => 'archive',:action => "view_835",
+                :eob_check_number => ins_eob.id, :eob_id => ins_eob.eob_id, :job_id => ins_eob.job_id,
+                :page => InsurancePaymentEob.page_number(ins_eob.id, ins_eob.eob_id),
+                :from => 'processor_reports'}, {:target => '_blank'} %>
+            </td>
+            <td><%= ins_eob.service_payment_eobs_count %></td>
+            <td><%= ins_eob.normalised_eob(ins_eob.facility_name).to_f %></td>
+            <td><%= ins_eob.normalised_svc(ins_eob.facility_name).to_f * (ins_eob.service_payment_eobs_count).to_i %></td>
+            <td><%= format_datetime(ins_eob.start_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (ins_eob.blank? && ins_eob.start_time.blank?)%></td>
+            <td><%= format_datetime(ins_eob.end_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (ins_eob.blank? && ins_eob.end_time.blank?)%></td>
+            <% eob = EobQa.find_by_eob_id_and_eob_type_id(ins_eob.eob_id, 1) %>
+            <td><%= (eob) ? "Yes" : "No" %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @corres_eobs, :page => params[:page] %><br />
+      <label id="count">Completed Correspondence EOBs: <%= @total_corres_eobs %></label><br />
+      <label id="count">Completed Correspondence Service Lines: <%= @total_corres_service_lines %></label><br />
+      <label id="count">Completed Normalized Correspondence EOBs: <%= @total_corres_normalised_eob.to_i %></label><br />
+      <label id="count">Completed Normalized Correspondence Service Lines: <%= @total_corres_normalised_svc.to_i %></label><br /><br />
+    <% else %>
+      <label id="count">No Correspondence EOBs<br/></label>
+    <% end %>
+  </div>
+
+  <div class="light_info">
+    <% unless @nextgen_eobs.blank? %>
+      <table width="100%">
+        <tr>
+          <th colspan="14">NextGen EOBs</th>
+        </tr>
+        <tr>
+          <th>Sl.No</th>
+          <th>Batch Id</th>
+          <th>Batch Date</th>
+          <th>Client</th>
+          <th>Facility</th>
+          <th>Check Number</th>
+          <th>Account Number</th>
+          <th>Normalized EOB #</th>
+          <th>EOB Start.time</th>
+          <th>EOB Comp.Time</th>
+          <th>EOB QA'ed</th>
+          <th width="7.14%"></th>
+        </tr>
+        <% @nextgen_eobs.each_with_index do |pat_eob, index| %>
+          <tr>
+            <td><%= page + index + 1 %></td>
+            <td><%= pat_eob.batchid %></td>
+            <td><%= pat_eob.date.to_date %></td>
+            <td><%= pat_eob.client_name %></td>
+            <td><%= pat_eob.facility_name %></td>
+            <td><%= pat_eob.check_number %></td>
+            <td>
+              <%= link_to "#{pat_eob.account_number}", {:controller => 'archive',:action => "view_835",
+                :eob_check_number => pat_eob.id, :eob_id => pat_eob.eob_id, :job_id => pat_eob.job_id,
+                :page => PatientPayEob.page_number(pat_eob.id, pat_eob.eob_id),
+                :from => 'processor_reports'}, {:target => '_blank'} %>
+            </td>
+            <td><%= pat_eob.normalised_eob(pat_eob.facility_name).to_f %></td>
+            <td><%= format_datetime(pat_eob.start_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (pat_eob.blank? && pat_eob.start_time.blank?) %></td>
+            <td><%= format_datetime(pat_eob.end_time.in_time_zone(TZInfo::Timezone.get('Asia/Kolkata')),"%m/%d/%y %H:%M:%S %Z") unless (pat_eob.blank? && pat_eob.end_time.blank?)%></td>
+            <% eob = EobQa.find_by_eob_id_and_eob_type_id(pat_eob.eob_id, 2) %>
+            <td><%= (eob) ? "Yes" : "No" %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= will_paginate @nextgen_eobs, :page => params[:page] %><br />
+      <label id="count" >Completed NextGen EOBs: <%= @total_nextgen_eobs %> </label><br/>
+      <label id="count" >Completed Normalized NextGen EOBs: <%= @total_nextgen_normalised_eob.to_i %> </label><br/><br/>
+    <% else %>
+      <label id="count">No NextGen EOBs<br/></label>
+      <% end %>
+  </div>
+
+</div>

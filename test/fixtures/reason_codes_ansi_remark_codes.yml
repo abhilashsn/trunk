@@ -1,0 +1,191 @@
+rc_remark_code_1:
+      id: 1
+      reason_code_id: 4
+      ansi_remark_code_id: 3
+      active_indicator: 1
+
+rc_remark_code_2:
+      id: 2
+      reason_code_id: 4
+      ansi_remark_code_id: 4
+      active_indicator: 1
+
+rc_remark_code_3:
+      id: 3
+      reason_code_id: 5
+      ansi_remark_code_id: 4
+      active_indicator: 1
+
+rc_remark_code_4:
+      id: 4
+      reason_code_id: 51
+      ansi_remark_code_id: 4
+      active_indicator: 1
+
+rc_remark_code_5:
+      id: 5
+      reason_code_id: 18
+      ansi_remark_code_id: 1
+      active_indicator: 1
+
+rc_remark_code_6:
+      id: 6
+      reason_code_id: 18
+      ansi_remark_code_id: 1
+      facility_id: 1
+      active_indicator: 1
+
+rc_remark_code_7:
+      id: 7
+      reason_code_id: 18
+      ansi_remark_code_id: 2
+      facility_id: 1
+      active_indicator: 1
+
+rc_remark_code_8:
+      id: 8
+      reason_code_id: 19
+      ansi_remark_code_id: 3
+      active_indicator: 1
+
+rc_remark_code_9:
+      id: 9
+      reason_code_id: 19
+      ansi_remark_code_id: 1
+      facility_id: 1
+      active_indicator: 1
+
+rc_remark_code_10:
+      id: 10
+      reason_code_id: 19
+      ansi_remark_code_id: 2
+      facility_id: 1
+      active_indicator: 1
+
+rc_remark_code_11:
+      id: 11
+      reason_code_id: 20
+      ansi_remark_code_id: 2
+      facility_id: 87
+      active_indicator: 1
+
+rc_remark_code_12:
+      id: 12
+      reason_code_id: 19
+      ansi_remark_code_id: 3
+      active_indicator: 1
+
+rc_remark_code_13:
+      id: 13
+      reason_code_id: 19
+      ansi_remark_code_id: 1
+      facility_id: 87
+      active_indicator: 1
+
+rc_remark_code_14:
+      id: 14
+      reason_code_id: 19
+      ansi_remark_code_id: 2
+      facility_id: 87
+      active_indicator: 1
+
+rc_remark_code_15:
+      id: 15
+      reason_code_id: 18
+      ansi_remark_code_id: 3
+      facility_id: 
+      active_indicator: 1
+      client_id: 1
+
+rc_remark_code_16:
+      id: 16
+      reason_code_id: 18
+      ansi_remark_code_id: 4
+      facility_id: 
+      active_indicator: 1
+      client_id: 1
+
+rc_remark_code_17:
+      id: 17
+      reason_code_id: 21
+      ansi_remark_code_id: 1
+      facility_id: 87
+      active_indicator: 0
+
+rc_remark_code_18:
+      id: 18
+      reason_code_id: 21
+      ansi_remark_code_id: 2
+      facility_id:
+      client_id: 14
+      active_indicator: 1
+
+rc_remark_code_19:
+      id: 19
+      reason_code_id: 21
+      ansi_remark_code_id: 3
+      facility_id: 87
+      active_indicator: 1
+
+rc_remark_code_20:
+      id: 20
+      reason_code_id: 21
+      ansi_remark_code_id: 4
+      facility_id: 
+      active_indicator: 1
+
+rc_remark_code_21:
+      id: 21
+      reason_code_id: 16
+      ansi_remark_code_id: 1
+      facility_id: 87
+      active_indicator: 0
+
+rc_remark_code_22:
+      id: 22
+      reason_code_id: 16
+      ansi_remark_code_id: 4
+      facility_id:
+      client_id: 14
+      active_indicator: 1
+
+rc_remark_code_23:
+      id: 23
+      reason_code_id: 16
+      ansi_remark_code_id: 5
+      facility_id:
+      client_id:
+      active_indicator: 1
+
+rc_remark_code_24:
+      id: 24
+      reason_code_id: 15
+      ansi_remark_code_id: 1
+      facility_id: 87
+      active_indicator: 0
+
+rc_remark_code_25:
+      id: 25
+      reason_code_id: 15
+      ansi_remark_code_id: 4
+      facility_id:
+      client_id: 14
+      active_indicator: 0
+
+rc_remark_code_26:
+      id: 26
+      reason_code_id: 15
+      ansi_remark_code_id: 5
+      facility_id:
+      client_id:
+      active_indicator: 1
+
+rc_remark_code_27:
+      id: 27
+      reason_code_id: 17
+      ansi_remark_code_id: 5
+      facility_id: 1
+      client_id:
+      active_indicator: 1
+      
+

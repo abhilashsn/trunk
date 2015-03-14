@@ -1,0 +1,30 @@
+<table>  
+  <% @temp_jobs.each_with_index do |job, i| %>
+  <% if i == 0 %>
+  <tr>
+      <th>ABA Number</th>
+      <th>Account Number</th>
+      <th>Check #</th>
+      <th>Check Amount</th>
+      <th>Page Count</th>
+      <th>Image From</th>
+      <th>Image To</th>
+      <th>Remove</th>
+    </tr>
+    <% end %>
+    <tr>
+      <td><%= job.aba_number %></td>
+      <td><%= job.account_number %></td>
+      <td><%= job.check_number %></td>
+      <td><%= job.check_amount %></td>
+      <td><%= job.image_count %></td>
+      <td><%= job.image_from %></td>
+      <td><%= job.image_to %></td>
+      <td>
+        <%= hidden_field_tag :job_id, job.job_id, :id => 'job_id' %>
+        <%= link_to image_tag("delete.png", :alt => "Destroy"), {:controller => 'temp_jobs', :action => 'delete', :id => job.id, :job_id => job.job_id}, :remote => true %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to("Import", {:controller => 'job', :action => 'create_jobs', :job_id => @job_information.id}, {:method => "get"}) %>

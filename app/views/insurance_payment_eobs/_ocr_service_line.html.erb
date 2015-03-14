@@ -1,0 +1,746 @@
+<%logger.debug "_OCR_SERVICE_LINE_START"%>
+<script LANGUAGE="JavaScript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+</script>
+<% line_count = 1 %>
+<% total_svc_line_count = [] %>
+<%= tab_type %>
+<%= create_hidden_fields(@facility) %>
+<% def_sdate = default_service_date(@facility, @batch, @check_information) %>
+<% unless @claim_level_eob %>
+  <% copay_header_number = (@insurance_pay ? 8 : 3) %>
+  <% contractual_allowance_header_number = (@insurance_pay ? 0 : 4) %>
+  <% @service_line.each do |service| %>
+    <%= interest_service_line?(service) %>
+    <% if (service.class == ServicePaymentEob && !@patient_837_information.blank?)
+      service_line = service.claim_service_information unless service.claim_service_information_id.blank?
+    end%>
+    <%service_line.blank?%>
+    <% new_adjustment_line_condition = (line_count == 1) %>
+    <% if !@patient_pay && (new_adjustment_line_condition || service.adjustment_line_is?)
+      cdt_qualifier_value = ''
+      readonly = true
+      if !service.id.blank?
+        @adjustment_line_number = line_count
+        line_count_label = line_count - 1
+      else
+        @new_adjustment_line_number = line_count
+        line_count_label  = 'AL'
+      end
+    else
+      line_count_label = line_count - 1
+      cdt_qualifier_value = service.service_cdt_qualifier.blank? ? @facility.details[:default_cdt_qualifier] : service.service_cdt_qualifier
+      readonly = false
+    end %>
+    <% proprietary_code_class = 'proprietary_code_' + line_count.to_s %>
+    <% readonly = readonly || @is_interest_only_eob %>
+    <%= hidden_field :service_line, 'is_adjustment_line_'+ line_count.to_s, :value => readonly,
+      :id => 'is_adjustment_line_'+ line_count.to_s %>
+    <% if service.class == ServicePaymentEob
+      class_name_for_row = "service_line_id_#{service.id}"
+    else
+      class_name_for_row = ''
+    %>
+      <%= hidden_field :lineinformation, 'claim_information_id'+line_count.to_s, :value => ((service_line.blank? ? service.id : service_line.id ))%>
+      <%= hidden_field :service_line, :delete_all, :value => 'true' %>
+    <%  end %>
+    <tr id="service_row<%=line_count%>" class="service_line_row <%= class_name_for_row %>">
+      <td>
+        <%= line_count_label %>
+      </td>
+
+      <%service_from_date = ((service_line.blank? ? service.date_of_service_from : get_value(service.date_of_service_from,service_line.date_of_service_from)))
+      service_to_date = ((service_line.blank? ? service.date_of_service_to : get_value(service.date_of_service_to,service_line.date_of_service_to)))
+      service_from_date_class = ((service_line.blank? ? service.style("date_of_service_from") : service.get_class(service.date_of_service_from,service_line.date_of_service_from,"date_of_service_from")))
+      service_to_date_class = ((service_line.blank? ? service.style("date_of_service_to") : service.get_class(service.date_of_service_to,service_line.date_of_service_to,"date_of_service_to")))
+
+      if(!service_from_date.blank? && service_from_date != "" && service_from_date != "0000-00-00")
+        if(service_from_date == "09/09/99")
+          dateofservice_from_value = "99/99/99"
+        else
+          dateofservice_from_value = (service_from_date).strftime("%m/%d/%y")
+        end
+      else
+        dateofservice_from_value = "mm/dd/yy"
+      end
+
+      if(!service_to_date.blank? && service_to_date != "" && service_to_date != "0000-00-00" )
+        if(service_to_date == "09/09/99")
+          dateofservice_to_value = "99/99/99"
+        else
+          dateofservice_to_value = (service_to_date).strftime("%m/%d/%y")
+        end
+      else
+        dateofservice_to_value = "mm/dd/yy"
+      end
+    %>
+
+    <input type = 'hidden' value ='<%= h def_sdate %>' id='fc_def_sdate'/>
+    <input type = 'hidden' value ='<%= h @facility.default_service_date %>' id='fc_def_sdate_choice'/>
+    <input type ="hidden" id ="fc_def_cpt_code" value = "<%= h @facility.default_cpt_code %>"/>
+    <% id_for_from_date_td = 'td_date_service_from_'+ line_count.to_s%>
+    <%= sp_text_field :lineinformation, 'dateofservice_from'+ line_count.to_s,
+      @facility.details[:service_date_from], "td id='#{id_for_from_date_td}'", :value => dateofservice_from_value,
+      :id => 'date_service_from_'+ line_count.to_s, :tabindex => "42",
+      :class => "set-default-value-from-fc cont datebox #{service_column_mandatory(service, "service_date_from", @facility, line_count)} #{get_twice_keying_class(service, 'date_of_service_from')} #{service_from_date_class}",
+      :coordinates => service.coordinates("date_of_service_from"),
+      :page => service.page("date_of_service_from"), :accesskey => "d",
+      :readonly => readonly, :serviceLineId => service.id.to_s  %>
+    <% id_for_to_date_td = 'td_date_service_to_'+ line_count.to_s%>
+    <%= sp_text_field :lineinformation, 'dateofservice_to'+ line_count.to_s,
+      @facility.details[:service_date_from], "td id='#{id_for_to_date_td}'", :value => dateofservice_to_value,
+      :id => 'date_service_to_' + line_count.to_s, :tabindex => "42",
+      :class => "set-default-value-from-fc cont datebox #{service_column_mandatory(service, "service_date_from", @facility, line_count)} validate-date-comparision #{get_twice_keying_class(service, 'date_of_service_to')} #{service_to_date_class}",
+      :coordinates => service.coordinates("date_of_service_to"),
+      :page => service.page("date_of_service_to"),
+      :readonly => readonly, :serviceLineId => service.id.to_s %>
+    <%id_for_procedure_code_td = 'td_procedure_code_'+ line_count.to_s%>
+    <td id="<%= id_for_procedure_code_td %>">
+      <div style="display: inline">
+        <div id="cpt_code" style="float:left">
+          <%= text_field 'lineinformation', 'procedure_code'+ line_count.to_s,
+            :id => 'procedure_code_' + line_count.to_s,
+            :class => "set-default-value-from-fc cont #{get_twice_keying_class(service, 'service_procedure_code')} #{((service_line.blank? ? service.style("service_procedure_code") : service.get_class(service.service_procedure_code,service_line.service_procedure_code,"service_procedure_code")))} #{cpt_mandatory(service, @facility, line_count)}",
+            :ondblclick => "setFCDefault(this,'fc_def_cpt_code')",
+            :onclick => "showReEntryCptCodeField(#{line_count.to_s});",
+            :coordinates =>service.coordinates("service_procedure_code"),
+            :page => service.page("service_procedure_code"), :onblur => "changeToCapital(id); setReEntryFieldsForValidatedCptCode(id)",
+            :style=>"width:29px" ,:tabindex => "42" , :onchange => "validateProcedureCodeLength(id);",
+            :value =>((service_line.blank? ? service.service_procedure_code : get_value(service.service_procedure_code,service_line.service_procedure_code))),
+            :readonly => readonly, :serviceLineId => service.id.to_s %>
+        </div>
+        <%confirm_cpt_div = 'confirm_cpt_div_' + line_count.to_s %>
+        <div id="<%=  confirm_cpt_div %>" style="float:left;  display:none;">
+          <%= text_field 'lineinformation', 'confirm_procedure_code'+ line_count.to_s,
+            :id => 'confirm_procedure_code_' + line_count.to_s,
+            :onblur => "hideReEntryCptCodeField(#{line_count.to_s});",
+            :coordinates =>service.coordinates("service_procedure_code"),
+            :page => service.page("service_procedure_code"),
+            :style=>"width:29px" ,:tabindex => "42" ,
+            :value =>'',
+            :readonly => readonly,
+            :serviceLineId => service.id.to_s %>
+        </div>
+      </div>
+    </td>
+    <%= hidden_field 'lineinformation', 'cdt_qualifier_'+ line_count.to_s,
+      :id => 'cdt_qualifier_' + line_count.to_s,
+      :value => cdt_qualifier_value,
+      :readonly => readonly, :serviceLineId => service.id.to_s %>
+    <% id_for_bundled_procedure_code_td = 'td_bundled_procedure_code_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'bundled_procedure_code' + line_count.to_s,
+      @facility.details[:bundled_procedure_code] && @insurance_pay, "td id='#{id_for_bundled_procedure_code_td}'",
+      :id => 'bundled_procedure_code_' + line_count.to_s, :class => "cont #{service.style("bundled_procedure_code")} validate-bundled_cpt_code", :style => "width:30px",
+      :tabindex => "42", :readonly => readonly, :onblur => "bundled_procedure_code_validation('bundled_procedure_code_#{line_count.to_s}', '#{service.id}')",
+      :value => ( service.bundled_procedure_code if ( service.attributes.include?("bundled_procedure_code")  && ! (service.bundled_procedure_code.nil?) ) ),
+      :serviceLineId => service.id.to_s %>
+    <% id_for_rx_code_td = 'td_rx_code_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'rx_number'+ line_count.to_s, @facility.details[:rx_code] && @insurance_pay,
+      "td id='#{id_for_rx_code_td}'", :id => 'rx_code_'+ line_count.to_s,
+      :class => "cont #{service_column_mandatory(service, "rx_code", @facility, line_count)} #{service.style("rx_number")}" ,
+      :coordinates =>service.coordinates("rx_number"), :page =>service.page("rx_number"),:style=>"width:49px" ,
+      :tabindex => "42" ,:value => (service.rx_number if service.attributes.include?("rx_number")),
+      :readonly => readonly, :serviceLineId => service.id.to_s %>
+    <% id_for_revenue_code_td = 'td_revenue_code_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'revenue_code'+ line_count.to_s, @facility.details[:revenue_code] && ((@patient_pay) || @insurance_pay),
+      "td id='#{id_for_revenue_code_td}'", :id => 'revenue_code_'+ line_count.to_s,
+      :class => "cont #{validate_revenue_code(service, @facility, line_count)}",:style=>"width:30px" ,:tabindex => "42" ,
+      :value => (service.revenue_code if service.attributes.include?("revenue_code")),
+      :readonly => readonly, :serviceLineId => service.id.to_s %>
+    <% id_for_line_item_number_td = 'td_line_item_number_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'line_item_number' + line_count.to_s,
+      @facility.details[:line_item] && @insurance_pay, "td id='#{id_for_line_item_number_td}'",
+      :id => 'line_item_number_' + line_count.to_s, :class => "cont #{service.style("line_item_number")}",
+      :style => "width:30px", :maxlength => 24, :tabindex => "42", :readonly => readonly,
+      :value => ( service.line_item_number if ( service.attributes.include?("line_item_number")  && ! (service.line_item_number.nil?) ) ),
+      :serviceLineId => service.id.to_s %>
+    <% id_for_provider_control_number_td = 'td_provider_control_number_'+ line_count.to_s%>
+    <%= sp_text_field :lineinformation, 'provider_control_number'+ line_count.to_s, @facility.details[:reference_code] && ((@patient_pay) || @insurance_pay),
+      "td id='#{id_for_provider_control_number_td}'",:id => 'provider_control_number_' + line_count.to_s,:tabindex => "42" ,
+      :class => "cont  #{get_twice_keying_class(service, 'service_provider_control_number')} #{service_column_mandatory(service, "reference_code_mandatory", @facility, line_count)} #{((service_line.blank? ? service.style("service_provider_control_number") : service.get_class(service.service_provider_control_number ,service_line.service_provider_control_number,"service_provider_control_number" )))} ",
+      :style => "width:30px", :value => ((service_line.blank? ? service.service_provider_control_number : get_value(service.service_provider_control_number ,service_line.service_provider_control_number))),
+      :readonly => readonly, :ondblclick => "setFCDefault(this,'fc_def_ref_num')" , :serviceLineId => service.id.to_s %>
+    <% id_for_units_td = 'td_units_'+ line_count.to_s%>
+    <td id="<%= id_for_units_td %>">
+      <%= text_field 'lineinformation', 'units'+ line_count.to_s, :id => 'units_' + line_count.to_s,
+        :class => "validate-quantity #{get_twice_keying_class(service, 'service_quantity')} #{((service_line.blank? ? service.style("service_quantity") : service.get_class(service.service_quantity,service_line.service_quantity,"service_quantity")))}",
+        :coordinates =>service.coordinates("service_quantity"), :accesskey => "q",
+        :page => service.page("service_quantity"), :tabindex => "42",
+        :value => ((service_line.blank? ? service.service_quantity : get_value(service.service_quantity,service_line.service_quantity ))),
+        :readonly => readonly , :style => "width:30px;", :serviceLineId => service.id.to_s %>
+    </td>
+    <%id_for_service_modifier1_id_td = 'td_service_modifier1_id'+ line_count.to_s%>
+    <%= sp_text_field  'lineinformation', 'modifier1' + line_count.to_s, !@facility.details[:hide_modifiers] ,
+      "td id='#{id_for_service_modifier1_id_td}'",   :id => 'service_modifier1_id' + line_count.to_s,
+      :onblur => " modifier_validate('service_modifier1_id#{line_count.to_s}');",
+      :class => "cont #{get_twice_keying_class(service, 'service_modifier1')} #{((service_line.blank? ? service.style("service_modifier1") : service.get_class(service.service_modifier1,service_line.service_modifier1,"service_modifier1")))}  validate-modifier ",
+      :coordinates =>service.coordinates("service_modifier1"),
+      :page =>service.page("service_modifier1"),:style => "width:15px",
+      :tabindex => "42", :readonly => readonly,
+      :value => ((service_line.blank? ? service.service_modifier1 : get_value(service.service_modifier1,service_line.service_modifier1))),
+      :serviceLineId => service.id.to_s%>
+    <%id_for_service_modifier2_id_td = 'td_service_modifier2_id'+ line_count.to_s%>
+    <%= sp_text_field  'lineinformation', 'modifier2' + line_count.to_s, !@facility.details[:hide_modifiers] ,
+      "td id='#{id_for_service_modifier2_id_td}'",  :id => 'service_modifier2_id' + line_count.to_s,
+      :onblur => " modifier_validate('service_modifier2_id#{line_count.to_s}');",
+      :class => "cont  #{get_twice_keying_class(service, 'service_modifier2')} #{((service_line.blank? ? service.style("service_modifier2") : service.get_class(service.service_modifier2 ,service_line.service_modifier2,"service_modifier2" )))} validate-modifier ",
+      :coordinates =>service.coordinates("service_modifier2"),
+      :page =>service.page("service_modifier2"),:style => "width:15px" ,
+      :tabindex => "42",  :readonly => readonly,
+      :value => ((service_line.blank? ? service.service_modifier2 : get_value(service.service_modifier2,service_line.service_modifier2))),
+      :serviceLineId => service.id.to_s %>
+    <%id_for_service_modifier3_id_td = 'td_service_modifier3_id'+ line_count.to_s%>
+    <%= sp_text_field  'lineinformation', 'modifier3' + line_count.to_s, !@facility.details[:hide_modifiers] ,
+      "td id='#{id_for_service_modifier3_id_td}'",   :id => 'service_modifier3_id' + line_count.to_s,
+      :onblur => " modifier_validate('service_modifier3_id#{line_count.to_s}');",
+      :class => "cont #{get_twice_keying_class(service, 'service_modifier3')} #{((service_line.blank? ? service.style("service_modifier3") : service.get_class(service.service_modifier3 ,service_line.service_modifier3,"service_modifier3" )))} validate-modifier ",
+      :coordinates =>service.coordinates("service_modifier3"),
+      :page =>service.page("service_modifier3"),:style => "width:15px",
+      :tabindex => "42", :readonly => readonly ,
+      :value =>((service_line.blank? ? service.service_modifier3 : get_value(service.service_modifier3,service_line.service_modifier3))),
+      :serviceLineId => service.id.to_s %>
+    <%id_for_service_modifier4_id_td = 'td_service_modifier4_id'+ line_count.to_s%>
+    <%= sp_text_field  'lineinformation', 'modifier4' + line_count.to_s, !@facility.details[:hide_modifiers] ,
+      "td id='#{id_for_service_modifier4_id_td}'",  :id => 'service_modifier4_id' + line_count.to_s,
+      :onblur => " modifier_validate('service_modifier4_id#{line_count.to_s}');",
+      :class => "cont #{service.style("service_modifier4")} validate-modifier ",
+      :coordinates =>service.coordinates("service_modifier4"),
+      :page =>service.page("service_modifier4"),:style => "width:15px",
+      :tabindex => "42" , :readonly => readonly,
+      :value =>( service.service_modifier4 if (  service.attributes.include?("service_modifier4") &&
+          ! (service.service_modifier4.blank?) )) ,
+      :serviceLineId => service.id.to_s %>
+    <% id_for_tooth_number_td = 'td_tooth_number_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'tooth_number'+ line_count.to_s, @facility.details[:tooth_number] && @insurance_pay,
+      "td id='#{id_for_tooth_number_td}'", :id => 'tooth_number_'+ line_count.to_s,
+      :tabindex => "42" , :size => 8, :maxlength => 30,
+      :class => "textbox cont #{validate_tooth_number(service, @facility, line_count)} ",
+      :value => (service.get_tooth_number ),
+      :onkeypress => "enlargeTextbox(id)", :style => "width:58px",:onblur => "changeToCapital(id); resetTextfieldSize(id, '8')",
+      :readonly => readonly, :serviceLineId => service.id.to_s %>
+    <% id_for_payment_status_code_td = 'td_payment_status_code_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'payment_status_code' + line_count.to_s,
+      @facility.details[:payment_status_code] && @insurance_pay, "td id='#{id_for_payment_status_code_td}'",
+      :id => 'payment_status_code_' + line_count.to_s,
+      :value => ( service.payment_status_code if ( service.attributes.include?("payment_status_code")  && ! (service.payment_status_code.nil?) ) ) ,
+      :class => "cont", :tabindex => "42", :maxlength => 4, :style => "width:51px",
+      :onblur => "changeToCapital(id)" , :readonly => readonly,
+      :serviceLineId => service.id.to_s  %>
+    <% id_for_remark_code_td = 'td_remark_code_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'remark_code'+ line_count.to_s,
+      @facility.details[:remark_code] && @insurance_pay, "td id='#{id_for_remark_code_td}'",
+      :id => 'remark_code_'+ line_count.to_s, :style => "width:58px",
+      :value => service.get_remark_codes.join(':'),
+      :class => "cont", :size => 8, :tabindex => "42", :onchange => "setDefaultClaimTypeInQAViewForRemarkCode()",
+      :onkeypress => "enlargeTextbox(id)",
+      :onblur => "changeToCapital(id); resetTextfieldSize(id, '8')", :readonly => readonly,
+      :serviceLineId => service.id.to_s %>
+    <% id_for_charge_amount_td = 'td_charge_amount_'+ line_count.to_s %>
+    <td id="<%= id_for_charge_amount_td %>">
+
+
+      <%charge_value = (service_line.blank? ? service.service_procedure_charge_amount : get_value(service.service_procedure_charge_amount,service_line.service_procedure_charge_amount)) %>
+      <%= text_field 'lineinformation', 'charges' + line_count.to_s,
+        :id => 'service_procedure_charge_amount_id' + line_count.to_s,
+        :tabindex => "42", :onfocus => "save_charge('service_procedure_charge_amount_id','total_charge_id')",
+        :class => " set-default-value-from-fc amount #{get_twice_keying_class(service, 'service_procedure_charge_amount')} #{service_column_mandatory(service, "service_procedure_charge_amount",
+      @facility, line_count)} #{charge_must_be_nonzero(@site_code)}  #{((service_line.blank? ? service.style("service_procedure_charge_amount") : service.get_class(service.service_procedure_charge_amount,service_line.service_procedure_charge_amount,"service_procedure_charge_amount")))}",
+        :coordinates =>service.coordinates("service_procedure_charge_amount"),
+        :page =>service.page("service_procedure_charge_amount"),
+        :onblur => "serviceBalance("+ line_count.to_s+");total_charge_mpi('service_procedure_charge_amount_id','total_charge_id')",
+        :value => (( sprintf("%.2f",charge_value) ) unless(charge_value.blank?)), :accesskey => "1",
+        :readonly => readonly,
+        :serviceLineId => service.id.to_s  %>
+    </td>
+    <% id_for_pbid_td = 'td_pbid_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'pbid' + line_count.to_s,
+      @facility.details[:pbid] && @insurance_pay, "td id='#{id_for_pbid_td}'",
+      :id => 'service_pbid_id'+ line_count.to_s,:tabindex => "42",
+      :onfocus => "save_charge('service_pbid_id','total_pbid_id')",
+      :onchange => "total_charge_mpi('service_pbid_id','total_pbid_id')",
+      :class => "amount validate-currency-dollar #{service.style("pbid")} ",
+      :coordinates =>service.coordinates("pbid"),
+      :page =>service.page("pbid"), :value => ( sprintf("%.2f",
+        service.pbid) if (  service.attributes.include?("pbid") &&
+          ! (service.pbid.blank?) )), :readonly => readonly, :maxlength => 10,
+      :serviceLineId => service.id.to_s   %>
+
+    <% id_for_allowable_td = 'td_allowable_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'allowable' + line_count.to_s, @insurance_pay, "td id='#{id_for_allowable_td}'",
+      :id => 'service_allowable_id'+ line_count.to_s, :tabindex => "42",
+      :onchange => "delayEventsForAllow(this)",
+      :onfocus => "save_charge('service_allowable_id','total_allowable_id')",
+      :onblur => "total_charge_mpi('service_allowable_id','total_allowable_id')",
+      :class => "amount #{new_adjustment_line_condition ||
+    allowable_validation(service)} #{service.style("service_allowable")} ",
+      :coordinates =>service.coordinates("service_allowable"),
+      :page =>service.page("service_allowable"), :value => ( sprintf("%.2f",
+        service.service_allowable) if (  service.attributes.include?("service_allowable") &&
+          ! (service.service_allowable.blank?) )), :readonly => readonly,
+      :serviceLineId => service.id.to_s   %>
+
+    <% id_for_plan_coverage_td = 'td_plan_coverage_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'plan_coverage' + line_count.to_s,
+      @facility.details[:plan_coverage] && @insurance_pay,
+      "td id='#{id_for_plan_coverage_td}'",
+      :id => 'service_plan_coverage_id'+ line_count.to_s, :tabindex => "42",
+      :class => " textbox validate-percentage_data #{service.style("service_plan_coverage")} ",
+      :coordinates => service.coordinates("service_plan_coverage"),
+      :page => service.page("service_validate-plan_coverage"),
+      :value => (service.service_plan_coverage if (  service.attributes.include?("service_plan_coverage") && ! (service.service_plan_coverage.blank?) )),
+      :readonly => readonly, :style=>"width:40px",
+      :onblur => "validatePlanCoverage(id)",
+      :maxlength =>3,
+      :serviceLineId => service.id.to_s   %>
+
+    <% id_for_drg_amount_td = 'td_drg_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'drg_amount' + line_count.to_s,
+      @facility.details[:drg_amount], "td id='#{id_for_drg_amount_td}'",
+      :id => 'service_drg_amount_id'+ line_count.to_s,:tabindex => "42" ,
+      :class => "amount #{service.style("drg_amount")}" ,
+      :coordinates =>service.coordinates("drg_amount"),
+      :page =>service.page("drg_amount"),
+      :value => ( sprintf("%.2f", service.drg_amount) if
+      (service.attributes.include?("drg_amount") && ! (service.drg_amount.blank?) )),
+      :onfocus => "save_charge('service_drg_amount_id','total_drg_amount_id')",
+      :onchange => "total_charge_mpi('service_drg_amount_id','total_drg_amount_id')",
+      :readonly => readonly, :serviceLineId => service.id.to_s  %>
+    <%expected_amount = ((service_line.blank? ? service.expected_payment : get_value(service.expected_payment,service_line.expected_payment)))%>
+    <% id_for_expected_payment_td = 'td_expected_payment_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'expected_payment' + line_count.to_s,
+      ((@facility.details[:expected_payment_insurance] && @insurance_pay) ||
+        (@facility.details[:expected_payment_pat_simplified] && @patient_pay)), "td id='#{id_for_expected_payment_td}'",
+      :id => 'service_expected_payment_id'+ line_count.to_s,:tabindex => "42" ,
+      :class => "amount #{get_twice_keying_class(service, 'expected_payment')} #{((service_line.blank? ? service.style("expected_payment") : service.get_class(service.expected_payment,service_line.expected_payment,"service_procedure_charge_amount")))}",
+      :coordinates =>service.coordinates("expected_payment"),
+      :page =>service.page("expected_payment"),
+      :value => ( sprintf("%.2f", expected_amount) if
+      (service.attributes.include?("expected_payment") && ! (service.expected_payment.blank?) )),
+      :onfocus => "save_charge('service_expected_payment_id','total_expected_payment_id')",
+      :onchange => "total_charge_mpi('service_expected_payment_id','total_expected_payment_id')",
+      :readonly => readonly, :serviceLineId => service.id.to_s  %>
+
+    <% id_for_retention_fees_td = 'td_retention_fee_amount_'+ line_count.to_s%>
+    <%= sp_text_field :lineinformation, 'retention_fees' + line_count.to_s,
+      (@facility.details[:retention_fee] && @insurance_pay), "td id='#{id_for_retention_fees_td}'",
+      :id => 'service_retention_fees_id'+ line_count.to_s,:tabindex => "42" ,
+      :class => "amount validate-currency-dollar #{service.style("retention_fees")}" ,
+      :coordinates => service.coordinates("retention_fees"),
+      :page =>service.page("retention_fees"),
+      :value => (sprintf("%.2f",service.retention_fees) if (service.attributes.include?("retention_fees") &&
+          !(service.retention_fees.blank?))),
+      :onfocus => "save_charge('service_retention_fees_id','total_retention_fees_id')",
+      :onchange => "total_charge_mpi('service_retention_fees_id','total_retention_fees_id')",
+      :readonly => readonly, :maxlength => "7", :serviceLineId => service.id.to_s  %>
+
+    <% id_for_payment_td = 'td_payment_amount_'+ line_count.to_s %>
+    <td id="<%= id_for_payment_td %>">
+      <div>
+        <%= text_field 'lineinformation', 'payment' + line_count.to_s,
+          :id => 'service_paid_amount_id' + line_count.to_s ,:tabindex => "42",
+          :onchange => "delayEventsForPayment(this,"+line_count.to_s+")",
+          :onblur => "serviceBalance("+ line_count.to_s+");total_charge_mpi('service_paid_amount_id','total_payment_id')",
+          :onfocus => "save_charge('service_paid_amount_id','total_payment_id')",
+          :class =>"amount #{payment_amount_validation(service, line_count)} #{service.style("service_paid_amount")}",
+          :coordinates =>service.coordinates("service_paid_amount"),
+          :page =>service.page("service_paid_amount"), :style => "width:45px",
+          :ondblclick => "setMpiBalancevalue('service_paid_amount_id',"+line_count.to_s+",'total_payment_id')" ,
+          :value => (sprintf("%.2f", service.service_paid_amount) if
+          (service.attributes.include?("service_paid_amount") && !service.service_paid_amount.blank?)),
+          :accesskey => "2", :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+        <% if(@facility.details[:patient_type] && @facility.details[:payment_code]) %>
+          <% payment_codes = []%>  <%# payment_codes stores the inpatient/outpatient codes from the database which is used to make the checkbox in checked status %>
+          <%if service.attributes.include?("outpatient_code") && service.outpatient_code
+            payment_codes[0] = 1 if service.outpatient_code['1']
+            payment_codes[1] = 1 if service.outpatient_code['2']
+          elsif service.attributes.include?("inpatient_code") && service.inpatient_code
+            payment_codes[0] = 1 if service.inpatient_code['1']
+            payment_codes[1] = 1 if service.inpatient_code['2']
+          end%>
+        <% if(@client_name.upcase.strip == 'MEDASSETS') %>
+          <input type="checkbox" title="Allowance Code" name="lineinformation[allowance_code<%=line_count.to_s%>]" id="opallowance<%=line_count.to_s%>"  <%if payment_codes[0]%> checked = "checked" <%end%>/>
+          <input type="checkbox" title="Capitation Code" name="lineinformation[capitation_code<%=line_count.to_s%>]" id="opcapitation<%=line_count.to_s%>"  <%if payment_codes[1]%> checked = "checked" <%end%> />
+          <%end%>
+        <%end%>
+      </div>
+    </td>
+    <%= set_reason_code_id(line_count.to_s, false, service, "") %>
+    <% unless @patient_pay %>
+      <% id_for_noncovered_td = 'td_noncovered_amount_'+ line_count.to_s %>
+      <td id="<%= id_for_noncovered_td %>">
+        <%service_noncovered = ((service_line.blank? ? service.service_no_covered : get_value(service.service_no_covered,service_line.service_no_covered)))%>
+        <%= text_field 'lineinformation', 'non_covered' + line_count.to_s,
+          :id => 'service_non_covered_id' + line_count.to_s,:tabindex => "42",
+          :class => "amount validate-presence-of-unique-code #{service.style("service_no_covered")}",
+          :coordinates =>service.coordinates("service_no_covered"),
+          :page =>service.page("service_no_covered"), :accesskey => "3",
+          :onblur => "total_charge_mpi('service_non_covered_id','total_non_covered_id'); serviceBalance("+ line_count.to_s+")",
+          :onfocus => "save_charge('service_non_covered_id','total_non_covered_id')",
+          :ondblclick => "setMpiBalancevalue('service_non_covered_id',"+line_count.to_s+",'total_non_covered_id')" ,
+          :value => ((sprintf("%.2f", service_noncovered))unless service_noncovered.blank?) ,
+          :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+      </td>
+      <% id_noncovered_unique_code_td = 'td_reason_code_noncovered' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_noncovered_unique_code_td}'",
+        { :index => 'noncovered' + line_count.to_s, :class => "unique_code #{proprietary_code_class}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.noncovered_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+      <% id_for_denied_td = 'td_denied_amount_'+ line_count.to_s %>
+      <%= sp_text_field :lineinformation, 'denied' + line_count.to_s,
+        @facility.details[:denied], "td id='#{id_for_denied_td}'",
+        :id => 'denied_id' + line_count.to_s, :accesskey => "4",
+        :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("denied")}",
+        :onblur => "total_charge_mpi('denied_id','total_denied_id');serviceBalance("+ line_count.to_s+")",
+        :onfocus => "save_charge('denied_id','total_denied_id')",
+        :ondblclick => "setMpiBalancevalue('denied_id',"+line_count.to_s+",'total_denied_id')" ,
+        :coordinates => service.coordinates("denied"), :page => service.page("denied"),
+        :value => (sprintf("%.2f", service.denied) if ( service.attributes.include?("denied") && !service.denied.blank?)),
+        :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+      <% id_for_denied_unique_code_td = 'td_reason_code_denied' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:denied], "td id='#{id_for_denied_unique_code_td}'",
+        { :index => 'denied' + line_count.to_s, :class => "unique_code #{proprietary_code_class}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.denied_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+      <% id_for_discount_td = 'td_discount_amount_'+ line_count.to_s%>
+      <td id="<%= id_for_discount_td %>">
+        <%= text_field 'lineinformation', 'discount' + line_count.to_s,
+          :id => 'service_discount_id' + line_count.to_s, :tabindex => "42",
+          :class => "amount validate-presence-of-unique-code #{service.style("service_discount")}",
+          :onblur => "total_charge_mpi('service_discount_id','total_discount_id');serviceBalance("+ line_count.to_s+")",
+          :onfocus => "save_charge('service_discount_id','total_discount_id')",
+          :ondblclick => "setMpiBalancevalue('service_discount_id',"+line_count.to_s+",'total_discount_id')" ,
+          :coordinates => service.coordinates("service_discount"),
+          :page => service.page("service_discount"), :accesskey => "5",
+          :value => (sprintf("%.2f", service.service_discount) if ( service.attributes.include?("service_discount") && !service.service_discount.blank?)),
+          :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+      </td>
+
+      <% id_for_discount_unique_code_td = 'td_reason_code_discount' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_for_discount_unique_code_td}'",
+        { :index => 'discount' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("discount_adjustment_codes")}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.discount_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+      <% id_for_coinsurance_td = 'td_coinsurance_amount_'+ line_count.to_s%>
+      <td id="<%= id_for_coinsurance_td %>">
+        <%= text_field 'lineinformation', 'co_insurance_id' + line_count.to_s,
+          :id => 'service_co_insurance_id' + line_count.to_s, :tabindex => "42",
+          :class => "amount validate-presence-of-unique-code #{service.style("service_co_insurance")}",
+          :coordinates => service.coordinates("service_co_insurance"),
+          :page => service.page("service_co_insurance"),
+          :onblur => "total_charge_mpi('service_co_insurance_id', 'total_coinsurance_id');
+      serviceBalance("+line_count.to_s+");populateDefaultRcOnTabout('co_insurance',
+      'service_co_insurance_id#{line_count.to_s}',
+      'reason_code_coinsurance#{line_count.to_s}_unique_code',
+      '#{@facility.details[:hipaa_code]}')", :accesskey => "6",
+          :onfocus => "save_charge('service_co_insurance_id','total_coinsurance_id')",
+          :ondblclick => "setMpiBalancevalue('service_co_insurance_id',"+line_count.to_s+",'total_coinsurance_id')",
+          :value => (sprintf("%.2f", service.service_co_insurance) if (service.attributes.include?("service_co_insurance") && !service.service_co_insurance.blank? ) ),
+          :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+      </td>
+
+      <% id_for_coinsurance_unique_code_td = 'td_reason_code_coinsurance' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_for_coinsurance_unique_code_td}'",
+        { :index => 'coinsurance' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("coinsurance_adjustment_codes")}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :ondblclick => "populateDefaultRcOnDoubleClick('co_insurance',
+          'service_co_insurance_id#{line_count.to_s}',
+          'reason_code_coinsurance#{line_count.to_s}_unique_code',
+          '#{@facility.details[:hipaa_code]}')",
+          :value => (service.coinsurance_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+      <% id_for_deductible_td = 'td_deductible_amount_'+ line_count.to_s%>
+      <td id="<%= id_for_deductible_td %>">
+        <%= text_field 'lineinformation', 'deductable' + line_count.to_s,
+          :id => 'service_deductible_id' + line_count.to_s,:tabindex => "42",
+          :onblur => "total_charge_mpi('service_deductible_id', 'total_deductable_id');
+      serviceBalance("+line_count.to_s+");populateDefaultRcOnTabout('deductible',
+      'service_deductible_id#{line_count.to_s}',
+      'reason_code_deductible#{line_count.to_s}_unique_code',
+      '#{@facility.details[:hipaa_code]}')", :accesskey => "7",
+          :onfocus => "save_charge('service_deductible_id','total_deductable_id')",
+          :class => "amount validate-presence-of-unique-code #{service.style("service_deductible")}",
+          :coordinates => service.coordinates("service_deductible"),
+          :page => service.page("service_deductible"),
+          :ondblclick => "setMpiBalancevalue('service_deductible_id',"+line_count.to_s+",'total_deductable_id')",
+          :value => (sprintf("%.2f", service.service_deductible) if ( service.attributes.include?("service_deductible") && !service.service_deductible.blank?) ),
+          :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+      </td>
+
+      <% id_for_deductible_unique_code_td = 'td_reason_code_deductible' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_for_deductible_unique_code_td}'",
+        { :index => 'deductible' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("deductible_adjustment_codes")}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :ondblclick => "populateDefaultRcOnDoubleClick('deductible',
+          'service_deductible_id#{line_count.to_s}',
+          'reason_code_deductible#{line_count.to_s}_unique_code',
+          '#{@facility.details[:hipaa_code]}')",
+          :value => (service.deductible_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+    <% end %>
+
+    <% id_for_copay_td = 'td_copay_amount_'+ line_count.to_s%>
+    <td id="<%= id_for_copay_td %>">
+      <%= text_field 'lineinformation', 'copay'+ line_count.to_s,
+        :id => 'service_co_pay_id' +line_count.to_s, :tabindex => "42",
+        :class => "amount validate-presence-of-unique-code #{service.style("service_co_pay")}",
+        :coordinates => service.coordinates("service_co_pay"),
+        :page =>service.page("service_co_pay"),
+        :onblur=>"total_charge_mpi('service_co_pay_id', 'total_copay_id');
+    serviceBalance("+line_count.to_s+");populateDefaultRcOnTabout('copay',
+    'service_co_pay_id#{line_count.to_s}',
+    'reason_code_copay#{line_count.to_s}_unique_code',
+    '#{@facility.details[:hipaa_code]}')", :accesskey => copay_header_number.to_s,
+        :onfocus => "save_charge('service_co_pay_id','total_copay_id')",
+        :ondblclick => set_balance_amount_in_dollar_field("'service_co_pay_id'", line_count.to_s, "'total_copay_id'"),
+        :value => (sprintf("%.2f", service.service_co_pay) if ( service.attributes.include?("service_co_pay") && !service.service_co_pay.blank? ) ),
+        :readonly => readonly_attribute_for_adjustment_amounts || @is_interest_only_eob, :serviceLineId => service.id.to_s %>
+    </td>
+    <% id_for_copay_unique_code_td = 'td_reason_code_copay' + line_count.to_s + '_unique_code' %>
+    <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_for_copay_unique_code_td}'",
+      { :index => 'copay' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("copay_adjustment_codes")}", :size => 6,
+        :tabindex => "42", :readonly => readonly_attribute_for_adjustment_amounts,
+        :onkeypress => "enlargeTextfieldSize(id, 6)",
+        :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+        :ondblclick => "populateDefaultRcOnDoubleClick('copay',
+        'service_co_pay_id#{line_count.to_s}',
+        'reason_code_copay#{line_count.to_s}_unique_code',
+        '#{@facility.details[:hipaa_code]}')",
+        :value => (service.copay_adjustment_codes if @patient_837_information.blank?),
+        :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+        :url => {:action => 'auto_complete_for_reason_code_unique_code',
+          :job_id => params[:job_id]}}).to_s.html_safe %>
+    <% unless @patient_pay %>
+      <input type = "hidden" id = "facility" value = '<%= @facility.name.upcase %>' />
+      <% id_for_patient_responsibility_td = 'td_patient_responsibility_amount_'+ line_count.to_s %>
+      <%= sp_text_field :lineinformation, 'patient_responsibility' + line_count.to_s,
+        @facility.details[:patient_responsibility], "td id='#{id_for_patient_responsibility_td}'",
+        :id => 'patient_responsibility_id' + line_count.to_s,
+        :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("patient_responsibility")}",
+        :onblur => "total_charge_mpi('patient_responsibility_id', 'total_patient_responsibility_id');
+      serviceBalance("+line_count.to_s+");",
+        :onfocus => "save_charge('patient_responsibility_id','total_patient_responsibility_id')",
+        :ondblclick => "setMpiBalancevalue('patient_responsibility_id',"+line_count.to_s+",'total_patient_responsibility_id')" ,
+        :coordinates => service.coordinates("patient_responsibility"), :page => service.page("patient_responsibility"),
+        :value => (sprintf("%.2f", service.patient_responsibility) if ( service.attributes.include?("patient_responsibility") && !service.patient_responsibility.blank?)),
+        :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+      <% id_for_patient_responsibility_unique_code_td = 'td_reason_code_patient_responsibility' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:patient_responsibility], "td id='#{id_for_patient_responsibility_unique_code_td}'",
+        { :index => 'patient_responsibility' + line_count.to_s, :class => "unique_code #{proprietary_code_class}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.pr_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+      <% id_for_primary_payment_td = 'td_primary_payment_amount_'+ line_count.to_s%>
+      <td id="<%= id_for_primary_payment_td %>">
+        <%= text_field 'lineinformation', 'primary_pay_payment' + line_count.to_s,
+          :id => 'service_submitted_charge_for_claim_id'+ line_count.to_s,
+          :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("primary_payment")}",
+          :coordinates => service.coordinates("primary_payment"),
+          :page => service.page("primary_payment"), :accesskey => "9",
+          :onblur => "total_charge_mpi('service_submitted_charge_for_claim_id', 'total_primary_payment_id'); serviceBalance("+line_count.to_s+");reasoncodeprimarypayment('service_submitted_charge_for_claim_id#{line_count.to_s}',
+      'reason_code_primary_payment#{line_count.to_s}_unique_code');",
+          :onfocus => "save_charge('service_submitted_charge_for_claim_id','total_primary_payment_id')",
+          :ondblclick => "setMpiBalancevalue('service_submitted_charge_for_claim_id',"+line_count.to_s+",'total_primary_payment_id')",
+          :value => (sprintf("%.2f", service.primary_payment) if ( service.attributes.include?("primary_payment") && !service.primary_payment.blank?) ),
+          :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+      </td>
+      <% id_for_primary_payment_unique_code_td = 'td_reason_code_primary_payment' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, true, "td id='#{id_for_primary_payment_unique_code_td}'",
+        { :index => 'primary_payment' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("primary_payment_adjustment_codes")}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.primary_payment_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+      <% id_for_prepaid_td = 'td_prepaid_amount_'+ line_count.to_s %>
+      <%= sp_text_field :lineinformation, 'prepaid' + line_count.to_s,
+        @facility.details[:prepaid], "td id='#{id_for_prepaid_td}'",
+        :id => 'service_prepaid_id' + line_count.to_s,
+        :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("service_prepaid")}",
+        :onblur => "total_charge_mpi('service_prepaid_id', 'total_prepaid_id');
+      serviceBalance("+line_count.to_s+");",
+        :onfocus => "save_charge('service_prepaid_id','total_prepaid_id')",
+        :ondblclick => "setMpiBalancevalue('service_prepaid_id',"+line_count.to_s+",'total_prepaid_id')" ,
+        :coordinates => service.coordinates("service_prepaid"), :page => service.page("service_prepaid"),
+        :value => (sprintf("%.2f", service.service_prepaid) if ( service.attributes.include?("service_prepaid") && !service.service_prepaid.blank?)),
+        :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+      <% id_for_prepaid_unique_code_td = 'td_reason_code_prepaid' + line_count.to_s + '_unique_code' %>
+      <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:prepaid], "td id='#{id_for_prepaid_unique_code_td}'",
+        { :index => 'prepaid' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("prepaid_adjustment_codes")}", :size => 6,
+          :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+          :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+          :value => (service.prepaid_adjustment_codes if @patient_837_information.blank?),
+          :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+          :url => {:action => 'auto_complete_for_reason_code_unique_code',
+            :job_id => params[:job_id]}}).to_s.html_safe %>
+
+    <% end %>
+    <% id_for_contractual_td = 'td_contractual_amount_'+ line_count.to_s%>
+      <%= sp_text_field :lineinformation, 'contractual' + line_count.to_s,
+        !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), "td id='#{id_for_contractual_td}'",
+        :id => 'service_contractual_amount_id'+line_count.to_s, :tabindex => "42",
+        :class => "amount validate-presence-of-unique-code #{service.style("contractual_amount")}",
+        :coordinates => service.coordinates("contractual_amount"),
+        :page => service.page("contractual_amount"), :accesskey => contractual_allowance_header_number.to_s,
+        :onblur => "total_charge_mpi('service_contractual_amount_id','total_contractual_amount_id');serviceBalance("+line_count.to_s+")",
+        :onfocus => "save_charge('service_contractual_amount_id','total_contractual_amount_id')",
+        :ondblclick => set_balance_amount_in_dollar_field("'service_contractual_amount_id'", line_count.to_s, "'total_contractual_amount_id'"),
+        :value => (sprintf("%.2f", service.contractual_amount) if ( service.attributes.include?("contractual_amount") && !service.contractual_amount.nil? )),
+        :readonly => readonly_attribute_for_adjustment_amounts || @is_interest_only_eob, :serviceLineId => service.id.to_s %>
+
+    <% id_for_contractual_unique_code_td = 'td_reason_code_contractual' + line_count.to_s + '_unique_code' %>
+    <%= (auto_complete_text_field :reason_code, :unique_code,
+      !(@facility.details[:miscellaneous_adjustment_fields] && @insurance_pay), "td id='#{id_for_contractual_unique_code_td}'",
+      { :index => 'contractual' + line_count.to_s, :class => "unique_code #{proprietary_code_class} #{service.style("contractual_adjustment_codes")}", :size => 6,
+        :tabindex => "42", :readonly => readonly_attribute_for_adjustment_amounts,
+        :onkeypress => "enlargeTextfieldSize(id, 6)",
+        :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+        :value => (service.contractual_adjustment_codes if @patient_837_information.blank?),
+        :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+        :url => {:action => 'auto_complete_for_reason_code_unique_code',
+          :job_id => params[:job_id]}}).to_s.html_safe %>
+
+    <% id_for_miscellaneous_one_td = 'td_miscellaneous_one_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'miscellaneous_one' + line_count.to_s,
+      @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, "td id='#{id_for_miscellaneous_one_td}'",
+      :id => 'miscellaneous_one_id' + line_count.to_s, :accesskey => "4",
+      :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("miscellaneous_one_adjustment_amount")}",
+      :onblur => "total_charge_mpi('miscellaneous_one_id','total_miscellaneous_one_id');serviceBalance("+ line_count.to_s+")",
+      :onfocus => "save_charge('miscellaneous_one_id','total_miscellaneous_one_id')",
+      :ondblclick => "setMpiBalancevalue('miscellaneous_one_id',"+line_count.to_s+",'total_miscellaneous_one_id')" ,
+      :coordinates => service.coordinates("miscellaneous_one_adjustment_amount"),
+      :page => service.page("miscellaneous_one_adjustment_amount"),
+      :value => (sprintf("%.2f", service.miscellaneous_one_adjustment_amount) if (
+        service.attributes.include?("miscellaneous_one_adjustment_amount") && !service.miscellaneous_one_adjustment_amount.blank?)),
+      :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+    <% id_for_miscellaneous_one_unique_code_td = 'td_reason_code_miscellaneous_one' + line_count.to_s + '_unique_code' %>
+    <%= (auto_complete_text_field :reason_code, :unique_code, @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay,
+      "td id='#{id_for_miscellaneous_one_unique_code_td}'",
+      { :index => 'miscellaneous_one' + line_count.to_s, :class => "unique_code #{proprietary_code_class}", :size => 6,
+        :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+        :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+        :value => (service.miscellaneous_one_adjustment_codes if @patient_837_information.blank?),
+        :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+        :url => {:action => 'auto_complete_for_reason_code_unique_code',
+          :job_id => params[:job_id]}}).to_s.html_safe %>
+
+    <% id_for_miscellaneous_two_td = 'td_miscellaneous_two_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'miscellaneous_two' + line_count.to_s,
+      @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, "td id='#{id_for_miscellaneous_two_td}'",
+      :id => 'miscellaneous_two_id' + line_count.to_s, :accesskey => "4",
+      :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("miscellaneous_two_adjustment_amount")}",
+      :onblur => "total_charge_mpi('miscellaneous_two_id','total_miscellaneous_two_id');serviceBalance("+ line_count.to_s+")",
+      :onfocus => "save_charge('miscellaneous_two_id','total_miscellaneous_two_id')",
+      :ondblclick => "setMpiBalancevalue('miscellaneous_two_id',"+line_count.to_s+",'total_miscellaneous_two_id')" ,
+      :coordinates => service.coordinates("miscellaneous_two_adjustment_amount"),
+      :page => service.page("miscellaneous_two_adjustment_amount"),
+      :value => (sprintf("%.2f", service.miscellaneous_two_adjustment_amount) if (
+        service.attributes.include?("miscellaneous_two_adjustment_amount") && !service.miscellaneous_two_adjustment_amount.blank?)),
+      :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+    <% id_for_miscellaneous_two_unique_code_td = 'td_reason_code_miscellaneous_two' + line_count.to_s + '_unique_code' %>
+    <%= (auto_complete_text_field :reason_code, :unique_code,
+      @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, "td id='#{id_for_miscellaneous_two_unique_code_td}'",
+      { :index => 'miscellaneous_two' + line_count.to_s, :class => "unique_code #{proprietary_code_class}", :size => 6,
+        :tabindex => "42", :onkeypress => "enlargeTextfieldSize(id, 6)",
+        :onblur => "changeToCapital(id); resetTextfieldSize(id, 6)",
+        :value => (service.miscellaneous_two_adjustment_codes if @patient_837_information.blank?),
+        :serviceLineId => service.id.to_s}, {:tokens => ';', :skip_style=>true,
+        :url => {:action => 'auto_complete_for_reason_code_unique_code',
+          :job_id => params[:job_id]}}).to_s.html_safe %>
+    <% id_for_miscellaneous_balance_td = 'td_miscellaneous_balance_amount_'+ line_count.to_s %>
+    <%= sp_text_field :lineinformation, 'miscellaneous_balance' + line_count.to_s,
+      @facility.details[:miscellaneous_adjustment_fields] && @insurance_pay, "td id='#{id_for_miscellaneous_balance_td}'",
+      :id => 'miscellaneous_balance_id' + line_count.to_s, :accesskey => "4",
+      :tabindex => "42", :class => "amount validate-presence-of-unique-code #{service.style("miscellaneous_balance")}",
+      :onblur => "total_charge_mpi('miscellaneous_balance_id','total_miscellaneous_balance_id');serviceBalance("+ line_count.to_s+")",
+      :onfocus => "save_charge('miscellaneous_balance_id','total_miscellaneous_balance_id')",
+      :ondblclick => "setMpiBalancevalue('miscellaneous_balance_id',"+line_count.to_s+",'total_miscellaneous_balance_id')" ,
+      :coordinates => service.coordinates("miscellaneous_balance"),
+      :page => service.page("miscellaneous_balance"),
+      :value => (sprintf("%.2f", service.miscellaneous_balance) if (
+        service.attributes.include?("miscellaneous_balance") && !service.miscellaneous_balance.blank?)),
+      :serviceLineId => service.id.to_s, :readonly => @is_interest_only_eob %>
+
+    <% id_for_balance_amount_td = 'td_balance_amount_'+ line_count.to_s%>
+    <td id="<%= id_for_balance_amount_td %>">
+      <%
+      if service.id.blank?
+        balance_amount = ''
+      else
+
+        balance_amount = (( service.attributes.include?("service_balance") && !service.service_balance.blank?) ? 0.00 : '')
+      end %>
+      <%= text_field 'lineinformation', 'balance'+line_count.to_s,
+        :id => 'service_balance_id' + line_count.to_s,
+        :class => "amount validate-balance balance_amount #{service.style("service_balance")}",
+        :coordinates => service.coordinates("service_balance"),
+        :page => service.page("service_balance"), :readonly => "true",
+        :onchange => 'total_balance()', :onblur => "validateBalance("+line_count.to_s+")",
+        :value =>  balance_amount, :serviceLineId => service.id.to_s %>
+    </td>
+    <% if service.id.blank?   #  The last service line in UI is the Adjustment Line before it is saved in the db.
+      service_id = 0
+    else
+      service_id = service.id
+    end %>
+    <% if @insurance_pay %>
+      <% td_add_or_delete = "td_add_or_delete_" + line_count.to_s %>
+      <td align="center" valign="middle" id= "<%= td_add_or_delete %>" >
+        <input type="button" name="button" value="-" id="remove" class = "submit_add" style ="width:20px" onclick ="removeServiceLine(<%=line_count%>,'service_line_details',<%=service_id%>)"/>
+
+      </td>
+    <% end %>
+    </tr>
+    <% total_svc_line_count = line_count.to_i %>
+    <%line_count = line_count + 1 %>
+  <%  end %>
+
+<%end %>
+
+<%#Please do not remove the below tbody tag, it is used to display the newly added service lines without error%>
+
+<input type ="hidden" id="mpi_total">
+<input type ="hidden" id="net_total">
+<input type ="hidden" id="svcline_ids_to_delete" name="svcline_ids_to_delete">
+<%=hidden_field 'line inforamtions','totalline',:id => 'total_line_count_remove',:value => @service_line.length %>
+<input type ="hidden" id="total_svc_line_count" name="total_svc_line_count" value="<%= total_svc_line_count %>"><%# This provides the line count of total svc lines.%>
+<%= hidden_field :total_existing, :number_of_svc_lines, :value => @service_line.length %>
+<%= hidden_field :svc_line, :last_serial_num, :value => @service_line.length %>
+<%= hidden_field :adjustment_line, :number, :value => @adjustment_line_number %>
+<%= hidden_field :adjustment_line, :number_of_new_line, :value => @new_adjustment_line_number %>
+<%= hidden_field :adjustment_line, :to_save, :value => '' %>
+<%logger.debug "_OCR_SERVICE_LINE_END"%>

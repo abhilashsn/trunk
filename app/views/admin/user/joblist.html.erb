@@ -1,0 +1,108 @@
+<head>
+<script type="text/javascript">
+
+function activateField(){
+ document.getElementById('time_diff_id').readOnly = false;
+}
+function deactivateField(){
+ document.getElementById('time_diff_id').readOnly = true;
+}
+function chooseIndex(){
+if(document.getElementById('time_index_id').selectedIndex==0)
+document.getElementById('time_diff_id').value = '10.30'
+else
+document.getElementById('time_diff_id').value = 0
+
+}
+</script>
+
+</head>
+<div id="login_main">
+<% space = "&nbsp;"*2 %>
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+  <%= will_paginate @users%>
+</div>
+
+<h1>Processor Productivity Report</h1>
+
+<div class="light_info">
+  <%= form_tag :action => 'joblist' do %>
+  <table>
+    <tr>
+   
+
+      
+      
+      <td style="width: 323px;text-align: center;">
+        <strong>From</strong> <%= text_field_tag 'date_from', @date_from, :size => 10,:class => 'dropdown' %> <%= date_picker("date_from", "mdy", "/") %><%= spacer(2) %>
+        <strong>To</strong> <%= text_field_tag 'date_to', @date_to, :size => 10,:class => 'dropdown' %>  <%= date_picker("date_to", "mdy", "/") %><%= spacer(2) %>
+        
+      </td>
+      <td><strong>Choose a Time Zone</strong><%= select_tag 'criteria', optionize('IST', 'EST'),:onclick=>'chooseIndex()',:id=>'time_index_id'%></td>
+      <td><strong>Time Difference</strong><%= text_field 'time_difference', nil, :size => '10',:value=>'10.30',:id=>'time_diff_id',:readonly=>true,:onfocus=>'activateField()',:onblur=>'deactivateField()'%></td>
+      <td style="width: 72px; text-align: center;"><%= submit_tag 'Search', :class => 'button' %></td>  
+     
+    </tr>
+  </table>
+  
+  <% end %>
+</div>
+
+<% unless @users.blank? %>
+  <table>
+    <tr>
+      <th>User ID</th>
+      <th>Jobs Allocated </th>
+      <th>Jobs Completed</th>
+       <th>Productivity (minutes)</th>
+<th>Total QA'ed EOBs</th>
+<th>Total Incorrect EOBs</th>
+<th>Accuracy (%)</th>
+    </tr>
+    <% @users.each do |user| %>
+    <tr>
+   <%
+   
+   @userid =User.find_by_id(user.processor_id).userid
+   %>
+      <td><%= link_to @userid, :action => "accuracy_report",:procid=>user.processor_id %></td>
+    <%
+   @alocated =Job.count(:all, :conditions => "processor_status = '#{ProcessorStatus::ALLOCATED}' and processor_id = #{user.processor_id}")
+   
+  %> 
+   
+      <td><%=  @alocated %></td>
+      <td><%= user.count %></td>
+      <%
+      if    (user.totalcount!=0)
+      @useraccuracy=((user.totalcount-user.incorrect).to_f/(user.totalcount)).to_f
+      else
+       @useraccuracy=0 
+      end
+      %>
+      <%
+      if not user.time.blank?
+        time=format_percentage(user.time)
+      else
+        time=user.time
+      end
+      %>
+       <td><%= (time) %></td>
+<td><%= (user.totalcount) %></td>
+<td><%= (user.incorrect) %></td>
+<td><%= format_percentage(@useraccuracy*100)  %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+<br/>
+
+   
+
+<div style="background-color:#e9eef2; width:100%;" class="black_text">
+  <%= will_paginate @users%>
+</div>
+</div>
+
+
+</div>

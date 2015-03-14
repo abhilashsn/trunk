@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Eob:</b>
+  <%= @claim_validation_exception.insurance_payment_eob_id %>
+</p>
+
+<p>
+  <b>Claim information:</b>
+  <%= @claim_validation_exception.claim_information_id %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @claim_validation_exception.action %>
+</p>
+
+
+<%= link_to 'Edit', edit_claim_validation_exception_path(@claim_validation_exception) %> |
+<%= link_to 'Back', claim_validation_exceptions_path %>

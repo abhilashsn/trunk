@@ -1,0 +1,25 @@
+<%= javascript_include_tag 'datacapture_consolidated' %>
+<%= stylesheet_link_tag 'datacapture_consolidated' %>
+<div style="height:95%; width:100%; float:left; overflow:scroll; clear:both;" onmouseover="setPointerAboveImage();" onmouseout="resetPointerAboveImage();">
+
+  <script LANGUAGE="JavaScript">
+    //This will return the sub-uri if any
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    imagedisply('<%=@single_page_tiff_files%>', '<%=@multi_page_tiff_file%>','<%=@page_number%>', '<%=@image_count_in_a_job%>','<%=@enable_applet_controls%>')
+  </script>
+
+</div>
+<table width="95%">
+  <tr>
+    <td class="content">
+      <strong> <%= link_to "Back",:controller => "archive", :action => "search",:pat_lastname=>session[:patlast],:pat_firstname=>session[:patfirst],:accountnumber=>session[:pataccountnumber],:service_from=>session[:servicefrom],:service_to=>session[:serviceto],:check_number=>session[:check_number_value],:date_from=>session[:deposit_from_date],:date_to => session[:deposit_to_date],:facility=>session[:facility_chosen],:option1=>"Filter" %>
+      </strong></td>
+    <td align="right">
+      <%= link_to image_tag("home.gif", :alt => "home",:border=>'0',:align=>'absmiddle'), :controller => '/dashboard' %>| <%= link_to image_tag("logout.gif", :alt => "Logout",:border=>'0',:align=>'absmiddle'), :controller => '/logout' %>
+      RevRemit V3.0 © 2012 RevenueMed Inc. All rights reserved
+    </td>
+  </tr>
+</table>
+

@@ -1,0 +1,11 @@
+<%= render "shared/error_messages", :target => @site_setting %>  
+<!-- %= error_messages_for 'site_setting' % -->
+
+<!--[form:site_setting]-->
+<p><label for="site_setting_show_userid">Show userid</label><br/>
+<select id="site_setting_show_userid" name="site_setting[show_userid]"><option value="false">False</option><option value="true" selected>True</option></select></p>
+
+<p><label for="site_setting_per_page">Per page</label><br/>
+<%= text_field 'site_setting', 'per_page'  %></p>
+<!--[eoform:site_setting]-->
+

@@ -1,0 +1,20 @@
+<div>
+  <%= form_tag :controller => "datacaptures",:action => "capitation_account_save" do %>
+    <%= hidden_field_tag :job_id, @job.id, :id =>'job_id' %>
+    <%= hidden_field_tag :batch_id, @batch.id %>
+    <% unless params[:capitation_account].blank? %>
+      <% account = params[:capitation_account][:account].blank? ? 0 : params[:user][:account] %>
+      <% payment = params[:capitation_account][:payment].blank? ? 0 : params[:user][:payment] %>
+    <% end %>
+    <label>Account</label>
+    <%= text_field :capitation_account, :account, :style=>"border: 1px solid ;width:60px;", :value => account %>
+    <label>Payment</label>
+    <%= text_field :capitation_account, :payment, :style=>"border: 1px solid ;width:60px;", :value => payment %>
+    <%= hidden_field :capitation_account, :patient_first_name,  :id => "patient_first_name" %>
+    <%= hidden_field :capitation_account, :patient_last_name,  :id => "patient_last_name" %>
+    <%= hidden_field :capitation_account, :patient_initial,  :id => "patient_initial" %>
+    <%= hidden_field :capitation_account, :patient_suffix, :id => "patient_suffix" %>
+    <%= hidden_field :capitation_account, :checknumber, :id => "check_number" %>
+    <%= submit_tag "Save", :class => "submit_link_green", :onclick => "auto_patient_detail();" %>
+  <% end %>
+</div>

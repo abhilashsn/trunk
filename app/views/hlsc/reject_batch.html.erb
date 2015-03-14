@@ -1,0 +1,20 @@
+<h1>Reject Batch</h1>
+<%= form_tag :action=>"reject_batch" do %>
+<table>
+  <tr>
+    <th>Batch Id</th>
+    <th>Rejection Comments</th>
+  </tr>
+  <tr>
+    <td><%= @batch.batchid %></td>
+    <td>
+        <%= text_field_with_auto_complete :batch_rejection_comment, :comment%>
+    </td>
+    <td>
+      <%= submit_tag "Reject", :class => "button" %>
+    </td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<%= link_to "Back", :action => 'batch_status' %>

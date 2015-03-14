@@ -1,0 +1,29 @@
+<div id="login_main">
+    <h1>Processor Allocated Jobs </h1>
+    <table>
+        <%= form_tag({:action => 'deallocate_auto_allocate_jobs', :id => @users_to_deallocate},:id => "my_form") do %>
+          <% unless @jobs.blank? %>
+            <tr>
+                <th>Batch Id</th>
+                <th>Check Number</th>
+                <th>Processor Name</th>
+                <th>
+                  <input type="checkbox" name="all" onClick="checkAll('my_form')">
+                </th>
+            </tr>
+            <% pagination = will_paginate(@jobs) %>
+            <%= pagination %>
+            <% @jobs.each do |job| %>
+              <tr>
+                 <td><%= link_to job.batch.batchid, :controller => '/admin/job',
+                         :action => 'allocate', :id => job.batch.id , :back_page => params[:back_page]%></td>
+                 <td><%= job.check_number %></td>
+                 <td><%= job.processor.login %></td>
+                 <td><%= check_box :users_to_deallocate, job.id, :id => 'toggle' %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          <br>
+          <tr><td colspan=4><%= submit_tag 'DeAllocate', :class => 'button' if @jobs.size > 0 %></td></tr>
+        <%end %>
+    </table>

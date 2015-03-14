@@ -1,0 +1,7 @@
+<%= render "shared/error_messages", :target => @facility %>  
+<!-- %= error_messages_for 'facility' % -->
+<div id="login_main">
+  <%= render :partial => 'form' %>
+<br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index' %> 
+</div>

@@ -1,0 +1,163 @@
+<%= form_tag(:id => 'form1',:name=>'form1') do %>
+  <table border="4" cellpadding="4" cellspacing="4" width="30%">
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Reason Code
+      </td>
+      <td>
+        <%= @reason_code_object.reason_code %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Reason Code Description :
+      </td>
+      <td>
+        <%= @reason_code_object.reason_code_description %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Reason Code Status :
+      </td>
+      <td>
+        <%= @reason_code_object.status %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Set Name
+      </td>
+      <td>
+        <%= @set_name %>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <br>
+  <table style="width:40%" border="2" cellpadding="0" cellspacing="4">
+    <tr>
+      <th>
+        Item
+      </th>
+      <th>
+        Crosswalked codes
+      </th>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'crosswalk_level' %>
+      </td>
+      <td>
+        <%= @crosswalk_level %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'name_of_entity' %>
+      </td>
+      <td>
+        <%= @entity_name %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'code_of_entity' %>
+      </td>
+      <td>
+        <%= @entity_code %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'crosswalk_active_indicator' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:crosswalk_record_active_indicator].blank? ? @crosswalk_item[:crosswalk_record_active_indicator] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'claim_status_code' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:claim_status_code].blank? ? @crosswalk_item[:claim_status_code] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'denied_claim_status_code' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:denied_claim_status_code].blank? ? @crosswalk_item[:denied_claim_status_code] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'reporting_activity1' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:reporting_activity1].blank? ? @crosswalk_item[:reporting_activity1] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'reporting_activity2' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:reporting_activity2].blank? ? @crosswalk_item[:reporting_activity2] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        HIPAA code
+      </td>
+      <td>
+        <%= !@crosswalk_item[:hipaa_code].blank? ? @crosswalk_item[:hipaa_code] : '--' %>
+      </td>
+    </tr>
+
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        HIPAA code active indicator
+      </td>
+      <td>
+        <%= !@crosswalk_item[:hipaa_code_active_indicator].blank? ? @crosswalk_item[:hipaa_code_active_indicator] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Denied HIPAA code
+      </td>
+      <td>
+        <%= !@crosswalk_item[:denied_hipaa_code].blank? ? @crosswalk_item[:denied_hipaa_code] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        Denied HIPAA code active indicator
+      </td>
+      <td>
+        <%= !@crosswalk_item[:denied_hipaa_code_active_indicator].blank? ? @crosswalk_item[:denied_hipaa_code_active_indicator] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'client_code' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:client_code].blank? ? @crosswalk_item[:client_code] : '--' %>
+      </td>
+    </tr>
+    <tr>
+      <td style ="background-color:#F0F0F0">
+        <%= label_tag 'denied_client_code' %>
+      </td>
+      <td>
+        <%= !@crosswalk_item[:denied_client_code].blank? ? @crosswalk_item[:denied_client_code] : '--' %>
+      </td>
+    </tr>
+  </table>
+  <br>
+<% end %>
+<%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), "#", :onclick=>"window.history.back();" %>

@@ -1,0 +1,33 @@
+
+<applet width="100%" vspace="0" hspace="0" height="570" mayscript="true" accesskey="Z" name="ViewONE" id="viewONE" code="ji.applet.jiApplet.class" archive="ji.jar,daeja2.jar,daeja1.jar,daeja1s.jar" codebase="<%= app_root -%>/v1/v1files"><param value="application/x-java-applet;version=1.4" name="type">VALUE="/v1files/ji.cab, daeja1.cab, daeja2.cab, daeja3.cab"&gt;<param value="false" name="printKeys"><param value="false" name="printMenus"><param value="�ViewONE.cab�" name="cabbase"><param value="ftow" name="scale"><param value="false" name="fileButtonSave"><param value="false" name="fileButtonOpen"><param value="false" name="fileButtonClose"><param value="false" name="printButtons"><param value="5" name="prefetchPages"><param value="false" name="obfuscate"><param value="true" name="version3Features"><param value="console_logger" name="eventhandler"><param value="0, 9, 22, 30, 34, 35, 37, 38, 39, 41, 43" name="eventInterest"><param value="true" name="ProcessKeys"><param value="UTF8" name="annotationEncoding"><param value="true" name="annotate"><param value="true" name="annotateEdit"><param value="false" name="initialFocus"><param value="false" name="focusBorder"><param value="true" name="annotationJavascriptExtensions"><param value="true" name="hideAnnotationToolbar">
+
+  <% if !@single_page_tiff_files.blank?
+    k = 0
+    single_page_tiff_array = @single_page_tiff_files.split("*");
+    for newcount in 0 ... single_page_tiff_array.length
+
+      if (single_page_tiff_array[newcount] == "")
+        k = 1
+      else
+        image = single_page_tiff_array[newcount];
+        splits = image.split(".");
+        splits[(splits.length-2)] = splits[(splits.length-2)] + "_medium";
+        thumb_image = splits.join(".");
+      %>
+        <param name="page<%= k %>" value="<%= app_root + single_page_tiff_array[newcount] %> ">
+        <param name="thumb<%= k %>" value="<%= app_root + thumb_image %>">
+        <%
+        k = k + 1
+      end
+    end
+  %>
+  <%
+  elsif !@multi_page_tiff_file.blank?
+    multi_page_tiff_array = @multi_page_tiff_file.split("*")
+    imagename = multi_page_tiff_array[0]
+    imagename = app_root + imagename
+  %>
+    <param NAME="filename" value="<%= imagename %>">
+  <% end %>
+
+</applet>

@@ -1,0 +1,582 @@
+<head>
+  <script  type="text/javascript" src="/javascripts/ans_cms.js"></script>
+  <script  type="text/javascript" src="/javascripts/embed.js"></script>
+  <script LANGUAGE="JavaScript">
+                //This will return the sub-uri if any
+             function relative_url_root() {
+                                                             return "<%= app_root -%>"
+                                                            }
+    
+  </script>
+</head>
+
+<body>
+
+
+<div style="height:55%; width:100%; float:left; overflow:scroll;" onmouseover="setPointerAboveImage();" onmouseout="resetPointerAboveImage();">
+  
+  <script LANGUAGE="JavaScript">
+    imagedisply('<%=@single_page_tiff_files%>', '<%=@multi_page_tiff_file%>')
+  </script>
+  
+</div>
+
+<div class="tabBox" style="clear:both; width:100%; height:250px; float:left ;background-color:#FFFFFF; overflow:scroll;">
+  
+  <%= form_tag :name=>'form1',:action => 'qaupdate',:id1=>@a do %>
+    <div id="message" style:align="absmiddle" >
+     
+    </div>
+    <%if not @eobinformation.blank?%>
+      <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" style="border-collapse:collapse; margin-top:2px;">
+        <tr>
+          <td height="25" bgcolor="#DAD3B1" class="content"><div align="left" class="cont">&nbsp;CHECK DATE:
+          
+          <%= text_field 'checkinforamation', 'check_date',:id => 'checkdate_id', :class => "cont",:style=>"width:60px",:value=>@checkinformation.check_date.strftime("%m/%d/%Y") %></div></td>
+          <td bgcolor="#DAD3B1" class="content"><div align="left" class="cont">&nbsp;CHECK AMOUNT: 
+              <%if  !@checkinformation.check_amount.blank? %>    
+                <%check_amount = sprintf("%.2f", @checkinformation.check_amount)%>
+                <%else%>
+                  <%check_amount = 0.00%>
+                <%end%>
+            <%= text_field 'checkinforamation', 'check_amount',:id => 'checkamount_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>check_amount %></div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;CHECK #:
+            <%= text_field 'checkinforamation', 'check_number',:id => 'checknumber_id',:class => "cont",:style=>"width:60px",:value=>@checkinformation.check_number %></div></td>
+            <td colspan="2" bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYEE NAME: 
+            <%= text_field 'checkinforamation', 'payee_name',:id => 'payeename_id', :class => "cont",:style=>"width:120px",:value=>@checkinformation.payee_name  %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp; PAYEE NPI #: 
+            <%= text_field 'checkinforamation', 'payee_npi_number',:value=>@checkinformation.payee_npi_number,:id => 'payee_npi_id',:class => "cont",:style=>"width:60px" %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYEE TIN #: 
+            <%= text_field 'checkinforamation', 'payee_tin',:id => 'payee_tin_id',:class => "cont",:style=>"width:60px",:value=>@checkinformation.payee_tin  %> </div></td>
+          </tr>
+          <tr>
+            <td height="25" bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER NAME: <%= text_field 'checkinforamation', 'payer_name',:id => 'payername_id', :class => "cont",:style=>"width:40px" ,:value=>@checkinformation.payer_name %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER ADDRESS 1: <%= text_field 'checkinforamation', 'payer_address_line1',:id => 'payeraddress_one_id', :class => "cont",:style=>"width:40px",:value=>@checkinformation.payer_address_line1  %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER ADDRESS 2: <%= text_field 'checkinforamation', 'payer_address_line2',:id => 'payeraddress_two_id', :class => "cont",:style=>"width:40px",:value=>@checkinformation.payer_address_line2 %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER CITY :<%= text_field 'checkinforamation', 'payer_city',:id => 'payercity_id', :class => "cont",:style=>"width:60px",:value=>@checkinformation.payer_city  %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER STATE : <%= text_field 'checkinforamation', 'payer_state_code',:id => 'payerstate_id', :class => "cont",:style=>"width:60px",:value=>@checkinformation.payer_state_code %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER ZIPCODE : <%= text_field 'checkinforamation', 'payer_zip',:id => 'payerzipcode_id', :class => "cont",:style=>"width:60px" ,:value=>@checkinformation.payer_zip %> </div></td>
+            <td bgcolor="#DAD3B1" class="content"><div align="left" class="content">&nbsp;PAYER TIN # :<%= text_field 'checkinforamation', 'payer_tin',:id => 'payertin_id', :class => "cont",:style=>"width:60px" ,:value=>@checkinformation.payer_tin %></div></td>
+          </tr>
+        </table>
+  
+        <div style="background-color:#CCC; width:100%;"><strong ><b> <%= will_paginate @informations%></strong></div>
+        <% for information in @informations %>
+          <table border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B"style="border-collapse:collapse; width:98%">
+            <tr>
+              <td colspan="16">
+                <table width="98%">
+                  <tr>
+                    <td height="45"  bgcolor="#ECE9D8" class="content">&nbsp;&nbsp;<strong>PATIENT:</strong>[Last Name|Suffix|First Name|Middle Name]<br>
+                      &nbsp;
+                      <%@informations.each  do |t| %>
+                        <%= hidden_field 'eobinformation', 'count',:id=>'linecount' ,:class => "cont",:style=>"width:60px",:value=>t.id  %>
+                        <%= text_field 'insurancepaymenteob', 'patient_last_name',:id => 'last_name_id', :class => "cont",:style=>"width:60px" ,:value=>t.patient_last_name %>
+                        <%= text_field 'insurancepaymenteob', 'patient_suffix',:id => 'pat_suffix_id', :class => "cont",:style=>"width:60px",:value=>t.patient_suffix  %>
+                        <%= text_field 'insurancepaymenteob', 'patient_first_name',:id => 'pat_firstname_id', :class => "cont",:style=>"width:60px",:value=>t.patient_first_name  %>
+                      <%= text_field 'insurancepaymenteob', 'patient_middle_initial',:id => 'pat_initial_id', :class => "cont",:style=>"width:60px",:value=>t.patient_middle_initial %></td>
+            
+                      <td valign="top" bgcolor="#ECE9D8"><strong class="cont">&nbsp;&nbsp;&nbsp;PATIENT A/C #:<br>
+                        &nbsp;</strong>
+                      <%= text_field 'insurancepaymenteob', 'patient_account_number',:id => 'patient_account_id', :class => "cont",:style=>"width:60px",:value=>t.patient_account_number  %></td>
+            
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp;&nbsp;CLAIM # :</strong> &nbsp;&nbsp;&nbsp<strong> POLICY NUMBER#</strong> &nbsp;&nbsp;&nbsp;QUALIFIER: &nbsp;&nbsp;&nbsp &nbsp; PATIENT IDENTIFICATION QLFR #<br> 
+                        &nbsp;&nbsp;
+                      <%= text_field 'insurancepaymenteob', 'claim_number',:id => 'claimnumber_id',:class => "cont",:style=>"width:60px",:value=>t.claim_number  %>&nbsp;&nbsp;<%= text_field 'insurancepaymenteob', 'insurance_policy_number',:id => 'insurance_policy_number_id', :class => "cont",:style=>"width:60px",:value=>t.insurance_policy_number %>&nbsp;&nbsp;&nbsp<%= text_field 'insurancepaymenteob', 'patient_identification_code_qualifier',:id => 'patient_identification_code_qualifier _id',:class => "cont",:style=>"width:60px",:value=>t.patient_identification_code_qualifier    %>&nbsp;&nbsp<%= text_field 'insurancepaymenteob', 'patient_identification_code',:id => 'patient_identification_code_id',:class => "cont",:style=>"width:120px",:value=>t.patient_identification_code%></td>
+            
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp; MEMBER ID :</strong><br>
+                        &nbsp;
+                      <%= text_field 'insurancepaymenteob', 'subscriber_identification_code',:id => 'member_id',:class => "cont",:style=>"width:60px",:value=>t.subscriber_identification_code %></td>
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp; INTEREST :</strong><br>
+                        &nbsp;
+                      <%= text_field 'insurancepaymenteob', 'claim_interest',:id => 'interest_id',:class => "cont",:style=>"width:60px",:value=>t.claim_interest  %></td>
+            
+            
+                    </tr>
+                    <tr>
+                      <td height="45" valign="top" bgcolor="#ECE9D8" class="content">&nbsp;&nbsp;<strong>SUBSCRIBER:</strong>[Last Name|Suffix|First Name|Middle Name]<br>
+                        &nbsp;
+                        <%= text_field 'insurancepaymenteob', 'subscriber_last_name',:id => 'sub_last_name_id',:class => "cont",:style=>"width:60px",:value=>t.subscriber_last_name %>
+                        <%= text_field 'insurancepaymenteob', 'subscriber_suffix',:id => 'sub_suffix_id',:class => "cont",:style=>"width:40px",:value=>t.subscriber_suffix  %>
+                        <%= text_field 'insurancepaymenteob', 'subscriber_first_name',:id => 'sub_firstname_id',:class => "cont",:style=>"width:60px",:value=>t.subscriber_first_name  %>
+                      <%= text_field 'insurancepaymenteob', 'subscriber_middle_initial',:id => 'sub_initial_id', :class => "cont",:style=>"width:20px",:value=>t.subscriber_middle_initial %></td>
+            
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp;&nbsp;CLAIM TYPE # :</strong><br> 
+                        &nbsp;&nbsp;
+                        <%= select_tag 'claim_type', options_for_select(@claimtype,t.claim_type),:class => "cont"%>
+              
+                      </td>
+            
+                      <td valign="top" bgcolor="#ECE9D8" class="content">&nbsp;&nbsp;<strong>PROVIDER:</strong>[Last Name|Suffix|First Name|Middle Name]  &nbsp;&nbsp; Organization Name<br>
+                        &nbsp;
+                        <%= text_field 'insurancepaymenteob', 'rendering_provider_last_name',:id => 'prov_last_name_id',:class => "cont",:style=>"width:60px",:value=>t.rendering_provider_last_name  %>
+                        <%= text_field 'insurancepaymenteob', 'rendering_provider_suffix',:id => 'prov_suffix_id',:class => "cont",:style=>"width:40px", :value=>t.rendering_provider_suffix %>
+                        <%= text_field 'insurancepaymenteob', 'rendering_provider_first_name',:id => 'prov_firstname_id', :class => "cont",:style=>"width:60px" , :value=>t.rendering_provider_first_name %>
+                        <%= text_field 'insurancepaymenteob', 'rendering_provider_middle_initial',:id => 'prov_initial_id', :class => "cont",:style=>"width:20px" , :value=>t.rendering_provider_middle_initial %>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <%= text_field 'insurancepaymenteob', 'provider_organisation',:id => 'provider_organisation_id', :class => "cont",:style=>"width:60px",:value=>t.provider_organisation  %>
+                      </td>
+            
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp;&nbsp;PROVIDER NPI # :</strong><br> 
+                        &nbsp;&nbsp;
+                      <%= text_field 'insurancepaymenteob', 'provider_npi',:id => 'provider_npi_id', :class => "cont",:style=>"width:60px",:value=>t.provider_npi %></td>
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp;&nbsp;Provider TIN # :</strong><br> 
+                        &nbsp;&nbsp;
+                      <%= text_field 'insurancepaymenteob', 'provider_tin',:id => 'provider_tin_id',:class => "cont",:style=>"width:60px" ,:value=>t.provider_tin %></td>
+                      <td valign="top" bgcolor="#ECE9D8" class="content"><strong>&nbsp;&nbsp;PLAN TYPE # :</strong><br> 
+                        &nbsp;&nbsp;
+                      <%= text_field 'insurancepaymenteob', 'plan_type',:id => 'provider_plan_id',:class => "cont",:style=>"width:60px" ,:value=>t.plan_type %></td>
+                    </tr>
+                </table></td>
+              </tr>
+    
+    
+    
+    
+    
+            </table>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <table border="3" align="center" cellpadding="0" cellspacing="0" id="myTable" bordercolor="#9C914B"style="border-collapse:collapse; width:98%">
+    
+              <tr border="3">
+      
+                <td colspan="2" valign="top" bgcolor="#DAD3B1" class="content" width="120px"><div align="center"><strong>DATE OF SERVICE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong> PROCEDURE <br>CODE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>MODIFIER</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>UNITS / QUANTITY</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>CHARGES / CODE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>NON COVERED / CODE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>DISCOUNT / CODE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>ALLOWABLE </strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>CONTRACTUAL ALLOWANCE </strong></div></td>
+                <td colspan="3" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>PATIENT <br>RESPONSIBILITY</strong></div>        </td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>PAYMENT/CODE</strong></div></td>
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>PRIMARY <br>PAYER PAYMENT/CODE</strong></div></td>
+      
+                <td rowspan="2" valign="top" bgcolor="#DAD3B1" class="content"><div align="center"><strong>BALANCE</strong></div></td>
+      
+      
+      
+              </tr>
+              <tr>
+      
+                <td align="center" valign="top" bgcolor="#DAD3B1" class="content">FROM <br>(MM/DD/YYYY)</td>
+                <td align="center" valign="top" bgcolor="#DAD3B1"class="content">TO <br>(MM/DD/YYYY)</td>
+                <td valign="top" bgcolor="#DAD3B1"><div align="center"class="content"><strong>CO-INSURANCE / CODE</strong></div></td>
+                <td valign="top" bgcolor="#DAD3B1"><div align="center"class="content"><strong>DEDUCTIBLE / CODE</strong></div></td>
+                <td valign="top" bgcolor="#DAD3B1"><div align="center"class="content"><strong>COPAY / CODE</strong></div></td>
+      
+              </tr>
+              <%
+              @serviceline= t.service_payment_eobs
+              j = 1
+              %>
+              <%@serviceline.each do |m|%>
+                <tr>
+                  <%if !m.date_of_service_from.blank?%>
+                    <td align="center"><%= text_field 'lineinformation', 'dateofservice_from'+j.to_s,:id => 'date_service_from'+j.to_s,:class => "cont",:style=>"width:60px" ,:value=>m.date_of_service_from.strftime("%m/%d/%Y"), :onblur => "validate_mpi_from_date("+j.to_s+")" %></td>
+                  <%else%>
+                    <td align="center"><%= text_field 'lineinformation', 'dateofservice_from'+j.to_s,:id => 'date_service_from'+j.to_s,:class => "cont",:style=>"width:60px", :onblur => "validate_mpi_from_date("+j.to_s+")"  %></td>
+                  <%end%>
+                  <%if !m.date_of_service_to.blank?%>
+                    <td align="center"><%= text_field 'lineinformation', 'dateofservice_to'+j.to_s,:id => 'date_service_to'+j.to_s, :class => "cont",:style=>"width:60px" ,:value=>m.date_of_service_to.strftime("%m/%d/%Y"), :onfocus => "setmpiDatevalue("+j.to_s+")" %></td>
+                  <%else%>
+                    <td align="center"><%= text_field 'lineinformation', 'dateofservice_to'+j.to_s,:id => 'date_service_to'+j.to_s, :class => "cont",:style=>"width:60px" , :onfocus => "setmpiDatevalue("+j.to_s+")" %></td>
+                  <%end%>
+      
+                  <td align="center"><%= text_field 'lineinformation', 'service_procedure_code'+j.to_s,:id => 'service_procedure_code_id',:class => "cont",:style=>"width:60px" ,:value=>m.service_procedure_code %></td>
+                  <td align="center">
+                    <%= text_field 'lineinformation', 'service_modifier1'+j.to_s,:id => 'service_modifier1_id', :class => "cont",:style=>"width:15px",:value=>m.service_modifier1 %>
+                    <%= text_field 'lineinformation', 'service_modifier2'+j.to_s,:id => 'service_modifier2_id', :class => "cont",:style=>"width:15px" ,:value=>m.service_modifier2 %>
+                    <%= text_field 'lineinformation', 'service_modifier3'+j.to_s,:id => 'service_modifier3_id', :class => "cont",:style=>"width:15px" ,:value=>m.service_modifier3 %>
+                  <%= text_field 'lineinformation', 'service_modifier4'+j.to_s,:id => 'service_modifier4_id', :class => "cont",:style=>"width:15px" ,:value=>m.service_modifier4 %></td>
+      
+                  <td align="center"><%= text_field 'lineinformation', 'service_quantity'+j.to_s,:id => 'service_quantity_id', :class => "cont",:style=>"width:60px" ,:value=> m.service_quantity %></td>
+                  <%scharge = sprintf("%.2f",m.service_procedure_charge_amount)%>
+                    <td align="center"><%= text_field 'lineinformation', 'service_procedure_charge_amount'+j.to_s,:id => 'service_procedure_charge_amount_id'+j.to_s,:onchange=>'tot_charge()', :class => "cont",:style=>"width:60px; text-align:right;" ,:value=>scharge,:onblur=>"ballc("+j.to_s+")"    %><br>
+                      <%= text_field 'lineinformation', 'charges_groupcode'+j.to_s,:id => 'charges_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.charges_groupcode %>  
+                      <%= text_field 'lineinformation', 'charges_code'+j.to_s,:id => 'charges_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.charges_code %><br>
+                      <%= text_area 'lineinformation', 'charges_code_description'+j.to_s,:id => 'charges_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.charges_code_description,:cols => "50", :rows=>"3" %>
+                    </td>
+                    <%if  !m.service_no_covered.blank? %>    
+                      <%snoncov= sprintf("%.2f", m.service_no_covered)%>
+                      <%else%>
+                        <%snoncov = 0.00%>
+                      <%end%>
+      
+                      <td align="center"><%= text_field 'lineinformation', 'service_no_covered'+j.to_s,:id => 'service_no_covered_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;" ,:value=>snoncov,:onchange=>'tot_covered()',:onblur=>"ballc("+j.to_s+")"    %><br>
+                        <%= text_field 'lineinformation', 'noncovered_groupcode'+j.to_s,:id => 'noncovered_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.noncovered_groupcode %>        
+                        <%= text_field 'lineinformation', 'noncovered_code'+j.to_s,:id => 'noncovered_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.noncovered_code %><br>
+                        <%= text_area 'lineinformation', 'noncovered_code_description'+j.to_s,:id => 'noncovered_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.noncovered_code_description,:cols => "50", :rows=>"3" ,:onblur=>"ballc("+j.to_s+")"   %>
+                      </td>
+                      <%if  !m.service_discount.blank? %>    
+                        <%sdiscount= sprintf("%.2f", m.service_discount)%>
+                        <%else%>
+                          <%sdiscount = 0.00%>
+                        <%end%>          
+      
+      
+                        <td align="center"><%= text_field 'lineinformation', 'service_discount'+j.to_s,:id => 'service_discount_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;" ,:value=>sdiscount, :onchange=>'tot_discount()' ,:onblur=>"ballc("+j.to_s+")"   %><br>
+                          <%= text_field 'lineinformation', 'discount_groupcode'+j.to_s,:id => 'discount_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.discount_groupcode %>        
+                          <%= text_field 'lineinformation', 'discount_code'+j.to_s,:id => 'discount_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.discount_code %><br>
+                          <%= text_area 'lineinformation', 'discount_code_description'+j.to_s,:id => 'discount_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.discount_code_description,:cols => "50", :rows=>"3" %>
+                        </td>
+                        <%if  !m.service_allowable.blank? %>    
+                          <%salowable= sprintf("%.2f", m.service_allowable)%>
+                          <%else%>
+                            <%salowable = 0.00%>
+                          <%end%>  
+      
+                          <td align="center"><%= text_field 'lineinformation', 'service_allowable'+j.to_s,:id => 'service_allowable_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;",:value=>salowable,:onchange=>'tot_allowable()' %></td>
+                          <%if  !m.contractual_amount.blank? %>    
+                            <%scontractual=  sprintf("%.2f",m.contractual_amount)%>
+                            <%else%>
+                              <%scontractual = 0.00%>
+                            <%end%>  
+      
+                            <td align="center"><%= text_field 'lineinformation', 'contractual_amount'+j.to_s,:id => 'service_contractual_amount_id'+j.to_s,:class => "cont",:style=>"width:60px; text-align:right;" ,:value=>scontractual,:onchange=>'tot_contractual()' ,:onblur=>"ballc("+j.to_s+")"   %><br>
+                              <%= text_field 'lineinformation', 'contractual_groupcode'+j.to_s,:id => 'contractual_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.contractual_groupcode %>     
+                              <%= text_field 'lineinformation', 'contractual_code'+j.to_s,:id => 'contractual_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.contractual_code %><br>
+                              <%= text_area 'lineinformation', 'contractual_code_description'+j.to_s,:id => 'contractual_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.contractual_code_description,:cols => "50", :rows=>"3" %>
+                            </td>  
+                            <%if  !m.service_co_insurance.blank? %>    
+                              <%scoins=  sprintf("%.2f",m.service_co_insurance)%>
+                              <%else%>
+                                <%scoins = 0.00%>
+                              <%end%>  
+      
+                              <td align="center"><%= text_field 'lineinformation', 'service_co_insurance'+j.to_s,:id => 'service_co_insurance_id'+j.to_s,:class => "cont",:style=>"width:60px; text-align:right;" ,:value=>scoins,:onchange=>'tot_ins()' ,:onblur=>"ballc("+j.to_s+")"   %><br>
+                                <%= text_field 'lineinformation', 'coinsurance_groupcode'+j.to_s,:id => 'coinsurance_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.coinsurance_groupcode %>     
+                                <%= text_field 'lineinformation', 'coinsurance_code'+j.to_s,:id => 'coinsurance_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.coinsurance_code %><br>
+                                <%= text_area 'lineinformation', 'coinsurance_code_description'+j.to_s,:id => 'coinsurance_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.coinsurance_code_description,:cols => "50", :rows=>"3" %>
+                              </td>
+                              <%if  !m.service_deductible.blank? %>    
+                                <%sdeduct=  sprintf("%.2f",m.service_deductible)%>
+                                <%else%>
+                                  <%sdeduct= 0.00%>
+                                <%end%>  
+      
+                                <td align="center"><%= text_field 'lineinformation', 'service_deductible'+j.to_s,:id => 'service_deductible_id'+j.to_s,:class => "cont",:style=>"width:60px; text-align:right;" ,:value=>sdeduct,:onchange=>'tot_deduct()' ,:onblur=>"ballc("+j.to_s+")"   %><br>
+                                  <%= text_field 'lineinformation', 'deductuble_groupcode'+j.to_s,:id => 'deductuble_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.deductuble_groupcode %>       
+                                  <%= text_field 'lineinformation', 'deductuble_code'+j.to_s,:id => 'deductuble_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.deductuble_code %><br>
+                                  <%= text_area 'lineinformation', 'deductuble_code_description'+j.to_s,:id => 'deductuble_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.deductuble_code_description,:cols => "50", :rows=>"3" %>
+                                </td>
+                                <%if  !m.service_co_pay.blank? %>    
+                                  <%scopay = sprintf("%.2f",m.service_co_pay)%>
+                                  <%else%>
+                                    <%scopay= 0.00%>
+                                  <%end%>  
+      
+                                  <td align="center"><%= text_field 'lineinformation', 'service_co_pay'+j.to_s,:id => 'service_co_pay_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;" ,:value=>scopay ,:onchange=>'tot_copay()',:onblur=>"ballc("+j.to_s+")"   %><br>
+                                    <%= text_field 'lineinformation', 'copay_groupcode'+j.to_s,:id => 'copay_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.copay_groupcode %>
+                                    <%= text_field 'lineinformation', 'copay_code'+j.to_s,:id => 'copay_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.copay_code %><br>
+                                    <%= text_area 'lineinformation', 'copay_code_description'+j.to_s,:id => 'copay_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.copay_code_description,:cols => "50", :rows=>"3" %>
+                                  </td>
+                                  <%if  !m.service_paid_amount.blank? %>    
+                                    <%paidamt = sprintf("%.2f",m.service_paid_amount)%>
+                                    <%else%>
+                                      <%paidamt= 0.00%>
+                                    <%end%>  
+      
+                                    <td align="center"><%= text_field 'lineinformation', 'service_paid_amount'+j.to_s,:id => 'service_paid_amount_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;",:value=>paidamt,:onchange=>'tot_paidamount()',:onblur=>"ballc("+j.to_s+")"    %><br>
+                                      <%= text_field 'lineinformation', 'payment_groupcode'+j.to_s,:id => 'payment_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.payment_groupcode %>
+                                      <%= text_field 'lineinformation', 'payment_code'+j.to_s,:id => 'payment_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.payment_code %><br>
+                                      <%= text_area 'lineinformation', 'payment_code_description'+j.to_s,:id => 'payment_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.payment_code_description,:cols => "50", :rows=>"3" %>
+                                    </td>
+      
+                                    <%if  !m.service_submitted_charge_for_claim.blank? %>    
+                                      <%primaryamt = sprintf("%.2f",m.service_submitted_charge_for_claim)%>
+                                      <%else%>
+                                        <%primaryamt= 0.00%>
+                                      <%end%> 
+      
+                                      <td align="center"><%= text_field 'lineinformation', 'service_submitted_charge_for_claim'+j.to_s,:id => 'service_submitted_charge_for_claim_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:right;" ,:value=>primaryamt ,:onchange=>'tot_submittedcharge()',:onblur=>"ballc("+j.to_s+")"   %><br>
+                                        <%= text_field 'lineinformation', 'primary_payment_groupcode'+j.to_s,:id => 'primary_payment_groupcode_id'+j.to_s, :class => "cont",:style=>"width:15px; text-align:right;" ,:value=>m.primary_payment_groupcode %>      
+                                        <%= text_field 'lineinformation', 'primary_payment_code'+j.to_s,:id => 'primary_payment_code_id'+j.to_s, :class => "cont",:style=>"width:35px; text-align:right;" ,:value=>m.primary_payment_code %><br>
+                                        <%= text_area 'lineinformation', 'primary_payment_code_description'+j.to_s,:id => 'primary_payment_code_description_id'+j.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:value=>m.primary_payment_code_description,:cols => "50", :rows=>"3" %>
+                                      </td>
+                                      <%if  !m.service_balance.blank? %>    
+                                        <%balanceval= sprintf("%.2f",m.service_balance)%>
+                                        <%else%>
+                                          <%balanceval= 0.00%>
+                                        <%end%> 
+      
+                                        <td align="center"><%= text_field 'lineinformation', 'service_balance'+j.to_s,:id => 'service_balance_id'+j.to_s,:class => "cont",:style=>"width:50px; text-align:right;",:value=>balanceval,:onchange=>'tot_balance()', :onblur=>"validateBalance("+j.to_s+")" %></td>
+      
+      
+      
+      
+                                      </tr>
+                                      <br>
+                                      <%j= j+1 %>
+    
+                                    <%end%>
+                                    <tr>
+                                      <%= hidden_field 'lineinformation', 'count',:id=>'linecount' ,:size => 3,:value=>j %>
+                                      <%for k in j..j+1%>
+      
+                                        <td align="center"><%= text_field 'lineinformation', 'dateofservice_from'+k.to_s,:id => 'date_service_from'+k.to_s, :class => "cont",:style=>"width:60px", :onblur => "validate_mpi_from_date("+k.to_s+")"%></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'dateofservice_to'+k.to_s,:id => 'date_service_to'+k.to_s,:class => "cont",:style=>"width:60px", :onfocus => "setmpiDatevalue("+k.to_s+")" %></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_procedure_code'+k.to_s,:id => 'service_procedure_code_id', :class => "cont",:style=>"width:60px" %></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_modifier1'+k.to_s,:id => 'service_modifier1_id', :class => "cont",:style=>"width:15px" %>
+                                          <%= text_field 'lineinformation', 'service_modifier2'+k.to_s,:id => 'service_modifier2_id', :class => "cont",:style=>"width:15px" %>
+                                          <%= text_field 'lineinformation', 'service_modifier3'+k.to_s,:id => 'service_modifier3_id', :class => "cont",:style=>"width:15px"  %>
+                                        <%= text_field 'lineinformation', 'service_modifier4'+k.to_s,:id => 'service_modifier4_id', :class => "cont",:style=>"width:15px"%></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_quantity'+k.to_s,:id => 'service_quantity_id', :class => "cont",:style=>"width:50px"%></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_procedure_charge_amount'+k.to_s,:id => 'service_procedure_charge_amount_id'+k.to_s, :class => "cont",:style=>"width:60px",:onchange=>'tot_charge()',:onblur=>"ballc("+k.to_s+")"    %><br>
+                                          <%= text_field 'lineinformation', 'charges_groupcode'+k.to_s,:id => 'charges_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>  
+                                          <%= text_field 'lineinformation', 'charges_code'+k.to_s,:id => 'charges_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'charges_code_description'+k.to_s,:id => 'charges_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_no_covered'+k.to_s,:id => 'service_no_covered_id'+k.to_s, :class => "cont",:style=>"width:60px",:onchange=>'tot_covered()' ,:onblur=>"ballc("+k.to_s+")"    %><br>
+                                          <%= text_field 'lineinformation', 'noncovered_groupcode'+k.to_s,:id => 'noncovered_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>        
+                                          <%= text_field 'lineinformation', 'noncovered_code'+k.to_s,:id => 'noncovered_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'noncovered_code_description'+k.to_s,:id => 'noncovered_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_discount'+k.to_s,:id => 'service_discount_id'+k.to_s, :class => "cont",:style=>"width:60px", :onchange=>'tot_discount()',:onblur=>"ballc("+k.to_s+")" %><br>
+                                          <%= text_field 'lineinformation', 'discount_groupcode'+k.to_s,:id => 'discount_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>        
+                                          <%= text_field 'lineinformation', 'discount_code'+k.to_s,:id => 'discount_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'discount_code_description'+k.to_s,:id => 'discount_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_allowable'+k.to_s,:id => 'service_allowable_id'+k.to_s, :class => "cont",:style=>"width:60px" ,:onchange=>'tot_allowable()' %></td>
+                                        <td align="center"><%= text_field 'lineinformation', 'contractual_amount'+k.to_s,:id => 'service_contractual_amount_id'+k.to_s,:class => "cont",:style=>"width:60px; text-align:right;" ,:onchange=>'tot_contractual()',:onblur=>"ballc("+k.to_s+")"   %><br>
+                                          <%= text_field 'lineinformation', 'contractual_groupcode'+k.to_s,:id => 'contractual_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>     
+                                          <%= text_field 'lineinformation', 'contractual_code'+k.to_s,:id => 'contractual_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'contractual_code_description'+k.to_s,:id => 'contractual_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td> 
+                                        <td align="center"><%= text_field 'lineinformation', 'service_co_insurance'+k.to_s,:id => 'service_co_insurance_id'+k.to_s, :class => "cont",:style=>"width:60px",:onchange=>'tot_ins()' ,:onblur=>"ballc("+k.to_s+")"  %><br>
+                                          <%= text_field 'lineinformation', 'coinsurance_groupcode'+k.to_s,:id => 'coinsurance_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>     
+                                          <%= text_field 'lineinformation', 'coinsurance_code'+k.to_s,:id => 'coinsurance_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'coinsurance_code_description'+k.to_s,:id => 'coinsurance_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_deductible'+k.to_s,:id => 'service_deductible_id'+k.to_s, :class => "cont",:style=>"width:60px" ,:onchange=>'tot_deduct()',:onblur=>"ballc("+k.to_s+")"   %><br>
+                                          <%= text_field 'lineinformation', 'deductuble_groupcode'+k.to_s,:id => 'deductuble_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>       
+                                          <%= text_field 'lineinformation', 'deductuble_code'+k.to_s,:id => 'deductuble_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'deductuble_code_description'+k.to_s,:id => 'deductuble_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_co_pay'+k.to_s,:id => 'service_co_pay_id'+k.to_s,:class => "cont",:style=>"width:60px",:onchange=>'tot_copay()' ,:onblur=>"ballc("+k.to_s+")"   %><br>
+                                          <%= text_field 'lineinformation', 'copay_groupcode'+k.to_s,:id => 'copay_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>
+                                          <%= text_field 'lineinformation', 'copay_code'+k.to_s,:id => 'copay_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;" %><br>
+                                          <%= text_area 'lineinformation', 'copay_code_description'+k.to_s,:id => 'copay_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_paid_amount'+k.to_s,:id => 'service_paid_amount_id'+k.to_s, :class => "cont",:style=>"width:60px" ,:onchange=>'tot_paidamount()',:onblur=>"ballc("+k.to_s+")"  %><br>
+                                          <%= text_field 'lineinformation', 'payment_groupcode'+k.to_s,:id => 'payment_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>
+                                          <%= text_field 'lineinformation', 'payment_code'+k.to_s,:id => 'payment_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'payment_code_description'+k.to_s,:id => 'payment_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_submitted_charge_for_claim'+k.to_s,:id => 'service_submitted_charge_for_claim_id'+k.to_s, :class => "cont",:style=>"width:60px",:onchange=>'tot_submittedcharge()'  ,:onblur=>"ballc("+k.to_s+")"  %><br>
+                                          <%= text_field 'lineinformation', 'primary_payment_groupcode'+k.to_s,:id => 'primary_payment_groupcode_id'+k.to_s, :class => "cont",:style=>"width:15px; text-align:right;"  %>      
+                                          <%= text_field 'lineinformation', 'primary_payment_code'+k.to_s,:id => 'primary_payment_code_id'+k.to_s, :class => "cont",:style=>"width:35px; text-align:right;"  %><br>
+                                          <%= text_area 'lineinformation', 'primary_payment_code_description'+k.to_s,:id => 'primary_payment_code_description_id'+k.to_s, :class => "cont",:style=>"width:60px; text-align:left;" ,:cols => "50", :rows=>"3" %>
+                                        </td>
+                                        <td align="center"><%= text_field 'lineinformation', 'service_balance'+k.to_s,:id => 'service_balance_id'+k.to_s,:class => "cont",:style=>"width:50px",:onchange=>'tot_balance()' , :onblur=>"validateBalance("+k.to_s+")" %></td>
+      
+      
+      
+                                      </tr>
+                                    <%end%>
+                                    <%= hidden_field 'sum', 'count',:id=>'sumid' ,:size => 3,:value=>k  %>
+                                  </table>
+                                  <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse;"> 
+    
+                                    <tr>
+                                      <td  colspan="5" bgcolor="#ECE9D8" class="content"  width="500px"><div align="right"><strong>TOTALS</strong></div></td>
+                                      <%if  !t.total_submitted_charge_for_claim.blank? %>    
+                                        <%totchargeval= sprintf("%.2f",t.total_submitted_charge_for_claim)%>
+                                        <%else%>
+                                          <%totchargeval= 0.00%>
+                                        <%end%> 
+      
+      
+      
+                                        <td bgcolor="#ECE9D8" align="center" class="content">CHARGES<br><%= text_field 'insurancepaymenteob', 'total_submitted_charge_for_claim',:id => 'total_charge_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>totchargeval  %><br>
+                                          <%= text_field 'insurancepaymenteob', 'claim_charge_groupcode',:id => 'claim_charge_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_charge_groupcode  %>
+                                          <%= text_field 'insurancepaymenteob', 'claim_charges_reasoncode',:id => 'claim_charges_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_charges_reasoncode  %><br>
+                                          <%= text_area 'insurancepaymenteob', 'claim_charges_reasoncode_description',:id => 'claim_charges_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_charges_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                        </td>
+                                        <%if  !t.total_non_covered.blank? %>    
+                                          <%totnonval= sprintf("%.2f",t.total_non_covered)%>
+                                          <%else%>
+                                            <%totnonval= 0.00%>
+                                          <%end%> 
+      
+                                          <td bgcolor="#ECE9D8" align="center" class="content">NON COVERED<br><%= text_field 'insurancepaymenteob', 'total_non_covered',:id => 'total_non_covered_id', :class => "cont",:style=>"width:60px; text-align:right;",:value=>totnonval  %><br>
+                                            <%= text_field 'insurancepaymenteob', 'claim_noncovered_groupcode',:id => 'claim_noncovered_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_noncovered_groupcode  %>
+                                            <%= text_field 'insurancepaymenteob', 'claim_noncovered_reasoncode',:id => 'claim_noncovered_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_noncovered_reasoncode  %><br>
+                                            <%= text_area 'insurancepaymenteob', 'claim_noncovered_reasoncode_description',:id => 'claim_noncovered_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_noncovered_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                          </td>
+                                          <%if  !t.total_discount.blank? %>    
+                                            <%totdisc= sprintf("%.2f",t.total_discount)%>
+                                            <%else%>
+                                              <%totdisc= 0.00%>
+                                            <%end%> 
+      
+      
+                                            <td bgcolor="#ECE9D8" align="center" class="content">DISCOUNT<br><%= text_field 'insurancepaymenteob', 'total_discount',:id => 'total_discount_id', :class => "cont",:style=>"width:60px; text-align:right;",:value=>totdisc %><br>
+                                              <%= text_field 'insurancepaymenteob', 'claim_discount_groupcode',:id => 'claim_discount_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_discount_groupcode  %>
+                                              <%= text_field 'insurancepaymenteob', 'claim_discount_reasoncode',:id => 'claim_discount_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_discount_reasoncode  %><br>
+                                              <%= text_area 'insurancepaymenteob', 'claim_discount_reasoncode_description',:id => 'claim_discount_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_discount_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                            </td>
+                                            <%if  !t.total_allowable.blank? %>    
+                                              <%totalow= sprintf("%.2f",t.total_allowable)%>
+                                              <%else%>
+                                                <%totalow= 0.00%>
+                                              <%end%> 
+      
+      
+                                              <td bgcolor="#ECE9D8" align="center" class="content">ALLOWABLE<br><%= text_field 'insurancepaymenteob', 'total_allowable',:id => 'total_allowable_id', :class => "cont",:style=>"width:60px; text-align:right;",:value=>totalow  %></td>
+      
+                                              <%if  !t.total_contractual_amount.blank? %>    
+                                                <%totcotractual= sprintf("%.2f",t.total_contractual_amount)%>  
+                                                <%else%>
+                                                  <%totcotractual= 0.00%>
+                                                <%end%>            
+                                                <td bgcolor="#ECE9D8" align="center" class="content">CONTRACTUAL AMOUNT<br><%= text_field 'insurancepaymenteob', 'total_contractual_amount',:id => 'total_contractual_amount_id', :class => "cont",:style=>"width:60px; text-align:right;",:value=>totcotractual  %><br>
+                                                  <%= text_field 'insurancepaymenteob', 'claim_contractual_groupcode',:id => 'claim_contractual_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_contractual_groupcode  %>
+                                                  <%= text_field 'insurancepaymenteob', 'claim_contractual_reasoncode',:id => 'claim_contractual_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_contractual_reasoncode  %><br>
+                                                  <%= text_area 'insurancepaymenteob', 'claim_contractual_reasoncode_description',:id => 'claim_contractual_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_contractual_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                                </td>
+                                                <%if  !t.total_co_insurance.blank? %>    
+                                                  <%totcoins= sprintf("%.2f",t.total_co_insurance)%> 
+                                                  <%else%>
+                                                    <%totcoins= 0.00%>
+                                                  <%end%>            
+      
+                                                  <td bgcolor="#ECE9D8" align="center" class="content">CO-INSURANCE<br><%= text_field 'insurancepaymenteob', 'total_co_insurance',:id => 'total_copayinsurance_id', :class => "cont",:style=>"width:60px; text-align:right;",:value=>totcoins %><br>
+                                                    <%= text_field 'insurancepaymenteob', 'claim_coinsurance_groupcode',:id => 'claim_coinsurance_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_coinsurance_groupcode  %>
+                                                    <%= text_field 'insurancepaymenteob', 'claim_coinsurance_reasoncode',:id => 'claim_coinsurance_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_coinsurance_reasoncode %><br>
+                                                    <%= text_area 'insurancepaymenteob', 'claim_coinsurance_reasoncode_description',:id => 'claim_coinsurance_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_coinsurance_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                                  </td>
+                                                  <%if  !t.total_deductible.blank? %>    
+                                                    <%totdeduct= sprintf("%.2f",t.total_deductible)%> 
+                                                    <%else%>
+                                                      <%totdeduct= 0.00%>
+                                                    <%end%>  
+      
+                                                    <td bgcolor="#ECE9D8" align="center" class="content">DEDUCTIBLE<br><%= text_field 'insurancepaymenteob', 'total_deductible',:id => 'total_deductable_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>totdeduct  %><br>
+                                                      <%= text_field 'insurancepaymenteob', 'claim_deductuble_groupcode',:id => 'claim_deductuble_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_deductuble_groupcode  %>
+                                                      <%= text_field 'insurancepaymenteob', 'claim_deductable_reasoncode',:id => 'claim_deductable_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_deductable_reasoncode %><br>
+                                                      <%= text_area 'insurancepaymenteob', 'claim_deductable_reasoncode_description',:id => 'claim_deductable_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_deductable_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                                    </td>
+                                                    <%if  !t.total_co_pay.blank? %>    
+                                                      <%totcopay= sprintf("%.2f",t.total_co_pay)%>
+                                                      <%else%>
+                                                        <%totcopay= 0.00%>
+                                                      <%end%>  
+      
+                                                      <td bgcolor="#ECE9D8" align="center" class="content">COPAY<br><%= text_field 'insurancepaymenteob', 'total_co_pay',:id => 'total_copay_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>totcopay %><br>
+                                                        <%= text_field 'insurancepaymenteob', 'claim_copay_groupcode',:id => 'claim_copay_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_copay_groupcode  %>
+                                                        <%= text_field 'insurancepaymenteob', 'claim_copay_reasoncode',:id => 'claim_copay_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_copay_reasoncode %><br>
+                                                        <%= text_area 'insurancepaymenteob', 'claim_copay_reasoncode_description',:id => 'claim_copay_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_copay_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                                      </td>
+                                                      <%if  !t.total_amount_paid_for_claim.blank? %>    
+                                                        <%totpayment= sprintf("%.2f",t.total_amount_paid_for_claim)%> 
+                                                        <%else%>
+                                                          <%totpayment= 0.00%>
+                                                        <%end%>  
+      
+                                                        <td bgcolor="#ECE9D8" align="center" class="content">PAYMENT<br><%= text_field 'insurancepaymenteob', 'total_amount_paid_for_claim',:id => 'total_payment_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>totpayment %><br>
+                                                          <%= text_field 'insurancepaymenteob', 'claim_payment_groupcode',:id => 'claim_payment_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_payment_groupcode  %>
+                                                          <%= text_field 'insurancepaymenteob', 'claim_payment_reasoncode',:id => 'claim_payment_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_payment_reasoncode %><br>
+                                                          <%= text_area 'insurancepaymenteob', 'claim_payment_reasoncode_description',:id => 'claim_payment_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_payment_reasoncode_description,:cols => "50", :rows=>"3"  %>
+                                                        </td>
+                                                        <%if  !t.total_primary_payer_amount.blank? %>    
+                                                          <%totprimarypayment= sprintf("%.2f",t.total_primary_payer_amount)%> 
+                                                          <%else%>
+                                                            <%totprimarypayment= 0.00%>
+                                                          <%end%>  
+      
+                                                          <td bgcolor="#ECE9D8" align="center" class="content">PRIMARY PAYER PAYMENT<br><%= text_field 'insurancepaymenteob', 'total_primary_payer_amount',:id => 'total_primary_payment_id',:class => "cont",:style=>"width:60px; text-align:right;",:value=>totprimarypayment  %><br>
+                                                            <%= text_field 'insurancepaymenteob', 'claim_payment_groupcode',:id => 'claim_primary_payment_groupcode_id',:class => "cont",:style=>"width:15px; text-align:right;",:value=>t.claim_primary_payment_groupcode  %>
+                                                            <%= text_field 'insurancepaymenteob', 'claim_primary_payment_reasoncode',:id => 'claim_primary_payment_reasoncode_id',:class => "cont",:style=>"width:35px; text-align:right;",:value=>t.claim_primary_payment_reasoncode %><br>
+                                                            <%= text_area 'insurancepaymenteob', 'claim_primary_payment_reasoncode_description',:id => 'claim_payment_reasoncode_description_id',:class => "cont",:style=>"width:60px; text-align:left;",:value=>t.claim_primary_payment_reasoncode,:cols => "50", :rows=>"3"  %>
+                                                          </td>
+                                                          <%if  !t.total_service_balance.blank? %>    
+                                                            <%totbalance= sprintf("%.2f",t.total_service_balance)%>
+                                                            <%else%>
+                                                              <%totbalance= 0.00%>
+                                                            <%end%>  
+      
+                                                            <td bgcolor="#ECE9D8" align="center" class="content" >BALANCE<br><%= text_field 'insurancepaymenteob', 'total_service_balance',:id => 'total_service_balance_id',:class => "cont",:style=>"width:60px; text-align:right;", :value=>totbalance %></td>
+                                                            <td colspan="3" bgcolor="#ECE9D8" > &nbsp;</td>
+                                                          </tr>
+    
+                                                        </table>
+                                                      <%end%> 
+                                                    <%end%>
+                                                  <%else%>
+  
+                                                    <div style="background-color:#CCC; width:100%;"><strong ><b>  <%= will_paginate @informations%></strong></div>
+                                                    <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse">
+                                                      <tr>
+      
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>ACCOUNT #  </strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>STATEMENT DATE</strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>PAY THIS AMOUNT</strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>CHECK AMOUNT</strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>SHOW AMOUNT PAID HERE</strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>CHECK NUMBER</strong></div></td>
+                                                        <td valign="top" bgcolor="#DAD3B1"><div align="center"><strong>PATIENT NAME</strong><br>[Lastname:Suffix:Firstname:Middleinitial]</div></td>
+                                                      </tr>
+                                                      <% for information1 in @informations%>
+                                                        <%if !information1.statement_amount.blank?
+                                                          @statementamount = sprintf("%.2f", information1.statement_amount)
+                                                        else
+                                                          @statementamount =0.00    
+                                                        end
+                                                        %>
+                                                        <%if !@checkinformation.check_amount.blank?
+                                                          @chkamt = sprintf("%.2f", @checkinformation.check_amount)
+                                                        else
+                                                          @chkamt =0.00    
+                                                        end
+                                                        %>
+                                                        <%if !information1.stub_amount.blank?
+                                                          @stubamt = sprintf("%.2f", information1.stub_amount)
+                                                        else
+                                                          @stubamt =0.00    
+                                                        end
+                                                        %>
+                                                        <tr>
+                                                          <td><%= text_field 'patientpayeob', 'account_number',:id => 'account_number_id',:class => "cont",:style=>"width:70px; text-align:right;",:value=>information1.account_number %></td>
+                                                          <td><%= text_field 'patientpayeob', 'transaction_date',:id => 'transaction_date_id',:class => "cont",:style=>"width:60px; text-align:right;" ,:value=>information1.transaction_date.strftime("%m/%d/%Y") %></td>
+                                                          <td><%= text_field 'patientpayeob', 'statement_amount',:id => 'statement_amount_id',:class => "cont",:style=>"width:50px; text-align:right;",:value=>@statementamount %></td>
+                                                          <td><%= text_field 'checkinforamation', 'check_amount',:id => 'check_amount_id',:class => "cont",:style=>"width:50px; text-align:right;",:value=>@chkamt  %></td>
+                                                          <td><%= text_field 'patientpayeob', 'stub_amount',:id => 'stub_amount_id',:class => "cont",:style=>"width:50px; text-align:right;",:value=>@stubamt %></td>
+                                                          <td><%= text_field 'checkinforamation', 'check_number',:id => 'checknumbert_id',:class => "cont",:style=>"width:50px; text-align:right;" ,:value=>@checkinformation.check_number %></td>
+      
+                                                          <td><%= text_field 'patientpayeob', 'patient_last_name',:id => 'patient_last_name_id',:class => "cont",:style=>"width:50px; text-align:right;",:value=>information1.patient_last_name  %><%= text_field 'patientpayeob', 'patient_suffix',:id => 'patient_suffix_id', :size => 4,:value=>information1.patient_suffix  %><%= text_field 'patientpayeob', 'patient_first_name',:id => 'patient_first_name_id', :size => 10 ,:value=>information1.patient_first_name  %><%= text_field 'patientpayeob', 'patient_middle_initial',:id => 'patient_middle_initial_id', :size => 5,:value=>information1.patient_middle_initial  %> </td>
+                                                          <%= hidden_field 'peobinformation', 'countval',:id=>'linecount' ,:class => "cont",:style=>"width:60px",:value=>information1.id %>
+                                                        </tr>
+    
+                                                        <%= hidden_field 'eobinformation', 'count',:id=>'linecount' ,:class => "cont",:style=>"width:60px",:value=>information1.id %>
+                                                      <%end%>
+                                                    </table>
+                                                  <%end%>
+                                                  <table width='98%'  border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse">
+                                                    <tr>
+      
+      
+                                                      <%if not @eobinformation.blank?%>
+                                                        <td align="center" valign="middle"><%= submit_tag "Save", :class => 'cont', :name => "option1" %></td>
+                                                        <td  align="center" valign="middle"><textarea name="rejected_comments" cols="50" rows="3" class="black_text" align="absmiddle" id="qa_comm">comment</textarea></td>
+      
+                                                        <td align="center" valign="middle"><%= submit_tag "Mark for 835 Regeneration/Insurance Eob", :class => 'cont', :name => "option1" %></td> 
+                                                      <%else%>
+                                                        <td><%= submit_tag "SAVE", :class => 'cont', :name => "option1" %></td>
+                                                        <td  align="center" valign="middle"><textarea name="rejected_comments" cols="50" rows="3" class="black_text" align="absmiddle" id="qa_comm">comment</textarea></td>
+      
+                                                        <td align="center" valign="middle"><%= submit_tag "Mark for 835 Regeneration/Patientpay Eob", :class => 'cont', :name => "option1" %></td> 
+                                                      <%end%>
+      
+      
+                                                    </tr>
+    
+                                                  </table>
+                                                  </table>
+  
+                                                <%end%>
+                                              </div>
+                                              <%= link_to "Back",:controller => "archive", :action => "search",:pat_lastname=>session[:patlast],:pat_firstname=>session[:patfirst],:accountnumber=>session[:pataccountnumber],:service_from=>session[:servicefrom],:service_to=>session[:serviceto],:check_number=>session[:check_number_value],:date_from=>session[:deposit_from_date],:date_to => session[:deposit_to_date],:facility=>session[:facility_chosen],:option1=>"Filter" %>
+                                              </body>
+

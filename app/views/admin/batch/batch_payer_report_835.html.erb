@@ -1,0 +1,116 @@
+<div id="login_main">
+  <h1>Output Ready Batches</h1>
+  <div class="light_info">
+    <%= form_tag :action => 'batch_payer_report_835' do %>
+      <table>
+        <tr>
+          <td class="black_text">
+            <strong>Date:&nbsp;&nbsp; From</strong>
+            <%= text_field_tag 'date_from', @date_from, :size => 12,:class => 'dropdown' %><%= date_picker("date_from", "mdy", "/") %><%= spacer(2) %>
+            <strong>To</strong>
+            <%= text_field_tag 'date_to', @date_to, :size => 12,:class => 'dropdown' %><%= date_picker("date_to", "mdy", "/") %><%= spacer(2) %>
+          </td>
+          <td style="width: 72px; text-align: center;">
+            <%= submit_tag 'Search', :class => 'button' %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  <%  unless @batches.blank? %>
+   <%= form_tag :action => 'batch_payer_report_835',:date_from => params[:date_from], :date_to => params[:date_to] do %>
+  <table>
+          <tr>
+            <td>
+              <%= select_tag 'first_criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Status'],params[:first_criteria]), :style=>"width:160px;"%>
+            </td>
+            <td>
+              <%= select_tag 'second_criteria', optionize_custom(['Batch ID', 'Date', 'Facility', 'Status'],params[:second_criteria]),  :style=>"width:160px;"%>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td><%= text_field_tag 'first_to_find', params[:first_to_find], :style=>"width:140px;" %></td>
+            <td><%= text_field_tag 'second_to_find', params[:second_to_find], :style=>"width:140px;" %></td>
+            <td><%= submit_tag 'Filter', :class => 'button'%></td>
+          </tr>
+        </table>
+  <%  end
+end %>
+  <% unless @batches.blank? %>
+    <%= form_tag :action => 'batch_archive',:date_from => params[:date_from], :date_to => params[:date_to] do %>
+      <%= show_legend({"green" => "#{BatchStatus::COMPLETED}", "yellow" => "#{BatchStatus::OUTPUT_READY}", "palered" => "#{BatchStatus::OUTPUT_GENERATED}", "orange" => "#{BatchStatus::OUTPUT_GENERATING}"}) %>
+      <table style="width:100%">
+        <tr>
+          <th>Batch Date</th>
+          <th>Batch ID</th>
+          <th>Client</th>
+          <th>Facility</th>
+          <th>Arrival Time (EST)</th>
+          <th>Expected Completion Time (EST)</th>
+          <th>Output Generated Time (EST)</th>
+          <th><input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))"/>
+          <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('output_ready'))"/></th>
+        </tr>
+        <div style="background-color:#e9eef2; width:100%;" class="black_text">
+          <%= will_paginate @batches,:params => { 'date_from' => @date_from,'date_to' => @date_to,:first_criteria => params[:first_criteria],:second_criteria => params[:second_criteria],
+          :first_to_find => params[:first_to_find], :second_to_find => params[:second_to_find] } %>
+        </div>
+        <% @batches.each do |batch| %>
+          <% cls = ''
+          if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:TL)
+            if batch.status == BatchStatus::OUTPUT_GENERATED
+              cls = 'palered'
+            elsif batch.status == BatchStatus::COMPLETED
+              cls = 'green'
+            elsif batch.status == BatchStatus::OUTPUT_READY
+              cls = 'yellow'
+            elsif batch.status == BatchStatus::OUTPUT_GENERATING
+              cls = 'orange'
+            end
+          end %>
+          <tr>
+            <td nowrap class="<%= cls %>" align='right'>
+              <%= format_datetime(batch.date,'%m/%d/%y') %></td>
+            <% if current_user.has_role?(:supervisor) or
+                current_user.has_role?(:admin) or
+                current_user.has_role?(:HLSC) %>
+              <td nowrap class="<%= cls %>" align='right'>
+                <%= batch.batchid %></td>
+            <% end %>
+            <td nowrap class="<%= cls %>">
+              <%= batch.client.name %></td>
+            <td nowrap class="<%= cls %>">
+              <%= batch.facility.name %>(<%= batch.facility.sitecode %>)</td>
+            <td nowrap class="<%= cls %>" align='right'>
+              <%= format_datetime(batch.arrival_time) %></td>
+            <td nowrap class="<%= cls %>" align='right'>
+              <% unless batch.expected_completion_time.blank? %>
+                <%= format_datetime(batch.expected_completion_time)%>
+                <% if current_user.has_role?(:supervisor) or
+                    current_user.has_role?(:HLSC) && batch.manual_override %>*<% end %>
+              <% else %>N/A<% end %>
+            </td>
+            <td nowrap class="<%= cls %>" align='right'>
+              <%if !batch.output_835_generated_time.blank? %>
+                <%= format_datetime(batch.output_835_generated_time) %><% end %>
+            </td>
+            <% if batch.status == BatchStatus::OUTPUT_READY
+            clss_checkbox = "output_ready"
+            end%>
+            <td>
+              <%= check_box :batch_to_delete, batch.id, :id => 'toggle', :disabled => batch.status == "#{BatchStatus::OUTPUT_GENERATING}" ? true : false ,:class => "checkbox #{clss_checkbox}" %></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= submit_tag "Archive", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Generate Output", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Generate Images", :class => 'button', :name => "option1" %>
+      <%= submit_tag "Generate Aggregate Ops Log", :class => 'button', :name => "option1" %>
+    <% end %>
+    <br/>
+  <% else %>
+    <h4>No matching Batches found. </h4>
+  <% end %>
+</div>

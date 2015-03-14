@@ -1,0 +1,59 @@
+<%= javascript_include_tag "ach_exception" %>
+
+<h1> ACH Approval </h1>
+
+<b>Exception:</b> <%= @cr_transaction.status %>
+
+<table style="width:100%">
+  <td>
+    <b>Filename: </b><%= @cr_transaction.ach_file.file_name %><br>
+    <b>File Arrival Date: </b><%= @cr_transaction.ach_file.file_arrival_date %><br>
+    <b>Batch Number: </b><%= @cr_transaction.batch_number %><br>
+    <b>Trace Number: </b><%= !@cr_transaction.eft_trace_number_eda ? @cr_transaction.eft_trace_number_ed : @cr_transaction.eft_trace_number_eda %><br>
+    <b>Check Date: </b><%= Date.rr_parse(@cr_transaction.eft_date, true).strftime("%m/%d/%Y") %><br>
+    <b>Check Amount: </b>$<%= @cr_transaction.eft_payment_amount.scan(/.{1,8}/).join(".").to_f %>
+  </td>
+  <td>
+    <b>Site Name: </b><%= @cr_transaction.receivers_name %><br>
+    <b>Site ABA: </b><%= @cr_transaction.aba_dda_lookup.aba_number %><br>
+    <b>Site DDA: </b><%= @cr_transaction.aba_dda_lookup.dda_number %>
+  </td>
+  <td>
+    <b>Payer Name: </b><%= @cr_transaction.payer_name %><br>
+    <b>Company ID: </b><%= @cr_transaction.company_id %>
+</td>
+</table>
+
+<% if @cr_transaction.status == "Both" || @cr_transaction.status == "Unidentified Site" %>
+  <b>Site Verification</b>
+  <div style="width:100%;height:200px;border:1px solid #D8D8D8;">
+  <%= form_tag 'approval', method: 'get', id: "facilities_search" do %>
+    <p>Site Name: 
+    <%= text_field_tag :site_search, params[:site_search].nil? ? @cr_transaction.receivers_name : params[:site_search] %>
+    <%= hidden_field_tag :cr_id, params[:cr_id] %>
+    <%= submit_tag "Search" , name: 'site_search_button' %> <%= submit_tag "Approve Site", name: 'approvesite_button' %> <%= submit_tag "Reject Site", name: "rejectsite_button" %>
+    </p>
+  <% end %>
+
+  <div id='facilities'><%= render 'facilities' %></div>
+  </div>
+<% end %>
+
+<% if @cr_transaction.status == "Both" || @cr_transaction.status == "Unidentified Payer" %>
+  <b>Payer Verification</b>
+
+  <div style="width:100%;height:200px;border:1px solid #D8D8D8;">
+  <%= form_tag 'approval', method: "get", id: "payers_search" do %>
+    <p>Payer Name:
+    <%= text_field_tag :payer_search, params[:payer_search].nil? ? @cr_transaction.payer_name : params[:payer_search] %>
+    <%= hidden_field_tag :cr_id, params[:cr_id] %>
+    <%= submit_tag "Search", name: 'payer_search_button' %> <%= submit_tag "Approve Company ID", name: 'approvecompanyid_button', method: :put %> <%= submit_tag "Create New Payer", name: 'createpayer_button' %>
+    </p>
+  <% end %>
+
+  <div id='payers'><%= render 'payers' %></div>
+  </div>
+<% end %>
+
+<br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index' %>

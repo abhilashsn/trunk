@@ -1,0 +1,33 @@
+PAYMENT:
+    HEADER: true
+    BATCH:
+       batchid: 6
+       lockbox: 5
+       date: [ 4, date ]
+       bank_deposit_date: [ 4, date ]
+    JOB:
+       check_number: 1
+       pages_to: 9
+    CHEQUE:
+       check_number: 1
+       check_amount: [ 2, float ]
+    IMAGE:
+       image_file_name: 10
+
+CORRESP:
+    HEADER: true
+    BATCH:
+       batchid: 6
+       lockbox: 5
+       date: [ 4, date ]
+       bank_deposit_date: [ 4, date ]
+    JOB:
+       check_number: 1
+       pages_to: 9
+    CHEQUE:
+       check_number: 1
+       check_amount: [ 2, float ]
+    IMAGE:
+        image_file_name: 10
+
+

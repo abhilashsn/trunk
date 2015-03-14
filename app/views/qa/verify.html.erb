@@ -1,0 +1,113 @@
+<div id="login_main">
+<%= render "shared/error_messages", :target => @eob %>  
+<!-- %= error_messages_for 'eob' % -->
+<h1>Verify or Reject Job by checking EOBs</h1>
+<h2><span class="sec_title">Job details</span></h2>
+<table>
+<tr>
+  <th>Batch ID</th>
+  <th>Date</th>
+  <th>Facility</th>
+  <th>Check Number</th>
+  <th>Tiff Number</th>
+  <th>Incomplete TIFF<br/>(EOBs)</th>
+  <th>Processor</th>
+  <th>Processor status</th>
+  <th>Accuracy(%) <br/> Field | EOB</th>
+  <th>Sampling Rate</th>
+  <th>EOBs QAd</th>
+  <th>EOB Pending QA</th>
+</tr>
+<tr>
+  <% batch = @job.batch %>
+  <td><%= batch.batchid%></td>
+  <td><%= batch.date %></td>
+  <td><%= batch.facility.name %></td>
+  <td><%= @job.check_number %></td>
+  <td><%= @job.tiff_number %></td>
+  <td>
+    <% if @job.incomplete_tiff.blank? %>
+    None (<% unless @job.incomplete_count.blank? %><%= @job.incomplete_count %><% else %>0<%end%>)</td>
+  <% else %>
+      <%= @job.incomplete_tiff %> (<%= @job.incomplete_count %>)</td>
+  <% end %>
+  <td><%= @user.name %></td>
+  <td><%= @job.processor_status %></td>
+  <td align=center><%= format_percentage(@user.field_accuracy) %> | <%= format_percentage(@user.eob_accuracy) %></td>
+  <td><%= @sample_rate %></td>
+  <td><%= @user.eob_qa_checked %></td>
+  <td><% if (@sample_rate - @user.eob_qa_checked) < 0 %>0<% else %><%= @sample_rate - @user.eob_qa_checked %><% end %></td>
+  
+</tr>
+</table>
+
+<% if @eobs.size > 0 %>
+  <h2><span class="sec_title">EOBs Verified</span></h2>
+  <table>
+    <tr>
+      <th>Total fields</th>
+      <th>Total Incorrect Fields</th>
+      <th>Account Number</th>
+      <th>Error Type</th>
+      <th>Comment</th>
+      <th>Status</th>
+      <th>Payer</th>
+      <th> &nbsp;</th>
+    </tr>
+    <% @eobs.each do |eob| %>
+      <tr>
+        <td><%= eob.total_fields %></td>
+        <td><%= eob.total_incorrect_fields %></td>
+        <td><%= eob.account_number %></td>
+        <td><%= eob.eob_error %></td>
+        <td>
+          <%if eob.comment.blank? %>
+            <%="-"%>
+          <%else%>
+            <%=eob.comment%>
+          <%end%>
+        </td>
+        <td><%= eob.status%></td>
+        <td><%= eob.payer %></td>
+        <td><%= link_to 'Delete', :action => 'eob_delete', :job => @job, :eob => eob, :back_page=>params[:back_page] %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h2><span class="sec_title">No EOB verified </span></h2>
+<% end %>
+<h2><span class="sec_title">Verify New EOB</span></h2>
+<table>
+  <tr>
+    <th>Total fields</th>
+    <th>Total Incorrect<br/> Fields</th>
+    <th>Account No</th>
+    <th>Error Type </th>
+    <th>Comment</th>
+    <th>Payer ID</th>
+    <th> &nbsp;</th>
+    <th> &nbsp;</th>
+  </tr>
+  <tr>
+    <%= form_tag :action => 'eob_complete', :job => @job do %>
+      <td><%= text_field 'eob', 'total_fields', :size => 10 %></td>
+      <td><%= text_field 'eob', 'total_incorrect_fields', :size => 10%></td>
+      <td><%= text_field 'eob', 'account_number', :size => 10 %></td>
+      <td><%= select 'error', 'type', @error_types %></td>
+      <td><%= text_area 'eob', 'comment', :rows => 2, :cols => 20 %></td>
+      <td><%= text_field 'payer', 'id', :size => 10 %></td>
+      <td><%= select(:eob, :status, [["Verified"], ["Reject"]] )%></td>
+      <td><%= submit_tag "Complete", :class => 'button' %></td>
+    <% end %>
+  </tr>
+</table>
+<h7><i>*All fields except comments are necessary.</i></h7>
+<br/><br/>
+<%= form_tag :action => 'complete_job', :job => @job do %>
+    <%= submit_tag "Update Job", :class => 'button' %>
+
+<% end %>
+<br/>
+
+ <%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :action => 'my_job' ,:back_page=>params[:back_page]%>
+</div>

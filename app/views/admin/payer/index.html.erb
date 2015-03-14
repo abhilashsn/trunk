@@ -1,0 +1,209 @@
+<div id="login_main">
+  <h1>Listing payers</h1>
+  <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+    <div class="light_info">
+      <%= link_to 'Add Payer', :action => 'new' %> | <%= link_to 'Import Payers from CSV file', :controller => '/admin/upload', :action => 'upload', :type => 'payer' %> | <%= link_to 'Export Reasoncodes to CSV file', :controller => '/admin/batch', :action => 'reasoncode_csv', :type => 'payer' %> | <%= link_to 'NonApproved Payers', :action => 'list_new_payers' %> | <%= link_to 'Import Payers from MICR MasterCSV file', :controller => '/admin/upload', :action => 'upload', :type => 'micr_payer' %>
+    </div>
+  <% end %>
+  <% if @payers.size > 0 %>
+    <div class="light_info">
+      <%= form_tag 'payer', :method=>'get' do %>
+        <%= select_tag 'criteria', optionize_custom(['Payer Id','Gateway', 'Payer', 'Address-1','Address-2','Address-3'],params[:criteria]) %>
+        <%= select_tag 'compare', optionize_custom(['=','>=', '<='],params[:compare]) %>
+        <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+        <%= submit_tag 'Filter', :class => 'button' %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @payers.empty? %>
+    <%= form_tag({:action => 'delete_payers', :id => @payers_to_delete},:id =>"my_form") do %>
+      <% pagination = will_paginate @payers, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]}%>
+      <%= pagination %>
+      <table>
+        <tr>
+          <th>
+            Original Gateway
+          </th>
+          <th>
+            Original Payer ID
+          </th>
+          <th>
+            Gateway
+          </th>
+          <th>
+            Payer ID
+          </th>
+          <th>
+            Payer
+          </th>
+          <th>
+            ABA Routing #
+          </th>
+          <th>
+            Payer Account #
+          </th>
+          <th>
+            Address One
+          </th>
+          <th>
+            Address Two
+          </th>
+          <th>
+            Address Three
+          </th>
+          <th>
+            City
+          </th>
+          <th>
+            state
+          </th>
+          <th>
+            ZIP
+          </th>
+          <th>
+            Website
+          </th>
+          <th>
+            Payer Type
+          </th>
+
+          <th>
+            Footnote Indicator
+          </th>
+
+          <th>
+            Rc Set Name
+          </th>
+          <th style="width: 28px">
+            Payer Status
+          </th>
+          <th>
+            EOBs per image
+          </th>
+          <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+            <th>
+              <input type="checkbox" name="all" onClick="checkAll('my_form')">
+            </th>
+          <% end %>
+          <% if !current_user.has_role?(:processor) && !current_user.has_role?(:qa) %>
+            <th>
+              Edit
+            </th>         
+            <th>
+            </th>
+            <th>
+            </th>
+          <% end %>
+        </tr>
+        <% for payer in @payers %>
+          <tr>
+            <td>
+              <%= payer.gateway %>
+            </td>
+            <td>
+              <%= payer.supply_payid %>
+            </td>
+            <td>
+              <%= payer.gateway %>
+            </td>
+            <td>
+              <%= payer.supply_payid %>
+            </td>
+            <td>
+              <%= payer.payer %>
+            </td>
+            <td>
+              <%=payer.aba_routing_number ? payer.aba_routing_number : "-"%>
+            </td>
+            <td>
+              <%=payer.payer_account_number ? payer.payer_account_number : "-"%>
+            </td>
+            <td>
+              <%if payer.pay_address_one.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.pay_address_one %>
+              <%end %>
+            </td>
+            <td>
+              <%if payer.pay_address_two.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.pay_address_two %>
+              <%end %>
+            </td>
+            <td>
+              <%if payer.pay_address_three.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.pay_address_three %>
+              <%end %>
+            </td>
+            <td>
+              <%if payer.payer_city.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.payer_city %>
+              <%end %>
+            </td>
+            <td>
+              <%if payer.payer_state.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.payer_state %>
+              <%end %>
+            </td>
+            <td>
+              <%if payer.payer_zip.blank? %>
+                <%='-' %>
+              <%else %>
+                <%=payer.payer_zip %>
+              <%end %>
+            </td>
+            <td>
+              <%= payer.website ? payer.website : "-"%>
+            </td>
+            <td>
+              <%
+              payer_type = payer.payer_type
+              payer_type = "Insurance" if payer_type =~ /^\d+$/
+            %>
+              <%= payer_type %>
+            </td>
+            <td>
+              <%= payer.footnote_indicator ? "yes" : "no"%>
+            </td>
+            <td>
+              <%= payer.reason_code_set_name ?  payer.reason_code_set_name.name : "-" %>
+            </td>
+            <td>
+              <%= payer.status %>
+            </td>
+            <td>
+              <%= !payer.eobs_per_image.blank? ? payer.eobs_per_image : '--'%>
+            </td>
+            <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+              <td>
+                <%= check_box :payers_to_delete, payer.id, :id => 'toggle' %>
+              </td>
+            <% end %>
+            <% if !current_user.has_role?(:processor) && !current_user.has_role?(:qa) %>
+              <td>
+                <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => payer, :micr_id => payer.micr_id %>
+              </td>
+              <td>
+                <%= link_to 'Manage Reason Code ', :controller => '/reason_codes', :action => 'index', :id => payer %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+        <%= submit_tag 'Delete', :onclick => "alert('This functionality is disabled');return false;", :class => 'button' if @payers.size > 0 %>
+      <% end %>
+    <% end %>
+    <br/>
+  <% else %>
+    <h4>No Payers found. Click 'New Payer' to create one. </h4>
+  <% end %>
+</div>

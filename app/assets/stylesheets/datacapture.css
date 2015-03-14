@@ -1,0 +1,22 @@
+/* Common Styles */
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-size: 60%;
+	font-family: Helvetica, Verdana, sans-serif;
+}
+
+table {
+	margin: 2px;
+	border: 1px solid #eee;
+	width: 99%;
+}
+
+th, td {
+	font-weight: normal;
+	padding: 1px;
+}
+

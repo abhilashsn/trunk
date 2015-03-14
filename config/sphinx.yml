@@ -1,0 +1,31 @@
+sphinx_server:
+  userid: sphinx
+
+source: &source
+  address: 10.0.127.144
+  port: 9312
+
+  version: '0.9.9' 
+  enable_star: 1
+  html_strip: true
+
+  min_infix_len: 2
+  mem_limit: 1024M
+  max_matches: 1000
+  charset_table: "/, -, .,0..9, A..Z->a..z, _, a..z,U+410..U+42F->U+430..U+44F, U+430..U+44F"   
+  bin_path: C:\sphinx-0.9.9-win32\bin
+
+  # Sphinx server properties
+  # bin_path: /usr/bin/searchd
+  # pid_file: /var/run/sphinx/searchd.pid
+  # query_log_file: /var/log/sphinx/query.log
+  # searchd_file_path: /var/lib/sphinx
+  # searchd_log_file: /var/log/sphinx/searchd.log
+  seamless_rotate: 1
+  
+development:
+      <<: *source
+    
+production:
+  <<: *source
+

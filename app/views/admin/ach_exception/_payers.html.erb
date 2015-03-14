@@ -1,0 +1,15 @@
+<ul>
+  <% if @payers.nil? %>
+    <p>Start Your Search</p>
+  <% elsif @payers.empty? %>
+    <p>Payer Name Not Found</p>
+  <% else %>
+    <% for payer in @payers %>
+      <li>
+      <%= link_to payer.payer, :payer_search => payer.payer, :cr_id => params[:cr_id] %>
+      </li>
+    <% end %>
+    <%= will_paginate @payers %>
+  <% end %>
+</ul>
+

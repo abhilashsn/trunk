@@ -1,0 +1,304 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://ecdl.revmansolutions.com/mbx-claim-lookup/LookupClaim?pan=03099791&pid=106&pw=c037b660-431f-11e2-a25f-0800200c9a66&un=revmed
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - Apache-Coyote/1.1
+      Content-Type: 
+      - application/xml
+      Transfer-Encoding: 
+      - chunked
+      Date: 
+      - Fri, 15 Feb 2013 19:38:24 GMT
+    body: 
+      encoding: US-ASCII
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <claimFacet>
+            <patientAccountNumber>03099791</patientAccountNumber>
+            <medicalRecordNumber>161448</medicalRecordNumber>
+            <type>INSTITUTION</type>
+            <billingProvider>
+                <street>PO BOX 636422</street>
+                <city>CINCINNATI</city>
+                <state>OH</state>
+                <zip>452636422</zip>
+                <lastName>MERCY ST CHARLES HOSPITA</lastName>
+                <taxId>344445373</taxId>
+                <nationalProviderId>1497792568</nationalProviderId>
+                <medicareProviderId>360081</medicareProviderId>
+            </billingProvider>
+            <payToProvider>
+                <street>PO BOX 636422</street>
+                <city>CINCINNATI</city>
+                <state>OH</state>
+                <zip>45263</zip>
+                <lastName>MERCY ST CHARLES HOSPITAL</lastName>
+                <employerId>344445373</employerId>
+                <nationalProviderId>1497792568</nationalProviderId>
+                <secondaryId>344445373</secondaryId>
+                <secondaryIdQualifier>EI</secondaryIdQualifier>
+            </payToProvider>
+            <totalClaimChargeAmount>4973.93</totalClaimChargeAmount>
+            <indexDate>2010-02-17T00:00:00+00:00</indexDate>
+            <claimCreationDate>2010-02-17T00:00:00+00:00</claimCreationDate>
+            <statementFromOrToDate>
+                <beginDate>2010-02-08T00:00:00+00:00</beginDate>
+                <endDate>2010-02-08T00:00:00+00:00</endDate>
+            </statementFromOrToDate>
+            <facilityTypeCode>13</facilityTypeCode>
+            <claimFrequencyCode>1</claimFrequencyCode>
+            <exceptionStatus>2</exceptionStatus>
+            <dateOfService>2010-02-08T00:00:00+00:00</dateOfService>
+            <primaryPayer>
+                <payerName>MEDICARE</payerName>
+                <payerIdentifier>360081</payerIdentifier>
+            </primaryPayer>
+            <secondaryPayer>
+                <payerName>MUTUAL OF OMAHA</payerName>
+                <payerIdentifier>344445373</payerIdentifier>
+                <street>MUTUAL OF OMAHA PLAZ</street>
+                <city>OMAHA</city>
+                <state>NE</state>
+                <zip>68175</zip>
+            </secondaryPayer>
+            <primarySubscriber>
+                <membershipInfo>
+                    <memberId>289406344A</memberId>
+                    <insurancePolicyNumber>289406344A</insurancePolicyNumber>
+                    <relationshipCode>SELF</relationshipCode>
+                    <groupNumber></groupNumber>
+                    <groupName>MEDICARE</groupName>
+                </membershipInfo>
+                <street>1349 MIDDLESEX DR</street>
+                <city>GENOA</city>
+                <state>OH</state>
+                <zip>43430</zip>
+                <firstName>SANDRA</firstName>
+                <lastName>ARMSTRONG</lastName>
+                <middleName>K</middleName>
+                <gender>FEMALE</gender>
+                <dateOfBirth>1944-08-22T00:00:00+00:00</dateOfBirth>
+                <entityType>1</entityType>
+            </primarySubscriber>
+            <secondarySubscriber>
+                <membershipInfo>
+                    <memberId>289406344A</memberId>
+                    <insurancePolicyNumber>289406344A</insurancePolicyNumber>
+                    <relationshipCode>SELF</relationshipCode>
+                    <groupNumber>PLAN G</groupNumber>
+                    <groupName>DIRECT</groupName>
+                </membershipInfo>
+                <street>1349 MIDDLESEX DR</street>
+                <city>GENOA</city>
+                <state>OH</state>
+                <zip>43430</zip>
+                <firstName>SANDRA</firstName>
+                <lastName>ARMSTRONG</lastName>
+                <middleName>K</middleName>
+                <entityType>1</entityType>
+            </secondarySubscriber>
+            <responsibleParty>
+                <street>1349 MIDDLESEX DR</street>
+                <city>GENOA</city>
+                <state>OH</state>
+                <zip>43430</zip>
+                <firstName>SANDRA</firstName>
+                <lastName>ARMSTRONG</lastName>
+                <middleName>K</middleName>
+            </responsibleParty>
+            <patient xsi:type="subscriber" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <membershipInfo>
+                    <memberId>289406344A</memberId>
+                    <insurancePolicyNumber>289406344A</insurancePolicyNumber>
+                    <relationshipCode>SELF</relationshipCode>
+                    <groupNumber></groupNumber>
+                    <groupName>MEDICARE</groupName>
+                </membershipInfo>
+                <street>1349 MIDDLESEX DR</street>
+                <city>GENOA</city>
+                <state>OH</state>
+                <zip>43430</zip>
+                <firstName>SANDRA</firstName>
+                <lastName>ARMSTRONG</lastName>
+                <middleName>K</middleName>
+                <gender>FEMALE</gender>
+                <dateOfBirth>1944-08-22T00:00:00+00:00</dateOfBirth>
+                <entityType>1</entityType>
+            </patient>
+            <codedNotes>
+                <id>19454516</id>
+                <code>UPI</code>
+                <body> 00003099791 A05S0A7</body>
+            </codedNotes>
+            <codedNotes>
+                <id>19454517</id>
+                <code>UPI</code>
+                <body>00003099791 A05S0A7 ACRAD</body>
+            </codedNotes>
+            <admissionTypeCode>9</admissionTypeCode>
+            <admissionSourceCode>2</admissionSourceCode>
+            <patientStatusCode>01</patientStatusCode>
+            <primaryEstimatedClaimAmountDue>4973.93</primaryEstimatedClaimAmountDue>
+            <secondaryEstimatedClaimAmountDue>4973.93</secondaryEstimatedClaimAmountDue>
+            <valueInformationCodes>
+                <qualifier>BE</qualifier>
+                <industryCode>A3</industryCode>
+                <amount>4973.93</amount>
+                <listIndex>0</listIndex>
+                <domainId>12082</domainId>
+            </valueInformationCodes>
+            <primaryReleaseOfInformationCode>YES</primaryReleaseOfInformationCode>
+            <secondaryReleaseOfInformationCode>YES</secondaryReleaseOfInformationCode>
+            <primaryBenefitsAssignmentCertificationIndicator>true</primaryBenefitsAssignmentCertificationIndicator>
+            <secondaryBenefitsAssignmentCertificationIndicator>true</secondaryBenefitsAssignmentCertificationIndicator>
+            <tertiaryBenefitsAssignmentCertificationIndicator>false</tertiaryBenefitsAssignmentCertificationIndicator>
+            <medicareAssignmentCode>ASSIGNED</medicareAssignmentCode>
+            <providerOrSupplierSignatureIndicator>true</providerOrSupplierSignatureIndicator>
+            <principleDiagnosisCodes>
+                <qualifier>BK</qualifier>
+                <industryCode>217</industryCode>
+                <listIndex>0</listIndex>
+                <domainId>12082</domainId>
+            </principleDiagnosisCodes>
+            <otherDiagnosisCodes>
+                <qualifier>BF</qualifier>
+                <industryCode>79389</industryCode>
+                <listIndex>3</listIndex>
+                <domainId>12082</domainId>
+            </otherDiagnosisCodes>
+            <otherDiagnosisCodes>
+                <qualifier>BF</qualifier>
+                <industryCode>79381</industryCode>
+                <listIndex>2</listIndex>
+                <domainId>12082</domainId>
+            </otherDiagnosisCodes>
+            <otherDiagnosisCodes>
+                <qualifier>BF</qualifier>
+                <industryCode>6108</industryCode>
+                <listIndex>1</listIndex>
+                <domainId>12082</domainId>
+            </otherDiagnosisCodes>
+            <otherDiagnosisCodes>
+                <qualifier>BF</qualifier>
+                <industryCode>6101</industryCode>
+                <listIndex>0</listIndex>
+                <domainId>12082</domainId>
+            </otherDiagnosisCodes>
+            <patientReasonForVisitCodes>
+                <qualifier>ZZ</qualifier>
+                <industryCode>79389</industryCode>
+                <listIndex>0</listIndex>
+                <domainId>12082</domainId>
+            </patientReasonForVisitCodes>
+            <attendingPhysician>
+                <entityType>1</entityType>
+                <firstName>MARK</firstName>
+                <lastName>NADAUD</lastName>
+                <middleName></middleName>
+                <nameSuffix></nameSuffix>
+                <taxId>207Q00000X</taxId>
+                <nationalProviderId>1346235710</nationalProviderId>
+                <secondaryId>E00638</secondaryId>
+                <secondaryIdQualifier>1G</secondaryIdQualifier>
+            </attendingPhysician>
+            <operatingPhysician>
+                <entityType>1</entityType>
+                <firstName>MARK</firstName>
+                <lastName>NADAUD</lastName>
+                <middleName></middleName>
+                <nameSuffix></nameSuffix>
+                <nationalProviderId>1346235710</nationalProviderId>
+            </operatingPhysician>
+            <serviceLines>
+                <lineNumber>5</lineNumber>
+                <beginDateOfService>2010-02-08T00:00:00+00:00</beginDateOfService>
+                <procedureCode>
+                    <code>77031</code>
+                    <description>STEREOTACT GUIDE FOR BRST BX</description>
+                </procedureCode>
+                <procedureCodeModifier1>LT</procedureCodeModifier1>
+                <revenueCode>0401</revenueCode>
+                <quantity>1.0</quantity>
+                <billedAmount>1369.67</billedAmount>
+                <nonCoveredAmount>0.0</nonCoveredAmount>
+                <domainId>12082</domainId>
+                <eob/>
+            </serviceLines>
+            <serviceLines>
+                <lineNumber>4</lineNumber>
+                <beginDateOfService>2010-02-08T00:00:00+00:00</beginDateOfService>
+                <procedureCode>
+                    <code>19295</code>
+                    <description>PLACE BREAST CLIP, PERCUT</description>
+                </procedureCode>
+                <revenueCode>0361</revenueCode>
+                <quantity>1.0</quantity>
+                <billedAmount>0.0</billedAmount>
+                <nonCoveredAmount>0.0</nonCoveredAmount>
+                <domainId>12082</domainId>
+                <eob/>
+            </serviceLines>
+            <serviceLines>
+                <lineNumber>3</lineNumber>
+                <beginDateOfService>2010-02-08T00:00:00+00:00</beginDateOfService>
+                <procedureCode>
+                    <code>19103</code>
+                    <description>BX BREAST PERCUT W/DEVICE</description>
+                </procedureCode>
+                <procedureCodeModifier1>LT</procedureCodeModifier1>
+                <revenueCode>0361</revenueCode>
+                <quantity>1.0</quantity>
+                <billedAmount>3029.23</billedAmount>
+                <nonCoveredAmount>0.0</nonCoveredAmount>
+                <domainId>12082</domainId>
+                <eob/>
+            </serviceLines>
+            <serviceLines>
+                <lineNumber>2</lineNumber>
+                <beginDateOfService>2010-02-08T00:00:00+00:00</beginDateOfService>
+                <procedureCode>
+                    <code>76098</code>
+                    <description>X-RAY EXAM, BREAST SPECIMEN</description>
+                </procedureCode>
+                <procedureCodeModifier1>LT</procedureCodeModifier1>
+                <revenueCode>0320</revenueCode>
+                <quantity>1.0</quantity>
+                <billedAmount>273.03</billedAmount>
+                <nonCoveredAmount>0.0</nonCoveredAmount>
+                <domainId>12082</domainId>
+                <eob/>
+            </serviceLines>
+            <serviceLines>
+                <lineNumber>1</lineNumber>
+                <beginDateOfService>2010-02-08T00:00:00+00:00</beginDateOfService>
+                <procedureCode>
+                    <code>88305</code>
+                    <description>TISSUE EXAM BY PATHOLOGIST </description>
+                </procedureCode>
+                <revenueCode>0312</revenueCode>
+                <quantity>1.0</quantity>
+                <billedAmount>302.0</billedAmount>
+                <nonCoveredAmount>0.0</nonCoveredAmount>
+                <domainId>12082</domainId>
+                <eob/>
+            </serviceLines>
+            <explanationOfBenefitsIndicator>false</explanationOfBenefitsIndicator>
+            <repricedApprovedServiceUnitsAsDays>false</repricedApprovedServiceUnitsAsDays>
+            <fixed>true</fixed>
+        </claimFacet>
+
+    http_version: 
+  recorded_at: Fri, 15 Feb 2013 19:38:37 GMT
+recorded_with: VCR 2.4.0

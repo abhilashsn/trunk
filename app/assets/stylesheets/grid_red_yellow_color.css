@@ -1,0 +1,309 @@
+/* CSS Document */
+
+html,body{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:9px;
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+#topbar_grid {
+    padding: 1px;
+}
+
+.topbar_item {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline;
+}
+/*------- check_info START--------*/
+table.check_info {
+	width:98.5%;
+	border:#FF3939 solid 1px;
+	border-collapse:collapse;
+	
+}
+
+.check_info th {	
+	border:#FF3939 solid 1px;
+	background-color: #FFCECE;
+	color:#FF3939;
+}
+.check_info td{
+	background-color:#FFF;
+	border:#FF3939 solid 1px;
+}
+/*------- check_info END --------*/
+
+/*------- patient_info START--------*/
+
+table.patient_info {
+	width:98.5%;
+	border:#FFCECE solid 1px;
+	border-collapse:collapse;
+}
+
+.patient_info th {
+	background-color:#ffcece;
+	border:#FF3939 solid 1px;
+	color:#FF3939;
+
+}
+
+.patient_info td {
+	background-color:#FFF;
+	border:#FF3939 solid 1px;
+}
+/*------- patient_info END--------*/
+
+/*------- service line START--------*/
+
+table.service_line {
+	width:98.5%;
+	border:#FF3939 solid 1px;
+	border-collapse:collapse;
+        background-color:#fff;
+}
+
+.service_line th {	
+	border:#FF3939 solid 1px;
+	background-color: #FFCECE;
+	color:#FF3939;
+        background-color:#fff;
+	height:20px;
+
+}
+
+.service_line td {
+	background-color:#FFF;
+	border:#FF3939 solid 1px;
+}
+
+/*------- service line END--------*/
+select{
+	font-family:Geneva, Arial, Helvetica, sans-serif;
+	font-size:10px;
+
+}
+
+input {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size:8px;
+	border: 1px none #FF3939;
+	font-size:10px;
+}
+
+
+.submit {
+	/*background-color:#FF3300;*/
+        /*border:1px solid #FF3939;*/
+}
+
+.submit_save {
+		background-color: #FFFFA2;
+		color:#ff3939;
+		text-decoration: none;
+                padding-right: 1px;
+                padding-left: 1px;
+		border: 1px solid #FF3939;
+}
+
+.submit_mpi {
+		color:#ff3939;
+		padding: 3px;
+		text-decoration: none;               
+}
+
+.submit_add {
+        background-color:#ffcece;
+		color:#FF3939;
+		text-decoration: none;
+		border: 1px solid #FF3939;
+}
+
+th.optional {
+	border:#FF0000 solid 1px;
+	
+}
+
+.desbox, .modibox{
+	width:15px;
+}
+
+.datebox {
+	width:45px;
+}
+
+.contbox {
+	width:35px;
+	text-align:right;
+}
+
+.amount {
+	width:47px;
+	text-align:right;
+}
+
+.balance_amount {
+	width:52px;
+	text-align:right;
+}
+
+.fullwidth {
+	width:98%;
+}
+
+ .imported, #legend .grey
+{
+	background-color: #cccccc;
+}
+.certain, #legend .pale_green
+{
+	background-color: #98fb98;
+}
+.uncertain, #legend .pale_red
+{
+	background-color: #FFFFA2;
+}
+.normalized_uncertain, #legend .red
+{
+	background-color: #ff9797;
+}
+.blank, #legend .white
+{
+	background-color: #fff;
+}
+.edited, #legend .yellow
+{
+	background-color: #FFFFA6;
+}
+
+/*------- Check List START--------*/
+.checklist {
+    border: 1px solid #ccc;
+    list-style: none;
+    height: 50px;
+    overflow: auto;
+    width: 200px;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: #000;
+}
+
+.checklist, .checklist li {
+    margin: 0;
+    padding: 0;
+}
+
+.checklist label {
+    display: block;
+    padding: 0 0.2em 0 25px;
+    text-indent: -25px;
+}
+
+.checklist label:hover, .checklist label.hover {
+    background: #777;
+    color: #fff;
+}
+/*------- Check List END--------*/
+
+
+/*------- Pagination START--------*/
+
+.pagination{
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+
+
+}
+
+.pagination a{
+	
+	background-color: #019849;
+	color: #FFF;
+	padding: 3px;
+	margin:1px;
+}
+
+.pagination span {
+	background-color: #005d9a;
+	padding: 3px;
+	margin:1px;
+	color: #FFF;
+	}
+	
+/*------- PopupSTART--------*/	
+.black_text
+{ 
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color: #0066a0;
+}
+a.black_text:hover
+{ 
+	background:#993300;
+	display: block;
+	border: solid 1px #000000;
+}	
+
+.alert
+{font-family: "Trebuchet MS", Arial;
+font-size: 11px;
+color: #FF3300;
+}
+
+.submit_link {
+		background-color: #FFFFA2;
+		border: 1px solid #FF3939;
+		color:#FF3939;
+		text-decoration: none;
+		padding-right: 2px;
+                padding-left: 2px;
+		font-size:10px;
+		line-height:20px;
+}
+
+.submit_link_green {
+		background-color: #FFFFA2;
+		color:#FF3939;
+		text-decoration: none;
+                padding-right: 1px;
+                padding-left: 1px;
+		font-size:10px;
+		border: 1px solid #FF3939;
+		
+}
+
+.reason_code_grid_button {
+		background-color: #FFFFA2;
+		color:#FF3939;
+		text-decoration: none;
+		font-size:10px;
+		border: 1px solid #FF3939;
+                width: 90px;
+
+
+
+}
+/*------- Reason Code Grid START--------*/
+
+table.reason_code_grid {
+	width:95%;
+	border:#FF7C7C solid 1px;
+	border-collapse:collapse;
+}
+
+.reason_code_grid th {
+	background-color:#FFFFA2;
+	border:#FF3939 solid 1px;
+	color:#FF3939;
+
+}
+
+.reason_code_grid td {
+	background-color:#FFF;
+	border:#FF7C7C solid 1px;
+	text-align:left;
+}
+/*------- Reason Code Grid END--------*/

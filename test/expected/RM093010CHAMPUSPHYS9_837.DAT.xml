@@ -1,0 +1,4592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<X12>
+	<ISA>
+		<ISA01 decode="No Authorization Information Present (No Meaningful Information in I02)">00</ISA01>
+		<ISA02/>
+		<ISA03 decode="No Security Information Present (No Meaningful Information in I04)">00</ISA03>
+		<ISA04/>
+		<ISA05 decode="Mutually Defined">ZZ</ISA05>
+		<ISA06>341127026</ISA06>
+		<ISA07 decode="Mutually Defined">ZZ</ISA07>
+		<ISA08>INTERNAL</ISA08>
+		<ISA09 decode="2010-10-01">101001</ISA09>
+		<ISA10 decode="07:38:00.00">0738</ISA10>
+		<ISA11 decode="U.S. EDI Community of ASC X12, TDCC, and UCS">U</ISA11>
+		<ISA12 decode="Draft Standards for Trial Use Approved for Publication by ASC X12 Procedures Review Board through October 1997">00401</ISA12>
+		<ISA13>1</ISA13>
+		<ISA14 decode="No Acknowledgment Requested">0</ISA14>
+		<ISA15 decode="Production Data">P</ISA15>
+		<ISA16>></ISA16>
+	</ISA>
+	<GS>
+		<GS01 decode="Health Care Claim (837)">HC</GS01>
+		<GS02>341127026</GS02>
+		<GS03>INTERNAL</GS03>
+		<GS04 decode="2010-10-01">20101001</GS04>
+		<GS05 decode="07:38:12.00">073812</GS05>
+		<GS06>1</GS06>
+		<GS07 decode="Accredited Standards Committee X12">X</GS07>
+		<GS08 decode="Draft Standards Approved for Publication by ASC X12 Procedures Review Board through October 1997 (004010X098A1)">004010X098A1</GS08>
+	</GS>
+	<TS_837>
+		<ST>
+			<ST01 decode="Health Care Claim">837</ST01>
+			<ST02>1001</ST02>
+		</ST>
+		<BHT>
+			<BHT01 decode="Information Source, Subscriber, Dependent">0019</BHT01>
+			<BHT02>010184</BHT02>
+			<BHT03>20101001</BHT03>
+			<BHT04>07380000</BHT04>
+			<BHT05>CH</BHT05>
+		</BHT>
+		<REF>
+			<REF01 decode="Functional Category">87</REF01>
+			<REF02>004010X098A1</REF02>
+		</REF>
+		<GROUP_1>
+			<NM1>
+				<NM101 decode="Submitter">41</NM101>
+				<NM102 decode="Non-Person Entity">2</NM102>
+				<NM103>QUADAX</NM103>
+				<NM108 decode="Electronic Transmitter Identification Number (ETIN)">46</NM108>
+				<NM109>341127026</NM109>
+			</NM1>
+			<PER>
+				<PER01 decode="Information Contact">IC</PER01>
+				<PER02>HANK TERMEER</PER02>
+				<PER03 decode="Telephone">TE</PER03>
+				<PER04>6148821200</PER04>
+				<PER05 decode="Facsimile">FX</PER05>
+				<PER06>6148827133</PER06>
+				<PER07 decode="Electronic Mail">EM</PER07>
+				<PER08>HANKTERMEER@QUADAX.COM</PER08>
+			</PER>
+		</GROUP_1>
+		<GROUP_1>
+			<NM1>
+				<NM101 decode="Receiver">40</NM101>
+				<NM102 decode="Non-Person Entity">2</NM102>
+				<NM103>PHYSCLAMS</NM103>
+				<NM108 decode="Electronic Transmitter Identification Number (ETIN)">46</NM108>
+				<NM109>INTERNAL</NM109>
+			</NM1>
+		</GROUP_1>
+		<GROUP_2>
+			<HL>
+				<HL01>1</HL01>
+				<HL03 decode="Information Source">20</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Billing Provider">85</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>REVENUEMED</NM103>
+					<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+					<NM109>1369852470</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 82653</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68501</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Employer's Identification Number">EI</REF01>
+					<REF02>470549869</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Provider Site Number">G5</REF01>
+					<REF02>PMXX</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>2</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>225 W WASHINGTON ST</N301>
+				</N3>
+				<N4>
+					<N401>SHELBY</N401>
+					<N402>NE</N402>
+					<N403>68662</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19890802</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427211</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060953</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>Q11146</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609531</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427212</CLM01>
+					<CLM02>44.1</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060954</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>79503</HI0102>
+					</HI01>
+					<HI02>
+						<HI0201 decode="Diagnosis">BF</HI0201>
+						<HI0202>V7231</HI0202>
+					</HI02>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>Q11146</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88141</SV10102>
+						</SV101>
+						<SV102>44.1</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+							<SV10702>2</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609541</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>3</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>1017 FAIRFAX RD APT 21</N301>
+				</N3>
+				<N4>
+					<N401>BELLEVUE</N401>
+					<N402>NE</N402>
+					<N403>68005</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>4</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Child">19</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>1017 FAIRFAX RD APT 21</N301>
+				</N3>
+				<N4>
+					<N401>BELLEVUE</N401>
+					<N402>NE</N402>
+					<N403>68005</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19910314</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427348</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060956</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>Q70617</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_7>
+					<SBR>
+						<SBR01 decode="Secondary">S</SBR01>
+						<SBR02 decode="Self">18</SBR02>
+						<SBR03>80230828603</SBR03>
+						<SBR05 decode="Commercial">C1</SBR05>
+						<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+					</SBR>
+					<DMG>
+						<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+						<DMG02>19910314</DMG02>
+						<DMG03 decode="Female">F</DMG03>
+					</DMG>
+					<OI>
+						<OI03 decode="Yes">Y</OI03>
+						<OI04 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</OI04>
+						<OI06 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</OI06>
+					</OI>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Insured or Subscriber">IL</NM101>
+							<NM102 decode="Person">1</NM102>
+							<NM103>CARON</NM103>
+							<NM104>MILOS</NM104>
+							<NM105>A</NM105>
+							<NM108 decode="Member Identification Number">MI</NM108>
+							<NM109>543219876</NM109>
+						</NM1>
+					</GROUP_8>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Payer">PR</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>COVENTRY HEALTH</NM103>
+							<NM108 decode="Payor Identification">PI</NM108>
+							<NM109>11111</NM109>
+						</NM1>
+					</GROUP_8>
+				</GROUP_7>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609561</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>5</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>2700 W PADDOCK RD</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68523</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>6</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>2700 W PADDOCK RD</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68523</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19491112</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427904</CLM01>
+					<CLM02>1730</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060966</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>1749</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>G95021</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_7>
+					<SBR>
+						<SBR01 decode="Secondary">S</SBR01>
+						<SBR02 decode="Self">18</SBR02>
+						<SBR03>4418898</SBR03>
+						<SBR05 decode="Commercial">C1</SBR05>
+						<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+					</SBR>
+					<DMG>
+						<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+						<DMG02>19500101</DMG02>
+						<DMG03 decode="Male">M</DMG03>
+					</DMG>
+					<OI>
+						<OI03 decode="Yes">Y</OI03>
+						<OI04 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</OI04>
+						<OI06 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</OI06>
+					</OI>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Insured or Subscriber">IL</NM101>
+							<NM102 decode="Person">1</NM102>
+							<NM103>CARON</NM103>
+							<NM104>MILOS</NM104>
+							<NM105>A</NM105>
+							<NM108 decode="Member Identification Number">MI</NM108>
+							<NM109>543219876</NM109>
+						</NM1>
+					</GROUP_8>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Payer">PR</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>MISC</NM103>
+							<NM108 decode="Payor Identification">PI</NM108>
+							<NM109>11111</NM109>
+						</NM1>
+					</GROUP_8>
+				</GROUP_7>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>76098</SV10102>
+							<SV10103>26</SV10103>
+						</SV101>
+						<SV102>45</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609661</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>2</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>195</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609662</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>3</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88342</SV10102>
+						</SV101>
+						<SV102>350</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>2</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609663</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>4</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88361</SV10102>
+						</SV101>
+						<SV102>285</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609664</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>5</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88361</SV10102>
+							<SV10103>59</SV10103>
+						</SV101>
+						<SV102>285</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609665</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>6</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88361</SV10102>
+							<SV10103>59</SV10103>
+							<SV10104>59</SV10104>
+						</SV101>
+						<SV102>285</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609666</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>7</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88361</SV10102>
+							<SV10103>26</SV10103>
+							<SV10104>59</SV10104>
+						</SV101>
+						<SV102>285</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609667</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>7</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>1401 AMBERWOOD DR APT 2</N301>
+				</N3>
+				<N4>
+					<N401>NORFOLK</N401>
+					<N402>NE</N402>
+					<N403>68701</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>8</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Child">19</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>1401 AMBERWOOD DR APT 2</N301>
+				</N3>
+				<N4>
+					<N401>NORFOLK</N401>
+					<N402>NE</N402>
+					<N403>68701</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19991005</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427435</CLM01>
+					<CLM02>585</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060957</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>2164</HI0102>
+					</HI01>
+					<HI02>
+						<HI0201 decode="Diagnosis">BF</HI0201>
+						<HI0202>2165</HI0202>
+					</HI02>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>D92364</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>585</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>3</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+							<SV10702>2</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100921-20100921</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609571</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>9</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>3510 HANCOCK ST LOT 59</N301>
+				</N3>
+				<N4>
+					<N401>BELLEVUE</N401>
+					<N402>NE</N402>
+					<N403>68005</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>10</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Child">19</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>3510 HANCOCK ST LOT 59</N301>
+				</N3>
+				<N4>
+					<N401>BELLEVUE</N401>
+					<N402>NE</N402>
+					<N403>68005</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19900706</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427639</CLM01>
+					<CLM02>50</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060963</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>H45899</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88142</SV10102>
+						</SV101>
+						<SV102>50</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609631</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>11</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>4510 N 10TH ST</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68521</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>12</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>4510 N 10TH ST</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68521</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19490527</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427277</CLM01>
+					<CLM02>195</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060955</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>5589</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>A03352</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>195</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100922-20100922</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609551</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>13</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>800 NORTH ST</N301>
+				</N3>
+				<N4>
+					<N401>GREENWOOD</N401>
+					<N402>NE</N402>
+					<N403>68366</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19930723</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427708</CLM01>
+					<CLM02>50</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060964</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>B68007</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88142</SV10102>
+						</SV101>
+						<SV102>50</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609641</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>14</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>2820 JAMESON NORTH APT 2</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68516</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19701129</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427957</CLM01>
+					<CLM02>240</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060968</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>79381</HI0102>
+					</HI01>
+					<HI02>
+						<HI0201 decode="Diagnosis">BF</HI0201>
+						<HI0202>6101</HI0202>
+					</HI02>
+					<HI03>
+						<HI0301 decode="Diagnosis">BF</HI0301>
+						<HI0302>61172</HI0302>
+					</HI03>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>F25028</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>76098</SV10102>
+							<SV10103>26</SV10103>
+						</SV101>
+						<SV102>45</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100923-20100923</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609681</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>2</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>195</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>2</SV10701>
+							<SV10702>3</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100923-20100923</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609682</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>15</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>9015 COLBY</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68505</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>16</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>9015 COLBY</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68505</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19780816</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427541</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060958</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>Q41914</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100917-20100917</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609581</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>17</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>228 S 20TH ST</N301>
+				</N3>
+				<N4>
+					<N401>BEATRICE</N401>
+					<N402>NE</N402>
+					<N403>68310</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>18</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>228 S 20TH ST</N301>
+				</N3>
+				<N4>
+					<N401>BEATRICE</N401>
+					<N402>NE</N402>
+					<N403>68310</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19800120</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427790</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060965</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>I30725</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100916-20100916</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609651</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>19</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>3600 A STREET</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68510</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19881107</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>53707</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0428277</CLM01>
+					<CLM02>740</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060970</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>79504</HI0102>
+					</HI01>
+					<HI02>
+						<HI0201 decode="Diagnosis">BF</HI0201>
+						<HI0202>62212</HI0202>
+					</HI02>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>H24326</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>390</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>2</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+							<SV10702>2</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609701</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+				<GROUP_9>
+					<LX>
+						<LX01>2</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88342</SV10102>
+						</SV101>
+						<SV102>350</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>2</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+							<SV10702>2</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100920-20100920</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609702</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>20</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>6710 SHADOW RIDGE RD</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68512</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>21</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>6710 SHADOW RIDGE RD</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68512</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19460922</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427954</CLM01>
+					<CLM02>195</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060967</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>6119</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>F25028</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_7>
+					<SBR>
+						<SBR01 decode="Secondary">S</SBR01>
+						<SBR02 decode="Self">18</SBR02>
+						<SBR03>AGP5601</SBR03>
+						<SBR05 decode="Commercial">C1</SBR05>
+						<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+					</SBR>
+					<DMG>
+						<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+						<DMG02>19500101</DMG02>
+						<DMG03 decode="Male">M</DMG03>
+					</DMG>
+					<OI>
+						<OI03 decode="Yes">Y</OI03>
+						<OI04 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</OI04>
+						<OI06 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</OI06>
+					</OI>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Insured or Subscriber">IL</NM101>
+							<NM102 decode="Person">1</NM102>
+							<NM103>CARON</NM103>
+							<NM104>MILOS</NM104>
+							<NM105>A</NM105>
+							<NM108 decode="Member Identification Number">MI</NM108>
+							<NM109>543219876</NM109>
+						</NM1>
+					</GROUP_8>
+					<GROUP_8>
+						<NM1>
+							<NM101 decode="Payer">PR</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>MISC</NM103>
+							<NM108 decode="Payor Identification">PI</NM108>
+							<NM109>11111</NM109>
+						</NM1>
+					</GROUP_8>
+				</GROUP_7>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>195</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100923-20100923</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609671</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>22</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>1600 N 63RD ST</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68505</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>23</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Spouse">01</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>1600 N 63RD ST</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68505</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19481208</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427196</CLM01>
+					<CLM02>179.9</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060951</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>7092</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>D09095</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88331</SV10102>
+						</SV101>
+						<SV102>179.9</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100921-20100921</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609511</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427197</CLM01>
+					<CLM02>179.9</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060952</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>7092</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>D09095</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88331</SV10102>
+						</SV101>
+						<SV102>179.9</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100921-20100921</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609521</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>24</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="Additional Subordinate HL Data Segment in This Hierarchical Structure.">1</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>841 NORWOOD DR</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68512</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19500101</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>25</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Dependent">23</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<PAT>
+				<PAT01 decode="Child">19</PAT01>
+			</PAT>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Patient">QC</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARLIN</NM103>
+					<NM104>ROBERT</NM104>
+					<NM105>R</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>963258741</NM109>
+				</NM1>
+				<N3>
+					<N301>841 NORWOOD DR</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68512</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19910607</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427552</CLM01>
+					<CLM02>390</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060959</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>62211</HI0102>
+					</HI01>
+					<HI02>
+						<HI0201 decode="Diagnosis">BF</HI0201>
+						<HI0202>79503</HI0202>
+					</HI02>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>B90961</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>390</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>2</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+							<SV10702>2</SV10702>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100921-20100921</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609591</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>26</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>57125 850TH RD</N301>
+				</N3>
+				<N4>
+					<N401>WINSIDE</N401>
+					<N402>NE</N402>
+					<N403>68790</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19630827</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0428176</CLM01>
+					<CLM02>195</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060969</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>70219</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>G33032</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>195</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100923-20100923</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609691</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>27</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>102 S 3RD</N301>
+				</N3>
+				<N4>
+					<N401>STAPLEHURST</N401>
+					<N402>NE</N402>
+					<N403>68439</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19800829</DMG02>
+					<DMG03 decode="Male">M</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0428385</CLM01>
+					<CLM02>390</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060971</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>2165</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>G16974</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88305</SV10102>
+						</SV101>
+						<SV102>390</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>2</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100922-20100922</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609711</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>28</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>7638 KENNELLEY DR</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68516</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19660829</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427565</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060961</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>G75248</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100917-20100917</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609611</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<GROUP_2>
+			<HL>
+				<HL01>29</HL01>
+				<HL02>1</HL02>
+				<HL03 decode="Subscriber">22</HL03>
+				<HL04 decode="No Subordinate HL Segment in This Hierarchical Structure.">0</HL04>
+			</HL>
+			<SBR>
+				<SBR01 decode="Primary">P</SBR01>
+				<SBR02 decode="Self">18</SBR02>
+				<SBR04>CHAMPUS - TRICARE</SBR04>
+				<SBR09 decode="Commercial Insurance Co.">CI</SBR09>
+			</SBR>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Insured or Subscriber">IL</NM101>
+					<NM102 decode="Person">1</NM102>
+					<NM103>CARON</NM103>
+					<NM104>MILOS</NM104>
+					<NM105>A</NM105>
+					<NM108 decode="Member Identification Number">MI</NM108>
+					<NM109>543219876</NM109>
+				</NM1>
+				<N3>
+					<N301>6721 S 66TH</N301>
+				</N3>
+				<N4>
+					<N401>LINCOLN</N401>
+					<N402>NE</N402>
+					<N403>68516</N403>
+				</N4>
+				<DMG>
+					<DMG01 decode="Date Expressed in Format CCYYMMDD">D8</DMG01>
+					<DMG02>19510618</DMG02>
+					<DMG03 decode="Female">F</DMG03>
+				</DMG>
+			</GROUP_3>
+			<GROUP_3>
+				<NM1>
+					<NM101 decode="Payer">PR</NM101>
+					<NM102 decode="Non-Person Entity">2</NM102>
+					<NM103>CHAMPUS - TRICARE</NM103>
+					<NM108 decode="Payor Identification">PI</NM108>
+					<NM109>SCWI0</NM109>
+				</NM1>
+				<N3>
+					<N301>PO BOX 77028</N301>
+				</N3>
+				<N4>
+					<N401>MADISON</N401>
+					<N402>WI</N402>
+					<N403>537077028</N403>
+				</N4>
+				<REF>
+					<REF01 decode="Claim Office Number">FY</REF01>
+					<REF02>NOCD</REF02>
+				</REF>
+			</GROUP_3>
+			<GROUP_4>
+				<CLM>
+					<CLM01>RM0427563</CLM01>
+					<CLM02>61</CLM02>
+					<CLM05>
+						<CLM0501>81</CLM0501>
+						<CLM0503>1</CLM0503>
+					</CLM05>
+					<CLM06 decode="Yes">Y</CLM06>
+					<CLM07 decode="Assigned">A</CLM07>
+					<CLM08 decode="Yes">Y</CLM08>
+					<CLM09 decode="Yes, Provider has a Signed Statement Permitting Release of Medical Billing Data Related to a Claim">Y</CLM09>
+					<CLM10 decode="Signed signature authorization form or forms for both HCFA-1500 Claim Form block 12 and block 13 are on file">B</CLM10>
+					<CLM16 decode="Participation Agreement">P</CLM16>
+				</CLM>
+				<REF>
+					<REF01 decode="Claim Number">D9</REF01>
+					<REF02>RM0000060960</REF02>
+				</REF>
+				<REF>
+					<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+					<REF02>28D0944195</REF02>
+				</REF>
+				<HI>
+					<HI01>
+						<HI0101 decode="Principal Diagnosis">BK</HI0101>
+						<HI0102>V762</HI0102>
+					</HI01>
+				</HI>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Referring Provider">DN</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>JOHN</NM103>
+						<NM104>SAMUEL</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1258369470</NM109>
+					</NM1>
+					<REF>
+						<REF01 decode="Provider UPIN Number">1G</REF01>
+						<REF02>G75248</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Rendering Provider">82</NM101>
+						<NM102 decode="Person">1</NM102>
+						<NM103>PROVIDER</NM103>
+						<NM104>JOHN</NM104>
+						<NM108 decode="Health Care Financing Administration National Provider Identifier">XX</NM108>
+						<NM109>1234567890</NM109>
+					</NM1>
+					<PRV>
+						<PRV01 decode="Performing">PE</PRV01>
+						<PRV02 decode="Mutually Defined">ZZ</PRV02>
+						<PRV03>193200000X</PRV03>
+					</PRV>
+					<REF>
+						<REF01 decode="Employer's Identification Number">EI</REF01>
+						<REF02>470549869</REF02>
+					</REF>
+				</GROUP_6>
+				<GROUP_6>
+					<NM1>
+						<NM101 decode="Facility">FA</NM101>
+						<NM102 decode="Non-Person Entity">2</NM102>
+						<NM103>REVMED ABC SERVICES</NM103>
+						<NM108 decode="Employer's Identification Number">24</NM108>
+						<NM109>987654321</NM109>
+					</NM1>
+					<N3>
+						<N301>5440 SOUTH STREET</N301>
+					</N3>
+					<N4>
+						<N401>LINCOLN</N401>
+						<N402>NE</N402>
+						<N403>68506</N403>
+					</N4>
+				</GROUP_6>
+				<GROUP_9>
+					<LX>
+						<LX01>1</LX01>
+					</LX>
+					<SV1>
+						<SV101>
+							<SV10101 decode="Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes">HC</SV10101>
+							<SV10102>88175</SV10102>
+						</SV101>
+						<SV102>61</SV102>
+						<SV103 decode="Unit">UN</SV103>
+						<SV104>1</SV104>
+						<SV107>
+							<SV10701>1</SV10701>
+						</SV107>
+					</SV1>
+					<DTP>
+						<DTP01 decode="Service">472</DTP01>
+						<DTP02 decode="Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD">RD8</DTP02>
+						<DTP03>20100917-20100917</DTP03>
+					</DTP>
+					<REF>
+						<REF01 decode="Provider Control Number">6R</REF01>
+						<REF02>RM00000609601</REF02>
+					</REF>
+					<REF>
+						<REF01 decode="Clinical Laboratory Improvement Amendment Number">X4</REF01>
+						<REF02>28D0944195</REF02>
+					</REF>
+					<GROUP_11>
+						<NM1>
+							<NM101 decode="Facility">FA</NM101>
+							<NM102 decode="Non-Person Entity">2</NM102>
+							<NM103>REVMED ABC SERVICES</NM103>
+							<NM108 decode="Employer's Identification Number">24</NM108>
+							<NM109>987654321</NM109>
+						</NM1>
+						<N3>
+							<N301>5440 SOUTH STREET</N301>
+						</N3>
+						<N4>
+							<N401>LINCOLN</N401>
+							<N402>NE</N402>
+							<N403>68506</N403>
+						</N4>
+					</GROUP_11>
+				</GROUP_9>
+			</GROUP_4>
+		</GROUP_2>
+		<SE>
+			<SE01>732</SE01>
+			<SE02>1001</SE02>
+		</SE>
+	</TS_837>
+	<GE>
+		<GE01>1</GE01>
+		<GE02>1</GE02>
+	</GE>
+	<IEA>
+		<IEA01>1</IEA01>
+		<IEA02>1</IEA02>
+	</IEA>
+</X12>

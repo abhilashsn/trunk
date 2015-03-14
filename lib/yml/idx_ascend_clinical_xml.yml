@@ -1,0 +1,6 @@
+ITERATORS:
+  IBAT: /PDCdrom
+JOB:
+  check: CheckItem
+ 
+

@@ -1,0 +1,28 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: sessions
+#
+#  id         :integer(11)   not null, primary key
+#  session_id :string(255)   
+#  data       :text          
+#  updated_at :datetime      
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: sessions
+#
+#  id         :integer(11)   not null, primary key
+#  session_id :string(255)   
+#  data       :text          
+#  updated_at :datetime      
+#
+
+session1:
+      id: 1
+      session_id: 3219023fa5e7cf57d11c587663d9b231
+      data: BAh7BzoJdXNlcmkCAgEiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhhc2h7AAY6CkB1c2VkewA=
+      updated_at: '2007-03-01 00:24:41'
+

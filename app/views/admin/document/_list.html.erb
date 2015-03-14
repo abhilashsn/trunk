@@ -1,0 +1,27 @@
+<table width ="60%" cellpading = "0">
+<tr>
+<th width = "10%">File Id</th>
+<th width = "20%">File Name</th>
+<%if @user.role == 'Supervisor'%>
+<th width = "40%">Change File type</th>
+<th>Operation</th>
+<%end%>
+</tr>
+
+<%for doc in @docs%>
+<tr>
+    <td width="20%"><%= doc.id %>
+    <td width="50%"><%= link_to doc.filename, :action => 'show', :id => doc %></td>
+    <%if @user.role == 'Supervisor'%>
+    
+    <td>
+        <%= form_tag :action => 'update', :id => doc do %>
+        <%= select 'doc', 'criteria', ['Text','Errors','ScreenShots', 'Others']%>
+        <%= submit_tag 'Change', :class => 'button' %>
+        <% end %>
+    </td>
+    <td width="30%"><%= link_to 'Delete', :action => 'destroy', :id => doc %>
+    <%end%>
+</tr>
+<%end%>
+</table>

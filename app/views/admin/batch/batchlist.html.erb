@@ -1,0 +1,65 @@
+<div id="login_main"> 
+  <div class="light_info">
+    <%= form_tag :action => 'batchlist' do %>
+      <%= select_tag 'criteria',  optionize_custom(['Date', 'Batch ID', 'Site Name'],params[:criteria]) %>
+      <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+      <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+  </div>
+  
+  <% unless @batches.blank? %>
+    <%= form_tag :action => 'status_change' do %>
+      <%= show_legend({"red" => "Output Ready"}) %>     
+        <table style="width:100%">
+          <tr>
+            <th> Batch Date</th>
+            <th> Batch ID</th>
+            <th> Facility</th>
+            <th> Total EOBs</th>
+            <th> Completed EOBs</th>
+            <th> Incompleted EOBs</th>
+            <th> Arrival Time (EST)</th>
+            <th> Expected Completion Time (EST)</th>
+            <th></th>
+          </tr>
+        <div style="background-color:#e9eef2; width:100%;" class="black_text">
+          <%= will_paginate @batches, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]}%>
+        </div>
+
+        <% @batches.each do|batch| %>
+          <% cls = ''
+             cls = 'red' if batch.eob == (batch.completed_jobs_count.to_i + batch.incompleted_jobs_count.to_i)
+          %>
+         <% if batch.incompleted_jobs_count.to_i > 0 %>
+          <tr>
+            <td  class="<%= cls %>" align='right'><%= format_datetime(batch.date,'%m/%d/%y') %> </td>
+            <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) or
+               current_user.has_role?(:TL) %>  
+               <td  class="<%= cls %>" align='right'>
+                  <%= link_to batch.batch_name, :controller => 'batch',
+                    :action => 'incompletedjobs', :id => batch.id %> </td>
+            <% end %>
+            <td  class="<%= cls %>"><%= batch.facility_name%> (<%= batch.facility_sitecode %>) </td>
+            <td  class="<%= cls %>" align='right'><%= batch.eob %></td>
+            <td  class="<%= cls %>" align='right'><%= batch.completed_jobs_count %></td>
+            <td  class="<%= cls %>" align='right'><%= batch.incompleted_jobs_count %></td>
+            <td  class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+            <td  class="<%= cls %>"  align='right'>
+              <% if batch.expected_completion_time.blank? %> N/A
+              <% else %> <%= format_datetime(batch.expected_completion_time)%>
+                         <% if current_user.has_role?(:admin) or 
+                             current_user.has_role?(:supervisor) %> * <% end %>
+              <% end %>
+              <td><%= check_box :batch_to_delete, batch.id, :id => 'toggle' %> </td>
+            </td>
+          </tr>
+        <% end %>
+       <% end %>
+        </table>
+        <%= submit_tag "835 Ready", :class => 'button', :name => "option1" %>
+  <% end %>
+<% else %>
+  <h4> No matching batches found. </h4>
+<% end %>
+</div>

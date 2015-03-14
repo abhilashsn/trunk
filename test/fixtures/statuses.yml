@@ -1,0 +1,29 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: statuses
+#
+#  id    :integer(11)   not null, primary key
+#  value :string(255)   
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: statuses
+#
+#  id    :integer(11)   not null, primary key
+#  value :string(255)   
+#
+
+first:
+      id: 6
+      value: "NEW" 
+
+another:
+      id: 7
+      value: "PROCESSING"
+  
+third:
+      id: 8
+      value: "COMPLETED"

@@ -1,0 +1,113 @@
+<%= javascript_include_tag "batch" %>
+<div id="login_main">
+  <h1>Listing clients</h1>
+  <%= link_to 'Add New Client', :action => 'new', :back_page=>params[:back_page] %>
+  <div class="light_info">
+    <%= form_tag :action => 'list' do %>
+      <table>
+        <tr>
+          <th>Search by Name</th>
+          <td><%= text_field_tag 'name', nil, :size => '10' %></td>
+          <td><%= submit_tag 'Filter', :class => 'button',:id => "filter" %></td>
+        </tr>
+      </table>
+    <% end%>
+  </div>
+
+  <% unless @clients.blank? %>
+    <%= will_paginate @clients, :params => {:name => params[:name]} %>
+    <table>
+      <tr>
+        <th> Name </th>
+        <th> Partner Bank </th>
+        <th> Group Code </th>
+        <th> Client TAT </th>
+        <th> Internal TAT </th>
+        <th> Max # Jobs Client Wise to Auto Allocate </th>
+        <th> Max # Jobs Payer Wise to Auto Allocate </th>
+        <th> Max # EOBs to Auto Allocate </th>
+        <th> Associate Claim based on NPI </th>
+        <th><input type="checkbox" id = "all" name="all" onClick="checkAllCheckboxes(document.getElementsByClassName('check_box_client'))"/></th>
+        <th align ="center"> OpLog On/Off</th>
+        <th> Settings </th>
+      </tr>
+      <%= form_tag :action => 'update_or_delete_clients' ,:id=> @clients_to_delete do %>
+        <% @clients.each_with_index do |_client, _index|
+          @i = _index
+          @client = _client %>
+
+          <% unless @client.blank? %>
+            <tr>
+              <td style="width:30%"><%= @client.name.upcase %></td>
+              <td style="width:7%"><% if @client.partener_bank_group_code.blank? %>-<% else %>
+                <%= @client.partener_bank_group_code %><% end %></td>
+              <td style="width:7%"><% if @client.group_code.blank? %>-<% else %>
+                <%= @client.group_code %><% end %></td>
+              <td style="width:7%">
+                <% if @client.tat.blank? %><a id="tat_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :tat, {},
+                  {:script => true, :rows => 1, :cols => 4,
+                  :external_control => "tat_edit_#{@i}"} %>
+              </td>
+              <td style="width:7%">
+                <% if @client.internal_tat.blank? %><a id="internal_tat_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :internal_tat, {},
+                  {:script => true, :rows => 1, :cols => 4,
+                  :external_control => "internal_tat_edit_#{@i}"} %>
+              </td>
+              <td style="width:7%">
+                <% if @client.max_jobs_per_user_client_wise.blank? %><a id="max_jobs_per_user_client_wise_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :max_jobs_per_user_client_wise, {},
+                  {:script => true, :rows => 1, :cols => 4,
+                  :external_control => "max_jobs_per_user_client_wise_edit_#{@i}"} %>
+              </td>
+              <td style="width:7%">
+                <% if @client.max_jobs_per_user_payer_wise.blank? %><a id="max_jobs_per_user_payer_wise_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :max_jobs_per_user_payer_wise, {},
+                  {:script => true, :rows => 1, :cols => 4,
+                  :external_control => "max_jobs_per_user_payer_wise_edit_#{@i}"} %>
+              </td>
+              <td style="width:7%">
+                <% if @client.max_eobs_per_job.blank? %><a id="max_eobs_per_job_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :max_eobs_per_job, {},
+                  {:script => true, :rows => 1, :cols => 4,
+                  :external_control => "max_eobs_per_job_edit_#{@i}"} %>
+              </td>
+              <td style="width:7%">
+                <% if @client.associate_claim_npi.blank? %><a id="associate_claim_npi_edit_<%= @i %>"></a><% end -%>
+                <%= in_place_editor_field :client, :associate_claim_npi, {:type => :checkbox},
+                  {:script => true, :rows => 1, :cols => 1,
+                  :external_control => "associate_claim_npi_edit_#{@i}"} %>
+              </td>
+              <td style="width:1%"><%= check_box_tag "clients_to_delete[]", @client.id, false, :class => 'check_box_client',:id => "client_#{@client.id}"%> </td>
+              <%is_oplog_present = !@client.supplemental_outputs.blank? && @client.supplemental_outputs.include?("Operation Log")
+              if is_oplog_present
+                client_level_oplog_on_off = true
+              else
+                client_level_oplog_on_off = false
+              end
+              %>
+              <td style= "width:3%"><%= check_box_tag "clients_to_set_oplog[]", @client.id, client_level_oplog_on_off%></td>
+<%#= check_box 'client_level','oplog', :checked => client_level_oplog_on_off %>
+
+              <td>
+                  <%if is_oplog_present%>
+                    <%= link_to "oplogconf", :controller => 'facility', :action => 'config_oplog', :obj_type => 'client', :id => @client.id %>
+                  <%end%>
+                  <%= link_to image_tag("835.gif", :alt => "835 Configuration",:border=>"0",:style=>"padding:2px"), :action => 'config_835', :id => @client.id %>
+              <td>
+            </tr>
+          <% end %>
+        <% end %>
+        <td  align="left" width="32">
+          <%= submit_tag "delete", :class => 'button', :id => "option1", :name => "option1", :onclick => "return checkAlertAndFacilityPresences(document.getElementsByClassName('check_box_client'))" %>
+          <%= submit_tag "Save Oplog Config", :class => 'button',:id =>"save_oplog_config", :name => "option1" %>
+        </td>
+      <% end %>
+    </table>
+  <% else %>
+    <h4> No Clients Found! </h4>
+  <% end %>
+  <br/>
+  <%= link_to 'Back', :controller => '/dashboard' %>
+</div>

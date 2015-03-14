@@ -1,0 +1,1844 @@
+<%= javascript_include_tag 'tab_view' %>
+<%= javascript_include_tag 'fcui_elements' %>
+<%= stylesheet_link_tag 'tab_view' %>
+<%= stylesheet_link_tag 'tab' %>
+<%=javascript_include_tag 'accordion'%>
+<%=javascript_include_tag 'lockbox_validation'%>
+<%= javascript_include_tag 'reason_code'%>
+<%= javascript_include_tag 'balancing_record'%>
+
+<%# If Jquery date picker is to be used in any consolidated JS files, place it after 'jquery' and before 'datepicker' %>
+<%= javascript_include_tag 'jquery_date_picker'%>
+<%= stylesheet_link_tag 'jquery_date_picker' %>
+
+<script type="text/javascript">
+  jQuery.noConflict();
+</script>
+<script language="JavaScript" type="text/javascript">
+
+  var NS4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5);
+  function relative_url_root() {
+    return "<%= app_root %>";
+  }
+
+  function addAbaDda(){
+    onbase_class = $$('.aba_dda_class');
+    index = onbase_class.length + 1;
+    img_tag = '<%= image_tag('delete.png', :border=>'0') %>';
+    html = "";
+    html += "<tr class='aba_dda_class' id=\"" + index + "_aba_dda\" ><td>&nbsp;ABA&nbsp;";
+    html += "<input type='text' id=\"abaddas_" + index + "_aba\" name=\"abaddas[" + index + "][aba]\"  size='40' />&nbsp;</td>";
+    html += "<td>&nbsp;DDA&nbsp;<input type='text' id=\"abaddas_" + index + "_dda\" name=\"abaddas[" + index + "][dda]\"  size='40' />&nbsp;";
+    html += "<a href='#' onclick=\"deleteRowAD(" + index + ");return false;\";>"+ img_tag +"</a></td></tr>"
+    Element.insert($('aba_dda_body'), {
+      'bottom': html
+    });
+  }
+
+  function deleteRowAD(index){
+    obj = index + "_aba_dda";
+    $(obj).remove();
+    return false;
+  }
+
+  function addNpiAndTin(){
+    onbase_class = $$('.npi_tin_class');
+    index = onbase_class.length + 1;
+    img_tag = '<%= image_tag('delete.png', :border=>'0') %>';
+    html = "";
+    html += "<tr class='npi_tin_class' id=\"" + index + "_npi_tin\" ><td>&nbsp;NPI&nbsp;";
+    html += "<input type='text' id=\"facilities_" + index + "_npi\" name=\"facilities[" + index + "][npi]\"  size='40' class = 'validate-provider-npi-length' />&nbsp;</td>";
+    html += "<td>&nbsp;TIN&nbsp;<input type='text' id=\"facilities_" + index + "_tin\" name=\"facilities[" + index + "][tin]\"  size='40' class = 'validate-provider-tin-length' />&nbsp;";
+    html += "<a href='#' onclick=\"deleteRow(" + index + ");return false;\";>"+ img_tag +"</a></td></tr>"
+    Element.insert($('npi_tin_body'), {
+      'bottom': html
+    });
+  }
+
+  function deleteRow(index){
+    obj = index + "_npi_tin";
+    $(obj).remove();
+    return false;
+  }
+
+</script>
+<STYLE TYPE="text/css">
+  .dhtmlgoodies_tabPane .tabActive{
+    background-image:url('<%= asset_path "tab_left_active.gif" %>');
+    margin-left:0px;
+    margin-right:0px;
+    z-index:10;
+  }
+  .dhtmlgoodies_tabPane .tabInactive{
+    background-image:url('<%= asset_path "tab_left_inactive.gif" %>');
+    margin-left:0px;
+    margin-right:0px;
+    z-index:1;
+  }
+
+  .dhtmlgoodies_tabPane .inactiveTabOver{
+    background-image:url('<%= asset_path "tab_left_over.gif" %>');
+    margin-left:0px;
+    margin-right:0px;
+  }
+
+
+
+</STYLE>
+<%= form_tag((@action == "create" ? {:action => @action} : admin_facility_path(@facility)) , :method =>(@action == "create" ?  "post" : "put") ,:id => 'form1',:name=>'form1', :onsubmit=> "return mustPassValidationForFacility()") do%>
+  <h1><%=@message%></h1>
+  <% client_name = @facility.client.name  unless @facility.client.blank?%>
+  <div id="dhtmlgoodies_tabView1">
+    <!--************  Tab Lockbox Setup  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top"><table>
+
+              <tr>
+                <td class="td_with_image">&nbsp;Site Name</td>
+                <td><%= text_field 'facility', 'name', :size => 40, :readonly => @edit%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">&nbsp;Lockbox Number </td>
+                <td><%= text_field 'facility', 'lockbox_number', :size => 40%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">Prefered Lockbox Abbreviation</td>
+                <td><%= text_field 'facility', 'abbr_name', :size => 40%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">&nbsp;Client</td>
+                <td>
+                  <%= select('facil', 'client', @clients, {}, {:class => "bullet_links", :disabled => @edit}) %>
+                  <%= hidden_field :is_partner, :bac, :value => @is_partner_bac %>
+                </td>
+              </tr>
+              <tr>
+                <td class="td_with_image">Site Code </td>
+                <td><%= text_field 'facility', 'sitecode', :size => 40%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">Practice ID </td>
+                <td><%= text_field 'details_str', 'practice_id', :style => "width:30px", :value=> (@details['practice_id'] unless @details.blank?),
+                  :onblur => "return validatePracticeId();"%></td>
+              </tr>
+              <% if @facility.new_record? || @facility.client.name.upcase == 'QUADAX' %>
+                <tr id="client_group_row">
+                  <td class="td_with_image">Client Group</td>
+                  <td><%= select('facility', 'client_group', ['', 'HARP', 'HARP PAS', 'EDI'], {}) %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td class="td_with_image">TAT</td>
+                <td><%= text_field 'facility', 'tat', :size => 40%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">Processing Location </td>
+                <td><%= select('facility', 'processing_location', ['Onsite', 'Offshore', 'Both'], {}, :class => "bullet_links")%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">Production Status</td>
+                <td><%= select('facility', 'production_status', ['Test', 'Production'], {}, :class => "bullet_links")%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">&nbsp;Payer IDs To Exclude</td>
+                <td><%= text_field 'facility', 'payer_ids_to_exclude', :size => 40%></td>
+              </tr>
+              <tr>
+                <td class="td_with_image">&nbsp;Payer IDs To Include</td>
+                <td><%= text_field 'facility', 'payer_ids_to_include', :size => 40%></td>
+              </tr>
+            </table></td>
+          <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tbody id="facility">
+                <tr>
+                  <th height="27" colspan="2">Addresss</th>
+                </tr>
+                <tr>
+                  <td class="td_with_image">&nbsp;Address One</td>
+                  <td><%= text_field 'facility', 'address_one', :size => 50%></td>
+                </tr>
+                <tr>
+                  <td class="td_with_image">&nbsp;Address Two</td>
+                  <td><%= text_field 'facility', 'address_two', :size => 50%></td>
+                </tr>
+                <tr>
+                  <td class="td_with_image">&nbsp;City</td>
+                  <td><%= text_field 'facility', 'city', :size => 40%></td>
+                </tr>
+                <tr>
+                  <td class="td_with_image">&nbsp;State</td>
+                  <td><%= text_field 'facility', 'state', :size => 40%></td>
+                </tr>
+                <tr>
+                  <td class="td_with_image">&nbsp;Zip</td>
+                  <td><%= text_field 'facility', 'zip_code', :size => 20%></td>
+                </tr>
+                <tr>
+                  <th height="27" colspan="2">Facility ABA and DDA</th>
+                </tr>
+              <tbody id="aba_dda_body">
+                <% if controller.action_name == 'new' || @abaddalookups.blank?  %>
+                  <tr class="aba_dda_class" id="1_aba_dda">
+                    <td> &nbsp;ABA&nbsp;<%= text_field_tag "abaddas[1][aba]", "", :size => 40 %></td>
+                    <td >&nbsp;DDA&nbsp;<%= text_field_tag "abaddas[1][dda]", "", :size => 40 %>&nbsp;
+                      <a href="#" onclick="addAbaDda();return false;">Add</a>
+                    </td>
+                  </tr>
+                <% else %>
+                  <% unless @abaddalookups.blank? %>
+                    <% @abaddalookups.each_with_index {|abadda,index| %>
+                      <% index = index + 1 %>
+                      <tr class="aba_dda_class" id="<%= index %>_aba_dda">
+                        <td> &nbsp;ABA&nbsp;<%= text_field_tag "abaddas[#{index}][aba]", abadda.aba_number, :size => 40 %> </td>
+                        <td >&nbsp;DDA&nbsp;<%= text_field_tag "abaddas[#{index}][dda]", abadda.dda_number, :size => 40 %>
+                          <%= hidden_field_tag "abaddas[#{index}][id]", abadda.id %>&nbsp;
+                          <a href="#" onclick="addAbaDda();return false;">Add</a>
+                        </td>
+                      </tr>
+                    <% } %>
+                  <% end %>
+                <% end %>
+              </tbody>
+              <tr>
+                <th height="27" colspan="2">NPI and TIN</th>
+              </tr>
+              <tbody id="npi_tin_body">
+                <% if controller.action_name == 'new' || @facility_npi_tin.blank?  %>
+                  <tr class="npi_tin_class" id="1_npi_tin">
+                    <td> &nbsp;NPI&nbsp;<%= text_field_tag 'facilities[1][npi]', '', :size => 40, :class => 'validate-provider-npi-length' %></td>
+                    <td >&nbsp;TIN&nbsp;<%= text_field_tag 'facilities[1][tin]', '', :size => 40, :class => 'validate-provider-tin-length' %>&nbsp;
+                      <a href="#" onclick="addNpiAndTin();return false;">Add</a>
+                    </td>
+                  </tr>
+                <% else %>
+                  <% unless @facility_npi_tin.blank? %>
+                    <% @facility_npi_tin.each_with_index {|facility,index| %>
+                      <% index = index + 1 %>
+                      <tr class="npi_tin_class" id="<%= index %>_npi_tin">
+                        <td> &nbsp;NPI&nbsp;<%= text_field_tag "facilities[#{index}][npi]", facility.npi, :size => 40, :class => 'validate-provider-npi-length' %></td>
+                        <td >&nbsp;TIN&nbsp;<%= text_field_tag "facilities[#{index}][tin]", facility.tin, :size => 40, :class => 'validate-provider-tin-length' %>
+                          <%= hidden_field_tag "facilities[#{index}][id]", facility.id %>&nbsp;
+                          <a href="#" onclick="addNpiAndTin();return false;">Add</a>
+                        </td>
+                      </tr>
+                    <% } %>
+                  <% end %>
+                <% end %>
+              </tbody>
+              </tbody>
+            </table></td>
+        </tr>
+      </table>
+      <a href="#"  onclick="showTab('dhtmlgoodies_tabView1',1)">&nbsp;Next<%= image_tag "resultset_next.png", :alt=>"", :width=>"16", :height=>"16", :border=>"0", :align=>"absmiddle" %></a>
+    </div>
+
+    <!--************  Tab Input Setup  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top">
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th valign="top"><span class="sec_title1">File Upload </span></th>
+              </tr>
+              <tr>
+                <td valign="top"><table border="0">
+                    <tr>
+                      <th height="30" colspan="5">Batch Upload</th>
+                    </tr>
+                    <tr>
+                      <td width="150" align="left" class="td_with_image">&nbsp;Image File Format </td>
+                      <td colspan="4"><%= select('facility', 'image_file_format', @image_file_formats,{}, {:class => "bullet_links", :disabled => @image_file_format_edit}) %></td>
+                    </tr>
+                    <tr>
+                      <td width="150" align="left" class="td_with_image">&nbsp;Image Type </td>
+                      <td colspan="4"><%= select('facility', 'image_type', [['Single page', 0], ['Multi page', 1]], {}, {:class => "bullet_links", :disabled => @edit}) %></td>
+                    </tr>
+                    <tr>
+                      <td width="150" align="left" class="td_with_image">&nbsp;Image Processing </td>
+                      <td colspan="4"><%= select('facility', 'image_processing_type', ['Combine Split', 'Split', 'No Split'], {}, :class => "bullet_links")%></td>
+                    </tr>
+                    <tr>
+                      <td width="150" align="left" class="td_with_image">&nbsp;Index File Format </td>
+                      <td colspan="4"><%= select('facility', 'index_file_format', @index_file_formats, {}, :class => "bullet_links", :disabled => @index_file_format_edit) %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Index File Type </td>
+                      <td colspan="4"><%= select('facility', 'index_file_parser_type', @index_file_parsers, {:include_blank => true}, :class => "bullet_links",:disabled => @edit) %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Select Type of Batch to Load </td>
+                      <td colspan="4"><%= select('facility', 'batch_load_type', [["Correspondence", "C"], ["Payment", "P"]], {:selected => @batch_load_type}, {:class => "bullet_links", :multiple => "true"})%></td>
+                    </tr>
+                    <tr>
+                      <td width="150" align="left" class="td_with_image">&nbsp;Batch Upload Tolerance</td>
+                      <td>OCR Batch </td>
+                      <td><%= text_field 'facility', 'ocr_tolerance', :size => 5%></td>
+                      <td>Non OCR Batch </td>
+                      <td><%= text_field 'facility', 'non_ocr_tolerance', :size => 5%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Apply Transpose Logic</td>
+                      <td colspan="4"><%= check_box 'details','is_transpose',:checked => true%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Apply Warrant Logic</td>
+                      <td colspan="4"><%= check_box 'details','is_warrant',:checked => @is_warrant %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Zero byte batch loading</td>
+                      <td colspan="4"><%= check_box 'details','is_zero_byte',:checked => @is_zero_byte %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Is batch loading Manual</td>
+                      <td colspan="4"><span class="sec_title"><%= "#{@is_batch_upload}".capitalize  %></span></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Batch Upload Parser Type</td>
+                      <td colspan="4"><%= select('facility', 'batch_upload_parser_id', @batch_upload_parsers, {}, :class => "bullet_links", :disabled => @facility.batch_upload_parser_id?)%></td>
+                    </tr>
+                    <tr>
+                      <th height="30" colspan="5">Claim Data Upload</th>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;837 File Type </td>
+                      <td colspan="4"><%= select('facility', 'claim_file_parser_type', @claim_file_parsers, {}, :class => "bullet_links", :disabled => @edit) %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Claim File Type </td>
+                      <td colspan="4"><%= select('claim_file_type','', @claim_file_types, {}, :class => "bullet_links") %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">&nbsp;Archive Claims In (months)</td>
+                      <td colspan="4"><%= text_field 'facility', 'archive_claims_in', :size => 5 %></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table>
+          </td>
+          <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th height="25" colspan="2">Payer Classification</th>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Min count of reason code </td>
+                <td><%= text_field 'payer_classification', 'min_reason_codes',
+                    :id => 'min_reason_codes',
+                    :value => (@facility.details[:min_reason_codes] unless
+                    @facility.details.blank?), :size => 20 %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Min % of unique reason codes </td>
+                <td><%= text_field 'payer_classification', 'min_percentage_of_reason_codes',
+                    :id => 'min_percentage_of_reason_codes',
+                    :value => (@facility.details[:min_percentage_of_reason_codes] unless
+                    @facility.details.blank?), :size => 20 %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Min count of EOBs </td>
+                <td><%= text_field 'payer_classification', 'min_number_of_eobs',
+                    :id => 'min_number_of_eobs',
+                    :value => (@facility.details[:min_number_of_eobs] unless
+                    @facility.details.blank?), :size => 20 %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Threshold time to TAT for classification(Hour) </td>
+                <td><%= text_field 'payer_classification', 'threshold_time_to_tat',
+                    :id => 'threshold_time_to_tat',
+                    :value => (@facility.details[:threshold_time_to_tat] unless
+                    @facility.details.blank?), :size => 20 %></td>
+              </tr>
+            </table></td>
+
+        </tr>
+      </table>
+
+      <a href="#"  onclick="showTab('dhtmlgoodies_tabView1',2)">&nbsp;Next<%= image_tag "resultset_next.png", :alt=>"", :width=>"16", :height=>"16", :border=>"0", :align=>"absmiddle" %></a>
+    </div>
+
+    <!--************  Tab Grid Setup  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top"><table width="100%" border="0">
+              <tr>
+                <th height="25" colspan="2">Payer Type Setup </th>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Commercial&nbsp;Payer </td>
+                <td><%= check_box 'facil', 'commercial_payer', {
+                    :checked => @commercial_payer,
+                    :onclick => "displayCOMPAY()"} %>&nbsp;&nbsp;ID&nbsp;<%= text_field 'facility', 'commercial_payerid',
+                  :size => 20, :disabled => !@commercial_payer%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Patient&nbsp;Payer</td>
+                <td><%= check_box 'facil', 'patient_payer', {
+                    :checked => @patient_payer,
+                    :onclick => "displayPATPAY()"} %>&nbsp;&nbsp;ID&nbsp;<%= text_field 'facility', 'patient_payerid',
+                  :size => 20, :disabled => !@patient_payer%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;PatientPay&nbsp;EOB&nbsp;Grid </td>
+                <td>
+                  <%= select('facility', 'patient_pay_format', @patient_pay_formats, {},
+                    :class => "bullet_links",
+                    :onchange => "return showMultipleSVLines()") %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;MPI search scope</td>
+                <td colspan="4">Facility Level:<%= radio_button(:facility, :mpi_search_type, "FACILITY", :checked => @mpi_search_by_facility) %>Client Level:<%= radio_button(:facility, :mpi_search_type, "CLIENT", :checked => @mpi_search_by_client,:onclick => "hideFacilityGroup(this.checked)") %></td>
+              </tr>
+              <%
+              facility_values = @facility_list.blank? ? '' : @facility_list
+
+              if(!@facility.blank?)
+                style = (@facility.mpi_search_type.blank? || @facility.mpi_search_type != "FACILITY") ?  "display:none;" :  "display:'';"
+              else
+                style = "display:none;"
+              end%>
+              <tr id="hidethis" style="<%= style %>" %>
+
+                  <td align="left" class="td_with_image">&nbsp;Facility Group</td>
+                <td> <%= select_tag 'details[facility_ids]', options_for_select(facility_values,@facility_ids_selected ), { :multiple => true, :id => "facility_collc" } %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Plan&nbsp;Type </td>
+                <td><%= select('facility', 'plan_type', ['837 specific', 'Payer specific only'], {}, :class => "bullet_links")%>
+                  Default Plan Type : <%= text_field 'detail', 'default_plan_type', :value => @facility.details[:default_plan_type], :size => 10, :maxlength => 2 %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Claim&nbsp;Level&nbsp;EOBs </td>
+                <td>Insurance Grid: <%= check_box 'details', 'insurance_claim_level_eob', :checked => @insurance_claim_level_eob %>PatPay Grid: <%= check_box 'details', 'patpay_claim_level_eob', :checked => @patpay_claim_level_eob %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Service Descriptions for Claim Level EOBs</td>
+                <td><%= check_box 'details', 'claim_level_service_lines', :checked => @claim_level_service_lines %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Claim level Allowed Amount</td>
+                <td><%= check_box 'details', 'claim_level_allowed_amount_in_grid',
+                    :checked => @claim_level_allowed_amount_in_grid %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Date&nbsp;of&nbsp;Service</td>
+                <td><%= radio_button(:facility, :default_service_date , "Batch Date",
+                    :checked => @def_svc_bat_dt,
+                    :onclick => "document.getElementById('CitizenNo').style.visibility='hidden'")%>Batch&nbsp;Date&nbsp;<%= radio_button(:facility, :default_service_date , "Check Date",
+                    :checked => @def_svc_chec_dt,
+                    :onclick => "document.getElementById('CitizenNo').style.visibility='hidden'")%>Check&nbsp;Date&nbsp;<%= radio_button(:facility, :default_service_date , "Other",
+                    :checked => @def_svc_oth,
+                    :onclick => "document.getElementById('CitizenNo').style.visibility='visible'")%>Other
+                  <div ID="CitizenNo"  style="<%=@visible_def_svc_date%>">
+                    <%= text_field_tag 'other_date', @other_date, :size => 20, :readonly => true%>                    
+                  </div></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Check&nbsp;Date&nbsp;to&nbsp;Batch&nbsp;Date </td>
+                <td><%= check_box 'facility', 'is_check_date_as_batch_date', :checked => @default_check_date_to_b_date %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;A/c&nbsp;#</td>
+                <td><%= text_field 'facility', 'default_account_number',
+                    :onblur => validations_for_default_account_number,
+                    :size => 20%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;CPT&nbsp;Code</td>
+                <td><%= text_field 'facility', 'default_cpt_code', :size => 20%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Service&nbsp;Code&nbsp;Qualifier</td>
+                <td> <%= text_field 'detail', 'default_cdt_qualifier', :value => @facility.details[:default_cdt_qualifier], :size => 20%>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Hide Incomplete Button</td>
+                <td>
+                  <div style="float:left"> All <%= check_box 'detail','hide_incomplete_button_for_all' , :checked => @facility.details[:hide_incomplete_button_for_all] == "1"%> Payment Non-Zero <%= check_box 'detail','hide_incomplete_button_for_non_zero_payment' , :checked => @facility.details[:hide_incomplete_button_for_non_zero_payment] == "1"%>Correspondence  <%= check_box 'detail','hide_incomplete_button_for_correspondance' , :checked => @facility.details[:hide_incomplete_button_for_correspondance] == "1"%></div>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Hide Modifiers</td>
+                <td>
+                  <%= check_box 'details', 'hide_modifiers', :checked => @facility.details[:hide_modifiers] %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Insurance&nbsp;Payer&nbsp;Tin</td>
+                <td><%= text_field 'facility', 'default_insurance_payer_tin', :size => 20%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Patpay&nbsp;Payer&nbsp;Tin</td>
+                <td><%= text_field 'facility', 'default_patpay_payer_tin', :size => 20%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default&nbsp;Ref&nbsp;#</td>
+                <td><%= text_field 'facility', 'default_ref_number', :size => 20%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Default Claim # </td>
+                <td><%= text_field 'details', 'default_claim_number', :size => 20, :value => @default_claim_number %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Claim&nbsp;Normalized&nbsp;Factor</td>
+                <td>
+                  <%= text_field 'detail', 'claim_normalized_factor', :value => @facility.details[:claim_normalized_factor], :size => 20%>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Service&nbsp;Line&nbsp;Normalized&nbsp;Factor</td>
+                <td>
+                  <%= text_field 'detail', 'service_line_normalised_factor', :value => @facility.details[:service_line_normalised_factor], :size => 20%>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Default Patient Name</td>
+                <td><%= radio_button(:facility, :default_patient_name, "Payer Name", {:checked => @def_pat_name_payer, :onclick => "document.getElementById('CitizenNo1').style.visibility='hidden'"})%>
+                  Payer&nbsp;Name
+                  <%= radio_button(:facility, :default_patient_name, "Other", {:checked => @def_pat_name_oth, :onclick => "document.getElementById('CitizenNo1').style.visibility='visible'"})%>
+                  Other
+                  <SPAN ID="CitizenNo1" <%=@visible_oth_def_pat_name%>>
+                    <br />
+                    First&nbsp;Name:&nbsp;<%= text_field 'facil', 'def_pat_first_name', :size => 20%>
+                    Last&nbsp;Name:&nbsp;&nbsp;<%= text_field 'facil', 'def_pat_last_name', :size => 20%></SPAN></td>
+              </tr>
+
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Capture Interest in Service Line </td>
+                <td><%= check_box 'details','interest_in_service_line' , :checked => @interest_in_service_line, :onclick => "enable_835_interest_section()" %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Allow&nbsp;Special&nbsp;Characters&nbsp;in&nbsp;Patient&nbsp;Account&nbsp;Number&nbsp;</td>
+                <td><%= check_box 'details','patient_account_number_hyphen_format' , :checked => @patient_account_number_hyphen_format%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Check&nbsp;prefix&nbsp;for&nbsp;Account&nbsp;Number&nbsp;</td>
+                <td><%= check_box 'details','account_num_prefix' , :checked => @account_num_prefix%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Patient&nbsp;Name&nbsp;Format&nbsp;Validation&nbsp;</td>
+                <td><%= check_box 'details','patient_name_format_validation' , :checked => @patient_name_format_validation%></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Balancing&nbsp;Procedure&nbsp;</td>
+                <td><%= check_box 'details','balance_record_applicable', :checked => @balance_record_applicable,
+                    :onclick => "changeVisibilityOfBalancingRecordTab()" %>&nbsp;Balancing&nbsp;Record&nbsp;
+                  <%= check_box 'details','plb_applicable', :checked => @plb_applicable,
+                    :onclick => "changeVisibilityOfBalancingRecordTab()" %>&nbsp;Provider&nbsp;Adjustment&nbsp;Amount</td>
+              </tr
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Allowed&nbsp;Amount&nbsp;Mandatory?&nbsp;</td>
+                <td><%= check_box 'details','allowed_amount_mandatory',
+                  :checked => @allowed_amount_mandatory %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">&nbsp;Comments&nbsp;for&nbsp;Operation&nbsp;log</td>
+                <td>
+                  <table style="border:solid 1px white;">
+                    <tr>
+                      <td style="border:solid 1px white;">
+                        Incomplete job comments<br/>
+                        <%= text_area_tag :incomplete_rejection_comment, "#{(@incomplete_rejection_comment.blank? ? params[:incomplete_rejection_comment] : @incomplete_rejection_comment.name.gsub("- ", "").gsub("--",""))}", :cols => "25", :rows => "5" %>
+                      </td>
+                      <td style="border:solid 1px white;">Completed job comments<br/>
+                        <%= text_area_tag :complete_rejection_comment, "#{(@complete_rejection_comment.blank? ? params[:complete_rejection_comment] : @complete_rejection_comment.name.gsub("- ", "").gsub("--",""))}", :cols => "25", :rows => "5" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Comments for Orbograph Correspondence</td>
+                <td>
+                  <table style="border:solid 1px white;">
+                    <tr>
+                      <td style="border:solid 1px white;">
+                        Rejection comments<br/>
+                        <%= text_area_tag :orbhograph_rejection_comment, "#{(@orbhograph_rejection_comment.blank? ? params[:orbhograph_rejection_comment] : @orbhograph_rejection_comment.name.gsub("- ", "").gsub("--",""))}", :cols => "75", :rows => "5" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Mismatch Transaction Categorization</td>
+                <td><%= check_box 'details', 'mismatch_transaction', :checked => @facility.details[:mismatch_transaction] %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Payee NPI / TIN Validation</td>
+
+                <td><%= select('detail', 'npi_or_tin_validation', ['--','NPI', 'TIN'], {:selected => @facility.details[:npi_or_tin_validation]}, :class => "bullet_links")%></td>
+
+              </tr
+              <tr>
+                <td align="left" class="td_with_image"> Interest Only 835 </td>
+                <td><%= check_box 'details', 'interest_only_835',
+                  :checked => @facility.details[:interest_only_835] %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> HRA / HSA / FSA Account Type Processing </td>
+                <td>
+                  <%= check_box 'details', 'hra_processing', :checked => (@details['hra_processing'] unless @details.blank?) %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> EOBs must be present for in-completing a job </td>
+                <td>
+                  <%= check_box 'details', 'eob_must_present_for_job_completion', :checked => (@details['eob_must_present_for_job_completion'] unless @details.blank?) %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Configure UPMC Payee Name with Lockbox</td>
+                <td><%= check_box 'details', 'upmc_payee_name_config',
+                  :checked => @facility.details[:upmc_payee_name_config] %></td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Is Double Keying needed for 837 fields? </td>
+                <td>
+                  Yes <%= radio_button :facility, :double_keying_for_837_fields, true,:checked =>  @enable_double_keying_for_837 %>
+                  No <%= radio_button :facility, :double_keying_for_837_fields, false,:checked =>  @disable_double_keying_for_837%>
+
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image"> Random Sampling for Double Keying </td>
+                <td>
+                  Yes <%= radio_button :facility, :random_sampling, true,:checked =>  @enable_random_sampling, :onclick => "document.getElementById('random_sampling_percentage').style.visibility='visible'" %>
+                  No <%= radio_button :facility, :random_sampling, false,:checked =>  @disable_random_sampling, :onclick => "document.getElementById('random_sampling_percentage').style.visibility='hidden';  "%>
+                  <%  random_sampling_percentage_visibility = @enable_random_sampling? 'visible' : 'hidden'%>
+                  <SPAN ID="random_sampling_percentage" style='visibility:<%=random_sampling_percentage_visibility%>;'>
+                    <br />
+                    Sampling Percentage<%= text_field 'facility', 'random_sampling_percentage', :value => @facility.random_sampling_percentage, :size => 5%>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Multiple Reason codes in an Adjustment Field</td>
+                <td>
+                  <%= check_box 'details', 'multiple_reason_codes_in_adjustment_field',
+                    :checked => @multiple_reason_codes_in_adjustment_field, :onclick => "showCasConfigForMultipleReasonCode();" %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Default Rendering Provider Details with Facility </td>
+                <td>
+                  <%= check_box 'details', 'default_rendering_provider_details',
+                    :checked => @facility.details[:default_rendering_provider_details] %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Default Payee Details with Facility </td>
+                <td>
+                  <%= check_box 'details', 'default_payee_details',
+                    :checked => @facility.details[:default_payee_details] %>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" class="td_with_image">Unidentified Account Numbers</td>
+                <td>
+                  <%= text_field 'facil', 'unidentified_acc_no',
+                    :value => @facility.unidentified_account_number, :size => 20%>
+                </td>
+              </tr>
+            </table></td>
+          <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th height="25" colspan="2">Lockbox Specified Fields</th>
+              </tr>
+              <tr>
+                <td colspan="2"><div style="height:746px; overflow-y:scroll; "> <strong class="black_text">Check/Claim Level</strong><br />
+                    <%= check_box 'details','payee_name', :checked => @payee_name %>
+                    Payee Name<br />
+                    <%= check_box 'details','claim_type', :checked => @claim_type %>
+                    Claim Type<br />
+                    <%= check_box 'details','hcra', :checked => @hcra %>
+                    HCRA Code<br />
+                    <%= check_box 'details','drg_code', :checked => @drg_code %>
+                    DRG Code<br />
+                    <%= check_box 'details','patient_type', :checked => @patient_type %>
+                    Patient Type<br />
+                    <%= check_box 'details','claim_level_dos', :checked => @claim_level_dos %>
+                    Claim Level DOS<br />
+                    <%= check_box 'details','late_fee_charge', :checked => @late_fee_charge %>
+                    Late Fee Charge<br />
+                    <%= check_box 'details','date_received_by_insurer', :checked => @date_received_by_insurer %>
+                    Date Received by Insurer<br />
+                    <%= check_box 'details','carrier_code', :checked => @carrier_code %>
+                    Carrier Code<br />
+                    <%= check_box 'details','payment_type', :checked => @payment_type %>
+                    Payment Type<br />
+                    <%= check_box 'details','transaction_type', :checked => @transaction_type %>
+                    Transaction Type<br />
+                    <%= check_box 'details','micr_line_info', :checked => @micr_line_info %>
+                    ABA Routing# / Payer Account#<br />
+                    <%= check_box 'details','payer_tin', :checked => @payer_tin %>
+                    Payer Tin<br />
+                    <%= check_box 'details','provider_address', :checked => @provider_address %>
+                    Provider Address<br />
+                    <%= check_box 'details','patient_address', :checked => @patient_address %>
+                    Patient Address in Patpay Grid<br />
+                    <%= check_box 'details','re_pricer_info', :checked => @re_pricer_info %>
+                    Re-pricer Info<br />
+                    <%= check_box 'details','fund', :checked => @fund %>
+                    Fund<br />
+                    <%= check_box 'details','check_received_and_mailed_date', :checked => @check_received_and_mailed_date %>
+                    Check Received & Mailed Date<br />
+                    <%= check_box 'details','payer_control_number', :checked => @payer_control_number %>
+                    Payer Control#<br />
+                    <%= check_box 'details','marital_status', :checked => @marital_status %>
+                    Marital Status<br />
+                    <%= check_box 'details','secondary_plan_code', :checked => @secondary_plan_code %>
+                    Secondary Plan Code<br />
+                    <%= check_box 'details','tertiary_plan_code', :checked => @tertiary_plan_code %>
+                    Tertiary Plan Code<br />
+                    <%= check_box 'details','state_use_only', :checked => @state_use_only %>
+                    State Use Only<br />
+                    <%= check_box 'details','payer_indicator', :checked => @payer_indicator %>
+                    Payer Indicator<br />
+                    <%= check_box 'details','over_payment_recovery', :checked => @over_payment_recovery %>
+                    Over Pay Recovery<br />
+                    <%= radio_button 'details', 'number','claim',:checked => @claim_number %>
+                    Claim#
+                    <%= radio_button 'details', 'number','control', :checked => @control_number %>
+                    Control#
+                    <%= radio_button 'details', 'number','none', :checked => @none %>
+                    None<br />
+                    <%= check_box 'details','medical_record_number', :checked => @medical_record_number %>
+                    MRN<br />
+                    <div style="width:200px">
+                      <%= check_box 'details','document_classification',
+                        :checked => @document_classification,
+                        :onclick => "change_visibility_of_doc_classification_validn_config()" %>
+                      Document Classification<br />
+                      <span id="document_classification_mandatory" <%= @doc_classification_mandatory_visible %>>
+                        <%= check_box 'details','document_classification_mandatory',
+                          :checked => @document_classification_mandatory %>
+                        Document Classification Mandatory<br />
+                      </span>
+                      <span id="same_doc_classification_within_a_job" <%= @same_doc_classificn_within_a_job_visible %>>
+                        <%= check_box 'details','same_document_classification_within_a_job',
+                          :checked => @same_document_classification_within_a_job %>
+                        Same Document Classification within a Job<br />
+                      </span>
+                    </div>
+                    <%= check_box 'details','place_of_service', :checked => @place_of_service %>
+                    Place of Service
+                    <br />
+                    <%= check_box 'details', 'patpay_statement_fields', :checked => @patpay_statement_fields %>
+                    PatPay Statement Fields<br />
+                    <br />
+
+                    <strong class="black_text">Service Level</strong><br />
+                    <%= check_box 'details','reason_code_mandatory', :checked => @reason_code_mandatory %>
+                    Reason Code Mandatory<br />
+                    <%= check_box 'details','adjustment_amount_mandatory', :checked => @adjustment_amount_mandatory %>
+                    Adjustment Amount Mandatory<br />
+                    <%= check_box 'details','adjustment_amount_zero', :checked => @adjustment_amount_zero %>
+                    Adjustment Amount Zero<br />
+                    <%= check_box 'details','payment_code', :checked => @payment_code %>
+                    Payment Code<br />
+                    <%= check_box 'details','expected_payment_insurance', :checked => @expected_payment_insurance %>
+                    Expected Payment - Insurance Payment EOB<br />
+                    <%= check_box 'details','expected_payment_pat_simplified', :checked => @expected_payment_pat_simplified %>
+                    Expected Payment - Patient Pay Simplified<br />
+                    <%= check_box 'details','revenue_code', :checked => @revenue_code %>
+                    Revenue Code<br />
+                    <%= check_box 'details','cpt_or_revenue_code_mandatory', :checked => @cpt_or_revenue_code_mandatory %>
+                    CPT Code Or Revenue Code Mandatory<br />
+                    <%= check_box 'details','group_code', :checked => @group_code %>
+                    Group Code<br />
+                    <div style="width:200px">
+                      <%= check_box 'details','reference_code', :checked => @reference_code, :onclick => 'change_visibility_of_CB_reference_code_mandatory()' %>
+                      Reference Code
+                      <span id="reference_code_mandatory" <%= @ref_code_mandatory_visible %> width:80px>
+                        <%= check_box 'details','reference_code_mandatory', :checked => @reference_code_mandatory  %>
+                        Mandatory
+                      </span>
+                    </div>
+                    <%= check_box 'details','service_date_from', :checked => @service_date_from %>
+                    Service From Date<br />
+                    <%= check_box 'details','rx_code', :checked => @rx_code %>
+                    RX Number<br />
+                    <%= check_box 'details','denied', :checked => @denied %>
+                    <%=  denied_label(client_name) %><br />
+                    <%= check_box 'details','bundled_procedure_code', :checked => @bundled_procedure_code %>
+                    Bundled CPT Code <br />
+                    <%= check_box 'details','remark_code', :checked => @remark_code %>
+                    Remark Code <br />
+                    <%= check_box 'details','hipaa_code', :checked => @hipaa_code %>
+                    HIPAA Code Cross Walking<br />
+                    <%= check_box 'details','payer_specific_reason_code', :checked => @payer_specific_reason_code %>
+                    Capture Payer Specific Reason Codes<br />
+                    <%= check_box 'details','drg_amount', :checked => @drg_amount %>
+                    DRG Amount<br />
+                    <%= check_box 'details','payment_status_code', :checked => @payment_status_code %>
+                    Payment Status Code<br />
+                    <%= check_box 'details','retention_fee', :checked => @retention_fee %>
+                    Retention Fee<br />
+                    <%= check_box 'details','line_item', :checked => @line_item %>
+                    Line Item#<br />
+                    <%= check_box 'details','pbid', :checked => @pbid %>
+                    PBID<br />
+                    <%= check_box 'details','prepaid', :checked => @prepaid %>
+                    Prepaid<br />
+                    <%= check_box 'details','plan_coverage', :checked => @plan_coverage %>
+                    Plan%<br />
+                    <%= check_box 'details','patient_responsibility', :checked => @patient_responsibility %>
+                    Patient Responsibility<br />
+                    <%= check_box 'details','tooth_number', :checked => @tooth_number %>
+                    Tooth Number<br />
+                    <%= check_box 'details','miscellaneous_adjustment_fields', :checked => @miscellaneous_adjustment_fields %>
+                    Miscellaneous Adjustment Fields <br /></div></td>
+              </tr>
+            </table></td>
+
+        </tr>
+      </table>
+      <a href="#"  onclick="showTab('dhtmlgoodies_tabView1',3)">&nbsp;Next<%= image_tag "resultset_next.png", :alt=>"", :width=>"16", :height=>"16", :border=>"0", :align=>"absmiddle" %></a>
+    </div>
+    <!--************  Tab Balancing Record  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top">
+            <%= render :partial => 'balancing_record' %>
+            </td>
+        </tr>
+      </table>
+      <a href="#"  onclick="showTab('dhtmlgoodies_tabView1',4)">&nbsp;Next<%= image_tag "resultset_next.png", :alt=>"", :width=>"16", :height=>"16", :border=>"0", :align=>"absmiddle" %></a>
+    </div>
+
+
+    <!--************  Tab Output Setup  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <div id="accordion2">
+        <dl class="accordion2" id="slider2">
+          <dt>Insurance EOB Output</dt>
+          <dd style="overflow:auto;">
+            <table border="0">
+              <tr>
+                <th valign="top">General</th>
+                <th valign="top">File Name Format </th>
+                <th valign="top">Configurable Segments in 835 </th>
+              </tr>
+              <tr>
+                <td valign="top"><table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" class="td_with_image">835 data grouping<br />
+                        [Payment + Correspondence + Patient Pay]<br />
+                        [Payment + Correspondence] + Patient Pay<br />
+                        [Payment + Patient Pay] + Correspondence<br />
+                      </td>
+                      <td><%= check_box 'output_insu', 'payment_corres_patpay_in_one_file', :checked => @payment_corres_patpay_in_one_file %>
+                        <br />
+                        <%= check_box 'output_insu', 'payment_corres_in_one_patpay_in_separate_file', :checked => @payment_corres_in_one_patpay_in_separate_file %>
+                        <br /><br />
+                        <%= check_box 'output_insu', 'payment_patpay_in_one_corres_in_separate_file', :checked => @payment_patpay_in_one_corres_in_separate_file %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Output Grouping</td>
+                      <td><%= select('output_insu', 'grouping', @output_groups, {}, :class => "bullet_links") %></td>
+                    </tr>
+                    <script type="text/javascript">
+                      function enable835(){
+                        var select_value = document.getElementById('output_insu_format');
+                        if(select_value.selectedIndex!=0 && select_value.selectedIndex!= 7){
+                          document.getElementById('output_insu_multi_transaction').disabled=true;
+                          document.getElementById('details_insu_isa_06_predefined_payer_id').disabled=true;
+                          document.getElementById('details_insu_isa_06_other').disabled=true;
+                          document.getElementById('details_ins_other_isa_06').disabled=true;
+                          document.getElementById('details_insu_bpr_16').disabled=true;
+                          document.getElementById('details_insu_zero_pay').disabled=true;
+                        }
+                        else{
+                          document.getElementById('output_insu_multi_transaction').disabled=false;
+                          document.getElementById('details_insu_isa_06_predefined_payer_id').disabled=false;
+                          document.getElementById('details_insu_isa_06_other').disabled=false;
+                          document.getElementById('details_ins_other_isa_06').disabled=false;
+                          document.getElementById('details_insu_bpr_16').disabled=false;
+                          document.getElementById('details_insu_zero_pay').disabled=false;
+                        }
+                      }
+
+                      function enablePredefinedPayer(){
+                        var checkBox = document.getElementById('output_ins_predefined_check');
+                        if(checkBox.checked)
+                          document.getElementById('output_insu_predefined_payer').disabled=false;
+                        else
+                          document.getElementById('output_insu_predefined_payer').disabled=true;
+                      }
+
+                      function enablePayeeName(){
+                        var checkBox = document.getElementById('detail_payee_name_check');
+                        if(checkBox.checked)
+                          document.getElementById('details_insu_payee_name').disabled=false;
+                        else
+                          document.getElementById('details_insu_payee_name').disabled=true;
+                      }
+                    </script>
+                    <tr>
+                      <td align="left" class="td_with_image">Insurance Output Format</td>
+                      <td><%= select('output_insu', 'format', @output_formats, {}, {:class => "bullet_links", :onchange => "enable835()"}) %>&nbsp;&nbsp; </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Correspondence Output Format</td>
+                      <td><%= select('details_insu', 'correspondence_output_format', @output_formats,{}, {:class => "bullet_links"}) %>&nbsp;&nbsp; </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Predefined Payer <br />
+                        (for payment and correspondence)</td>
+                      <td><%= check_box 'output_ins', 'predefined_check', :checked => @predefined_check, :onclick => "enablePredefinedPayer()" %>
+                      <%= text_field_with_auto_complete :output_insu, :predefined_payer, :size => 15, :disabled => !@predefined_check%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Payee Name </td>
+                      <td><%= check_box 'detail', 'payee_name_check', :checked => @payee_name_check, :onclick => "enablePayeeName()" %>
+                      <%= text_field :details_insu, :payee_name, :size => 15, :disabled => !@payee_name_check rescue nil%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">835 content formatting - no wrap</td>
+                      <td><%= check_box 'details_insu', 'content_835_no_wrap', :checked => @content_835_no_wrap %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Generate null 835 files</td>
+                      <td><%= check_box 'details_insu', 'generate_null_835', :checked => @generate_null_835 %></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Output Version</td>
+                      <td><%= radio_button_tag 'output_version','4010', checked = @v_4010%>
+                        4010
+                        <%=  radio_button_tag 'output_version','5010', checked = @v_5010%>
+                        5010
+                        <%= radio_button_tag 'output_version', 'both', checked = @v_both%>
+                        Both
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">
+                        <% 
+                        if @facility and @facility.details and (@facility.details[:configurable_835] == true)
+                            @config_checked= true
+                          else
+                            @config_checked= false
+                          end
+                     %>
+                          Enable 835 configuration
+                      </td>
+                      <td>
+                        <%= check_box 'details','configurable_835',:checked => @config_checked %>
+                       
+                      </td>
+                    </tr>
+                  </table></td>
+                <td valign="top"><table border="0">
+                    <tr><td><b>Payment</b></td></tr>
+                    <tr>
+                      <td><%= select_tag('file_name_components1', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                      <td align="center" valign="middle"><input name="button" type="button"
+                                                                onclick="move($('file_name_components1'), $('output_insu_file_name'));" value="--&gt;" /></td>
+                      <td><%=text_area 'output_insu', 'file_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                    </tr>
+                    <tr><td><b>Correspondence</b></td></tr>
+                    <tr>
+                      <td><%= select_tag('file_name_components_corr', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                      <td align="center" valign="middle"><input name="button" type="button"
+                                                                onclick="move($('file_name_components_corr'), $('output_insu_file_name_corr'));" value="--&gt;" /></td>
+                      <td><%=text_area 'output_insu', 'file_name_corr', :cols => 40, :rows => 5, :class => 'content'%></td>
+                    </tr>
+                    <tr>
+                      <td>  Zip &nbsp;<%= check_box 'details_insu', 'zip_output', :checked => @zip_output_insurance,:onclick=>"enable_zip_ins_file_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="zip_ins" style="<%=@visible_ins_zip%>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('zip_file_name_components', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button_select_ins_file_name" id="button_select_ins_file_name" type="button"
+                                                                        onclick="move($('zip_file_name_components'), $('output_insu_zip_file_name'));" value="--&gt;" /></td>
+                              <td><%=text_area 'output_insu', 'zip_file_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Output Folder Name &nbsp;<%= check_box 'details_insu', 'output_folder', :checked => @insurance_output_folder,:onclick=>"enable_ins_folder_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="folder_ins"  style="<%=@visible_ins_folder%>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('folder_name_components', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button_select_ins_folder_name" id="button_select_ins_folder_name" type="button"
+                                                                        onclick="move($('folder_name_components'), $('output_insu_folder_name'));" value="--&gt;" /></td>
+                              <td><%=text_area 'output_insu', 'folder_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </table></td>
+                <td valign="top"><table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" class="td_with_image">Multi Transaction (ST-SE)</td>
+                      <td><%= check_box 'output_insu', 'multi_transaction', :checked => @multi_transaction, :disabled => @disable_835_section_insu%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">ISA 06/GS 02</td>
+                      <td><%= radio_button(:details_insu, :isa_06, "Predefined Payer ID", {:checked => @isa_06_prepayer, :onclick => "document.getElementById('show_other_div_id').style.visibility='hidden'", :disabled => @disable_835_section_insu})%>
+                        Predefined Payer ID
+                        <%= radio_button(:details_insu, :isa_06, "Other", {:checked => @isa_06_other, :onclick => "document.getElementById('show_other_div_id').style.visibility='visible'", :disabled => @disable_835_section_insu})%>
+                        Other
+                        <div id="show_other_div_id"  style="<%=@visible_other_isa_06%>" >
+                          <%= text_field 'details_ins', 'other_isa_06', :size => 15, :disabled => @disable_835_section_insu%>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">BPR 16 </td>
+                      <td><%= select('details_insu', 'bpr_16', ['Check Date', 'Batch Date'], {}, :class => "bullet_links", :disabled => @disable_835_section_insu)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">BPR 16(Correspondence)</td>
+                      <td><%= select('details_insu', 'bpr_16_correspondence', ['Batch Date', '835 Creation Date'], {}, :class => "bullet_links", :disabled => @disable_835_section_insu)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Zero Pay </td>
+                      <td><%= select('details_insu', 'zero_pay', [['--', nil], 'ZP', 'X20'], {}, :class => "bullet_links", :disabled => @disable_835_section_insu)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">PLB Separator</td>
+                      <td><%= select('details_insu', 'plb_separator', [':', '>'], {}, :class => "bullet_links", :disabled => @disable_835_section_insu)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Interest Amount</td>
+                      <td><%= radio_button(:details_insu, :interest_amount, "Add Interest With Payment", {:checked => @interest_with_payment, :disabled => @interest_in_service_line})%>
+                        Add Interest With Payment
+                        <%= radio_button(:details_insu, :interest_amount, "Interest in PLB", {:checked => @interest_in_plb, :disabled => @interest_in_service_line})%>
+                        Interest in PLB
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Ref Ev</td>
+                      <td>
+                        <%= check_box 'details_insu', 'ref_ev_batchid', :checked => @ref_ev_batchid_insu, :disabled => @disable_835_section_insu%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Claim Level Allowed Amount</td>
+                      <td>
+                        <%= check_box 'details_insu', 'claim_level_allowed_amt', :checked => @claim_level_allowed_amt_insu, :disabled => @disable_835_section_insu%>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td align="left" class="td_with_image">Default Patient Account Number</td>
+                      <td><%= text_field 'facility', 'patient_account_number_default_match', :size => 20%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Default Patient First Name</td>
+                      <td><%= text_field 'facility', 'patient_first_name_default_match', :size => 20%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Default Patient Last Name</td>
+                      <td><%= text_field 'facility', 'patient_last_name_default_match', :size => 20%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Default CPT Code</td>
+                      <td><%= text_field 'facility', 'cpt_code_default_match', :size => 20%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Default Date of Service</td>
+                      <td><%= text_field 'facility', 'date_of_service_default_match', :size => 12 %></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table>
+          </dd>
+          <dt id="patpay_div_id" <%=@visible_pat_pay_div%>>Patient EOB Output</dt>
+          <dd id="patpay2" style="display:block; overflow: auto;">
+            <table border="0">
+              <tr>
+                <th valign="top">General</th>
+                <th valign="top">File Name Format (ANSI 835 format) </th>
+                <th valign="top">Configurable Segments in 835 </th>
+              </tr>
+              <tr>
+                <td valign="top"><table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                      <td align="left" class="td_with_image">Output Grouping</td>
+                      <td><%= select('output_pat_pay', 'grouping', @patpay_output_groups, {}, :class => "bullet_links") %></td>
+                    </tr>
+                    <script type="text/javascript">
+                      function enable8351(){
+                        var select_value = document.getElementById('output_pat_pay_format');
+                        if(select_value.selectedIndex!=0 && select_value.selectedIndex!= 7){
+                          document.getElementById('output_pat_pay_multi_transaction').disabled=true;
+                          document.getElementById('details_pat_pay_isa_06_predefined_payer_id').disabled=true;
+                          document.getElementById('details_pat_pay_isa_06_other').disabled=true;
+                          document.getElementById('details_pat_pa_other_isa_06').disabled=true;
+                          document.getElementById('details_pat_pay_bpr_16').disabled=true;
+                          document.getElementById('details_pat_pay_zero_pay').disabled=true;
+                        }
+                        else{
+                          document.getElementById('output_pat_pay_multi_transaction').disabled=false;
+                          document.getElementById('details_pat_pay_isa_06_predefined_payer_id').disabled=false;
+                          document.getElementById('details_pat_pay_isa_06_other').disabled=false;
+                          document.getElementById('details_pat_pa_other_isa_06').disabled=false;
+                          document.getElementById('details_pat_pay_bpr_16').disabled=false;
+                          document.getElementById('details_pat_pay_zero_pay').disabled=false;
+                        }
+                      }
+
+                      function enablePredefinedPayer2(){
+                        var checkBox = document.getElementById('output_pat_pa_predefined_check');
+                        if(checkBox.checked)
+                          document.getElementById('output_pat_pay_predefined_payer').disabled=false;
+                        else
+                          document.getElementById('output_pat_pay_predefined_payer').disabled=true;
+                      }
+
+                    </script>
+                    <tr>
+                      <td align="left" class="td_with_image">Output Format</td>
+                      <td><%= select('output_pat_pay', 'format', @output_formats, {}, {:class => "bullet_links", :onchange => "enable8351()"}) %>&nbsp; &nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Predefined Payer <br /></td>
+                      <td><%= check_box 'output_pat_pa', 'predefined_check', :checked => @predefined_check_pat_pay, :onclick => "enablePredefinedPayer2()" %>
+                      <%= text_field_with_auto_complete 'output_pat_pay', 'predefined_payer', {:size => 15, :disabled => !@predefined_check_pat_pay}%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">PRE-DEFINED PATPAY PAYER NAME<br/></td>
+                      <td> <%= text_field 'details_pat_pay', 'default_patient_name', :value => @default_patient_name%></td>
+                    </tr>
+                  </table></td>
+                <td valign="top"><table border="0">
+                    <tr>
+                      <td><%= select_tag('file_name_components2', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                      <td align="center" valign="middle"><input name="button" type="button"
+                                                                onclick="move($('file_name_components2'), $('output_pat_pay_file_name'));" value="--&gt;" /></td>
+                      <td><%=text_area 'output_pat_pay', 'file_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                    </tr>
+                    <tr>
+                      <td> Zip &nbsp;<%= check_box 'details_pat_pay', 'zip_output', :checked => @zip_output_patpay,:onclick=>"enable_zip_pat_file_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="zip_patpay"  style="<%=@visible_pat_pay_zip %>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('zip_pat_file_name_components', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button_select_pat_file_name" id="button_select_pat_file_name" type="button"
+                                                                        onclick="move($('zip_pat_file_name_components'), $('output_pat_pay_zip_file_name'));" value="--&gt;"  /></td>
+                              <td><%=text_area 'output_pat_pay', 'zip_file_name', :cols => 40, :rows => 5, :class => 'content' %></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Output Folder Name &nbsp;<%= check_box 'details_pat_pay', 'output_folder', :checked => @patpay_output_folder,:onclick=>"enable_pat_folder_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="folder_patpay"  style="<%=@visible_pat_folder%>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('patpay_folder_name_components', options_for_select(file_name_componets), {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button_select_ins_folder_name" id="button_select_ins_folder_name" type="button"
+                                                                        onclick="move($('patpay_folder_name_components'), $('output_pat_pay_folder_name'));" value="--&gt;" /></td>
+                              <td><%=text_area 'output_pat_pay', 'folder_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <th colspan="3" align="center" style="width:100px;">File Name Format (NextGen format)</th>
+                    <tr>
+                      <td style="width:40px">
+                        <%= select_tag('nextgen_file_name_components', options_for_select(file_name_componets - [["EXT", "[EXT]"]]),
+                          {:class => "bullet_links", :size => 6})%></td>
+                      <td align="center" valign="middle" style="width:20px"><input name="button" type="button"
+                                                                                   onclick="move($('nextgen_file_name_components'), $('output_pat_pay_nextgen_file_name'));" value="--&gt;" /></td>
+                      <td style="width:40px"><%=text_area 'output_pat_pay', 'nextgen_file_name',
+                        :cols => 40, :rows => 5, :class => 'content'%></td>
+                    </tr>
+                    <tr>
+                      <td> Zip &nbsp;<%= check_box 'details_pat_pay', 'zip_nextgen_output',
+                          :checked => @zip_nextgen_output,
+                          :onclick => "enable_nextgen_zip_file_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="zip_nextgen"  style="<%= @visible_nextgen_zip %>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('nextgen_zip_file_name_components', options_for_select(file_name_componets),
+                                {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle">
+                                <input name="button_select_nextgen_zip_file_name" id="button_select_nextgen_zip_file_name" type="button"
+                                       onclick="move($('nextgen_zip_file_name_components'), $('output_pat_pay_nextgen_zip_file_name'));" value="--&gt;"  /></td>
+                              <td><%= text_area 'output_pat_pay', 'nextgen_zip_file_name',
+                                :cols => 40, :rows => 5, :class => 'content' %></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Output Folder Name &nbsp;<%= check_box 'details_pat_pay', 'nextgen_output_folder',
+                        :checked => @nextgen_output_folder, :onclick => "enable_nextgen_folder_name();" %></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div id="folder_nextgen"  style="<%= @visible_nextgen_folder %>" >
+                          <table>
+                            <tr>
+                              <td><%= select_tag('nextgen_folder_name_components', options_for_select(file_name_componets),
+                                {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button_select_nextgen_folder_name" id="button_select_nextgen_folder_name" type="button"
+                                                                        onclick="move($('nextgen_folder_name_components'), $('output_pat_pay_nextgen_folder_name'));" value="--&gt;" /></td>
+                              <td><%=text_area 'output_pat_pay', 'nextgen_folder_name',
+                                :cols => 40, :rows => 5, :class => 'content'%></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </table></td>
+                <td valign="top"><table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" class="td_with_image">Multi Transaction (ST-SE)</td>
+                      <td><%= check_box 'output_pat_pay', 'multi_transaction', :checked => @multi_transaction_pat_pay, :disabled => @disable_835_section_pat_pay%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">ISA 06/GS 02</td>
+                      <td><%= radio_button(:details_pat_pay, :isa_06, "Predefined Payer ID", :checked => @isa_06_prepayer_pat_pay, :onclick => "document.getElementById('show_other_div_id1').style.visibility='hidden'", :disabled => @disable_835_section_pat_pay)%>
+                        Predefined Payer ID
+                        <%= radio_button(:details_pat_pay, :isa_06, "Other", :checked => @isa_06_other_pat_pay, :onclick => "document.getElementById('show_other_div_id1').style.visibility='visible'", :disabled => @disable_835_section_pat_pay)%>
+                        Other
+                        <div id="show_other_div_id1"  style="<%=@visible_isa_06_other_pat_pay%>">
+                          <%= text_field 'details_pat_pa', 'other_isa_06', :size => 15, :disabled => @disable_835_section_pat_pay%>
+                        </div></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">BPR 16 </td>
+                      <td><%= select('details_pat_pay', 'bpr_16', ['Check Date', 'Batch Date'],{}, :class => "bullet_links", :disabled => @disable_835_section_pat_pay)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">BPR 16(Correspondence)</td>
+                      <td><%= select('details_pat_pay', 'bpr_16_correspondence', ['Batch Date', '835 Creation Date'], {}, :class => "bullet_links", :disabled => @disable_835_section_pat_pay)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Zero Pay </td>
+                      <td><%= select('details_pat_pay', 'zero_pay', [['--', nil], 'ZP', 'X20'], {}, :class => "bullet_links", :disabled => @disable_835_section_pat_pay)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">PLB Separator</td>
+                      <td><%= select('details_pat_pay', 'plb_separator', [':', '>'], {}, :class => "bullet_links", :disabled => @disable_835_section_pat_pay)%></td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Interest Amount</td>
+                      <td><%= radio_button(:details_pat_pay, :interest_amount, "Add Interest With Payment", {:checked => @interest_with_payment_pat_pay, :disabled => @interest_in_service_line})%>
+                        Interest without PLB
+                        <%= radio_button(:details_pat_pay, :interest_amount, "Interest in PLB", {:checked => @interest_in_plb_pat_pay, :disabled => @interest_in_service_line})%>
+                        Interest with PLB
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Ref Ev</td>
+                      <td>
+                        <%= check_box 'details_pat_pay', 'ref_ev_batchid', :checked => @ref_ev_batchid_patpay, :disabled => @disable_835_section_pat_pay%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Claim Level Allowed Amount</td>
+                      <td>
+                        <%= check_box 'details_pat_pay', 'claim_level_allowed_amt', :checked => @claim_level_allowed_amt_patpay, :disabled => @disable_835_section_pat_pay%>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+            </table>
+          </dd>
+
+          <dt>Supplemental Outputs</dt>
+          <dd>
+            <table border="0">
+              <tr>
+                <td><%= check_box 'supple','Operation Log', :checked => @operation_log, :onclick => "displayOPER()"%>
+                  Operation Log</td>
+                <td><%= check_box 'supple','Aggregate 835', :checked => @aggregate_835%>
+                  Aggregate 835</td>
+                <td><%= check_box 'supple','Batch Header Sheet', :checked => @batch_header_sheet%>
+                  Batch Header Sheet</td>
+                <td><%= check_box 'supple','Indexed Image O/P', :checked => @indexed_image_op%>
+                  Indexed Image O/P
+                  <%= check_box 'details_insu','convert_tiff_to_jpeg', :checked => @convert_tiff_to_jpeg %>
+                  Convert TIFF to JPEG</td>
+                <td><%= check_box 'supple','Custom O/P', :checked => @custom_op%>
+                  Custom O/P</td>
+              </tr>
+            </table>
+
+            <div>
+              <table id="op_log"  style="<%=@visible_op_log%>">
+                <tr>
+                  <td valign="top" class="td_with_image">Fields required for Operation Log </td>
+                  <td rowspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th colspan="2">File Name Format</th>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <table border="0">
+                            <tr>
+                              <td><%= select_tag('file_name_components3', options_for_select(@op_log_file_name_comps), {:class => "bullet_links", :size => 6})%></td>
+                              <td align="center" valign="middle"><input name="button" type="button"
+                                                                        onclick="move($('file_name_components3'), $('oper_log_file_name'));" value="--&gt;" /></td>
+                              <td><%=text_area 'oper_log', 'file_name', :cols => 40, :rows => 5, :class => 'content'%></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td colspan="2">
+                          <table>
+                            <tr>
+                              <td align="left" class="td_with_image">Grouping</td>
+                              <td><%= select('oper_log', 'grouping', @supplemental_output_groupings, {}, :class => "bullet_links") %></td>
+                              <td align="left" class="td_with_image">Content Layout</td>
+                              <td><%= select('oper_log', 'content_layout', @supplemental_output_content_layouts, {}, :class => "bullet_links") %></td>
+                            </tr>
+                            <tr>
+                              <td align="left" class="td_with_image">Operation Log Format</td>
+                              <td><%= select('oper_log', 'format', @supplemental_output_formats, {}, {:class => "bullet_links", :onchange => "enable8351()"}) %></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <table>
+                            <tr>
+                              <td align="left" class="td_with_image">Prefix With Single Quotes </td>
+                              <td><%= check_box 'oper_log','quotes_configuration'%></td>
+                            </tr>
+                            <tr>
+                              <td class="td_with_image">Correspondence & Payment O/P in Separate File</td>
+                              <td><%= check_box 'oper_log','separate_payment_and_correspondence'%></td>
+                            </tr>
+                            <tr>
+                              <td class="td_with_image">Insurance EOB & Patient EOB O/P in Separate File</td>
+                              <td><%= check_box 'oper_log','separate_insurance_and_pat_pay'%></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td valign="top"><div style="height:320px; width:200px; overflow-y:scroll; ">
+                      <%= check_box 'op_log_details','batch_name', :checked => @batch_name%>
+                      Batch Name<br />
+                      <%= check_box 'op_log_details','export_date', :checked => @export_date%>
+                      Export Date<br />
+                      <%= check_box 'op_log_details','check_serial_number', :checked => @check_serial_number%>
+                      Check<br />
+                      <%= check_box 'op_log_details','check_number', :checked => @check_number%>
+                      Check Number<br />
+                      <%= check_box 'op_log_details','check_amount', :checked => @check_amount%>
+                      Check Amount<br />
+                      <%= check_box 'op_log_details','sub_total', :checked => @sub_total%>
+                      Sub Total<br />
+                      <%= check_box 'op_log_details','eft_amount', :checked => @eft_amount%>
+                      EFT Amount<br />
+                      <%= check_box 'op_log_details','payer_name', :checked => @payer_name%>
+                      Payer Name<br />
+                      <%= check_box 'op_log_details','status', :checked => @status%>
+                      Status<br />
+                      <%= check_box 'op_log_details','image_id', :checked => @image_id%>
+                      Image ID<br />
+                      <%= check_box 'op_log_details','reject_reason', :checked => @reject_reason%>
+                      Reject Reason<br />
+                      <%= check_box 'op_log_details','amount_835', :checked => @amount_835%>
+                      835 Amount<br />
+                      <%= check_box 'op_log_details','deposit_date', :checked => @deposit_date%>
+                      Deposit Date<br />
+                      <%= check_box 'op_log_details','aba_routing_number', :checked => @aba_routing_number%>
+                      ABA Routing Number<br />
+                      <%= check_box 'op_log_details','payer_account_number', :checked => @payer_account_number%>
+                      Payer Account Number<br />
+                      <%= check_box 'op_log_details','onbase_name',
+                        :checked => @onbase_name %>
+                      Onbase Name<br />
+                      <%= check_box 'op_log_details','correspondence',
+                        :checked => @correspondence %>
+                      Correspondence<br />
+                      <%= check_box 'op_log_details','statement_number',
+                        :checked => @statement_number %>
+                      Statement Number<br />
+                      <%= check_box 'op_log_details','harp_source',
+                        :checked => @harp_source %>
+                      Harp Source<br />
+                      <%= check_box 'op_log_details','check_date', :checked => @check_date%>
+                      Check Date<br />
+                      <%= check_box 'op_log_details','patient_account_number', :checked => @patient_account_number%>
+                      Patient Account Number<br />
+                      <%= check_box 'op_log_details','page_no', :checked => @page_no%>
+                      Page Number<br />
+                      <%= check_box 'op_log_details','file_zip_name', :checked => @file_zip_name%>
+                      File Zip name<br />
+                    </div></td>
+                </tr>
+              </table>
+            </div>
+            <span>
+            </span>
+          </dd>
+          <dt>General</dt>
+          <dd>
+            <table border="0">
+              <tr>
+                <td align="center" valign ="top" class="td_with_image">Default Payer Address</td>
+                <td align="left" class="td_with_image">Required Claim Types</td>
+                <td> <%= text_field 'output_insu', 'required_claim_types' %>  </td>
+                <td align="center" valign ="top" class="td_with_image">Output Generation</td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" class="td_with_image">Address One</td>
+                      <td>
+                        <%= text_field 'default_payer', 'address_one',
+                          :value => (@facility.details[:default_payer_address_one] unless
+                          @facility.details.blank?),
+                          :onkeypress => "enlargeTextfieldSize(id, 30)",
+                          :onblur => "resetTextfieldSize(id, 30); changeToCapital(id)" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Address Two</td>
+                      <td>
+                        <%= text_field 'default_payer', 'address_two',
+                          :value => (@facility.details[:default_payer_address_two] unless
+                          @facility.details.blank?),
+                          :onkeypress => "enlargeTextfieldSize(id, 30)",
+                          :onblur => "resetTextfieldSize(id, 30); changeToCapital(id)" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Address Three</td>
+                      <td>
+                        <%= text_field 'default_payer', 'address_three',
+                          :value => (@facility.details[:default_payer_address_three] unless
+                          @facility.details.blank?),
+                          :onkeypress => "enlargeTextfieldSize(id, 30)",
+                          :onblur => "resetTextfieldSize(id, 30); changeToCapital(id)" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">City</td>
+                      <td>
+                        <%= text_field 'default_payer', 'city',
+                          :value => (@facility.details[:default_payer_city] unless
+                          @facility.details.blank?),
+                          :onkeypress => "enlargeTextfieldSize(id, 30)",
+                          :onblur => "resetTextfieldSize(id, 30); changeToCapital(id)" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">State</td>
+                      <td>
+                        <%= text_field 'default_payer', 'state',
+                          :value => (@facility.details[:default_payer_state] unless
+                          @facility.details.blank?),
+                          :size => '1', :onblur => "changeToCapital(id);",
+                          :onchange => 'validateState(id)', :class => 'required' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Zip</td>
+                      <td>
+                        <%= text_field 'default_payer', 'zip_code',
+                          :value => (@facility.details[:default_payer_zip_code] unless
+                          @facility.details.blank?),
+                          :onblur => "changeToCapital(id); validateZipCode(id)" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td  style="border:hidden" valign="top">
+                  <table height="100px">
+                    <tr>
+
+                      <th align="left">Output Notification File</th>
+
+                    </tr>
+                    <tr>
+
+                      <th align="left">Payer Name in the Output</th>
+
+                    </tr>
+                    <tr>
+
+                      <th align="left">Payer ID in the Output</th>
+
+                    </tr>
+
+                  </table>
+                </td>
+
+
+                <td style="border:hidden" valign="top">
+                  <table height="100px">
+                    <tr>
+                      <td style="text-align:right;">
+                        Yes <%= radio_button 'details', 'output_notification_file','1',:checked => @output_notification_file_yes %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        No  <%= radio_button 'details', 'output_notification_file','0', :checked => @output_notification_file_no %>
+                      </td>
+                    </tr>         <tr>        <td>
+                        Facility Specific <%= radio_button 'details', :custom_payer_name_in_op, '1',:checked =>  @facility_specific_pay_name %>
+                        Global <%= radio_button 'details', :custom_payer_name_in_op, '0',:checked =>  @global_pay_name%>
+                      </td>
+                    </tr>         <tr>                <td>
+                        Facility Specific <%= radio_button 'details', :custom_payer_id_in_op, '1',:checked =>  @facility_specific_pay_id %>
+                        Global <%= radio_button 'details', :custom_payer_id_in_op, '0',:checked =>  @global_pay_id%>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+
+
+
+                <td valign="top">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" class="td_with_image">Scope</td>
+                      <td>
+                        <%= radio_button 'facility', 'automate_output_generation','1', :checked => @facility.automate_output_generation %>System
+                        <%= radio_button 'facility', 'automate_output_generation','0', :checked => !@facility.automate_output_generation %>Manual
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Generate Tolerance(in minutes)</td>
+                      <td>
+                        <%= text_field 'facility', 'generation_tolerance', :style=>"width:110px" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" class="td_with_image">Posting Tolerance(in minutes)</td>
+                      <td>
+                        <%= text_field 'facility', 'posting_tolerance', :style=>"width:110px" %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+
+            </table>
+          </dd>
+        </dl>
+      </div>
+
+      <a href="#"  onclick="showTab('dhtmlgoodies_tabView1',5)">&nbsp;Next<%= image_tag "resultset_next.png", :alt=>"", :width=>"16", :height=>"16", :border=>"0", :align=>"absmiddle" %></a>
+
+
+    </div>
+
+
+    <!--************  Reason Code Crosswalk Setup  *************-->
+    <div class="dhtmlgoodies_aTab">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td valign="top">
+              <table border="0" cellpadding="0" cellspacing="0" width="0">
+                <tbody>
+                  <tr>
+                    <td class="td_with_image">Enable Crosswalk &nbsp;</td>
+                    <td>
+                      <%= radio_button(:facility, :enable_crosswalk , "1", :checked => (@crosswalk_t ? 'checked' : (if params[:facility];('checked' if params[:facility][:enable_crosswalk]);end)),:onclick => "setDefaultValuesForOutputElements(this.value)")%> Yes
+                      <%= radio_button(:facility, :enable_crosswalk , "0", :checked => (@crosswalk_f ? 'checked' : (if params[:facility];('checked' if params[:facility][:enable_crosswalk]);end)),:onclick => "setDefaultValuesForOutputElements(this.value)")%> No
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+
+                      <%= check_box 'details','global_mapping', :checked => true %>Use Global mapping
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box 'details', 'rc_crosswalk_done_by_client', :checked => (@details['rc_crosswalk_done_by_client'] unless @details.blank?) %> Reason Code Crosswalk is done by the client
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= text_field 'details_str', 'site_level_claim_status', :size => 15, :value=> (@details['site_level_claim_status'] unless @details.blank?)%> Site Level Claim Status Code
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+            </td>
+            <td valign="top">
+              <table>
+                <tr>
+                  <td>
+                    Default CAS code for unmapped payer code&nbsp;&nbsp;<br />
+                    <%= text_field 'details_str', 'default_cas_code', :size => 15, :class=>"validate-20alpha", :value=> (@details['default_cas_code'] unless @details.blank?)%>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sec_title">
+
+                      <%= check_box( 'details','default_mapping' ,:checked=>@default_mapping,:onclick=>"toggle_adjustment_table()")%>&nbsp;&nbsp;Default mappings for Adjustment Reason &nbsp;&nbsp;</span>
+                    <div id="toggle_adjustment_table" style="display:<%= @default_mapping ? 'block':'none' %>;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="0">
+                        <tbody>
+                          <tr>
+                            <th>Field</th>
+                            <th>Group Code <span class="alert">*</span></th>
+                            <th>HIPAA Code <span class="alert">*</span></th>
+                            <th>Enable Crosswalk</th>
+                          </tr>
+
+                          <tr>
+                            <td>Coinsurance</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'coinsurance_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@coinsurance_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:coinsurance_group_code]) : @coinsurance_group_code) %></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'coinsurance_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@coinsurance_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:coinsurance_hippa_default]) : @coinsurance_hippa_default)%></td>
+                            <td><%= check_box('enable_crosswalk','coinsurance' ,
+                              :checked => (@enable_crosswalk[:coinsurance].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:coinsurance] == "1";true;else;false;end)) : @enable_crosswalk[:coinsurance])) %></td>
+                          </tr>
+                          <tr>
+                            <td>Contractual Adjustment</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'contractual_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@contractual_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:contractual_group_code]) : @contractual_group_code)%></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'contractual_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@contractual_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:contractual_hippa_default]) : @contractual_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','contractual' ,
+                              :checked => (@enable_crosswalk[:contractual].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:contractual] == "1";true;else;false;end)) : @enable_crosswalk[:contractual])) %></td>
+                          </tr>
+                          <tr>
+                            <td>Copay</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'copay_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@copay_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:copay_group_code]) : @copay_group_code) %></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'copay_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@copay_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:copay_hippa_default]) : @copay_hippa_default)%></td>
+                            <td><%= check_box('enable_crosswalk','copay' ,
+                              :checked => (@enable_crosswalk[:copay].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:copay] == "1";true;else;false;end)) : @enable_crosswalk[:copay])) %></td>
+                          </tr>
+                          <tr>
+                            <td>Deductible</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'deductible_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@deductible_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:deductible_group_code]) : @deductible_group_code) %></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'deductible_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@deductible_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:deductible_hippa_default]) : @deductible_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','deductible' ,
+                              :checked => (@enable_crosswalk[:deductible].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:deductible] == "1";true;else;false;end)) : @enable_crosswalk[:deductible])) %></td>
+                          </tr>
+                          <tr>
+                            <td><%=  denied_label(client_name) %> </td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'denied_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@denied_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:denied_group_code]) : @denied_group_code)%></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'denied_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@denied_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:denied_hippa_default]) : @denied_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','denied' ,
+                              :checked => (@enable_crosswalk[:denied].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:denied] == "1";true;else;false;end)) : @enable_crosswalk[:denied])) %></td>
+                          </tr>
+                          <tr>
+                            <td>Discount</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'discount_group_code',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@discount_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:discount_group_code]) : @discount_group_code) %></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'discount_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@discount_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:discount_hippa_default]) : @discount_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','discount' ,
+                              :checked => (@enable_crosswalk[:discount].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:discount] == "1";true;else;false;end)) : @enable_crosswalk[:discount])) %></td>
+                          </tr>
+                          <tr>
+                            <td>Non Covered</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'non_covered_group_code',
+                                :size => 5 , :class => "validate-3alpha",
+                                :value => (@non_covered_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:non_covered_group_code]) : @non_covered_group_code)%></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'non_covered_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@non_covered_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:non_covered_hippa_default]) : @non_covered_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','noncovered' ,
+                              :checked => (@enable_crosswalk[:noncovered].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:noncovered] == "1";true;else;false;end)) : @enable_crosswalk[:noncovered])) %></td>
+                          </tr>
+                          <tr>
+                            <td>PPP</td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'ppp_group_code',
+                                :size => 5 , :class => "validate-3alpha",
+                                :value => (@ppp_group_code.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:ppp_group_code]) : @ppp_group_code) %></td>
+                            <td><%= text_field 'default_codes_for_adjustment_reasons', 'ppp_hippa_default',
+                                :size => 5, :class => "validate-3alpha",
+                                :value => (@ppp_hippa_default.blank? ? (params[:default_codes_for_adjustment_reasons].blank? ? "" : params[:default_codes_for_adjustment_reasons][:ppp_hippa_default]) : @ppp_hippa_default) %></td>
+                            <td><%= check_box('enable_crosswalk','primary_payment' ,
+                              :checked => (@enable_crosswalk[:primary_payment].blank? ? (params[:enable_crosswalk].blank? ? false : (if params[:enable_crosswalk][:primary_payment] == "1";true;else;false;end)) : @enable_crosswalk[:primary_payment])) %></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+
+            <td valign="top">
+              <span class="sec_title">Output segments for the following fields</span><br />
+              <table border="0" cellpadding="0" cellspacing="0" width="0">
+                <tbody>
+                  <tr>
+                    <td>CAS 01 &nbsp;</td>
+                    <td>
+                      <%= select('details_str', 'cas_01', ['','Group Code', 'Client Code'],:selected => (@cas_01 ? @cas_01 : (if params[:details_str];params[:details_str][:cas_01];end)),:class => "bullet_links")%>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CAS 02 &nbsp;</td>
+                    <td>
+                      <%= select('details_str', 'cas_02', ['', 'Reason Code','Client Code','HIPAA Code'], :selected => (@cas_02 ? @cas_02 : (if params[:details_str];params[:details_str][:cas_02];end)),:class => "bullet_links" )%>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>LQ*HE &nbsp;</td>
+                    <td>
+                      <%= select('details_str', 'lq_he', [["",""],["Client Code", "Client Code"], ["Reason Code", "Reason Code"],["Remark Code", "Remark Code"]],{ :selected => (@lq_he ? @lq_he : (if params[:details_str];params[:details_str][:lq_he];end ))}, {:class => "bullet_links", :multiple => "true"})%>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table border="0" cellpadding="0" cellspacing="0" width="0">
+                <tbody>
+                  <tr>
+                    <% if @multiple_reason_codes_in_adjustment_field || @cas_for_all_multiple_reason_codes_in_adjustment_field
+                      style = 'display:block'
+                    else
+                      style = 'display:none'
+                    end %>
+                    <td id="td_cas_for_all_multiple_reason_codes_in_adjustment_field" style="<%=style%>">
+                      <%= check_box('details', 'cas_for_all_multiple_reason_codes_in_adjustment_field' ,
+                        :checked => @cas_for_all_multiple_reason_codes_in_adjustment_field) %> Print CAS with 0$ for all multiple reason code <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; captured in an adjustment field
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box('details','apply_group_code_in_crosswalk' , :checked => @apply_group_code_in_crosswalk) %> Apply Group Code In Crosswalk
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box('details','combine_cas_segment' , :checked => @combine_cas_segment) %> Combine CAS segment
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box('details','cas_segments_for_adjustment_with_crosswalked_and_default_codes' ,
+                        :checked => @cas_segments_for_adjustment_with_crosswalked_and_default_codes) %> CAS segments for an adjustment with <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0$ crosswalked code and <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; actual amount with default code
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box('details', 'cas_segments_for_denial_with_zero_amount' ,
+                        :checked => @cas_segments_for_denial_with_zero_amount) %> CAS segments for denial claim with <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0$ adjustment amount
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= check_box('details', 'cas_segment_for_orphan_adjustment_code' ,
+                        :checked => @cas_segment_for_orphan_adjustment_code) %> CAS segment with 0$ <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for Orphan Adjustment Code
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <% enable_edit = params[:action] == 'edit' ? (current_user[:fc_edit_permission] ? true : false) : true %>
+      <%= submit_tag @button, :class => "button" if enable_edit %>
+    <%end%>
+    <script type="text/javascript">
+      //  new Validation("form1");
+    </script>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  var slider2=new accordion.slider("slider2");
+  slider2.init("slider2",0,"open");
+</script>
+<input type ="hidden" id="visibility_of_balancing_tab" value="<%= h @visibility_of_balancing_tab%>">
+<script type="text/javascript">
+  initTabs('dhtmlgoodies_tabView1',Array(' Lockbox Setup ',' Input Setup ',' Grid Setup ',' Balancing Records ',' Output Setup','Reason Code Crosswalk Setup'),0,100,100);
+  if($F('visibility_of_balancing_tab') == "true")
+    $('tabTabdhtmlgoodies_tabView1_3').disabled=false;
+  else
+    $('tabTabdhtmlgoodies_tabView1_3').disabled=true;
+
+  jQuery( "#other_date" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1900:2020',
+    dateFormat: "mm/dd/yy",
+    showButtonPanel: true
+  });
+
+  jQuery( "#other_date" ).datepicker("option",{
+    showOn: "both",
+    buttonImageOnly: true,
+    buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+    buttonText: "Calendar"
+  });
+
+  jQuery( "#facility_date_of_service_default_match" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '1900:2020',
+    dateFormat: "yy-mm-dd",
+    showButtonPanel: true
+  });
+
+  jQuery( "#facility_date_of_service_default_match" ).datepicker("option",{
+    showOn: "both",
+    buttonImageOnly: true,
+    buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+    buttonText: "Calendar"
+  });
+
+</script>

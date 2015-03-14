@@ -1,0 +1,29 @@
+<% if @batches.size > 0 %>
+  <table  style="width: 90%">
+  <tr>
+    <th <%= sort_td_class_helper "batchid" %><%= sort_link_helper "Batch ID", "batchid", "admin_report", "tat_report" %></th>
+    <th <%= sort_td_class_helper "date" %><%= sort_link_helper "Batch Date", "date", "admin_report", "tat_report" %></th>
+    <th <%= sort_td_class_helper "facility" %><%= sort_link_helper "Facility", "facility", "admin_report", "tat_report" %></th>
+    <th>Arrival Time</th>
+    <th <%= sort_td_class_helper "completion_time" %><%= sort_link_helper "Completion Time", "completion_time", "admin_report", "tat_report" %></th>
+    <th>Contracted Time</th>
+    <th>Difference</th>
+    <th>EOB Count</th>
+  </tr>
+  <% for batch in @batches %>
+  <tr>
+    <td><%= batch.batchid %></td>
+    <td><%= format_date(batch.date) %></td>
+    <td><%= batch.facility %></td>
+    <td><%= format_datetime(batch.arrival_time) %></td>
+    <td><%= format_datetime(batch.completion_time) %></td>
+    <td><%= format_datetime(batch.contract_time('Supervisor')) %></td>
+    <td><%= sprintf("%.2f", (batch.completion_time - batch.contract_time('Supervisor'))/3600) unless batch.completion_time.nil? %></td>
+    <td><%= batch.get_completed_eobs %></td>
+  </tr>
+  <% end %>
+
+</table>
+<% else %>
+  <h4>No batches to report.</h4>
+<% end %>

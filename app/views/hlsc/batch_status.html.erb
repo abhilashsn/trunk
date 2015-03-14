@@ -1,0 +1,48 @@
+<div id="login_main">
+  <h1>Listing completed batches</h1>
+      <div class="light_info">
+        <%= form_tag :action => 'batch_status' do %>
+          <%= select_tag 'criteria', optionize_custom(['Batch ID', 'Date', 'Site Number', 'Site Name'],params[:criteria])%> 
+          <%= select_tag 'compare', optionize_custom(['=','>', '<'],params[:compare])%>
+          <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+          <%= submit_tag 'Filter', :class => 'button' %>
+        <% end %>
+      </div>
+    <% unless @batches.nil? %>
+    <%= show_legend({"white" => "Output Ready", "palered" => "Completed"}) %>   
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @batches, :params => {:criteria => params[:criteria],:compare => params[:compare],:to_find => params[:to_find]}%>
+    </div>
+  <table style="width:100%">
+  <tr>
+    <th> Batch Date </th>
+    <th> Batch ID </th>
+    <th> Site</th>
+    <th> Arrival Time (EST)</th>
+    <th> Completion Time (EST)</th>
+    <th> Status </th>
+  </tr>
+   <% for batch in @batches %>
+        <% if batch.status == BatchStatus::COMPLETED	   
+           cls = 'palered'
+          elsif batch.status == BatchStatus::OUTPUT_READY
+           cls = 'white'
+          else !batch.comment.nil?
+           cls = 'red'
+          end
+        %>
+    <tr>
+    <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.date,'%m/%d/%y') unless batch.date.nil? %> </td>
+    <td nowrap class="<%= cls %>" align='right'><%= batch.batchid %> </td>
+    <td nowrap class="<%= cls %>"><%= batch.facility.name %> (<%= batch.facility.sitecode %>)</td>
+    <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+    <td nowrap class="<%= cls %>" align='right'><%= ( batch.completion_time.nil? ? "" : format_datetime( batch.completion_time ) )%></td>
+    <td nowrap class="<%= cls %>"><%= batch.status %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br/>
+<% else %>
+  <h4> No matching batches found. </h4>
+<% end %>
+</div>

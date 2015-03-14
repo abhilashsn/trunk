@@ -1,0 +1,79 @@
+<div id="login_main">
+    <h1>Listing Providers</h1>
+<!-- U2R -->    
+    <% if current_user.has_role?(:supervisor) or current_user.has_role?(:admin) or current_user.has_role?(:manager) %>
+    <div class="light_info">
+        <%= link_to 'New Provider', :action => 'new' %>| <%= link_to 'Import Providers from CSV file', :controller => '/provider', :action => 'upload' %>
+    </div>
+    <% end %>
+    <% unless @providers.empty? %>
+    <% pagination = will_paginate(@providers) %>
+    <%= pagination %>
+    <%= form_tag({:action => 'delete_providers', :id => @providers_to_delete},:id => "my_form") do %>
+    <table>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Suffix
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                NPI
+            </th>
+            <th>
+                TIN
+            </th>
+            <th>
+                Facility
+            </th>
+            <th>
+                &nbsp;
+            </th>
+            <th>
+                <input type="checkbox" name="all" onClick ="checkAll('my_form')">
+            </th>
+        </tr><% for provider in @providers %>
+        <tr>
+            <td>
+                <%= provider.provider_last_name %>
+            </td>
+            <td>
+                <%= provider.provider_first_name %>
+            </td>
+            <td>
+                <%= provider.provider_suffix %>
+            </td>
+            <td>
+                <%= provider.provider_middle_initial %>
+            </td>
+            <td>
+                <%= provider.provider_npi_number %>
+            </td>
+            <td>
+                <%= provider.provider_tin_number %>
+            </td>
+            <td>
+                <%= provider.facility.name %>
+            </td>
+            <td>
+                <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => provider %>
+            </td>
+            <td>
+                <%= check_box :providers_to_delete, provider.id, :id => 'toggle' %>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+    <%= submit_tag 'Delete', :class => 'button', :onclick => "return(confirm('Providers will be deleted. Are you sure?'))" %>
+    <% end %>
+    <% else %>
+    <h4>No Providers found. Click 'New Provider' to create one. </h4>
+    <% end %>
+</div>

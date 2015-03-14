@@ -1,0 +1,71 @@
+<%= javascript_include_tag "mpi_popup.js" %>
+<%= javascript_include_tag "insurance_payment_eob.js" %>
+<div style="background-color:#CCC; width:100%;">
+    <strong><b></strong>
+</div>
+
+<%@mpi_start_time = Time.now.in_time_zone %>
+
+<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#9C914B" class="content" style="border-collapse:collapse; font-family:'Trebuchet MS', Arial; font-size:11px;">
+  <% unless (@mpi_results.nil? or @mpi_results.blank?) %>
+    <tr>
+
+      <th>Account number</th>
+      <th>Lastname</th>
+      <th>Firstname</th>
+      <th>Total Charge</th>
+      <th>Service Date</th>
+    </tr>    
+
+    <div style="background-color:#CCC; width:98%; margin: 0 0 0 5px;" class="content">
+      <strong><%= will_paginate @mpi_results %></strong>
+    </div>
+  
+
+    <% @mpi_results.each do |mpi_result| %>
+
+      <%@mpi_found_time = Time.now.in_time_zone %>
+
+      <%csi = mpi_result.claim_service_informations.get_more %>
+      
+      <tr valign="top" bgcolor="#ECE9D8" class="content" title = "Patient Name:<%=mpi_result.patient_last_name %> <%=mpi_result.patient_first_name %>, Account#:<%=mpi_result.patient_account_number %>, Member id:<%=mpi_result.insured_id %>, MRN:<%#=mpi_result.medical_record_number %>, Claim type:<%=mpi_result.claim_type %>, Payer name:<%=mpi_result.payer_name %><%= ", PayId:#{mpi_result.payid}" if mpi_result.payid %>,  Service date:<%=csi.service_frm_date unless csi.nil?%>, CPT code:<%=csi.cpt_code unless csi.nil?%>, Charge Amount:<%=csi.charge unless csi.nil?%>">
+    
+ <td>
+            <%= mpi_result.patient_account_number %>
+        </td>
+        <td>
+            <%= mpi_result.patient_last_name %>
+        </td>
+        <td>
+            <%= mpi_result.patient_first_name %>
+        </td>
+        <td>
+            <%=csi.total_charge unless csi.nil?%>
+        </td>
+        <td>
+            <%= select_tag 'service_date', options_for_select(csi.service_frm_date.split(',').collect! {|n| n}),:class=>"content" unless csi.nil? or csi.service_frm_date.nil?%>
+        </td>
+        <%if params[:mpi_apply] == "true"%>
+        <td width="20px">
+            <input type="checkbox" name="mpisearch_service_line" id="<%= mpi_result.id%>"  value = checked onclick='store_value("<%= mpi_result.id%>")' />
+        </td>
+        <td width="20px">
+          <% # Check if service lines under the claim is > 1 for Patient Pay Simplified Format Grid search %>
+          <% if @eob_type == 'Patient' && (!@facility.details[:simplified_patpay_multiple_service_lines] || @facility.details[:claim_level_eob]) %>
+            <% service_line_count = csi.csi_count rescue nil%>
+          <%else%>
+            <% service_line_count = 1 %>
+          <%end%>
+        <% claimleveleob = (params[:claimleveleob]) == "true" ? 'true' : 'false' %>
+
+             <input type="radio" name="all" onClick='renderMpi("<%= params[:role]%>","<%= mpi_result.id%>","<%=@mpi_start_time.strftime("%Y-%m-%d %H:%M:%S")%>","<%=@mpi_found_time.strftime("%Y-%m-%d %H:%M:%S")%>","<%=Time.now%>","<%=service_line_count%>","<%= params[:patient_no] %>","<%= params[:patient_lname] %>","<%= params[:patient_fname] %>","<%= params[:date_of_service_from] %>","<%= params[:page_no]%>","<%= claimleveleob %>","<%= params[:proc_start_time]%>", "<%= params[:job_id] %>" ,"<%= params[:mode]%>" )'>
+
+        </td>
+        <%end %>
+    </tr>
+    <% end %>
+    <% else %>
+      <h2>Given filter doesn't yield any MPI data to list!</h2>
+    <% end %>
+</table>
+</div>

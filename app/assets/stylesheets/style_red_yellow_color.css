@@ -1,0 +1,106 @@
+.panel {
+	clear: both;
+	display: none;
+	border: 3px solid #CCC;
+	padding: 1em;
+}
+
+.panel.active-tab-body {
+	display: block;
+}
+
+#tabs {
+	list-style: none;
+}
+
+#tabs li {
+	float: left;
+}
+
+#tabs a {
+	float: left;
+	padding: 5px 8px;
+	margin-left: 6px;
+	background-color: #F2F2F2;
+	text-decoration: none;
+	color: #999999;
+}
+
+#tabs a.active-tab {
+	background-color: #CCC;
+	border-top: 3px solid #999;
+	padding-top: 3px;
+	color: #000;
+}
+input.disabled {
+	border: 1px solid #F2F2F2;
+	background-color: #F2F2F2;
+}
+
+input.required, textarea.required {
+	border: none;
+}
+input.validation-failed, textarea.validation-failed {
+	border: 2px solid #FF3300;
+	color : #FF3300;
+	background-color: #ffdddd;
+}
+input.validation-passed, textarea.validation-passed {
+	
+	color : #000;
+}
+
+select.required  {
+	border: none;
+}
+
+select.validation-failed {
+	border: 2px solid #FF3300;
+	color : #FF3300;
+	background-color: #ffdddd;
+}
+select.validation-passed {
+	border: none;
+	color : #000;
+}
+
+.validation-advice {
+	margin-left: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	background-color: #FF3300;
+	color : #FFF;
+	font-size: 85%;
+}
+
+.custom-advice {
+	margin: 5px 0;
+	padding: 5px;
+	background-color: #C8AA00;
+	color : #FFF;
+	
+}
+
+fieldset {
+	padding: 1em;
+	margin-bottom: 0.5em;
+}
+
+label {
+	font-weight: bold;
+}
+.form-row {
+	clear: both;
+	padding: 0.5em;
+}
+
+.field-label {
+
+}
+.gotopage {
+       width: 20px;
+       }
+
+.field-widget {
+
+}

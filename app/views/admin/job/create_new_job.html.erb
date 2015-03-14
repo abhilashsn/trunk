@@ -1,0 +1,30 @@
+<%= javascript_include_tag  "jquery-1-7-1", "jquery_ujs", "jquery-ui", "jquery.validate", "jquery.multisortable" %>
+
+<%= stylesheet_link_tag "new_job_creation" %>
+<div id="login_main" class="skeleton_container">
+  <h1>New Job Creation for Check Number: <%= @job_information.check_number %></h1>
+
+  <h5>
+    View images for Check Number : <%= link_to @job_information.check_informations.first.check_number, {:controller => "/archive/viewimage", :job_id => @job_information}, :target => "_blank"%>
+    <%= image_tag "image_1.gif", :alt => "View images" %>
+  </h5>
+  <div id="image_section">
+    <%= render :partial => "list_images" %>
+  </div>
+  <div class="sktn_scrollable_first">
+    <%= render :partial => "admin/temp_jobs/index" %>
+  </div>
+
+  <div class="sktn_scrollable_second">
+    <%= render :partial => "list_new_jobs",  locals: { jobs: @new_jobs} %>
+  </div>
+
+  <% if params[:back_page] == "additional_job_request_queue" %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'additional_job_request_queue' %>
+  <% else %>
+    <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'allocate', :id => @job_information.batch_id,:page =>  session[:current_page1], :back_page => params[:back_page] %>
+  <% end %>
+</div>
+
+
+

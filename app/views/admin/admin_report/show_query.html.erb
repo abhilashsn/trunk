@@ -1,0 +1,20 @@
+<h1>Recent Queries</h1>
+
+<% pagination = create_pagination(@query_pages,'admin_report',params[:page]) %>
+<%= pagination %>
+
+<% if @queries.size > 0 %>
+<table>
+  <% for query in @queries.reverse! %>
+  <tr>
+    <td><font size="1">Query <i><%= query.criteria %></i> for date range from <i><%= query.from %></i> to <i><%= query.to %></i> for time from <i><%= query.from_time %></i> to <i><%= query.to_time %></i></font></td>
+    <td><font size="1"><strong><%= link_to image_tag("resultset_next.png", :alt => "Execute"), :action => 'execute_query', :id => query %></strong></font></td>
+  </tr>
+  <% end %>
+</table>
+<% else %>
+  <h3>No recent queries were found.</h3>
+<% end %>
+<%= pagination %>
+<br/><br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :action => 'tat_report' %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+first:
+      id: 1
+      error_type: "Correct"
+      severity: 0
+      code: "COR"
+
+another:
+      id: 2
+      error_type: "Account Number - Missing"
+      severity: 9
+      code: "ACM"

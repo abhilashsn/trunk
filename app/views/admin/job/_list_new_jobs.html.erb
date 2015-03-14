@@ -1,0 +1,46 @@
+<%= javascript_include_tag "best_in_place.purr", "best_in_place", "list_new_jobs" %>
+<%= form_tag :action => 'delete_jobs', :id => @jobs_to_delete do %>
+  <% if jobs.blank? %>
+    <h1>No jobs created yet.. </h1>
+  <% else %>
+    <h1>New Jobs created from check <%= @job_information.check_number %> </h1>
+    <span>Click on Check Number, Check Amount or Est. EOB values to edit </span>
+    <table>
+      <tr>
+        <th>Check Number</th>
+        <th>Images</th>
+        <th>Check Amount</th>
+        <th>A/C Number</th>
+        <th>ABA Number</th>
+        <th>Estimated EOBs</th>
+        <% if current_user.has_role?(:admin) || current_user.has_role?(:supervisor) %>
+          <th style="width: 20px">
+            <input type="checkbox" id="selectAll">
+          </th>
+        <% end %>
+      </tr>
+      <% jobs.each do |job| %>
+        <tr>
+          <% job.check_informations.each do |check| %>
+            <td class="fixed"><%= best_in_place check, :check_number, :path => (app_root ? app_root : "" ) +"/admin/job/update_check/#{job.id}" %></td>
+            <td class="fixed">
+              <select>
+                <% job.images_for_jobs.sort_by { |i| i.image_number }.each do |image| %>
+                  <option value="<%= image.id %>"><%= image.filename %></option>
+                <% end %>
+              </select>
+            </td>
+            <td class="fixed"><%= best_in_place check, :check_amount, :path => (app_root ? app_root : "" ) +"/admin/job/update_check/#{job.id}" %></td>
+            <td class="fixed"> <%= check.micr_line_information.payer_account_number unless check.micr_line_information.blank? %> </td>
+            <td class="fixed"> <%= check.micr_line_information.aba_routing_number unless check.micr_line_information.blank? %> </td>
+          <% end %>
+          <td class="fixed"><%= job.estimated_eob %></td>
+          <% if current_user.has_role?(:admin) %>
+            <td class="fixed"><%= check_box :jobs_to_delete, job.id, :id => 'toggle' %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+    <%= submit_tag 'Delete', :class => 'button'  %>
+  <% end %>
+<% end %>

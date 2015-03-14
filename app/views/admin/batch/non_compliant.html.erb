@@ -1,0 +1,92 @@
+<div id="login_main">
+<h1>Non-compliant Batches</h1>
+<div class="light_info">
+  <%= form_tag :action => 'non_compliant',:back_page => 1 do %>
+      <%= select_tag 'criteria', optionize('Batch ID', 'Date', 'Facility','Status','Estimated EOB') %>
+      <%= select_tag 'compare', optionize('=','>', '<') %>
+      <%= text_field_tag 'to_find', nil,  :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+  <% end %>
+</div>
+
+<%= show_legend({"white" => "New", "blue" => "Processing", "palered" => "QA Rejected"}) %>    
+<br/>
+<br/>
+
+<div class="right"><%= link_to 'Payer List', :action => 'payer_list' %> | <%= link_to 'All Batches', :action => 'allocate' %> </div>
+
+<% pagination = create_pagination(@batch_pages,'batch',params[:page]) %>
+<%= pagination %>
+<% unless @batches.blank? %>
+  <table>
+  <tr>
+    <th> BatchID </th>
+    <th> Batch Date </th>
+    <th> Facility</th>
+    <th> Estimated EOBs</th>
+    <th> Completed EOBs</th>
+    <th> Arrival Time (EST) </th>
+    <th> Target Time (EST)</th>
+    <th> Completion Time (EST) </th>
+    <th> Time Taken </th>
+    <th> Expected Completion Time (EST)</th>
+    <th> Status</th>
+    <th> Comment </th>
+<th> &nbsp; </th>
+  </tr>
+
+           <% for batch in @batches %>
+        <% if batch.status == BatchStatus::PROCESSING
+              flag = 0
+              flag = 1 if batch.qa_rejected_jobs.size > 0
+              if flag == 1
+                  cls = 'palered'
+              else
+                  cls = 'blue'
+              end
+           else
+              cls = 'white'
+          end
+        %>
+
+      <%time_now = Time.now %>
+               <%t = Time.now %>
+             <%target_time=batch.target_time%>
+             <% now_time=Time.utc(t.year,t.month,t.day,t.hour,t.min,t.sec,t.usec)%>
+        <%time_now = Time.now +  3600       %>
+
+        <%cls_condtion=((target_time.to_i-now_time.to_i)/3600.to_i) %>
+        <%if cls_condtion == 0%>
+                              <% cls='yellow' %>
+               <%end %>
+
+      <tr>
+      <td class="<%=cls %>" align='right'><%= batch.batchid %> </td>
+        <td class="<%=cls %>" align='right'><%= format_date(batch.date) %> </td>
+        <td class="<%=cls %>"><%= batch.facility %> </td>
+        <td class="<%=cls %>" align='right'><%= batch.estimated_eobs %></td>
+        <td class="<%=cls %>"  align='right'><%= batch.get_completed_eobs %> </td>
+        <td  class="<%=cls %>"  align='right' nowrap><%= format_datetime(batch.arrival_time) %> </td>
+        <td  class="<%=cls %>"  nowrap align='right'><%= format_datetime(batch.contract_time(@user.role)) %>&nbsp</td>
+        <td class="<%=cls %>"  ><%= format_datetime(batch.completion_time) unless batch.completion_time.nil? %> </td>
+        <td class="<%=cls %>" >
+      <% if batch.completion_time %>
+        <%= sprintf("%.2f",(batch.completion_time.to_f - batch.arrival_time.to_f)/3600.to_i) %> hr(s)
+      <%end%>
+      </td>
+        <td class="<%= cls %>" nowrap align='right'><%= format_datetime(batch.expected_completion_time) unless batch.expected_completion_time.nil? %><br/><%= link_to 'Edit', :action => 'comments', :id => batch,:back_page=>1 %></td>
+        <td class="<%= cls %>">
+      <%= batch.status %>
+      </td>
+      <td class="<%= cls %>" nowrap><textarea readonly="true" class="black_text"> <%= batch.comment %></textarea></td>
+      <td class="<%= cls %>"><%= link_to 'Job Allocation', :page => @batch_pages.current,:controller => 'job', :action => 'allocate', :id => batch , :back_page=>1%></td>
+      </tr>
+    <% end %>
+    </table>
+    <br/>
+  <% else %>
+    <h4>No batches found. Create a Batch through <%= link_to 'Batch Administration', :action => 'index' %>.</h4>
+  <% end %>
+
+  <%= pagination %>
+  </div>

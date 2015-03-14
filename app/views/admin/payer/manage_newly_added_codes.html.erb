@@ -1,0 +1,123 @@
+<script language="javascript" type="text/javascript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+</script>
+<div id="login_main">
+  <h1>Manage Newly Added Reason Codes</h1>
+
+  <div class="light_info">
+    <%= form_tag :action => 'manage_newly_added_codes' do %>
+    <% filter_hash = @filter_hash || params[:filter_hash] %>
+      <% if filter_hash
+        criteria_1 = filter_hash[:criteria_1]
+        to_find_1 = filter_hash[:to_find_1]
+        compare_1 = filter_hash[:compare_1]
+        criteria_2 = filter_hash[:criteria_2]
+        to_find_2 = filter_hash[:to_find_2]
+        compare_2 = filter_hash[:compare_2]
+      else
+        criteria_1 = params[:criteria_1]
+        to_find_1 = params[:to_find_1]
+        compare_1 = params[:compare_1]
+        criteria_2 = params[:criteria_2]
+        to_find_2 = params[:to_find_2]
+        compare_2 = params[:compare_2]
+      end%>
+      <%= select_tag 'criteria_1', optionize_custom(@field_options, criteria_1) %>
+      <%= select_tag 'compare_1', optionize_custom(['=','>', '<'], compare_1)%>
+      <%= text_field_tag 'to_find_1', to_find_1, :size => '10' %>
+      <br/>
+      <%= select_tag 'criteria_2', optionize_custom(@field_options, criteria_2) %>
+      <%= select_tag 'compare_2', optionize_custom(['=','>', '<'], compare_2)%>
+      <%= text_field_tag 'to_find_2', to_find_2, :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button' %>
+    <% end %>
+  </div>
+  <% filter_hash = @filter_hash || params[:filter_hash] || {:criteria_1 => params[:criteria_1], :compare_1 => params[:compare_1],
+    :to_find_1 => params[:to_find_1], :criteria_2 => params[:criteria_2],
+    :compare_2 => params[:compare_2], :to_find_2 => params[:to_find_2]} %>
+  <% if @newly_added_payer_codes.size > 0 %>
+    <% pagination = will_paginate(@newly_added_payer_codes,
+      :params => filter_hash) %>
+    <%= pagination %>
+    <%= form_tag :action => "reasoncode_accept" do %>
+      <table>
+        <tr>
+          <th>
+            Facility Name
+          </th>
+          <th>
+            Batch ID
+          </th>
+          <th>
+            Batch Date
+          </th>
+          <th>
+            Payer
+          </th>
+          <th style="width: 100px">
+            Check Number
+          </th>
+          <th style="width: 100px">
+            Paper Code
+          </th>
+          <th>
+            Paper Code Description
+          </th>
+          <th>
+            Manage Codes
+          </th>
+          <th>
+            Delete
+          </th>
+          <th>
+            Assign payer
+          </th>
+        </tr>
+        <% for rc_association_record in @newly_added_payer_codes %>
+          <tr>
+            <td>
+              <%= rc_association_record.facility_name || "-" %>
+            </td>
+            <td>
+              <%= rc_association_record.batchid || "-" %>
+            </td>
+            <td>
+              <%= (format_datetime(rc_association_record.batch_date,'%m/%d/%y') unless rc_association_record.batch_date.nil?) || "-" %>
+            </td>
+            <td>
+              <%= rc_association_record.payer_name %>
+            </td>
+            <td>
+              <div style="text-align:center;"><a href="#" onclick="popup_image('<%=rc_association_record.job_id%>')"><%= rc_association_record.check_number rescue nil %></a></div>
+            </td>
+            <td>
+              <%= rc_association_record.reason_code rescue nil%>
+            </td>
+            <td>
+              <%= rc_association_record.reason_code_description rescue nil%>
+            </td>
+            <td>
+              <% if rc_association_record.rcc_id.present? %>
+                <%= link_to (image_tag("report_edit.png", :alt => "Edit",:border=>"0")), :controller => '/reason_codes', :action => 'manage_codes',:rccfsn_id=>rc_association_record.rcc_id,:reason_code_id=>rc_association_record.reason_code_id, :referer => "true" , :view=>"new_reason_code", :filter_hash => filter_hash%>
+              <% else %>
+                <%= link_to image_tag("reason.jpg", :alt => "Edit HIPAA codes"), :controller => "/reason_codes", :action => 'manage_codes', :reason_code_id => rc_association_record.reason_code_id, :referer => "true", :view=>"new_reason_code", :filter_hash => filter_hash %>
+              <% end %>
+              <%= link_to image_tag("List_icon.jpg", :alt => "Edit HIPAA codes"), :controller => "/reason_code_crosswalks", :action => 'list', :reason_code_id => rc_association_record.reason_code_id  %>
+            </td>
+            <td>
+              <%= link_to image_tag("delete.png", :alt => "Destroy"), :action => 'code_delete', :id => rc_association_record.reason_code_id, :filter_hash => filter_hash %>
+            </td>
+            <td>
+              <%= link_to "Accept", :onclick => "return (confirm('Are you sure?'))", :action => "reasoncode_accept", :id => rc_association_record.reason_code_id, :filter_hash => filter_hash %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  <% else %>
+    <h4>No codes found, create one.</h4>
+  <% end %>
+</div>

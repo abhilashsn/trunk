@@ -1,0 +1,73 @@
+<script LANGUAGE="JavaScript">
+  function test(id)
+  {
+    alert(id)
+    document.getElementById(id).style.visibility="visible"
+
+  }
+</script>
+  <div id="login_main">
+    <h1>Facility- Reason Codes Management </h1>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th valign="top"><div align="left"><span class="black_text"><strong>&nbsp;Select Payer : </strong><span class="sec_title">
+                <%= form_tag :action => 'facility_reasoncode_payer', :id=>@facility_id  do  %>
+                  <%= select_tag 'payer', options_for_select(@payer_names),:class=>"content",:onchange=>"change_payer()"%>
+
+
+                <%end%>
+                <%= link_to 'View All', :controller => 'facility', :action => 'facility_reasoncode',:id=>@facility_id %>
+              </span></span><span class="sec_title">            </span></div></th>
+        <td width="20" rowspan="3" valign="top"> </td>
+        <th valign="top">Payer List </th>
+      </tr>
+      <tr>
+        <td valign="top" bgcolor="#ECE9D8"><table bgcolor="#FFFFFF">
+            <tr>
+              <th> Reason Code <span class="alert"> *</span></th>
+              <th> Reason Code Description <span class="alert"> *</span></th>
+              <th>Client Code <span class="alert"> *</span></th>
+              <th>HIPAA Code <span class="alert"> *</span></th>
+              <th>ANSI Remark Code <span class="alert"> *</span></th>
+              <th><input type="checkbox" name="checkbox222" value="checkbox" /></th>
+            </tr>
+
+            <% for reason_code_total in @reason_code %>
+              <% for reason_code in reason_code_total %>
+                <%= form_tag :action => 'change_code'  do  %>
+                  <tr>
+
+                    <td><%= reason_code.reason_code.reason_code %></td>
+                    <td><%= reason_code.reason_code.reason_code_description %></td>
+
+                    </td>
+
+                    <td><%if reason_code.client_codes.blank?%>-<%else%><%= reason_code.client_codes.first.adjustment_code%><%end%></td>
+                    <td><%if reason_code.hipaa_codes.blank?%>-<%else%><%= reason_code.hipaa_codes.first.hipaa_adjustment_code%><%end%></td>
+                    <td><%if reason_code.reason_code.ansi_remark_codes.blank?%>-<%else%><%= reason_code.ansi_codes%><%end%></td>
+                    <td><%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'change_code', :id => reason_code %></td>
+                  </tr>
+                <%end%>
+              <%end%>
+            <%end%>         </table></td>
+        <td valign="top"><table width="200" border="0" cellspacing="0" cellpadding="0">
+            <%= form_tag :action => 'add_payer' ,:id=>@facility_id do  %>
+              <tr>
+                <td><div id="div2" style="width:200px; background-color:#FFFFFF">
+                    <% o =0 %>
+                    <ul class="checklist" id="retro_qa_pro_error_type_ids" name="pro_error_type[id][]">
+                      <% @all_payers.each do |payer| %>
+                        <% o = o + 1 %>
+                        <li>
+                          <label for="o<%= o %>">
+                            <input id="o<%= o %>" name="pro_error_type[id][]" type="checkbox" value= "<%=payer.payer%>"><%=payer.payer %>
+                          </label>
+                        </li><% end %><td rowspan="2"><%= submit_tag "Update", :class => 'button' %><%end%>
+                  </ul>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+</div>
+

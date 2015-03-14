@@ -1,0 +1,9 @@
+facilities_payers_informations_1:
+  id: 24
+  facility_id: 40
+  payer_id: 968
+  in_patient_payment_code: "INPATIENT"
+  out_patient_payment_code: "OUT"
+  in_patient_allowance_code: "IN"
+  out_patient_allowance_code: "OUT"
+  capitation_code: "CAP"

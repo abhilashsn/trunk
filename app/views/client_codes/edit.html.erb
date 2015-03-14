@@ -1,0 +1,7 @@
+<h1>Editing client_code</h1>
+<%= form_tag :action => 'update', :id=>@id do %>
+  <%= render :partial => 'shared/error_messages', :locals => {:target => @client_code }%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit', :class => 'button' %>
+<% end %>
+

@@ -1,0 +1,60 @@
+<div id="login_main">
+  <h1>Listing Facilities/Lockboxes</h1>
+
+
+  <div class="light_info">
+    <%= link_to 'New Lockbox', :action => 'new' %>
+  </div>
+  <div class="light_info">
+    <%= form_tag 'facility', :method => 'get' do  %>
+      <%= select_tag 'criteria', optionize_custom(['Name','Code', 'Client'],params[:criteria]) %>
+      <%= text_field_tag 'to_find', params[:to_find], :size => '10' %>
+      <%= submit_tag 'Filter', :class => 'button', :id => 'filter' %>
+    <% end %>
+  </div>
+
+  <%= form_tag :action => 'delete_facilities', :id => @facility_to_delete do %>
+
+    <%= will_paginate @facilities,:params=>{:to_find=>params[:to_find], :criteria=>params[:criteria]}%>
+    <% if @facilities.size > 0 %>
+      <table style="width: 99%">
+        <tr>
+          <th style="width: 20%">Name</th>
+          <th style="width: 5%">Code</th>
+          <th style="width: 20%">Client</th>
+          <th style="width: 39%">Address<br>[Address1|Address2|Zip|City|State]</th>
+          <th style="width: 1%"><input type="checkbox" id="all" name="all" onClick="checkAll(document.forms[1].toggle,this)"></th>
+          <th style="width: 15%"> &nbsp;</th>
+        </tr>
+ 
+        <% for facility in @facilities %>
+          <tr>
+            <td><%= facility.name %></td>
+            <td><%= facility.sitecode %></td>
+            <td><%= facility.client.name %></td>
+            <td><%= facility.address_one %>||<%= facility.address_two %>||<%= facility.zip_code %>||<%= facility.city %>||<%= facility.state %></td>
+            <td><%= check_box :facility_to_delete,facility.id, :id => 'toggle' %></td>
+            <td>
+              <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit', :id => facility %>
+              <%if (!facility.facility_output_configs.blank? or !facility.facility_output_configs.eob_output_type.blank?)%>
+                <%= link_to image_tag("835.gif", :alt => "835 Configuration",:border=>"0",:style=>"padding:2px"), :action => 'config_835', :id => facility %>
+              <%end%>
+              <% if facility.facility_output_configs.select{|f| f.report_type=='Operation Log'}.present? %>
+                <%= link_to "oplogconf", :action => 'config_oplog', :type => 'facility', :id => facility %>
+              <%end%>
+              <%= link_to "other outputs", :action => 'config_other_outputs', :id => facility %>
+              <%= link_to "Cut", :action => 'config_cut', :id => facility %>
+
+            </td>
+            <td><%#= link_to 'Manage Reason Code ', :controller => 'facility', :action => 'facility_reasoncode', :id => facility %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <h4>No facilities found, create one.</h4>
+    <% end %>
+
+    <br/>
+    <%= submit_tag 'Delete', :id => "delete", :onclick => "return(confirm('Facility will be deleted. Are you sure?'))", :class => 'button' if @facilities.size > 0 %>
+  <% end %>
+</div>

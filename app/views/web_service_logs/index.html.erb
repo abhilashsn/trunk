@@ -1,0 +1,27 @@
+<h1>Listing web_service_logs</h1>
+
+<table>
+  <tr>
+    <th>Service</th>
+    <th>Query</th>
+    <th>Response code</th>
+    <th>Response time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @web_service_logs.each do |web_service_log| %>
+  <tr>
+    <td><%= web_service_log.service %></td>
+    <td><%= web_service_log.query %></td>
+    <td><%= web_service_log.response_code %></td>
+    <td><%= web_service_log.response_time %></td>
+    <td><%= link_to 'Show', web_service_log %></td>
+    <td><%= link_to 'Edit', edit_web_service_log_path(web_service_log) %></td>
+    <td><%= link_to 'Destroy', web_service_log, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

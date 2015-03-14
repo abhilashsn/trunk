@@ -1,0 +1,44 @@
+
+<div id="login_main">
+<h1>Job split Administration</h1>
+<%= form_tag :action => 'create_sub_jobs', :jobid => @job_id,
+  :criteria => params[:criteria],:compare => params[:compare],
+  :to_find => params[:to_find], :tab => params[:tab], :back_page => params[:back_page] do %>
+  <table>
+  <tr>
+  <th>Job Range <span class="alert"> *</span></th>
+  <th>Processor</span></th>
+  <th>Qa</th>
+  </tr>
+  <tr>
+  <td><ul class="checklist" id="retro_qa_pro_error_type_ids_facility"  name="job_split_rangeval[id][]">
+      <% incriment_count = 1%>  
+      <% for error_type1 in 1 ..  @no_of_jobs_with_exact_no_of_images %>
+        <li><label for="oo<%= incriment_count %>"><input id="oo
+                     <%=incriment_count - incriment_count + @job_split_count%>" 
+                     name="job_split_range[id][]" type="checkbox" value= 
+                     "<%=(incriment_count.to_s+'-'+(incriment_count.to_i+(@job_split_count-1)).to_s)%>" > 
+          <%=incriment_count%>- <%=incriment_count + @job_split_count-1%></label></li>
+                  <% incriment_count = incriment_count + @job_split_count%> 
+              <% end %>
+              <% if @no_of_jobs_with_not_exact_no_of_images > 0 %>
+          <li><label for="oo<%= incriment_count %>"><input id=
+                       "oo<%=incriment_count - incriment_count + @job_split_count%>" 
+                       name="job_split_range[id][]" type="checkbox" value= 
+                       "<%=(incriment_count.to_s+'-'+(@total_no_of_images).to_s)%>" > 
+            <%=incriment_count%>- <%= @total_no_of_images %></label></li>
+                  <%end%>
+      </ul></td>
+      <td><%= select_tag 'processor', options_for_select(@processors)%></td>                                                                               
+
+        <td><%= select_tag 'qa', options_for_select(@qas)%></td>  
+          </table>
+
+          <%= submit_tag "Create/Allocate", :class => 'button', :name => "option1"  %>
+        <% end %> 
+
+
+
+        <br/> <!-- TODO: Handle in CSS -->
+        </div>
+

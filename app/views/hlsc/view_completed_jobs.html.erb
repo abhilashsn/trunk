@@ -1,0 +1,102 @@
+<div id="login_main">
+<% unless @jobs.blank? %>
+  <h1>Completed Jobs - Batch
+    <%= @jobs[0].batch.batchid %>
+    (Batch Date: <%= format_date(@jobs[0].batch.date) %>,
+  Client: <%= @jobs[0].batch.facility.client.name %>)</h1>
+
+<% else %>
+  <h1> </h1>
+
+<% end %>
+
+<div class="light_info">
+  <%= form_tag :action => 'view_completed_jobs', :jobs => @batch ,:back_page => params[:back_page] do %>
+              <%= select 'job', 'criteria', ['Check Number', 'Tiff Number'] %>
+              <%= select 'job', 'compare', ['=','>=', '<=']%>
+              <%= text_field 'job', 'to_find', :size => '10' %>
+                           <%= submit_tag 'Filter', :class => 'button' %>
+  <% end %>
+</div>
+<% unless @jobs.blank? %>
+          <div style="background-color:#e9eef2; width:100%;" class="black_text">
+            <%= will_paginate @jobs%>
+          </div>
+           <%= form_tag :action => 'allocate_deallocate', :id => @jobs_to_allocate ,:page=> params[:page] ,:back_page => params[:back_page] do %>
+
+    <table>
+      <tr>
+        <th>Batch ID</th>
+        <th>Check <br/>Number </th>
+        <th>Tiff <br/>Number </th>
+        <th>EOBs<br/><font size='1'>Est./Comp.</font></th>
+        <th>Job Status</th>
+        <th>Incomplete<br/>TIFF(EOBs)</th>
+        <th>Marked By</th>
+        <th>FeedBack</th>
+    
+      </tr>
+      <%@jobs.each do |job| %>
+                <% cls='white'%>
+
+        <tr>
+          <td class="<%= cls %>" align='right'><%= job.batch.batchid %></td>
+          <td class="<%= cls %>"align = 'right'><%= job.check_number %></td>
+          <td class="<%= cls %>"align = 'right'>
+          <%if  job.tiff_number.blank? %>
+            <%="-"%>
+            <%else%>
+              <%=job.tiff_number%>
+              <%end%>
+              
+         </td>
+          <td class="<%= cls %>" align='right'><%= job.estimated_eob %> / <%= job.count %></td>
+          <td class="<%= cls %>"><%= job.job_status %></td>
+            <td class="<%= cls %>">
+              <% if job.incomplete_tiff.blank? %>
+              None (<% unless job.incomplete_count.blank? %><%= job.incomplete_count %><% else %>0<%end%>)</td>
+            <% else %>
+                                  <%= job.incomplete_tiff %> (<%= job.incomplete_count %>)
+            </td>
+          <% end %>
+          <td nowrap class="<%= cls %>">
+            <% if job.hlsc.nil? %>
+              None
+            <% else %>
+                        <%= job.hlsc %>
+            <% end %>
+
+        <% if @user.role == "HLSC" or job.batch.correspondence == true %>
+                        <% if job.hlsc.nil? %>
+                                        <%= link_to 'Mark', :action => 'view_completed_jobs', :batch => job.batch.batchid,:job => job.id, :mark => 1, :page => params[:page] %>
+                        <% else %>
+                                       <% if job.hlsc != @user %>
+                                                     <%= link_to 'Unmark', {:action => 'view_completed_jobs', :batch => job.batch.batchid,:job => job.id,  :unmark => 1, :page => params[:page]}%>
+                                        <% else %>
+                                                     <%= link_to 'Unmark', :action => 'view_completed_jobs', :batch => job.batch.batchid, :job => job.id, :page => params[:page], :unmark => 1 %>
+                                        <% end %>
+                  <% end %>
+            </td>
+            <td class="<%= cls %>">
+              <% if job.hlsc == @user %>
+                                    <%= link_to 'Reject Job', :action => 'reject_tiff', :id => job.batch ,:tiff => job.tiff_number ,:job => job.id ,:check => job.check_number ,:payer => job.payer.id ,:facility => job.batch.facility.id%> 
+               <% else %>
+                Please mark the job to provide feedback.
+              <% end %>
+            </td>
+          <% end %> 
+        
+        </tr>
+      <% end %>
+    </table>
+
+            <% end %>
+<% else %>
+  <h4> No completed jobs for  batch <%= link_to @batch.batchid, :controller => '/admin/batch', :action => 'show', :id => @batch %> . </h4>
+<% end %>
+<br/>
+<br/>
+
+<br/>
+<br/>
+</div>

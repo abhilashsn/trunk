@@ -1,0 +1,149 @@
+<div id="login_main">
+<h1>Payer Wise Job List</h1>
+
+<div class="light_info">
+  <%= form_tag  :action => 'payer_list'  do %>
+          <%= select_tag 'criteria', optionize('Batch ID')%>
+          <%= select_tag 'compare', optionize('=')%>
+          <%= text_field_tag 'to_find', nil, :size => '10' %>
+          <%= submit_tag 'Filter', :class => 'button' %>
+  <% end%>
+</div>
+<%= show_legend({"white" => "New", "palered" => "Half Allocated", "blue" => "Fully Allocated", "red" => "Urgent"}) %>    
+<br/>
+<br/>
+<div class="right"><%= link_to 'Batch List', :action => 'allocate' %></div>
+<% pagination = create_pagination(@payer_pages,'batch',params[:page]) %>
+<%= pagination %>
+ 
+<%
+ tempred_tat = []
+ tempother_tat =[]
+ %>
+<%
+ for payer in @payers
+      
+            diff_seconds = (payer.tat-Time.now).round
+            diff_minutes = diff_seconds / 60
+            diff_hours   = diff_minutes/60
+      
+              if diff_hours<3 and diff_minutes<180 
+                    tempred_tat << payer
+              else
+                    tempother_tat << payer
+      
+              end   
+
+ end
+    
+            for payer in @payers
+                    payers1=tempred_tat.sort_by do |p1|(payer.tat)
+                    end
+            end
+            payers_sorted_red=payers1
+            
+%>
+
+<table style="width: 938px">
+  <tr>
+    <th style="width: 116px">Payer ID</th>
+    <th style="width: 281px">Payer</th>
+    <th style="width: 63px">Job <br/> Count</th>
+    <th style="width: 87px">Estimated <br/> EOBs</th>
+    <th style="width: 124px">Earliest <br/> Contracted Time</th>
+    <th style="width: 113px">Earliest <br/> Expected Time</th>
+    <th style="width: 122px"> &nbsp;</th>
+  </tr>
+  
+ 
+<%if payers_sorted_red!=nil%>
+         <% for payer in payers_sorted_red %>
+      <tr>
+        <% cls='red'%>
+
+        <td class="<%= cls %>"> <%= payer.payer.supply_payid %></td>
+        <td class="<%= cls %>"> <%= payer.payer.payer %></td>
+        <td class="<%= cls %>"> <%= payer.count %></td>
+        <td class="<%= cls %>"> <%= payer.eobs %></td>
+    
+                 <% if payer.tat.nil? %> 
+          <td>N/A</td>
+        <% else %>
+          <td class="<%= cls %>"> <%= format_datetime(payer.tat) %></td>
+        <% end %>
+        <% if payer.etc.nil? %>
+          <td class="<%= cls %>"> New</td>
+        <% else %>
+          <td class="<%= cls %>"><%= format_datetime(payer.etc) %></td>
+        <% end %>
+        <td><%= link_to "Job Allocation", :controller => 'job', :action => 'allocate_payer_jobs', :payer => payer.payer %></td>
+      </tr>
+      <%cls=''%>
+  <%end%>
+
+<%else
+  puts'THERE IS NO ITEM '
+end%>
+
+<% if tempother_tat!=nil%>
+  <% for payer in tempother_tat %>
+      <tr>
+        <%cls=''%>
+        <%temp=payer.payer.id%>
+        <%
+
+        count_total=Job.count(:all, :conditions => "jobs.payer_id = #{temp}  and batches.status != '#{BatchStatus::COMPLETED}' and jobs.payer_id=payers.id and jobs.job_status != '#{JobStatus::COMPLETED}'",
+                                     :joins => "LEFT JOIN batches on jobs.batch_id=batches.id LEFT JOIN payers on jobs.payer_id=payers.id" )
+
+        count_processing= Job.count(:all, :conditions => "jobs.payer_id = #{temp}  and batches.status != '#{BatchStatus::COMPLETED}' and jobs.payer_id=payers.id and jobs.job_status = '#{JobStatus::PROCESSING}'",
+                                     :joins => "LEFT JOIN batches on jobs.batch_id=batches.id LEFT JOIN payers on jobs.payer_id=payers.id" )
+
+        count_new= Job.count(:all, :conditions => "jobs.payer_id = #{temp}  and batches.status != '#{BatchStatus::COMPLETED}', and jobs.payer_id=payers.id and jobs.job_status = '#{JobStatus::NEW}'",
+                                     :joins => "LEFT JOIN batches on jobs.batch_id=batches.id LEFT JOIN payers on jobs.payer_id=payers.id" )
+                 
+        count_complete= Job.count(:all, :conditions => "jobs.payer_id = #{temp}  and batches.status != '#{BatchStatus::COMPLETED}' and jobs.payer_id=payers.id and jobs.job_status = '#{JobStatus::COMPLETED}'",
+                                     :joins => "LEFT JOIN batches on jobs.batch_id=batches.id LEFT JOIN payers on jobs.payer_id=payers.id" )%>
+                 
+                 
+                 
+
+
+    <%if count_processing!=0 or count_complete!=0
+                  if count_total==count_processing
+                           cls = 'blue'
+                     else
+                           cls='palered'
+                  end 
+    else
+            if count_new!=0
+                    cls='white'
+            end
+    end%>
+
+        <td class="<%= cls %>"> <%= payer.payer.supply_payid %></td>
+        <td class="<%= cls %>"> <%= payer.payer.payer %></td>
+        <td class="<%= cls %>"> <%= payer.count %></td>
+        <td class="<%= cls %>"> <%= payer.eobs %></td>
+    
+        <% if payer.tat.nil? %> 
+          <td>N/A</td>
+        <% else %>
+          <td class="<%= cls %>"> <%= format_datetime(payer.tat) %></td>
+        <% end %>
+        <% if payer.etc.nil? %>
+          <td class="<%= cls %>"> New</td>
+        <% else %>
+          <td class="<%= cls %>"><%= format_datetime(payer.etc) %></td>
+        <% end %>
+        <td><%= link_to "Job Allocation", :controller => 'job', :action => 'allocate_payer_jobs', :payer => payer.payer %></td>
+      </tr>
+  
+
+      <%end%>
+  <%else
+          puts' There is no item'
+  end%>
+  
+</table>
+<br/>
+</div>

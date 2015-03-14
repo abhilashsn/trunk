@@ -1,0 +1,27 @@
+<h1>Listing Client Reported Errors</h1>
+
+<table>
+  <tr>
+    <th>Site code</th>
+    <th>User date</th>
+    <th>Batch date</th>
+    <th>Eob count</th>
+    <th>Error count</th>
+    <th></th>
+  </tr>
+
+<% @client_reported_errors.each do |client_reported_error| %>
+  <tr>
+    <td><%= client_reported_error.site_code %></td>
+    <td><%= client_reported_error.user_date %></td>
+    <td><%= client_reported_error.batch_date %></td>
+    <td><%= client_reported_error.eob_count %></td>
+    <td><%= client_reported_error.error_count %></td>
+    <td><%= link_to 'Delete', client_reported_error, :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Error', new_client_reported_error_path %>

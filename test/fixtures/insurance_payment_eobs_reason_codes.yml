@@ -1,0 +1,18 @@
+insurance_pay_eob_rc_1: #owner:ramya
+      id: 1
+      insurance_payment_eob_id: 49
+      reason_code_id: 80
+      adjustment_reason: coinsurance
+
+insurance_pay_eob_rc_2:
+      id: 2
+      insurance_payment_eob_id: 30
+      reason_code_id: 74
+      adjustment_reason: coinsurance
+
+insurance_pay_eob_rc_3:
+      id: 3
+      insurance_payment_eob_id: 30
+      reason_code_id: 76
+      adjustment_reason: coinsurance
+      

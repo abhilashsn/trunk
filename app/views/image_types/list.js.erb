@@ -1,0 +1,77 @@
+<div id="ajax_container">
+<% unless flash[:notice].nil? %>
+  <div class="alert"><%= flash[:notice] %></div>
+<% end %>
+<div id="form1" style="display: true;">
+<%= form_tag({:controller => 'image_types', :action => 'create', :job_id => params[:job_id],
+    :page => params[:page]},:remote => true) do%>
+<%= render :partial => 'form' %>
+<% end %>
+</div>
+
+<% unless @image_types.blank? %>
+<%= will_paginate @image_types %>
+
+  <table width="800">
+    <tr>
+                        <th>Slno.</th>
+                        <th>Page no.</th>
+                        <th>EOB slno.</th>
+                        <th>Patient Last Name</th>
+                        <th>Patient First Name</th>
+                        <th>Patient Account No</th>
+                        <th>Image type</th>
+                        <th>Actions</th>
+    </tr>
+                <%eob_index = 0%>    
+                <% @image_types.each_with_index do |_image_type, _i| 
+                       @image_type = _image_type
+                       @i = _i %>
+                       <% unless @image_type.blank?%>
+                        <%eob_exists_condition = !@image_type.insurance_payment_eob.blank?%>
+                              <%eob_index += 1 if eob_exists_condition%>    
+                              <% style = cycle("light", "dark") %>
+                      <tr>
+                        <td><%= @i+1 %></td>
+                        <td><%= @image_type.image_page_number%></td>
+                        <td><%if eob_exists_condition%><%= eob_index%><%else%><%= '-'%><%end%></td>
+                        <td><%if eob_exists_condition%><%= @image_type.insurance_payment_eob.patient_last_name%><%else%><span id="last_name_edit_<%= @i %>"></span> <%= in_place_editor_field :image_type, :patient_last_name, {}, :rows => 1, :cols => 15, :external_control => "last_name_edit_#{@i}" %><%end%></td>
+                        <td><%if eob_exists_condition%><%= @image_type.insurance_payment_eob.patient_first_name%><%else%><span id="first_name_edit_<%= @i %>"></span> <%= in_place_editor_field :image_type, :patient_first_name, {}, :rows => 1, :cols => 15, :external_control => "first_name_edit_#{@i}" %><%end%></td>
+                        <td><%if eob_exists_condition%><%= @image_type.insurance_payment_eob.patient_account_number%><%else%><span id="account_no_edit_<%= @i %>"></span> <%= in_place_editor_field :image_type, :patient_account_number, {}, :rows => 1, :cols => 15, :external_control => "account_no_edit_#{@i}" %><%end%></td>
+                        <td><%if eob_exists_condition%><%= @image_type.image_type%><%else%><span id="image_type_edit_<%= @i %>"></span> <%= in_place_editor_field :image_type, :image_type, {}, {:script => true, :rows => 1, :cols => 15, :external_control => "image_type_edit_#{@i}"} %><%end%></td>
+                        <td><%unless eob_exists_condition%>
+                            <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"), 
+                              {:controller=>"image_types", :action => "destroy", :id => @image_type.id, :job_id => params[:job_id], :page => params[:page]},
+                              :remote => true) %>
+                          <% end %>
+                        </td>                    
+                      </tr> 
+                    <% end %>
+                  <% end %>
+  </table>
+<% else %>
+  <h3>No records found!</h3>
+<% end %>
+
+</div>
+<%= javascript_tag do %>
+document.on('ajax:complete','#ajax_container', function(event,con){
+   con.update(event.memo.responseText);
+   Element.hide('spinner');
+   show_or_hide_image_page_no_field();
+})
+document.on('ajax:before','#ajax_container', function(event,con){
+   Element.show('spinner');
+   getImagePageNumber();
+
+})
+
+<% end %>
+
+<script LANGUAGE="JavaScript">
+  Event.observe(window, 'load', function() {
+    show_or_hide_image_page_no_field();
+  });
+</script>
+
+

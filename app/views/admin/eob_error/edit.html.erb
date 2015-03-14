@@ -1,0 +1,10 @@
+<div id="login_main">
+<h1>Editing eob_error</h1>
+
+<%= form_tag(admin_eob_error_path(@eob_error), :method=>'put')  do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit',:class => 'button' %>
+<% end %>
+
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => 'index' %>
+</div>

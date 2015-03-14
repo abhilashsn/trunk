@@ -1,0 +1,28 @@
+
+
+<%= simple_form_for :mpi_search, url: mpi_searches_path, method: 'GET', html: {id: "mpi_search", class: 'form-horizontal'} do |f| %>
+    Search  <%= f.check_box :exact_serach ,:style => "float:right;" %><label style ="float:right">Exact &nbsp;&nbsp;</label>
+    
+    <%= f.input :pid, as: 'hidden', placeholder: "Provider ID", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+      <%= f.input :patient_no, label: false, placeholder: "Patient Account".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+a"}} %>
+        <%= f.input :patient_lname, label: false, placeholder: "Last Name".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+l"}} %>
+          <%= f.input :patient_fname, label: false, placeholder: "First Name".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+f"}} %>
+            <%= f.input :date_of_service_from, label: false,required: false, input_html: {class: "mousetrap",:onblur => "addSlash()",:value => (params[:date_of_service_from].present? ? params[:date_of_service_from] : 'mm/dd/yy'),:onclick => "removeDefualtDate()",data: {keybinding: "alt+d"}} %>
+              <%= f.input :total_charges, label: false, placeholder: "Total Charges".html_safe, required: false, input_html: {class: "mousetrap amount", data: {keybinding: "alt+h"}} %>
+                <%= f.input :insured_id, label: false, placeholder: "Member ID".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+h"}} %>
+                  <%= f.input :payer_name, label: false, placeholder: "Payer Name".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+h"}} %>
+                    <%= f.input :cpt_code, label: false, placeholder: "CPT Code".html_safe, required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+h"}} %>
+                      <%= hidden_field_tag :job_id,params[:job_id], :id =>'job_id' %>
+                      <%= hidden_field_tag :mode,params[:mode], :id =>'mode' %>
+                      <%= hidden_field_tag :claimleveleob,params[:claimleveleob], :id =>'claimleveleob' %>
+                      <%= f.input :facility_id, as: 'hidden', placeholder: "facility id", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                        <%= f.input :client_id, as: 'hidden', placeholder: "client id", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                          <%= f.input :mpi_serach_facility_group, as: 'hidden', placeholder: "mpi_serach_facility_group", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                            <%= f.input :mpi_search_type, as: 'hidden', placeholder: "mpi search type", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                              <%= f.input :page, as: 'hidden', placeholder: "page", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                                <%= f.input :page_no, as: 'hidden', placeholder: "page_no", required: false, input_html: {class: "mousetrap", data: {keybinding: "alt+p"}} %>
+                                  <%= f.submit "Search" ,:onclick => "return addSlash()"  %>
+                                  <input type="button" value="Reset" onclick="clearForm()"/>
+
+                                <% end %>
+

@@ -1,0 +1,78 @@
+pro_adj1:
+      id: 1
+      qualifier: 'CS'
+      amount: 90
+      job_id: 18
+
+pro_adj2:
+      id: 2
+      amount: 100.00
+      job_id: 27
+
+pro_adj3:
+      id: 3
+      amount: 150.00
+      job_id: 27
+
+prov_adj_4: #owner :Ramya
+      id: 4
+      amount: 4.00
+      job_id: 222
+      image_page_number: 1
+      description: "ASD"
+      patient_account_number: "8JJJ"
+
+prov_adj_5: #owner :Ramya
+      id: 5
+      amount: 5.00
+      job_id: 225
+      image_page_number: 1
+      description: "ASD"
+      patient_account_number: "8JJJ"
+
+prov_adj_6: #owner :Ramya
+      id: 6
+      amount: 6.00
+      job_id: 229
+      image_page_number: 1
+      description: "ASD"
+      patient_account_number: "8JJJ"
+
+prov_adj_7: #owner :Ramya
+      id: 7
+      amount: 5.00
+      job_id: 223
+      image_page_number: 1
+      description: "ASD"
+
+prov_adj_8:
+    id: 8
+    amount: 5.00
+    job_id: 75
+    image_page_number: 1
+    description: "ASD"
+    patient_account_number: "8345345"
+
+prov_adj_9:
+    id: 9
+    amount: 5.05
+    job_id: 76
+    image_page_number: 2
+    description: "ASD"
+    patient_account_number: "234222"
+
+prov_adj_10: #owner: Ramya
+    id: 10
+    amount: 89
+    job_id: 84
+    image_page_number: 2
+    description: "ASD"
+    patient_account_number: "234222"
+
+prov_adj_11: #owner: Ramya
+    id: 11
+    amount: -10
+    job_id: 85
+    image_page_number: 2
+    description: "ASD"
+    patient_account_number: "234222"

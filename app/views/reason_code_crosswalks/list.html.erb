@@ -1,0 +1,197 @@
+<script>
+    function hideAndClearDivforOneRecordSearch(){
+        $('generic_search_div').style.display = 'block';
+        $('record_search_div').style.display = 'none';
+        $('set_name_search_field').value = "";
+        $('code_search_field').value = "";
+        $('client_code_search_field').value = "";
+        $('site_code_search_field').value = "";
+    }
+    
+    function hideAndClearDivforAllRecordSearch(){
+        $('record_search_div').style.display = 'block';
+        $('generic_search_div').style.display = 'none';
+        $('set_name_generic_search_field').value = "";
+        $('code_generic_search_field').value = "";
+        $('description_generic_search_field').value = "";
+    }
+</script>
+<div id="login_main">
+    <h1>Listing Crosswalk Records</h1>
+    <% if @filter_available %>
+    <%= form_tag :action => 'list' do %>
+    Search for all levels of crosswalk records<input id="search_selection" type="radio" value="" name="search_selection" checked="checked" onclick ="hideAndClearDivforOneRecordSearch()">
+    <div id = 'generic_search_div' style ="display:none">
+        <table style="width:40%">
+            <tr>
+                <th style ="width:100px">
+                    Search for all levels of crosswalk records
+                </th>
+                <th>
+                    Set Name<span class="alert"> *</span>
+                </th>
+                <th>
+                    Proprietary Code
+                </th>
+                <th>
+                    Proprietary Code Description
+                </th>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <%= text_field_tag 'set_name_generic_search_field', params[:set_name_generic_search_field] , :size => '10' %>
+                </td>
+                <td>
+                    <%= text_field_tag 'code_generic_search_field', params[:code_generic_search_field], :size => '10' %>
+                </td>
+                <td>
+                    <%= text_field_tag 'description_generic_search_field', params[:description_generic_search_field], :size => '10' %>
+                </td>
+                <td>
+                    <%= submit_tag 'Filter', :class => 'button', :onclick => "return validate_presence_of('set_name_generic_search_field', 'Set Name');"%>
+                    <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border=>"0", :id => "spinner", :style=>"display: none;" ) %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    Search for a crosswalk record<input id="search_selection" type="radio" value="" name="search_selection" checked="checked" onclick ="hideAndClearDivforAllRecordSearch()">
+    <br>
+    <div id = 'record_search_div' style ="display:none">
+        <table style="width:40%">
+            <tr>
+                <th style ="width:100px">
+                    Search for a crosswalk record
+                </th>
+                <th>
+                    Set Name<span class="alert"> *</span>
+                </th>
+                <th>
+                    Proprietary Code
+                </th>
+                <th>
+                    Client / Group Code
+                </th>
+                <th>
+                    Site Code
+                </th>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <%= text_field_tag 'set_name_search_field', params[:set_name_search_field] , :size => '10' %>
+                </td>
+                <td>
+                    <%= text_field_tag 'code_search_field', params[:code_search_field], :size => '10' %>
+                </td>
+                <td>
+                    <%= text_field_tag 'client_code_search_field', params[:client_code_search_field], :size => '10' %>
+                </td>
+                <td>
+                    <%= text_field_tag 'site_code_search_field', params[:site_code_search_field], :size => '10' %>
+                </td>
+                <td>
+                    <%= submit_tag 'Filter', :class => 'button', :onclick => "return validate_presence_of('set_name_search_field', 'Set Name');" %>
+                    <%= image_tag("/assets/spinner.gif", :align => 'absmiddle',:border=>"0", :id => "spinner", :style=>"display: none;" ) %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <% end %>
+    <% else %>
+    <div style="clear:both;">
+      <h1><span class="sub_title"><%= @payer.payer %> [Paper code: <%= @reason_code.reason_code %>]</span></h1><br/>
+      <% if !$IS_PARTNER_BAC %>
+      <%#link_to "New Crosswalk", :controller=>"reason_code_crosswalks", :action => 'new', 
+      :payer_id => @payer.id, :reason_code_id => @reason_code.id %>
+      <% end %>
+    </div>
+    <% end %>
+    <% unless @reason_codes_crosswalk_items.blank? %>
+    <%= form_tag :name => 'reason_codes_crosswalk_item' do %>
+    <div style="background-color:#e9eef2; width:100%;" class="black_text">
+        <%= will_paginate @reason_codes_crosswalk_items,
+        :params => {:set_name_search_field => params[:set_name_search_field],
+        :code_search_field => params[:code_search_field],
+        :client_code_search_field => params[:client_code_search_field],
+        :site_code_search_field => params[:site_code_search_field],
+        :set_name_generic_search_field => params[:set_name_generic_search_field],
+        :code_generic_search_field => params[:code_generic_search_field],
+        :description_generic_search_field => params[:description_generic_search_field] } %>
+    </div>
+    <table style="width:100%">
+        <tr>
+            <th>
+                Reason Code Set Name
+            </th>
+            <th>
+                Mapping Level
+            </th>
+            <th>
+                Propritery Code
+            </th>
+            <th>
+                Propritery Code Description
+            </th>
+            <th>
+                Client/Group Code
+            </th>            
+            <th>
+                Site Code
+            </th>
+            <th>
+               Hipaa Code
+            </th>
+            <th>
+                Crosswalk Items
+            </th>
+        </tr>
+
+        <% for reason_code_crosswalk_item in @reason_codes_crosswalk_items %>
+
+        <tr>
+            <td>
+                <%= reason_code_crosswalk_item.set_name || '--' %>
+            </td>
+            <td>
+              <%= reason_code_crosswalk_item.get_crosswalk_level || '--' %>
+            </td>
+            <td>
+                <%= reason_code_crosswalk_item.code || '--' %>
+            </td>
+            <td>
+                <%= reason_code_crosswalk_item.description || '--' %>
+            </td>
+            <td>
+                <%= reason_code_crosswalk_item.client_code || '--' %>
+            </td>
+            <td>
+                <%= reason_code_crosswalk_item.site_code || '--' %>
+            </td>
+            <td>
+                <%= reason_code_crosswalk_item.hcode || '--' %>
+            </td>
+            <td>
+                <%= link_to image_tag("reason.jpg", :alt => "Crosswalk Items"), :action => 'show',
+                :id => reason_code_crosswalk_item.crosswalk_record_id %>
+                <% if !$IS_PARTNER_BAC %>
+		<% if @payer && @reason_code   %>
+		<%= link_to (image_tag("report_edit.png", :alt => "Edit",:border=>"0")), :controller => 'reason_codes', :action => 'manage_codes',:payer_id=>@payer.id,:rccfsn_id=>reason_code_crosswalk_item.crosswalk_record_id,:reason_code_id=>@reason_code.id, :referer => "true"%>
+		<% end %>
+                <%= link_to image_tag("delete.png", :alt => "Delete Crosswalk"), {:action => 'destroy',
+                :id => reason_code_crosswalk_item.crosswalk_record_id}, :confirm=>'Are you sure you want to delete this crosswalk ?' %>
+                <% end %>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+    <br/>
+    <% end %>
+    <% else %>
+    <h4>No matching items found. </h4>
+    <% end %>
+</div>
+<%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :controller => 'dashboard', :action => 'index' %>

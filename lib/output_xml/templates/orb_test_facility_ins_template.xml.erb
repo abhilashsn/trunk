@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<% @first_check = @checks.first
+@batch = @first_check.job.batch
+@facility = @batch.facility
+@client = @facility.client
+@client_name = @client.name.upcase
+initialize
+insurance_checks, patpay_checks, correspondence_checks = get_insurance_and_patpay_and_correspondece_checks(@checks)
+batch_status = batch_level_status %>
+<File835 xmlns="http://www.orbograph.com/schema/remittances"
+         ISA_SenderID="ORBOMED" ISA_ReceiverID="<%=transaction_payer_id%>" ISA_ControlNumber="134061042" GS_filetime="<%=Time.now().strftime("%H%M")%>" GS_filedate="<%=Time.now().strftime("%Y%m%d")%>" XsdVersion="2.2">
+  <AdditionalInfo Status="<%= batch_status %>" SourceBatchId="{<%=@batch.batchid%>}" SourceFileName="" Complete="true"/>
+
+  <% if @send_one_transaction_tag_for_incomplete_jobs
+    images = @batch.images_for_jobs %>
+    <Transaction>
+      <AdditionalInfo Status="<%= batch_status %>" SourceBatchPageFrom="<%= images.first.actual_image_number %>" SourceBatchPageTo="<%= images.last.actual_image_number %>"/>
+    </Transaction>
+  <% else %>
+
+    <% # Insurance Checks
+    insurance_checks.each_with_index do |check, index|
+      @check = check
+      @job = @check.job
+      @image_for_jobs = @job.images_for_jobs
+      @micr = @check.micr_line_information
+      if @facility.details[:micr_line_info] && @micr && @micr.payer
+        @payer = @micr.payer
+      else
+        @payer = @check.payer
+      end %>
+
+      <Transaction>
+        <%
+        job_status = normalize_status(@job.rejected_comment.to_s.strip)
+        job_status = "OK" if (job_status.blank? or job_status.to_s.strip == "--")
+        eobs = @check.insurance_payment_eobs
+      %>
+        <AdditionalInfo Status=<%if job_status.present?%>"<%=job_status%>"<%end%> SourceBatchPageFrom="<%=@image_for_jobs.first.actual_image_number%>" SourceBatchPageTo="<%=@image_for_jobs.last.actual_image_number%>"/>
+        <% if @job.job_status == JobStatus::COMPLETED %>
+          <%if eobs.length > 1
+            @eobs = get_ordered_insurance_payment_eobs(@check)
+          else
+            @eobs = eobs
+          end%><%@check_amount = check_amount%>
+          <%@is_correspndence_check = @check.correspondence?%><%payee = get_facility%>
+          <%payer = get_payer
+          payer_name = @check.client_specific_payer_name(@facility)
+          if payer && payer_name.blank?
+            payer_name = payer.name
+          end
+          payer_id = @check.client_specific_payer_id(@facility)
+          if payer_id.blank?
+            payer_id = get_orbo_payer_id(@check)
+          end%>
+          <%payer_address_details = geographic_location(payer)%><% payee_details = payee_identification.split("*") %>
+          <%
+          output_chk_number = output_check_number
+          bpr1=bpr_01
+          payment_indicator_value = payment_indicator
+          if @facility && @facility.name.upcase.strip == "SOUTH NASSAU COMMUNITY HOSPITAL" && @check.correspondence? && (!@check.check_date.blank?)
+            effective_payment_date_value  = @check.check_date.strftime("%Y%m%d")
+          else
+            effective_payment_date_value  = effective_payment_date
+          end
+        %>
+
+          <Payment835<%if output_chk_number.present?%> CheckOrEFTTraceNumber="<%=output_chk_number%>"<%end%><% if bpr1.present?%> TransactionHandlingCode="<%=bpr1%>"<%end%> PaidAmt="<%=@check_amount.to_s%>" CreditDebitFlagCode="C"<%if payment_indicator_value.present?%> PaymentMethodCode="<%= payment_indicator_value%>"<%end%><%if payer_id.present?%> OriginatingCompanyIdentifier="<%=payer_id.to_s.rjust(10, '0') %>"<%end%> OriginatingCompanySupplementalCode="999999999"<%if effective_payment_date_value.present?%> CheckIssueOrEFTEffectiveDate="<%=Date.strptime(effective_payment_date_value,"%Y%m%d").strftime("%Y-%m-%d")%>"<%end%>>
+            <%forced_balancing = []
+            forced_balancing = @job.get_all_provider_adjustments
+            forced_balancing_value = (forced_balancing.empty?)? false:true
+            missing_check = (@check.mismatch_transaction)
+            forced_additional_info_value = (forced_balancing_value || missing_check)
+            if forced_balancing_value || missing_check%>
+              <AdditionalInfo ForcedBalancing="<%=forced_additional_info_value%>"<%if missing_check%> MissingCheckImage="<%=missing_check%>"<%end%>/>
+            <%end%>
+            <%if payer_name.present? %>
+              <Payer Name="<%= payer_name.to_s.strip.upcase[0...60].strip%>" Identifier="<%=payer_id%>" IdentifierQ="XV">
+                <%payer_address = address(payer)
+                if payer_address.present? || payer_address_details[0].present? || payer_address_details[2].present? || payer_address_details[1].present? %>
+                  <Address<%if payer_address.present?%> AddressLine="<%=payer_address%>"<%end%><%if payer_address_details[0].present?%> City="<%=payer_address_details[0]%>"<%end%><%if payer_address_details[2].present?%> Zip="<%=payer_address_details[2]%>"<%end%><%if payer_address_details[1].present?%> State="<%=payer_address_details[1]%>"<%end%>/>
+                <%end%>
+              </Payer>
+            <%end%>
+
+            <%if payee_details[0].present?%>
+              <Payee Name="<%=payee_details[0]%>" Identifier="<%=payee_details[2]%>" IdentifierQ="<%=payee_details[1]%>">
+
+                <%payee_address_details = geographic_location(payee)
+                payee_address = address(payee)
+                if payee_address.present? || payee_address_details[0].present? || payee_address_details[1].present? || payee_address_details[2].present? %>
+                  <Address<%if payee_address.present?%> AddressLine="<%=payee_address%>"<%end%><%if payee_address_details[0].present?%> City="<%=payee_address_details[0]%>"<%end%><%if payee_address_details[2].present?%> Zip="<%=payee_address_details[2]%>"<%end%><% if payee_address_details[1].present?%> State="<%=payee_address_details[1]%>"<%end%>/>
+                <%end%>
+              </Payee>
+            <%end%>
+            <%sender_dfi_array = sender_dfi%><%receiver_dfi_array=receiver_dfi%>
+            <%if sender_dfi_array[1].present?  || sender_dfi_array[3].present?%>
+              <SenderDFI<%if sender_dfi_array[1].present?%> Q="<%=sender_dfi_array[0]%>" Id="<%=sender_dfi_array[1]%>"<%end%><%if sender_dfi_array[3].present?%> AccountNumberQ="<%=sender_dfi_array[2]%>" AccountNumber="<%=sender_dfi_array[3]%>"<%end%>/>
+            <%end%>
+            <%if receiver_dfi_array[1].present?  || receiver_dfi_array[3].present?%>
+              <ReceiverDFI<%if receiver_dfi_array[1].present? %> Q="<%=receiver_dfi_array[0]%>" Id="<%=receiver_dfi_array[1]%>"<%end%><%if receiver_dfi_array[3].present? %> AccountNumberQ="<%=receiver_dfi_array[2]%>" AccountNumber="<%=receiver_dfi_array[3]%>"<%end%>/>
+            <%end%>
+            <%@eobs.each_with_index do |eob, index|%>
+              <%@eob=eob%><%@claim = eob.claim_information%>
+              <%@is_claim_eob = (eob.category.upcase == "CLAIM")%>
+              <%claim_level_dates = include_claim_dates%>
+              <%claim_weight = @eob.claim_type_weight
+              facility_code = eob_facility_type_code
+              claim_indicator_code = claim_freq_indicator
+              claim_plan_type = @facility.name.strip.upcase == "GULF IMAGING ASSOCIATES" ? 'CI' : @eob.plan_type
+              patient_account_number= @eob.patient_account_number
+              eob_claim_number = @eob.claim_number
+              eob_drg_code = @eob.drg_code
+            %>
+
+              <%
+              claim_cas_loop = claim_cas_segments || []
+              @services = @eob.service_payment_eobs
+              service_cas_hash = {}
+              @services.each_with_index do |service_eob, index|
+                @service = service_eob
+                service_cas_loop = service_cas_segments || []
+                service_cas_hash[@service.id] = service_cas_loop
+              end
+            %>
+              <Claim835<%if patient_account_number.present?%> Identifier="<%=patient_account_number%>"<%end%><%if claim_weight.present?%> StatusCode="<%=claim_weight%>"<%end%><%if eob_claim_number.present?%> PayerControlNumber="<%=eob_claim_number%>"<%end%> ChargeAmt="<%=amount_format(@eob.amount('total_submitted_charge_for_claim'))%>" PaidAmt="<%=amount_format(@eob.payment_amount_for_output(@facility, @facility_output_config))%>" PatResAmt="<%=amount_format(@patient_responsibility_amount)%>" FilingIndicatorCode="<%=claim_plan_type%>" FacilityTypeCode="<%=(facility_code.blank? ? '11' : facility_code)%>" FrequencyCode="<%=(claim_indicator_code.blank? ? '1' : claim_indicator_code)%>"<%if eob_drg_code.present?%> DRGCode="<%=eob_drg_code %>"<%end%><%if claim_level_dates[0].present?%> PeriodStart="<%=claim_level_dates[0]%>"<%end%><%if claim_level_dates[1].present?%> PeriodEnd="<%=claim_level_dates[1]%>"<%end%>>
+                <AdditionalInfo Used837="<%=(@eob.claim_information_id.present? ? 'true' : 'false') %>"/>
+
+        <%#claim_cas_loop = claim_cas_segments || []%>
+                <%group_codes = claim_cas_loop.collect{|c| c[0]}%>
+                <% index_ref = 1 %>
+                <%unless claim_cas_loop.blank?
+                  claim_cas_loop.each_with_index do |calim_cas,index|
+                    unless calim_cas.blank?
+                    %>
+                      <%matches_previous_group_code = (index.eql?(0) ? false : (group_codes[index-1] == calim_cas[0])) %>
+                      <%matches_next_group_code = (index.eql?(claim_cas_loop.length - 1) ? false : (group_codes[index+1] == calim_cas[0])) %>
+                      <% if (!matches_previous_group_code || index_ref.eql?(6)) %><Adj Group="<%=calim_cas[0]%>"><%end%>
+                        <% index_ref = (matches_previous_group_code ? index_ref += 1 : 1)  %>
+                        <Trio<%=index_ref%> Reason="<%=calim_cas[1]%>" Amt="<%=amount_format(calim_cas[2])%>"<%if calim_cas[5].present? && calim_cas[5]>0%> Quantity="<%=calim_cas[5]%>"<%end%>>
+                          <%if calim_cas[3] == true%>
+                            <AdditionalInfo Crosswalk="<%=calim_cas[3]%>"/>
+                          <%end%>
+                        </Trio<%=index_ref%>>
+                      <% if (!matches_next_group_code || index_ref.eql?(6))%><% index_ref = 0 %></Adj><% end %>
+                    <%end
+                  end
+                end%>
+                <%
+                patient_id, qualifier = @eob.patient_id_and_qualifier
+                last_name = @eob.patient_last_name.to_s.strip
+                first_name = @eob.patient_first_name.to_s.strip
+                middle_initial = @eob.patient_middle_initial.to_s.strip
+                eob_patient_suffix=@eob.patient_suffix.to_s.strip
+              %>
+                <Patient LastName="<%=(last_name)? last_name :'NONE'%>" FirstName="<%=(first_name)? first_name :'NONE'%>"<%if middle_initial.present?%> MiddleName="<%= middle_initial%>"<%end%><%if eob_patient_suffix.present?%> SuffixName="<%=eob_patient_suffix%>"<%end%><%if patient_id.present?%> IdentifierQ="<%=qualifier%>" Identifier="<%=patient_id%>"<%end%>/>
+                <%unless @eob.pt_name_eql_sub_name?%><% subscriber_last_name = @eob.subscriber_last_name
+                  subscriber_first_name = @eob.subscriber_first_name
+                  subscriber_middle_initial = @eob.subscriber_middle_initial
+                  eob_subscriber_suffix = @eob.subscriber_suffix
+                  if @eob_type != 'Patient'
+                    id, qual = @eob.member_id_and_qualifier%>
+                    <Subscriber EntityTypeQ="1" LastName="<%=(subscriber_last_name)? subscriber_last_name : 'NONE'%>" FirstName="<%=(subscriber_first_name)? subscriber_first_name : 'NONE'%>"<%if subscriber_middle_initial.present?%> MiddleName="<%= subscriber_middle_initial%>"<%end%><%if eob_subscriber_suffix.present?%> SuffixName="<%=eob_subscriber_suffix%>"<%end%><%if id.present?%> IdentifierQ="<%=qual%>" Identifier="<%=id%>"<%end%>/>
+                  <%end%><%end%>
+                <%rendering_provider_details=service_prov_name%>
+                <%if rendering_provider_details[1].present? || rendering_provider_details[2].present? || rendering_provider_details[7].present?%>
+                  <RenderingProvider<%if rendering_provider_details[1].present? || rendering_provider_details[2].present?%> EntityTypeQ="<%=rendering_provider_details[0]%>"<%end%><%if rendering_provider_details[1].present?%> LastName="<%=rendering_provider_details[1]%>"<%end%><%if rendering_provider_details[2].present?%> FirstName="<%=rendering_provider_details[2]%>"<%end%><%if rendering_provider_details[7].present?%> IdentifierQ="<%=rendering_provider_details[6]%>" Identifier="<%=rendering_provider_details[7]%>"<%end%>/>
+                <%end%>
+                <% if @eob.alternate_payer_name.present?%>
+                  <Ref Q="CE" Val="<%=@eob.alternate_payer_name.strip.upcase%>"/>
+                <%end%>
+                <% if @eob.insurance_policy_number.present?%>
+                  <Ref Q="IG" Val="<%=@eob.insurance_policy_number%>"/>
+                <%end%>
+                <% unless @eob.claim_interest.blank? || @eob.claim_interest.to_f.zero?%>
+                  <Amt Q="I" Val="<%=amount_format(@eob.amount('claim_interest'))%>"/>
+                <%end%><%# @services = @eob.service_payment_eobs%>
+                <% @services.each_with_index do |service, index|
+                  @service = service%>
+                  <%unless @service.adjustment_line_is?%><%service_line_details = procedure_code_value%><%svc_qual,svc_code =nil,nil%>
+                    <% if !service_line_details[0].blank?
+                      svc_qual = service_line_details[0].split(":").first
+                      svc_code = service_line_details[0].split(":").last
+                    end%><% quantity = @service.service_quantity.to_f.to_amount
+                    svc_service_charge_amount = @service.amount('service_procedure_charge_amount')
+                    svc_service_paid_amount = @service.amount('service_paid_amount')
+                  %>
+
+                    <ServiceLine835 ChargeAmt="<%=amount_format(svc_service_charge_amount)%>" PaidAmt="<%=amount_format(svc_service_paid_amount)%>" UnitsOfServiceCount="<%=( (quantity > 0) ? quantity : '1')%>"<%if svc_revenue_code.present?%> RevenueCode="<%=svc_revenue_code%>"<%end%>>
+                      <%if svc_code.present? ||service_line_details[1].present? || service_line_details[2].present? || service_line_details[3].present? || service_line_details[4].present?%>
+                        <Procedure<%if svc_code.present?%> Q="<%=svc_qual %>" Code="<%=svc_code%>"<%end%><%if service_line_details[1].present?%> Modifier1="<%=service_line_details[1]%>"<%end%><%if service_line_details[2].present?%> Modifier2="<%=service_line_details[2]%>"<%end%><%if service_line_details[3].present?%> Modifier3="<%=service_line_details[3]%>"<%end%><%if service_line_details[4].present?%> Modifier4="<%=service_line_details[4]%>"<%end%>/>
+                      <%end%>
+                      <%svc_bundled_code_details = bundled_cpt_code_value
+                      svc_bundle_qual,svc_bundle_code= nil,nil
+                    %>
+                      <%if svc_bundled_code_details[0].present?
+                        svc_bundle_qual = svc_bundled_code_details[0].split(":").first
+                        svc_bundle_code = svc_bundled_code_details[0].split(":").last
+                      %>
+                        <OrigProcedure Q="<%=svc_bundle_qual%>" Code="<%=svc_bundle_code%>"/><%end%>
+
+                      <%from_date,to_date = nil,nil
+                      service_from_date = @service.date_of_service_from
+                      service_to_date = @service.date_of_service_to
+                      from_date = service_from_date.strftime("%Y-%m-%d") unless service_from_date.blank?
+                      to_date =  service_to_date.strftime("%Y-%m-%d") unless service_to_date.blank?
+                      if from_date.present? || to_date.present?%>
+                        <Date>
+                          <%if from_date == to_date%>
+                            <OneDay Val="<%=from_date%>"/>
+                          <%else%>
+                            <Period<%if from_date.present?%> Start="<%=from_date%>"<%end%><%if to_date.present?%> End="<%=to_date%>"<%end%>/>
+                          <%end%>
+                        </Date>
+                      <%end%>
+                      <%service_cas_loop = service_cas_hash[@service.id] %>
+                      <%group_codes =  service_cas_loop.collect{|c| c[0]}%>
+                      <%index_ref = 1%>
+                      <%unless service_cas_loop.blank?
+                        service_cas_loop.each_with_index do |service_cas,index|
+                          unless service_cas.blank?
+                          %>
+                            <%matches_previous_group_code = (index.eql?(0) ? false : (group_codes[index-1] == service_cas[0])) %>
+                            <%matches_next_group_code = (index.eql?(service_cas_loop.length - 1) ? false : (group_codes[index+1] == service_cas[0])) %>
+                            <% if (!matches_previous_group_code || index_ref.eql?(6)) %><Adj Group="<%=service_cas[0]%>"><%end%>
+                              <% index_ref = (matches_previous_group_code ? index_ref += 1 : 1)  %>
+                              <Trio<%=index_ref%> Reason="<%=service_cas[1]%>" Amt="<%=amount_format(service_cas[2])%>"<%if service_cas[5].present? && service_cas[5]>0%> Quantity="<%=service_cas[5]%>"<%end%>>
+                                <%if service_cas[3] == true%>
+                                  <AdditionalInfo Crosswalk="<%=service_cas[3]%>"/>
+                                <%end%>
+                              </Trio<%=index_ref%>>
+                            <% if (!matches_next_group_code || index_ref.eql?(6))%><% index_ref = 0 %></Adj><% end %>
+                          <%end
+                        end
+                      end
+                      service_id_number = @service.service_provider_control_number
+
+                      if service_id_number.present?%>
+                        <LineCtrlNumber Q="6R" Val="<%=service_id_number%>"/>
+                      <%end%>
+                      <%amt_supplimental_amount = supplemental_amount
+                      if amt_supplimental_amount.present?%>
+                        <Amt Q="B6" Val="<%=amount_format(amt_supplimental_amount)%>"/>
+                      <%end%>
+                      <%lq_he_segments=standard_industry_code_segments(@service)%>
+                      <%unless lq_he_segments.blank?
+                        lq_he_segments.each do |lq_he_segment|
+                          if lq_he_segment[0].present?
+                          %>
+                            <RemarkCode Q="HE" Val="<%=lq_he_segment[0]%>">
+                              <%if lq_he_segment[1] == true%>
+                                <AdditionalInfo Crosswalk="<%=lq_he_segment[1]%>"/>
+                              <%end%>
+                            </RemarkCode>
+                          <%end
+                        end
+                      end%>
+                    </ServiceLine835>
+                  <%end%>
+                <%end%>
+              </Claim835>
+            <%end%>
+            <%provider_adjustments=@temp.provider_adjustment(@eobs,@facility,@payer,@check,nil,@facility_output_config,true).compact%>
+            <%plb_seperator = @facility_output_config.details["plb_separator"]
+            unless provider_adjustments.blank?
+              provider_adjustments.each do |pr_adj|
+                pr_adj_element_array = pr_adj.split('*')
+                plb01= pr_adj_element_array[1]
+                plb02= pr_adj_element_array[2]
+                fiscal_date = Date.strptime(plb02,"%Y%m%d").strftime("%Y-%m-%d") if plb02.present?
+                plb_array_size = pr_adj_element_array.size-1
+                pr_adj_details_array = pr_adj_element_array[3..plb_array_size]
+              %>
+                <ProviderAdj ProviderIdentifier="<%=plb01%>" FiscalPeriodDate="<%=fiscal_date%>">
+
+                  <% i=0
+                  j=0
+                  while(i < pr_adj_details_array.size)
+                    plb_03=pr_adj_details_array[i].split(plb_seperator)
+                    plb_04 = pr_adj_details_array[i+1]%>
+                    <Trio<%=j+1%> Reason="<%=plb_03[0]%>"<%if plb_03[1].to_s.strip.present?%> Identifier="<%=plb_03[1]%>"<%end%> Amt="<%=amount_format(plb_04)%>"/>
+                    <% i= i+2
+                    j= j+1
+                  end%>
+
+                </ProviderAdj>
+              <%end
+
+            end%>
+          </Payment835>
+        <%end%>
+      </Transaction>
+    <% end %>
+
+    <% # Patient Pay tag
+    patpay_checks.each_with_index do |check, index|
+      @job = check.job
+      @image_for_jobs = @job.images_for_jobs
+      patpay_eobs = check.ordered_patient_pay_eobs
+      status = normalize_status(@job.rejected_comment.to_s.strip)
+      status = "NOT EOB-Patient Pay" if (status.blank? || status.to_s.strip == "--")
+    %>
+      <Transaction>
+        <AdditionalInfo Status="<%= status %>" SourceBatchPageFrom="<%= @image_for_jobs.first.actual_image_number %>" SourceBatchPageTo="<%= @image_for_jobs.last.actual_image_number %>"/>
+        <% if patpay_eobs.length > 0 %>
+          <% if @job.job_status == JobStatus::COMPLETED %>
+            <% patpay_eobs.each do |eob| %>
+              <PatientPay CheckNumber="<%= get_normalize_value(check.check_number) %>" Amount="<%= get_normalize_value(check.check_amount) %>"<% if eob.account_number.present? %> ClaimIdentifier="<%= get_normalize_value(eob.account_number) %>"<% end %>>
+                <Patient LastName="<%= get_normalize_value(eob.patient_last_name) %>"<% if eob.patient_first_name.present? %> FirstName="<%= get_normalize_value(eob.patient_first_name) %>"<% end %>/>
+              </PatientPay>
+            <% end %>
+          <% end %>
+        <% end %>
+      </Transaction>
+    <% end %>
+
+    <% # Correspondence
+    correspondence_checks.each_with_index do |check, index|
+      @job = check.job
+      @image_for_jobs = @job.images_for_jobs
+      correspondence_eobs = check.ordered_insurance_eobs
+      status = normalize_status(@job.rejected_comment.to_s.strip)
+      status = "NOT EOB-Correspondence" if (status.blank? || status.to_s.strip == "--")
+    %>
+      <Transaction>
+        <AdditionalInfo Status="<%= status %>" SourceBatchPageFrom="<%= @image_for_jobs.first.actual_image_number %>" SourceBatchPageTo="<%= @image_for_jobs.last.actual_image_number %>"/>
+        <% if correspondence_eobs.length > 0 %>
+          <% if @job.job_status == JobStatus::COMPLETED %>
+            <% correspondence_eobs.each do |eob| %>
+              <% reason = get_normalize_value(eob.details['reason']) %>
+              <Correspondence ClaimIdentifier="<%= get_normalize_value(eob.patient_account_number) %>"<% if eob.details['key'].present? %> Id="<%= get_normalize_value(eob.details['key']) %>"<% end %> Category="<%= get_normalize_value(eob.details['category_action']) %>" LetterDate="<%= eob.details['letter_date'].strftime("%Y-%m-%d") %>" PayerName="<%= get_normalize_value(eob.details['payer_name']) %>"<% if reason.present? && reason != '--' %> Reason="<%= reason %>"<% end %>>
+                <% if eob.patient_last_name.present? && eob.patient_first_name.present? %>
+                  <Patient LastName="<%= get_normalize_value(eob.patient_last_name) %>" FirstName="<%= get_normalize_value(eob.patient_first_name) %>"/>
+                <% end %>
+              </Correspondence>
+            <% end %>
+          <% end %>
+        <% end %>
+      </Transaction>
+    <% end %>
+  <% end %>
+</File835>

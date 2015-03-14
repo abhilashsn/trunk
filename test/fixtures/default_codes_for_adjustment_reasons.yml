@@ -1,0 +1,329 @@
+default_code_1:
+      id: 1
+      adjustment_reason: coinsurance
+      group_code: PR
+      facility_id: 81
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_2:
+      id: 2
+      adjustment_reason: contractual
+      group_code: GC2
+      facility_id: 81
+      hipaa_code_id: 8
+      enable_crosswalk: 1
+
+default_code_3:
+      id: 3
+      adjustment_reason: copay
+      group_code: PR
+      facility_id: 81
+      hipaa_code_id: 9
+      enable_crosswalk: 1
+
+default_code_4:
+      id: 4
+      adjustment_reason: deductible
+      group_code: PR
+      facility_id: 81
+      hipaa_code_id: 10
+      enable_crosswalk: 1
+
+default_code_5:
+      id: 5
+      adjustment_reason: denied
+      group_code: GC5
+      facility_id: 81
+      hipaa_code_id: 11
+      enable_crosswalk: 1
+
+default_code_6:
+      id: 6
+      adjustment_reason: discount
+      group_code: GC6
+      facility_id: 81
+      hipaa_code_id: 12
+      enable_crosswalk: 1
+
+default_code_7:
+      id: 7
+      adjustment_reason: noncovered
+      group_code: GC7
+      facility_id: 81
+      hipaa_code_id: 13
+      enable_crosswalk: 1
+
+default_code_8:
+      id: 8
+      adjustment_reason: primary_payment
+      group_code: GC8
+      facility_id: 81
+      hipaa_code_id: 14
+      enable_crosswalk: 1
+  
+default_codes_for_adjustment_reason1:
+      id: 9
+      facility_id: 28
+      adjustment_reason: 'coinsurance'
+      group_code: 'CO'
+      enable_crosswalk: 1
+       
+default_codes_for_adjustment_reason2:
+      id: 10
+      facility_id: 28
+      adjustment_reason: 'contractual'
+      group_code: 'CN'
+      enable_crosswalk: 1
+   
+default_codes_for_adjustment_reason3:
+      id: 11
+      facility_id: 28
+      adjustment_reason: 'copay'
+      group_code: 'CP'
+      enable_crosswalk: 1
+   
+default_codes_for_adjustment_reason4:
+      id: 12
+      facility_id: 28
+      adjustment_reason: 'deductible'
+      group_code: 'DD'
+      enable_crosswalk: 1
+   
+default_codes_for_adjustment_reason5:
+      id: 13
+      facility_id: 28
+      adjustment_reason: 'denied'
+      group_code: 'DN'
+      enable_crosswalk: 1 
+   
+default_codes_for_adjustment_reason6:
+      id: 14
+      facility_id: 28
+      adjustment_reason: 'discount'
+      group_code: 'DS'
+      enable_crosswalk: 1
+         
+default_codes_for_adjustment_reason7:
+      id: 15
+      facility_id: 28
+      adjustment_reason: 'noncovered'
+      group_code: 'NC'
+      enable_crosswalk: 1
+  
+default_codes_for_adjustment_reason8:
+      id: 16
+      facility_id: 28
+      adjustment_reason: 'primary_payment'
+      group_code: 'PP'
+      enable_crosswalk: 1
+
+default_code_18:
+      id: 18
+      adjustment_reason: coinsurance
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+      
+default_code_19:
+      id: 19
+      adjustment_reason: contractual
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_20:
+      id: 20
+      adjustment_reason: copay
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_21:
+      id: 21
+      adjustment_reason: deductible
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_22:
+      id: 22
+      adjustment_reason: denied
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_23:
+      id: 23
+      adjustment_reason: discount
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_24:
+      id: 24
+      adjustment_reason: noncovered
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_25:
+      id: 25
+      adjustment_reason: primary_payment
+      group_code: PR
+      facility_id: 85
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+        
+default_code_26:
+      id: 26
+      adjustment_reason: coinsurance
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_27:
+      id: 27
+      adjustment_reason: contractual
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 8
+      enable_crosswalk: 1
+
+default_code_28:
+      id: 28
+      adjustment_reason: copay
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 9
+      enable_crosswalk: 1
+
+default_code_29:
+      id: 29
+      adjustment_reason: deductible
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 10
+      enable_crosswalk: 1
+
+default_code_30:
+      id: 30
+      adjustment_reason: denied
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 11
+      enable_crosswalk: 1
+
+default_code_31:
+      id: 31
+      adjustment_reason: discount
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 12
+      enable_crosswalk: 1
+
+default_code_32:
+      id: 32
+      adjustment_reason: noncovered
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 13
+      enable_crosswalk: 1
+
+default_code_33:
+      id: 33
+      adjustment_reason: primary_payment
+      group_code: PR
+      facility_id: 11
+      hipaa_code_id: 14
+      enable_crosswalk: 1
+
+default_code_34:
+      id: 34
+      adjustment_reason: coinsurance
+      group_code: PR
+      facility_id: 92
+      hipaa_code_id: 14
+      enable_crosswalk: 0
+
+
+default_code_35:
+      id: 35
+      adjustment_reason: coinsurance
+      group_code: PR
+      facility_id: 1
+      hipaa_code_id: 7
+      enable_crosswalk: 1
+
+default_code_36:
+      id: 36
+      adjustment_reason: contractual
+      group_code: GC2
+      facility_id: 1
+      hipaa_code_id: 8
+      enable_crosswalk: 1
+
+default_code_37:
+      id: 37
+      adjustment_reason: copay
+      group_code: PR
+      facility_id: 1
+      hipaa_code_id: 9
+      enable_crosswalk: 1
+
+default_code_38:
+      id: 38
+      adjustment_reason: deductible
+      group_code: PR
+      facility_id: 1
+      hipaa_code_id: 10
+      enable_crosswalk: 1
+
+default_code_39:
+      id: 39
+      adjustment_reason: denied
+      group_code: GC5
+      facility_id: 1
+      hipaa_code_id: 11
+      enable_crosswalk: 1
+
+default_code_40:
+      id: 40
+      adjustment_reason: discount
+      group_code: GC6
+      facility_id: 1
+      hipaa_code_id: 12
+      enable_crosswalk: 1
+
+default_code_41:
+      id: 41
+      adjustment_reason: noncovered
+      group_code: GC7
+      facility_id: 1
+      hipaa_code_id: 13
+      enable_crosswalk: 1
+
+default_code_42:
+      id: 42
+      adjustment_reason: primary_payment
+      group_code: GC8
+      facility_id: 1
+      hipaa_code_id: 14
+      enable_crosswalk: 1
+
+default_code_43:
+      id: 43
+      adjustment_reason: primary_payment
+      group_code: GC8
+      facility_id: 85
+      hipaa_code_id: 14
+      enable_crosswalk: 1
+   

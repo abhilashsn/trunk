@@ -1,0 +1,98 @@
+ 
+img_for_jb1:
+      id: 22
+ 
+two:
+      id: 23
+      batch_id: 1
+      image_number: 5
+      image_file_name: 'AH06172010444001.TIF'
+ 
+img_for_jb2:
+      id: 1 
+      batch_id: 1
+      image_file_name: 'C12T01.TIF'
+ 
+img_for_jb3:
+      id: 2 
+      batch_id: 7
+
+img_for_jb4:
+      id: 3 
+      batch_id: 7
+     
+img_for_jb5:
+      id: 4 
+      batch_id: 7
+ 
+img_for_jb6:
+      id: 5
+      image_file_name: 'M.TIF'
+
+ 
+img_for_jb7:
+      id: 7
+      batch_id: 11
+      transaction_type: 'Patient Pay'
+      image_file_name: 'M12M10.TIF'
+ 
+img_for_jb8:
+      id: 8
+      batch_id:  1
+      image_file_name: 'M12M08.TIF'
+ 
+img_for_jb9:
+      id: 9
+      batch_id: 1
+      image_file_name: 'M12M09.TIF'
+     
+img_for_jb10:
+      id: 10
+      batch_id: 4
+      image_file_name: 'M12M10.TIF'
+
+img_for_jb11:
+      id: 11
+      batch_id: 11
+      image_file_name: 'M12M10.TIF'
+
+image12: #Owner : Sunil
+      id: 12
+      image_file_name: 'Dummy.TIF'
+      image_number: 5
+
+image_13:
+  id: 13
+  image_file_name: Image.TIF
+  image_number: 1
+  transaction_type: Check Only
+
+image_14:
+  id: 14
+  image_file_name: Image.TIF
+  image_number: 1
+  transaction_type: Missing Check
+
+image_15:
+  id: 15
+  image_file_name: Image.TIF
+  image_number: 1
+  transaction_type: Complete EOB
+
+image_16:
+  id: 16
+  image_file_name: Image.TIF
+  image_number: 1
+  transaction_type:
+
+image_17: #owner: Ramya
+  id: 17
+  image_file_name: Image17.TIF
+  image_number: 1
+  transaction_type:
+
+image_18: #owner: Ramya
+  id: 18
+  image_file_name: Image18.TIF
+  image_number: 1
+  transaction_type: "Missing Check"

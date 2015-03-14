@@ -1,0 +1,33 @@
+protocol: https
+host: 24.249.227.23
+port:
+method: mbx-claim-lookup/LookupClaim
+
+parameters:
+
+  username:
+    parameter_name: un
+    parameter_value: revmed
+
+  password:
+    parameter_name: pw
+    parameter_value: c037b660-431f-11e2-a25f-0800200c9a66
+
+  provider_id:
+    parameter_name: pid
+
+  patient_account_number:
+    parameter_name: pan
+    
+  patient_first_name:
+    parameter_name: patientfirstname
+
+  patient_last_name:
+    parameter_name: patientlastname
+
+  service_date_from:
+    parameter_name: dateofservicefrom
+    
+  charge_amount:
+    parameter_name: submittedamount
+    

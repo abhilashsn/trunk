@@ -1,0 +1,7 @@
+Denial,,,,,,,,,,,,,,
+Transaction,Lockbox,Deposit Date,Date,Time,Batch,Check Amount,TIN#,ABA/RT/DDA,Payor Acct #,Check Num,Check Page#,NAPS ID,Apria Acct. #,Payor
+1,12345,4/3/2011,4/4/2011,2:32 AM,3,0,999999999,,,0,1.tif,1,6,United Healthcare
+2,12345,4/3/2011,4/4/2011,2:32 AM,3,0,999999999,,,0,2.tif,2,5,Aetna
+3,12345,4/3/2011,4/4/2011,2:32 AM,3,0,999999999,,,0,3.tif,3,4,Aetna Health
+4,12345,4/3/2011,4/4/2011,2:32 AM,3,0,999999999,,,0,4.tif,4,3,USC care
+5,12345,4/3/2011,4/4/2011,2:32 AM,3,0,999999999,,,0,5.tif,6,2,US Health

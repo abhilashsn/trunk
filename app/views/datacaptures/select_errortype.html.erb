@@ -1,0 +1,35 @@
+<div id="login_main">
+<h1>Listing Error Types</h1>
+
+
+
+<% unless  @errors.empty? %>
+      <%= form_tag :action => 'add_errortype', :id => @payers_to_delete ,:job=>params[:job_id] do %>
+         <% pagination = create_pagination(@payer_pages,'pop_up',params[:page]) %>
+         <%= pagination %>
+
+    <table>
+      <tr>
+
+        <th>Id <%=params[:job_id]%></th>
+        <th>Error Type</th> 
+        <th>Error Code</th>
+        <th><input type="checkbox" name="all" onClick="checkAll(document.forms[0].toggle,this)"></th>
+      </tr>
+      <% for err_type in  @errors %>
+        <tr>
+    
+          <td><%= err_type.id%></td>
+          <td><%= err_type.error_type%></td>
+          <td><%= err_type.code%></td>
+          <td><%= check_box :payers_to_delete, err_type.id, :id => 'toggle' %> </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= submit_tag 'Add Error Type', :class => 'button' if @errors.size > 0 %>
+  <% end %>
+  <br/>
+<% else %>
+  <h4> No Payers found.</h4>
+<% end %>
+</div>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service:</b>
+  <%= @web_service_log.service %>
+</p>
+
+<p>
+  <b>Query:</b>
+  <%= @web_service_log.query %>
+</p>
+
+<p>
+  <b>Response code:</b>
+  <%= @web_service_log.response_code %>
+</p>
+
+<p>
+  <b>Response time:</b>
+  <%= @web_service_log.response_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_web_service_log_path(@web_service_log) %> |
+<%= link_to 'Back', web_service_logs_path %>

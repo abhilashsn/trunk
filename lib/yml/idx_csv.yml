@@ -1,0 +1,16 @@
+HEADER: true
+BATCH:
+  batchid: 7
+  lockbox: 3
+  file_name: 10
+JOB:
+  check_number: 6
+  tiff_number: 2
+CHEQUE:
+  check_date: 5
+  check_number: 6
+  check_amount: 4
+MICR:  
+  aba_routing_number: 8
+  payer_account_number: 9
+

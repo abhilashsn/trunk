@@ -1,0 +1,13 @@
+<%= javascript_include_tag "batch" %>
+<div id="login_main">
+  <h1>Editing batch</h1>
+  <% next_action = (params[:from] == 'work_list') ? 'work_list' : 'index' %>
+  <%= form_tag(admin_batch_path(@batch), :method=>'put')  do %>
+    <%= render :partial => 'form' %>
+    <%= hidden_field_tag :processed_and_new_job_count, @job_count, :id => "processed_and_new_job_count" %>
+    <%= hidden_field_tag :from, next_action %>
+    <%= submit_tag 'Edit', :class => 'button', :onclick => " return validateBatchStatusChange();" %>
+  <% end %>
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Back"), :action => "#{next_action}"%>
+</div>

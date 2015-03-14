@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    The file <%= @filename %> received on <%= Time.now.strftime("%d/%m/%Y") %> at <%= Time.now.strftime("%H:%m") %> did not pass validation checks.
+    <br/>
+    <p>
+      Error: Duplicate error <br/>
+      Reason: “The claim file <%= @filename %> <%= @body_content %> a duplicate of a previously processed file – <%= @old_file %>” <br/>
+      Client: <%= @client_name %> <br/>
+      Facility: <%= @facility_name %> <br/>
+      Location: <%= @file_path %> <br/>
+    </p>
+  </body>
+</html>

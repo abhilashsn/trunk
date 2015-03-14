@@ -1,0 +1,127 @@
+<div id="reason_code_grid_container" align="center" >
+  <% unless flash[:notice].nil? %>
+    <div id="message" class="alert"><%= flash[:notice] %></div>
+    <script type="text/javascript">
+      setTimeout("new Effect.Fade('message');", 3000)
+    </script>
+  <% end %>
+  <%= form_tag({:controller => 'reason_code_informations',:action => 'create',  :client_name => @client.name, :job_id => params[:job_id] }, :remote => true) do%>
+    <div align="center">
+      <table class="reason_code_grid" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Reason Code</th>
+          <th>Reason Code Description</th>
+          <% if @client.name.upcase == 'MEDASSETS'  ||  @client.name.upcase =='BARNABAS' %>   <th>RC Page #</th> <%end%>
+          <%if !@is_partner_bac && @facility.details[:hipaa_code] && current_user.has_role?(:qa)%><th>Hipaa Code</th><%end%>
+        </tr>
+        <tr>
+          <%= hidden_field 'rc_payer', 'popup', :id => 'payer_name'%>
+          <%= hidden_field 'rc_payer', 'pay_address_one', :id => 'payer_add_one'%>
+          <%= hidden_field 'rc_payer', 'pay_address_two', :id => 'payer_add_two'%>
+          <%= hidden_field 'rc_payer', 'payer_city', :id => 'payer_city'%>
+          <%= hidden_field 'rc_payer', 'payer_state', :id => 'payer_state'%>
+          <%= hidden_field 'rc_payer', 'payer_zip', :id => 'payer_zip'%>
+          <%= hidden_field 'rc_payer', 'job_image_from', :id => 'job_image_from', :value  => @job.pages_from%>
+          <%= hidden_field 'rc_payer', 'job_image_to', :id => 'job_image_to', :value => @job.pages_to%>
+          <%= hidden_field 'payer', 'payer_id',:id => 'payerid' ,:size => 3 ,:value => @payer_id %>
+          <%= hidden_field_tag 'facility_name', @facility.name %>
+          <%= hidden_field_tag 'batch', "#{@batch.batchid},#{@batch.date}"  %>
+          <%= hidden_field_tag 'facility_name', @facility.name %>
+          <%=hidden_field_tag :parent_job_image_from, get_parent_job_attribute(@job, 'pages_from')%>
+          <%=hidden_field_tag :parent_job_image_to, get_parent_job_attribute(@job, 'pages_to')%>
+          <td><%= (text_field_with_auto_complete :reason_code, :reason_code,
+              {:size => 1, :tabindex => "44",:maxlength => 10,
+                :onkeypress => "enlargeTextfieldSize(id,1)",
+                :onblur => "setReasonCodeDescription();resetTextfieldSize(id,30);changeToCapital(id);",
+                :onfocus => "set_payer(); $('create_button').style.display='block'"},
+              {:skip_style=>true, :url => {:action => 'auto_complete_for_reason_code_reason_code',
+                  :job_id => params[:job_id], :payer_id => cookies[:payer_id] }}).to_s.html_safe %></td>
+          <td><%= (text_field_with_auto_complete :reason_code, :reason_code_description,{
+                :size => 15, :tabindex => "44", :onkeypress => "enlargeTextfieldSize(id,15)",
+                :onblur => "setReasonCode();resetTextfieldSize(id,30);changeToCapital(id)",
+                :onfocus => "set_payer(); $('create_button').style.display='block'"},{:skip_style=>true,
+                :url => {:action => 'auto_complete_for_reason_code_reason_code_description',
+                  :job_id => params[:job_id], :payer_id => cookies[:payer_id] }}).to_s.html_safe %></td>
+          <%  if !@is_partner_bac && @facility.details[:hipaa_code]  && current_user.has_role?(:qa)%>
+            <td><%= (text_field_with_auto_complete :hipaa_code, :hipaa_adjustment_code, {:size => 3, :tabindex => "44",
+                  :maxlength => 3},{:skip_style=>true}).to_s.html_safe %></td>
+          <%  end %>
+          <% if @client.name.upcase == 'MEDASSETS'  ||  @client.name.upcase =='BARNABAS' %>
+            <td>
+              <%= text_field 'eob_reason_codes','page_no',:id => 'rc_page_no', :tabindex => "44", :size => '4' %>
+            </td>
+          <%end%>
+          <td><%= submit_tag "Create", :class => "submit_save", :id => 'create_button', :tabindex => "44", :onclick => "set_payer_details(); return (validateDefaultReasonCodes() && validateRcPageNumber())" %></td>
+
+        </tr>
+      </table>
+    </div>
+    <br/>
+    <script type="text/javascript" language="JavaScript">
+      Form.focusFirstElement(document.forms[0]);
+    </script>
+  <% end %>
+  SEARCH:<%= text_field_tag :to_find,"", :size => '10',:onkeyup => "filterReasonCode()" %>
+  <% unless @reason_codes.blank? %>
+    <table id ="reason_code_grid" class="reason_code_grid" width="90%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <th width='50px'>#</th>
+        <th>Reason Code</th>
+        <th>Reason Code Description</th>
+        <th>Hipaa Code</th>
+        <%unless @is_partner_bac%><th>Remark Code</th><%end%>
+        <th>Unique Code</th>
+        <% if @client.name.upcase == 'MEDASSETS'  ||  @client.name.upcase =='BARNABAS' %> <th>RC Page #</th> <%end%>
+      </tr>
+
+      <%  if !@check_payer.blank?
+        reason_code_crosswalk = ReasonCodeCrosswalk.new(@check_payer, nil, @client, @facility)
+      end
+      @reason_codes.each_with_index do |reason_code, i|
+        style = cycle("light", "dark")
+      %>
+        <tr id="rw_value_<%=i+1%>" style="display:''">
+          <td id ="row_count_<%= i+1%>"><%= i+1%></td>
+          <td id ="rc_<%= i+1%>"><%= reason_code.reason_code%></td>
+          <td id ="rcd_<%= i+1%>"><%= reason_code.reason_code_description%></td>
+          <%unless @check_payer.blank?
+            crosswalked_codes = reason_code_crosswalk.get_crosswalked_codes_for_reason_code(reason_code)%>
+            <%if crosswalked_codes[:hipaa_code_active_indicator] && crosswalked_codes[:crosswalk_record_active_indicator]%>
+              <td><%= crosswalked_codes[:hipaa_code]%></td>
+            <%else%>
+              <td>-</td>
+            <%end%>
+            <%unless @is_partner_bac%><td><%= crosswalked_codes[:remark_codes].join(':') unless crosswalked_codes[:remark_codes].blank?%></td><%end%>
+          <%else%>
+            <td>-</td>
+            <%unless @is_partner_bac%><td>-</td><%end%>
+          <%end%>
+          <td><%= reason_code.get_unique_code%></td>
+          <% if @client.name.upcase == 'MEDASSETS'  ||  @client.name.upcase =='BARNABAS' %> <td><%= reason_code.get_rc_page_number(reason_code.id, params[:job_id]) %></td><%end%>
+
+          <td>
+            <%= link_to(image_tag("delete.png", :alt => "Delete", :title => "Delete"),
+              {:controller => 'reason_code_informations', :action => "destroy", :reason_code_id => reason_code.id, :job_id => params[:job_id]},
+              :remote => true) %>
+          </td>
+        </tr>
+
+      <% end %>
+    </table>
+  <% else %>
+    <h3>No records found!</h3>
+  <% end %>
+</div>
+
+<%= hidden_field_tag :valid_hipaa_codes_and_unique_codes, @total_hipaa_and_unique_codes_of_parent_job %>
+
+<%= javascript_tag do %>
+  document.on('ajax:complete','#reason_code_grid_container', function(event,con){
+  con.update(event.memo.responseText);
+  var validCodes = '';
+  if($('valid_hipaa_codes_and_unique_codes')) {
+  validCodes = $F('valid_hipaa_codes_and_unique_codes');
+  }
+  setValidUniqueCodes(validCodes);
+  })
+<% end %>

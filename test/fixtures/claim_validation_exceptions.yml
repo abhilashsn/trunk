@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  insurance_payment_eob_id: 1
+  claim_information_id: 1
+  action: MyString
+
+two:
+  insurance_payment_eob_id: 1
+  claim_information_id: 1
+  action: MyString

@@ -1,0 +1,15 @@
+<ul>
+  <% if @facilities.nil? %>
+    <p>Start Your Search</p>
+  <% elsif @facilities.empty? %>
+    <p>Site Name Not Found</p>
+  <% else %>
+    <% for facility in @facilities %>
+      <li>
+      <%= link_to facility.name, :site_search => facility.name, :cr_id => params[:cr_id] %>
+      </li>
+    <% end %>
+    <%= will_paginate @facilities %>
+  <% end %>
+</ul>
+

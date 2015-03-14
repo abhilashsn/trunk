@@ -1,0 +1,49 @@
+<div id="login_main">
+  <h1>Archived Batches</h1>
+  <% unless @batches.blank? %>
+    <table style="width:100%">
+      <tr>
+        <th> Batch Date </th>
+        <th> <a>Batch ID</a> </th>
+        <th> Facility </th>
+        <th> Arrival Time (EST)</th>
+        <th> Expected Completion Time (EST)</th>
+      </tr>
+      <div style="background-color:#e9eef2; width:100%;" class="black_text">
+        <%= will_paginate @batches %>
+      </div>
+      <%  @batches.each do|batch| %>
+        <% cls = ''
+        if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) 
+          if batch.status == BatchStatus::COMPLETED
+            cls = 'green'
+          end
+          if batch.status == BatchStatus::OUTPUT_READY
+            cls = 'red'
+          end                      
+        end %>
+     
+        <tr>
+          <td nowrap class="<%= cls %>" align='right'><%= format_date(batch.date) %> </td>
+            <% if current_user.has_role?(:admin) or current_user.has_role?(:supervisor) %>
+              <td nowrap class="<%= cls %>" align='right'><%=  batch.batch_name %> </td>
+            <% end %>
+            <td nowrap class="<%= cls %>"><%= batch.facility_name%> (<%= batch.facility_sitecode %>) </td>
+            <td nowrap class="<%= cls %>" align='right'><%= format_datetime(batch.arrival_time) %></td>
+            <td nowrap class="<%= cls %>"  align='right'>
+            <% if batch.expected_completion_time.blank? %>N/A
+            <% else %>
+                <%= format_datetime(batch.expected_completion_time) %>
+                <% if current_user.has_role?(:admin) or 
+                    current_user.has_role?(:supervisor) &&
+                    batch.manual_override %> *<% end %>
+            <% end %>      
+          </td>   
+        </tr>
+      <% end %> 
+    </table>
+    <br/>
+  <% else %>
+    <h4> No matching Batches found. </h4>
+  <% end %>
+</div>

@@ -1,0 +1,38 @@
+<%= javascript_include_tag "report" %>
+<div id="login_main">
+  <% if @editable_field == 'tat_comment' %>
+    <h4>TAT Comment for Batch : <%= @batch.batchid %></h4>
+  <% else %>
+    <h4>Comments for Batch : <%= @batch.batchid %></h4>
+  <% end  %>
+<table>
+<%= form_tag :action => 'update_tat_comments', :id => @batch.id,
+  :back_page => params[:back_page], :edited_field => @editable_field,
+  :redirect_window => @redirect_window  do %>
+<%= hidden_field_tag 'editable_field_name',@editable_field %>
+<% if @editable_field == 'tat_comment' %>
+ <tr>
+  <td><label for="tat_comments">TAT Comments</label></td>
+  <td><%= text_field_with_auto_complete 'batch', 'tat_comment', :class => 'input',
+     :min_chars => "1", :onkeypress => "enlargeTextfieldSize('batch_tat_comment',30)",
+     :onblur =>"changeToCapital('batch_tat_comment')" %></td>
+ </tr>
+<% else %>
+ <tr>
+  <td><label for="tat_expected_time">Expected Completion Time (EST)</label></td>
+  <td><%= datetime_select 'batch', 'expected_completion_time' %></td>
+ </tr>
+<% end %>
+</table>
+<%= submit_tag 'Submit', :class => 'button',:onclick => "return validate_presence_of('batch_tat_comment', 'TAT Comment')" %>
+<% end %>
+<br/> <br/>
+
+<% if @redirect_window == nil%>
+  <%= link_to 'Back',:controller => '/admin/batch', :action => 'allocate' %>
+<% elsif @redirect_window == 'unprocessed_batches' %>
+  <%= link_to 'Back',:controller => '/hlsc', :action => @redirect_window %>
+<% else %>
+  <%= link_to 'Back',:controller => '/admin/batch', :action => @redirect_window %>
+<%end%>
+</div>

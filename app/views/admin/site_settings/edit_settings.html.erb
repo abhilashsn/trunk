@@ -1,0 +1,13 @@
+<div id="login_main">
+<h1>Edit Settings</h1>
+<%= render "shared/error_messages", :target => @site_setting %>  
+<!-- %= error_messages_for 'site_setting' % -->
+
+<%= form_tag :action => 'update_settings', :id => @site_setting do %>
+<table>
+  <tr><th style="width: 127px">Per Page</th><td><%= text_field 'site_setting', 'per_page', 'size' => 5 %></td></tr>
+  <tr><th>Show UserIDs</th><td><%= check_box 'site_setting', 'show_userid' %></td></tr>
+</table>
+<%= submit_tag 'Update', :class => 'button' %>
+<% end %>
+</div>

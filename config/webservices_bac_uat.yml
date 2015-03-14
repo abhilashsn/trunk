@@ -1,0 +1,16 @@
+development:
+  encounter_url: http://localhost:3001/payer_encounter_service/api
+  file_merge_url:
+  use_proxy: false
+  
+
+production:
+  encounter_url: https://uat-hlsc.bankofamerica.com/HealthLogicServices/WebServices/PayerEncounterService
+  file_merge_url: https://uat-hlsc.bankofamerica.com/HealthLogicServices/WebServices/PayerEncounterService
+  use_proxy: true
+  proxy_host: 171.156.66.181 #127.0.0.1
+  proxy_port: 8080
+  proxy_user: nbsyuyg
+  proxy_password: br549nbs
+  proxy_protocol: http
+  authorization_key: AP-WEBSERVICE-V01.00

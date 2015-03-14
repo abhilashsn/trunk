@@ -1,0 +1,138 @@
+<%
+   configs = @other_output_configs.select{|o| o.other_output_type == report_type}
+   hsh = configs.first.operation_log_config if configs.present? && configs.first
+   hsh ||= {}
+   parameters = @parameters.select{|p| p.category == report_type}
+%>
+<%#= debug report_type %>
+<%#= debug parameters %>
+    <dt><%= report_type %></dt>
+    <dd >
+      <table width="100%" cellspacing="0" cellpadding="0" border="1">
+        <tr>
+          <td width="33%" style="vertical-align:top;">
+            <table width="100%">
+              <tr>
+              <td><b>Format:</b></td>
+              <td>
+                <%= other_output_select "format", report_type, parameters, hsh, "format", :style=>"width:100%" %>
+              </td>
+              </tr>
+              <tr>
+              <td><b>Group By:</b></td>
+              <td>
+                <%= other_output_select "group by", report_type, parameters, hsh, "group by", :style=>"width:100%" %>
+              </td>
+              </tr>
+
+            </table>
+          </td>
+          
+          <td width="33%">
+            <table width="100%">
+              <tr>
+              <td colspan="3"><b>File Name Format:</b></td>
+              </tr>
+              <tr>
+              <td>
+                <%= other_output_select "file_format_options",report_type,parameters, hsh, "file_name_format", :style=>"width:100%", :multiple=>"multiple", :id=>"ff_options_#{report_type.downcase.gsub(" ", "")}" %>
+              </td>
+              <td valign="center" ><div id="file_format_<%="#{report_type.downcase.gsub(" ", "")}"%>" style="font-size:26px;color:blue;"> >> </div></td>
+              <td><%= text_area_tag "#{report_type}[file_name_format]", hsh["file_name_format"], :size=>"30x5",:id=>"file_name_format_#{report_type.downcase.gsub(" ", "")}"  %></td>
+              </tr>
+            </table>
+          </td>
+          
+          <td width="33%">
+            <table width="100%">
+              <tr>
+              <td colspan="3"><b>Zip Name Format:</b></td>
+              </tr>
+              <tr>
+              <td>
+                <%= other_output_select "zip_format_options",report_type,parameters, hsh, "zip_name_format", :style=>"width:100%", :multiple=>"multiple", :id=>"zf_options_#{report_type.downcase.gsub(" ", "")}" %>
+              </td>
+              <td valign="center" ><div id="zip_format_<%="#{report_type.downcase.gsub(" ", "")}"%>" style="font-size:26px;color:blue;"> >> </div></td>
+              <td><%= text_area_tag "#{report_type}[zip_name_format]", hsh["zip_name_format"], :size=>"30x5", :id=>"zip_name_format_#{report_type.downcase.gsub(" ", "")}"  %></td>
+              </tr>
+            </table>            
+          </td>          
+        </tr>
+        
+        <tr>
+          <td colspan="3" style="padding-left:10px;"><b>Data Points</b></td>
+        </tr>
+        <% counter = 0 %>
+        <% items_count= parameters.select{|p| p.name == "headers"}.size %>
+        <% num_rows = items_count / 3 + (items_count % 3  == 0 ? 0 : 1) %>
+        <% rem = items_count % 3 %>
+        <% adjusted_items_count = items_count %>
+        <% (adjusted_items_count = items_count + ( 3 - items_count % 3)) if (items_count % 3 != 0) %>
+        <% adjusted_items_count.times do |c|%>        
+        <% if counter == 0 %>
+        <tr> 
+        <% end %>
+        <%
+           k = (c % 3 )* num_rows + (c / 3)
+        %>
+          <td width="33%" style="vertical-align:top;">
+            <% elem = k + 1 %>
+            <% if (elem <= items_count) %>
+            <%= "%02d :" %elem %>
+            <%= other_output_select "header[#{k}]",report_type, parameters, hsh, "headers", :style=>"width:50%" %>
+            &nbsp;
+            <%= text_field_tag "#{report_type}[header_label[#{k}]]", (hsh["header_label"][k.to_s] if hsh["header_label"]) %>
+            <% end %>
+          </td>
+          <%
+             counter = counter + 1             
+           %>
+          <% if counter == 3 %>
+        </tr>
+           <% counter = 0 %>
+        <% end %>
+        <% end %>
+        <% if counter > 0 && counter < 3 %>
+        <% (3 - counter).times do |i| %>
+         <td></td>
+        <% end %>
+        </tr>
+        <% end %>        
+        
+      </table>
+    </dd>
+<script>
+  byId = function(id){
+    return document.getElementById(id);
+  }
+  selected_options_one_<%="#{report_type.downcase.gsub(" ", "")}"%> = function() {
+    j = byId("ff_options_<%=report_type.downcase.gsub(" ", "")%>").options.length;
+
+    for(k=0; k< j; k++) {
+	 opt = byId("ff_options_<%=report_type.downcase.gsub(" ", "")%>").options[k];         
+	if(opt.selected){
+           byId('file_name_format_<%=report_type.downcase.gsub(" ", "")%>').value = byId("file_name_format_<%=report_type.downcase.gsub(" ", "")%>").value +  "[" + opt.value + "]";
+         }
+     }               
+  }  
+
+  byId("file_format_<%="#{report_type.downcase.gsub(" ", "")}"%>").addEventListener("click", function() {
+      selected_options_one_<%="#{report_type.downcase.gsub(" ", "")}"%>();
+   },false);
+
+
+  selected_options_two_<%="#{report_type.downcase.gsub(" ", "")}"%> = function() {
+    j = byId("zf_options_<%=report_type.downcase.gsub(" ", "")%>").options.length;
+    for(k=0; k< j; k++) {
+	 opt = byId("zf_options_<%=report_type.downcase.gsub(" ", "")%>").options[k];
+	if(opt.selected){
+           byId('zip_name_format_<%=report_type.downcase.gsub(" ", "")%>').value = byId("zip_name_format_<%=report_type.downcase.gsub(" ", "")%>").value +  "[" + opt.value + "]";
+         }
+     }               
+  }  
+
+  byId("zip_format_<%="#{report_type.downcase.gsub(" ", "")}"%>").addEventListener("click", function() {
+      selected_options_two_<%="#{report_type.downcase.gsub(" ", "")}"%>();
+   },false);
+
+</script>

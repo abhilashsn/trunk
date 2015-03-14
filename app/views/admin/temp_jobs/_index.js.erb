@@ -1,0 +1,10 @@
+<% if @temp_job.present? && @temp_job.errors.any? %>
+  $('#errors').html('<%= escape_javascript(render :partial => 'shared/error_messages', :locals => {:target => @temp_job })%>')
+<% else %>
+  $("#temp_jobs").html("<%= escape_javascript(render("list")) %>");
+  $('#temp_job_form')[0].reset();
+  $("#create_temp_job").html("<%= escape_javascript(render("new")) %>");
+  var job_id = $('#job_id').val();
+  form_listener();
+  $("#image_section").load("<%= (app_root ? app_root : "" ) -%>"+"/admin/job/list_images", "job_id="+job_id, function(){setImageList();});
+<% end %>

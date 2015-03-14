@@ -1,0 +1,232 @@
+<script LANGUAGE="JavaScript">
+  //This will return the sub-uri if any
+  function relative_url_root() {
+    return "<%= app_root -%>"
+  }
+  window.history.forward(1);
+  document.attachEvent("onkeydown", my_onkeydown_handler);
+  ctrl_pressed = false
+  function my_onkeydown_handler() {
+    if($('refresh_page') && (event.keyCode == 115 || event.keyCode == 116)) {
+      $('refresh_page').value = 'true';
+    }
+    if(event.ctrlKey){
+      ctrl_pressed = true
+    }
+    else{
+      switch (event.keyCode) {
+        case 116 : // 'F5'
+          if (ctrl_pressed == false){
+            event.returnValue = false;
+            event.keyCode = 0;
+            alert("F5 is disabled, use CRTL+F5");
+            break;
+          }
+          ctrl_pressed = false;
+      }
+    }
+    setTimeout('ctrl_pressed = false', 500);
+  }
+</script>
+<body>
+  <div id="message" class="alert" style:align="absmiddle; width:90%;">
+    <%if flash[:notice] %><img border="0" src="/assets/alert.gif" width="20" height="21" align="absmiddle">&nbsp;<%=flash[:notice] %><%end %>
+  </div>
+  <%= hidden_field_tag :refresh_page, false %>
+  <%= hidden_field_tag :job_id, @job.id, :id =>'job_id' %>
+  <% required = make_nextgen_fields_optional %>
+  <%= hidden_field_tag :required, required %>
+  <div style="margin-left:80%; background:#FFFFA6">
+    <%= hide_and_seek_label '', 'label',
+      'Current Shift EOB Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+    <%= @eob_count %>
+    &nbsp;&nbsp;&nbsp;
+    <%= hide_and_seek_label '', 'label',
+      'Hourly EOB Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+    <%= @hourly_eob_count %>
+    <br>
+    <%= hide_and_seek_label '', 'label',
+      'Current Shift SVC Count :',true , "th width='80'",:onclick => "onlineReportForUser()" %>
+    <%= @svc_count %>
+    &nbsp;&nbsp;&nbsp;
+  </div>
+  <table width="98%" align="center" cellpadding="0" cellspacing="0" class="service_line" style="border-collapse:collapse">
+    <tr>
+      <th>Check Amount:</th>
+      <td>
+        <%if @check_information.blank? or @check_information.check_amount.blank? %>
+          <%= text_field 'checkinforamation', 'check_amount',:id => 'check_amount_id', :class => "cont",:style=>"width:50px; text-align:right;",:onchange => " return negativeValidationForCheckAmountPatpay();" %>
+        <%else %>
+          <span class="alert"></span> <%check_amount = sprintf("%.2f", @check_information.check_amount)
+payment_amount = client_specific_amount(check_amount) %>
+          <%= text_field 'checkinforamation', 'check_amount',:id => 'check_amount_id', :class => "cont",:style=>"width:50px; text-align:right;",:value => check_amount ,:onchange => "return negativeValidationForCheckAmountPatpay();"%>
+        </td>
+        <th>Amount so far: </th>
+        <td>
+          <span class="alert"></span><%= text_field_tag 'check', 'check',:id => 'check_id', :class => "cont",:style=>"width:50px; text-align:right;",:value => @total_amount %>
+        </td>
+        <th>Balance: </th>
+        <td>
+          <span class="alert"></span> <%@balance = sprintf("%.2f", @balance) unless @balance.blank? %>
+          <%= text_field_tag 'check', 'bal',:id => 'totalbal_id', :class => "cont",:style=>"width:50px; text-align:right;background-color: #FF8888",:value => @balance %>
+        <%end %>
+      </td>
+    </tr>
+  </table>
+  <div style=" clear:both; overflow:auto; background-color:#FFFFFF; text-align:center;">
+    <%= form_tag({:action => 'patient_pay_eob_save'},:id=>'form1',:name=>'form1',
+      :onKeyUp=>"highlight1(event)", :onClick=>"highlight1(event)") do %>
+      <%= hidden_field_tag :job_id, @job.id, :id =>'job_id' %>
+      <%= hidden_field_tag :page, @page %>
+      <%= grid_type %>
+      <% if @current_time.blank?
+        @current_time = Time.now.in_time_zone
+      end %>
+      <%= hidden_field 'patientpayeob', 'start_time',:id => 'patient_time_taken',:value => (params[:proc_start_time].present? ? params[:proc_start_time] : @current_time) %>
+      <%= hidden_field 'mpi_search', 'patpay_mpi_start_time',:value => cookies[:patpay_mpi_start_time] %>
+      <%= hidden_field 'mpi_search', 'patpay_mpi_found_time',:value => cookies[:patpay_mpi_found_time] %>
+      <div id="message" style:align="absmiddle">
+      </div>
+      <table width="98%" align="center" cellpadding="0" cellspacing="0" class="service_line" style="border-collapse:collapse">
+        <tr>
+          <th valign="top" >
+            <strong>ACCOUNT # (a)</strong>
+          </th>
+          <th valign="top" >
+            <strong>MPI (m)</strong>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>STATEMENT DATE</strong>
+            </div>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>PAY THIS AMOUNT</strong>
+            </div>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>CHECK AMOUNT</strong>
+            </div>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>SHOW AMOUNT PAID HERE</strong>
+            </div>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>CHECK NUMBER</strong>
+            </div>
+          </th>
+          <th valign="top" >
+            <div align="center">
+              <strong>PATIENT NAME</strong>
+              [Lastname:Suffix:Firstname:Middleinitial] (p)
+            </div>
+          </th>
+        </tr>
+        <tr>
+        <input type ="hidden" id ="fc_def_ac_num" value = "<%= h @facility.default_account_number %>"/>
+        <td>
+          <%= text_field 'patientpayeob', 'account_number',
+            :id => 'patient_account_id', :accesskey => "a",
+            :class => "cont #{required} #{account_number_validation_for_nextgen(@facility)}",
+            :style => "width:80px;",
+            :value => (@patpay_837_information.patient_account_number unless @patpay_837_information.blank? ),
+            :onblur => "changeToCapital(id); getNextgenImagePage();",
+            :ondblclick => "defaultPatientAccountNumber('fc_def_ac_num')"%>
+        </td>
+        <td>
+          <input type="button" name="MPI" value="MPI" onclick="patpay_mpiPopup()" accesskey="m" />
+        </td>
+        <td>
+
+          <%= text_field 'patient_pay_eob', 'transaction_date',
+            :id => 'transaction_date_id', :value => @date,
+            :class => "cont required validate-date", :style => "width:60px;",
+            :onfocus => "removeDefaultDateValue(id)",
+            :onblur => "applyDateValidation(id)", :onchange => 'addSlashToDate(id)'%>
+        </td>
+        <td>
+          <%= text_field 'patientpayeob', 'statement_amount',:id => 'statement_amount_id', :class => "cont required  validate-real_number",:style=>"width:70px; text-align:right;", :value => payment_amount %>
+        </td>
+        <td>
+          <%= text_field 'checkinforamation', 'check_amount',:id => 'checkamount_id',:class => "cont required validate-real_number",:style=>"width:60px; text-align:right;", :value => check_amount,:onchange => "return negativeValidationForCheckAmount();", :onblur => "HideIncompleteButtonBasedOnCheckAmount();" %>
+        </td>
+        <td>
+          <%= text_field 'patientpayeob', 'stub_amount',:id => 'stub_amount_id', :class => "cont required validate-real_number",:style=>"width:60px; text-align:right;",:value => payment_amount %>
+        </td>
+        <td>
+          <%= text_field 'checkinforamation', 'check_number',:id => 'checknumber_id',:class => "cont required validate-alphanum",:style=>"width:70px;",:value=>@check_information.check_number %>
+        </td>
+        <td>
+
+          <input type ="hidden" id ="fc_def_pat_name" value = "<%= h @facility.default_patient_name %>"/>
+          <%= text_field 'patientpayeob', 'patient_last_name',
+            :id => 'patient_last_name_id',
+            :class => "cont required #{set_patient_name_validation}",
+            :style=>"width:90px;", :accesskey => "p",
+            :onblur => "changeToCapital(id)",
+            :value => (@patpay_837_information.patient_last_name unless @patpay_837_information.blank? ),
+            :ondblclick => "setFCDefaultPatNameForNextgen('fc_def_pat_name', id)" %>
+          <%= text_field 'patientpayeob', 'patient_suffix',
+            :id => 'pat_suffix_id', :class => "cont validate-alpha",
+            :style=>"width:30px;",
+            :onblur => "changeToCapital(id)" %>
+          <%= text_field 'patientpayeob', 'patient_first_name',
+            :id => 'patient_first_name_id',
+            :class => "cont #{required} #{set_patient_name_validation}",
+            :style=>"width:90px;", :onblur => "changeToCapital(id)",
+            :value => (@patpay_837_information.patient_first_name unless @patpay_837_information.blank? ),
+            :ondblclick => "setFCDefaultPatNameForNextgen('fc_def_pat_name', id)" %>
+          <%= text_field 'patientpayeob', 'patient_middle_initial',
+            :id => 'pat_initial_id', :style=>"width:20px;",
+            :class => "cont validate-alpha-without-space" ,
+            :onblur => "changeToCapital(id)" %>
+          <%= hidden_field_tag "tab_type", 'nextgen'%>
+          <%= hidden_field_tag "eob_count_value", @eobs_count_on_job %>
+          <%= hidden_field 'patientpayeob', 'image_page_no',
+            :id => 'nextgen_image_page_number' %>
+        </td>
+        </tr>
+      </table>
+      <table width="98%" align="center" border ="0">
+        <tr>
+          <td width="90px" align="left" bgcolor="#ECE9D8">
+            <%= link_to 'Completed EOBs' ,{:controller => 'insurance_payment_eobs',
+              :action => 'claimqa',:batch_id => params[:batch_id],
+              :checknumber => params[:checknumber],:job_id => params[:job_id],
+              :view =>"CompletedEOB" }, :target => "_blank", :class =>"submit_link",:completed_eob_value => 'true'%>
+          </td>
+          <td></td>
+          <%= sp_label 'Document Classification:', @facility.details[:document_classification],
+            'th width="70px" align="right"' %>
+          <%= sp_select_tag 'patientpayeob', 'document_classification',
+            (@facility.details[:document_classification]), 'td width="170px" align="right"',
+            options_for_select(get_document_classification_list, ""),
+            :id => 'document_classification_id',
+            :class => "textbox #{is_document_classification_mandatory}"
+        %>
+
+        <input type = "hidden" name = "option1" id = "nextgen_proc_save_after_button_hiding" />
+        <%=  set_submit_button_value %>
+        <td width="40px" align="right" bgcolor="#ECE9D8">
+          <%= submit_tag "SAVE", :class => 'submit_save', :accesskey => "s",
+            :name => "option1", :id => "proc_save_eob_button_id",
+            :onclick => "getNextgenImagePage(); setSubmitButtonValue('SAVE'); return validateNextgenAccountNumber() && negativeValidationForCheckAmount() && negativeValidationForCheckAmountPatpay() && confirmNameAndIdentifier(); " %>&nbsp; &nbsp;
+        </td>
+        </tr>
+      </table>
+      <%cookies.delete :patpay_patient_id %>
+      <%cookies.delete :patpay_mpi_start_time %>
+      <%cookies.delete :patpay_mpi_found_time %>
+      <%cookies.delete :patpay_mpi_used_time %>
+    <%end %>
+  </div>
+  <script type="text/javascript">
+    var valid = new Validation('form1');
+    window.document.form1.patient_account_id.focus();
+  </script>
+</body>

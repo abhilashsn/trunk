@@ -1,0 +1,27 @@
+COL_SEP: '|'
+PAYMENT:
+    HEADER: false
+    BATCH:
+        bank_deposit_date: [ 1, date ]
+        date: [ 1, date ]
+    JOB:
+        check_number: 6
+    CHEQUE:
+        check_number: 6
+        check_amount: [ 7, float ]
+    MICR:
+        aba_routing_number: 4
+        payer_account_number: 5
+    IMAGE:
+        image_file_name: 8
+
+CORRESP:
+    HEADER: false
+    BATCH:
+        bank_deposit_date: [ 1, date ]
+        date: [ 1, date ]
+    JOB:
+       job_index:
+    IMAGE:
+        image_file_name: 8
+ 

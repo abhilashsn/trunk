@@ -1,0 +1,51 @@
+
+
+<% unless @docs.blank? %>
+<table>
+  <tr>
+    
+    <th>File Name</th>
+    <th>Comment(s)</th>
+    <th>Payer</th>
+    <th>Facility</th>
+    <th>Uploaded By</th>
+  </tr>
+   <div style="background-color:#e9eef2; width:100%;" class="black_text">
+      <%= will_paginate @docs%>
+   </div>
+
+<% for doc in @docs %>
+  <tr>
+   
+    <td><%= link_to doc.file_location, :controller => 'pop_up', :action => 'add_message',:doc12=> doc, :id => doc.id, :facility=>@facilityid,:payer1=>@payer1,:userid=>@userid%></td>
+    <td><%if not doc.file_comments.blank?%>
+      <%=doc.file_comments%>
+      <%else%>
+        <%="-"%>
+        <%end%>
+      </td>
+ 
+    <td>
+    <% if not doc.payer_id.nil?%>
+      <%= doc.payer.payer %>
+      <%else%>
+         <%= "-" %>
+    <% end %> 
+  </td>
+   <td> <% if not doc.facility_id.nil?%>
+      <%= doc.facility.name %>
+      <%else%>
+         <%= "-" %>
+    <% end %> 
+    </td>
+   <% user = User.find_by_id(doc.user_id)%>
+   <td><%= user.role %></td>
+  <td><%= link_to image_tag('delete.png'), {:controller => 'pop_up',:action => 'destroy1', :id => doc.id}, :confirm => "Deleting #{doc.file_location}...Are you sure?" %></td> 
+    
+  </tr>
+<% end %>
+
+</table>
+<%else%>
+  <h1>No Files Uploaded</h1>
+<%end%>

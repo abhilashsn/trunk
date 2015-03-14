@@ -1,0 +1,577 @@
+reason_code1:
+      id:                      1
+      reason_code:             AB
+      reason_code_description: NON COVERED
+      unique_code:
+      remark_code_crosswalk_flag: 1
+  
+
+reason_code2:
+      id:                      2
+      reason_code:             AC
+      reason_code_description: COVERED
+      remark_code_crosswalk_flag: 1
+  
+
+reason_code3:
+      id:                      3
+      reason_code:             AB
+      reason_code_description: COVERED
+      unique_code:
+
+reason_code4:
+      id:                      4
+      reason_code:             AD
+      reason_code_description: COVERED4
+      remark_code_crosswalk_flag: 1
+
+reason_code5:
+      id:                      5
+      reason_code:             AE
+      reason_code_description: COVERED5
+      remark_code_crosswalk_flag: 1
+  
+reason_code6:
+      id:                      6
+      reason_code:             CO
+      reason_code_description: THE MEMBER'S COVERAGE WAS NOT IN EFFECT ON THE DATE THE SERVICE
+
+reason_code7:
+      id:                      7
+      reason_code:             CO
+      reason_code_description: THE MEMBER'S COVERAGE WAS NOT IN EFFECT ON THE DATE THE SERVICE
+  
+reason_code51:
+      id: 51
+      reason_code:             RC1
+      reason_code_description: DESC RC1
+      unique_code: 1F
+      reason_code_set_name_id: 1
+      remark_code_crosswalk_flag: 1
+  
+reason_code52:
+      id: 52
+      reason_code:             RC2
+      reason_code_description: DESC RC2
+      unique_code: 1G
+      remark_code_crosswalk_flag: 1
+
+reason_code53:
+      id: 53
+      reason_code:             RC3
+      reason_code_description: DESC RC3
+      unique_code: 1H
+      remark_code_crosswalk_flag: 1
+
+reason_code54:
+      id: 54
+      reason_code:             RC4
+      reason_code_description: DESC RC4
+
+reason_code55:
+      id: 55
+      reason_code:             RC5
+      reason_code_description: DESC RC5
+      reason_code_set_name_id: 4
+      remark_code_crosswalk_flag: 1
+
+reason_code56:
+      id: 56
+      reason_code:             RC6
+      reason_code_description: DESC RC6
+      status:
+      unique_code: 1K
+      reason_code_set_name_id: 5
+
+reason_code57:
+      id: 57
+      reason_code:             RC7
+      reason_code_description: DESC RC7
+      status:
+      reason_code_set_name_id: 5
+      remark_code_crosswalk_flag: 1
+
+reason_code58:
+      id: 58
+      reason_code:             RC8
+      reason_code_description: DESC RC8
+      unique_code:
+      remark_code_crosswalk_flag: 1
+
+reason_code59:
+      id: 59
+      reason_code:             RC9
+      reason_code_description: NON FOOTNOTE RC
+      reason_code_set_name_id: 4
+      active:
+      replacement_reason_code_id: 
+
+reason_code60:
+      id: 60
+      reason_code:             RC10
+      reason_code_description: NON FOOTNOTE RC
+      active:
+      replacement_reason_code_id:
+
+reason_code61:
+      id: 61
+      reason_code:             RC11
+      reason_code_description: FOOTNOTE RC1
+      active:
+      replacement_reason_code_id:
+
+reason_code62:
+      id: 62
+      reason_code:             RC11
+      reason_code_description: FOOTNOTE RC2
+      active:
+      replacement_reason_code_id:
+
+reason_code63:
+      id: 63
+      reason_code:             RC12
+      reason_code_description: NON FOOTNOTE RC1
+
+reason_code64:
+      id: 64
+      reason_code:             RC13
+      reason_code_description: NON FOOTNOTE RC1
+
+reason_code65:
+      id: 65
+      reason_code:             RC14
+      reason_code_description: NON FOOTNOTE RC2
+
+reason_code66:
+      id: 66
+      reason_code:             RC15
+      reason_code_description: NON FOOTNOTE RC2
+
+reason_code67:
+      id: 67
+      reason_code:             RC16
+      reason_code_description: NON FOOTNOTE RC3
+
+reason_code68:
+      id: 68
+      reason_code:             RC17
+      reason_code_description: NON FOOTNOTE RC3
+
+reason_code69:
+      id: 69
+      reason_code:             RC18
+      reason_code_description: NON FOOTNOTE RC4
+
+reason_code70:
+      id: 70
+      reason_code:             RC19
+      reason_code_description: NON FOOTNOTE RC4
+
+reason_code71:
+      id: 71
+      reason_code:             ABC
+      reason_code_description: NON COVERED A
+      unique_code:             1z
+
+reason_code82:
+      id: 82
+      reason_code:             ABCD
+      reason_code_description: NON COVERED B
+      unique_code:
+
+reason_code72:
+      id:                      72
+      reason_code:             ABC
+      reason_code_description: REASON CODE A
+      unique_code:             7C
+
+reason_code73:
+      id:                      73
+      reason_code:             ABCDE
+      reason_code_description: REASON CODE ASC
+      unique_code:             7D
+
+reason_code74:
+      id:                      74
+      reason_code:             RC74
+      reason_code_description: DESC RC74
+      unique_code:             7E
+      reason_code_set_name_id: 1
+
+reason_code75:
+      id: 75
+      reason_code:             RC1
+      reason_code_description: DESC RC1
+      unique_code: 
+      reason_code_set_name_id: 1
+      status: New
+
+
+reason_code76:
+      id: 76
+      reason_code:             RC76
+      reason_code_description: DESC RC76
+      unique_code:
+      reason_code_set_name_id: 1
+      status: ACCEPT
+
+reason_code77:
+      id: 77
+      reason_code:             RC77
+      reason_code_description: DESC RC77
+      status: ACCEPT
+      reason_code_set_name_id: 5
+
+reason_code78:
+      id: 78
+      reason_code:             RC78
+      reason_code_description: DESC RC78
+      unique_code:
+      reason_code_set_name_id: 8
+      status: NEW
+
+reason_code79:
+      id: 79
+      reason_code:             RC79
+      reason_code_description: DESC RC79
+      unique_code:
+      reason_code_set_name_id: 7
+      status: ACCEPT
+
+reason_code80:
+      id: 80
+      reason_code:             RC80
+      reason_code_description: DESC RC80
+      unique_code:
+      reason_code_set_name_id: 7
+      status: NEW
+  
+reason_code81:
+      id: 81
+      reason_code:             RC81
+      reason_code_description: DESC RC81
+      unique_code:
+      reason_code_set_name_id: 8
+      status: ACCEPT
+
+reason_code83: #owner:ramya
+      id: 83
+      reason_code:             RC83
+      reason_code_description: DESC RC83
+      status: ACCEPT
+
+reason_code84:
+      id: 84
+      reason_code:             RC84
+      reason_code_description: DESC RC84
+      unique_code:
+      reason_code_set_name_id: 1
+      status: ACCEPT
+      marked_for_deletion: 1
+
+reason_code_85: #owner :Ramya
+      id: 85
+      reason_code:             RC85
+      reason_code_description: DESC RC85
+      unique_code:             "1"
+      reason_code_set_name_id: 9
+
+reason_code_86: #owner :Ramya
+      id: 86
+      reason_code:             RC86
+      reason_code_description: DESC RC86
+      unique_code:             "2"
+
+reason_code87:
+      id: 87
+      reason_code:             RC87
+      reason_code_description: DESC RC87
+      unique_code:
+      reason_code_set_name_id: 12
+      status: ACCEPT
+      marked_for_deletion: 1
+  
+reason_code88:
+      id: 88
+      reason_code:             RC5
+      reason_code_description: ANOTHER DESC RC5
+      reason_code_set_name_id: 4
+
+reason_code89:
+      id: 89
+      reason_code:             NEW_RC5
+      reason_code_description: DESC RC5
+      reason_code_set_name_id: 4
+
+reason_code90:
+      id: 90
+      reason_code: RC_90
+      reason_code_description: DESC RC_90
+      reason_code_set_name_id: 4
+      replacement_reason_code_id:
+
+reason_code91:
+      id: 91
+      reason_code: RC_91
+      reason_code_description: DESC RC_91
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 92
+
+reason_code92:
+      id: 92
+      reason_code: RC_92
+      reason_code_description: DESC RC_92
+      reason_code_set_name_id: 4
+      replacement_reason_code_id:
+
+reason_code93:
+      id: 93
+      reason_code: RC_93
+      reason_code_description: DESC RC_93
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 80
+
+reason_code94:
+      id: 94
+      reason_code: Reason Code
+      reason_code_description: DESC RC_94
+      reason_code_set_name_id: 4
+      replacement_reason_code_id:
+      active: 1
+
+reason_code95:
+      id: 95
+      reason_code: Reason Code
+      reason_code_description: DESC RC_95
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 94
+      active: 0
+
+reason_code96:
+      id: 96
+      reason_code: Reason Code
+      reason_code_description: DESC RC_93
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 94
+      active: 0
+
+reason_code97:
+      id: 97
+      reason_code: RC_97
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 4
+      replacement_reason_code_id:
+      active: 1
+
+reason_code98:
+      id: 98
+      reason_code: RC_98
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 97
+      active: 0
+
+reason_code99:
+      id: 99
+      reason_code: RC_99
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 4
+      replacement_reason_code_id: 97
+      active: 0
+
+reason_code100:
+      id:                      100
+      reason_code:             22
+      reason_code_description: REASON CODE A
+      unique_code:             5D
+
+reason_code101:
+      id:                      101
+      reason_code:             44
+      reason_code_description: REASON CODE B
+      unique_code:             I8
+
+reason_code102:
+      id:                      102
+      reason_code:             55
+      reason_code_description: REASON CODE C
+      unique_code:             C6
+
+reason_code103:
+      id: 103
+      reason_code: Reason Code
+      reason_code_description: DESC RC_103
+      reason_code_set_name_id: 13
+      replacement_reason_code_id:
+      active: 1
+
+reason_code104:
+      id: 104
+      reason_code: Reason Code
+      reason_code_description: DESC RC_104
+      reason_code_set_name_id: 13
+      replacement_reason_code_id:
+      active: 1
+
+reason_code105:
+      id: 105
+      reason_code: Reason Code
+      reason_code_description: DESC RC_105
+      reason_code_set_name_id: 13
+      replacement_reason_code_id:
+      active: 1
+
+reason_code106:
+      id: 106
+      reason_code: RC_106
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 14
+      replacement_reason_code_id:
+      active: 1
+
+reason_code107:
+      id: 107
+      reason_code: RC_107
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 14
+      replacement_reason_code_id:
+      active: 1
+
+reason_code108:
+      id: 108
+      reason_code: RC_108
+      reason_code_description: DESCRIPTION
+      reason_code_set_name_id: 14
+      replacement_reason_code_id:
+      active: 1
+
+reason_code1_belonging_to_set_with_two_payers:
+      id: 109
+      reason_code: RC_109
+      reason_code_description: DESC RC_109
+      reason_code_set_name_id: 15
+
+reason_code2_belonging_to_set_with_two_payers:
+      id: 110
+      reason_code: RC_110
+      reason_code_description: DESC RC_110
+      reason_code_set_name_id: 15
+
+reason_code1_belonging_to_set_with_one_payer:
+      id: 111
+      reason_code: RC_111
+      reason_code_description: DESC RC_111
+      reason_code_set_name_id: 16
+
+reason_code2_belonging_to_set_with_one_payer:
+      id: 112
+      reason_code: RC_112
+      reason_code_description: DESC RC_112
+      reason_code_set_name_id: 16
+
+reason_code_belonging_to_new_set:
+      id: 113
+      reason_code: RC_113
+      reason_code_description: DESC RC_113
+      reason_code_set_name_id: 17
+
+reason_code8:
+      id: 8
+      reason_code: RC_008
+      reason_code_description: The impact of prior payer(s) adjudication ***including payments and/or adjustments
+      reason_code_set_name_id: 20
+
+reason_code9:
+      id: 9
+      reason_code: RC_009
+      reason_code_description: The impact{} of prior payer(s) adjudication $$$$$including payments and/or adjustments
+      reason_code_set_name_id: 20
+
+reason_code10:
+      id: 10
+      reason_code: RC_10
+      reason_code_description: The impact of prior payer(s) adjudication including payments and/or adjustments!
+      reason_code_set_name_id: 20
+
+reason_code11:
+      id: 11
+      reason_code: RC_011
+      reason_code_description: Desc rc 011
+      reason_code_set_name_id: 21
+
+reason_code12:
+      id: 12
+      reason_code: RC_012
+      reason_code_description: Desc rc 012
+      reason_code_set_name_id: 21
+
+reason_code13:
+      id: 13
+      reason_code: RC_011
+      reason_code_description: Desc rc 011
+      reason_code_set_name_id: 22
+
+reason_code14:
+      id: 14
+      reason_code: RC_012
+      reason_code_description: Desc rc 012
+      reason_code_set_name_id: 22
+      remark_code_crosswalk_flag: 0
+
+reason_code15:
+      id: 15
+      reason_code: RC_011
+      reason_code_description: Desc rc 011
+      reason_code_set_name_id: 30
+      remark_code_crosswalk_flag: 1
+
+reason_code16:
+      id: 16
+      reason_code: RC_012
+      reason_code_description: Desc rc 012
+      reason_code_set_name_id: 30
+      remark_code_crosswalk_flag: 1
+
+reason_code17:
+      id: 17
+      reason_code: RC_017
+      reason_code_description: Desc rc 011
+      reason_code_set_name_id: 31
+      remark_code_crosswalk_flag:
+
+reason_code18:
+      id: 18
+      reason_code: RC_012
+      reason_code_description: Desc rc 012
+      reason_code_set_name_id: 31
+      remark_code_crosswalk_flag: 1
+
+reason_code19:
+      id: 19
+      reason_code: RC_019
+      reason_code_description: Desc rc 019
+      reason_code_set_name_id: 31
+      remark_code_crosswalk_flag: 1
+
+reason_code20:
+      id: 20
+      reason_code: RC_020
+      reason_code_description: Desc rc 020
+      reason_code_set_name_id: 31
+      remark_code_crosswalk_flag: 0
+
+reason_code21:
+      id: 21
+      reason_code: RC_021
+      reason_code_description: Desc rc 021
+      reason_code_set_name_id: 31
+      remark_code_crosswalk_flag: 1
+
+reason_code22:
+      id: 22
+      reason_code:             RC11
+      reason_code_description: DESC RC11
+      unique_code: 
+      reason_code_set_name_id: 1
+      remark_code_crosswalk_flag: 0
+      

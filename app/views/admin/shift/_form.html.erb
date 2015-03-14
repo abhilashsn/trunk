@@ -1,0 +1,15 @@
+<%= render "shared/error_messages", :target => @shift %>  
+<!-- %= error_messages_for 'shift' % -->
+
+<table>
+  <tr>
+    <td><label for="shift_name">Shift</label></td><td><%= text_field 'shift', 'name',:class => 'black_text' %></td>
+  </tr>
+  <tr>
+    <td><label for="shift_start_time">Start Time</label></td><td><%= select_time(convert_to_ist_time(Time.now), :prefix => 'set_time')%></td>
+  </tr>
+  <tr>
+    <td><label for="shift_duration">Duration</label></td><td><%= text_field 'shift', 'duration',:class => 'black_text' %></td>
+  </tr>
+</table>
+

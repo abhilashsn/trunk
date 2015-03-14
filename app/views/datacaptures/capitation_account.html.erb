@@ -1,0 +1,18 @@
+<div id="login_main">
+  <h1>Capitation Account Report</h1>
+  <%= link_to 'Export To CSV', :action => "export_to_csv" , :search_field => @search_field,:compare => @compare, :criteria => @criteria%>
+  <div class="light_info">
+    <%= form_tag :action => 'capitation_account' do %>
+        <%= select_tag 'criteria', optionize('Batch ID', 'Check Number', 'Account', 'Payment') %>
+        <%= select_tag 'compare', optionize('=', '>', '<') %>
+        <%= text_field_tag 'to_find', nil, :size => '10' %>
+        <%= submit_tag 'Filter', :class => 'button' %>
+        <%= image_tag("spinner.gif", :align => 'absmiddle', :border=>"0", :id => "spinner", :style=>"display: none;") %>
+    <% end %>
+  </div>
+
+  <div id="table">
+    <%= render :partial  => "capitation_account_list" %>
+  </div>
+</div>
+

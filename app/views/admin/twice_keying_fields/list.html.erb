@@ -1,0 +1,99 @@
+<% if @twice_keying_field_records.length > 0 %>
+  <h1>Double Keying List </h1>
+  <%= show_legend({"lightblue" => "Active", "lightgrey" => "Expired"}) %>
+  <br/>
+  <br/>
+  <%= will_paginate @twice_keying_field_records, :url => '/admin/twice_keying_fields/list' %>
+  <%= form_tag({:action => 'delete'}, :id =>"my_form") do %>
+    <table>
+      <tr>
+        <th>
+          Payer
+        </th>
+        <th>
+          PayID
+        </th>
+        <th>
+          Client
+        </th>
+        <th>
+          Payee
+        </th>
+        <th>
+          User Name
+        </th>
+        <th>
+          Field Name
+        </th>
+        <th>
+          Start Date
+        </th>
+        <th>
+          End Date
+        </th>
+        <th>
+          <input type="checkbox" name="all" onClick="checkOrUncheckAll(document.getElementsByClassName('checkbox'))"/>
+        </th>
+      </tr>
+      <tr>
+        <% unless @twice_keying_field_records.blank? %>
+          <% @twice_keying_field_records.each do |record| %>
+          <tr>
+
+            <% end_date = Date.parse(record.end_date.to_s) %>
+            <%cls='' %>
+            <%if @today > end_date
+              cls='lightgrey'
+            else
+              cls='lightblue'
+            end %>
+            <td class="<%=cls%>">
+              <%= record.payer_name %>
+            </td>
+            <td class="<%=cls%>">
+              <%= record.payid %>
+            </td>
+            <td class="<%=cls%>">
+              <%= record.client_name %>
+            </td>
+            <td class="<%=cls%>">
+              <%unless record.facility_name.blank? %>
+                <%  option = dropdown_element_count(record, 'facility') %>
+                <%= select_tag 'facility_name', options_for_select(record.facility_name.split(',') << option , option) %>
+              <%end%>
+            </td>
+            <td class="<%=cls%>">
+              <%  unless record.processor_name.blank? %>
+                <%  option = dropdown_element_count(record, 'processor') %>
+                <%= select_tag 'processor_login', options_for_select(record.processor_name.split(',') << option , option) %>
+              <%end%>
+            </td>
+            <td class="<%=cls%>">
+              <%= field_names_list[record.field_name.split(',')[0]]%>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= record.start_date.strftime("%m/%d/%y") %>
+            </td>
+            <td align='left' class="<%=cls%>">
+              <%= record.end_date.strftime("%m/%d/%y") %>
+            </td>
+            <td>
+              <%= check_box :to_delete, [record.group_no,record.field_name.split(',')[0]], :id => record.group_no,  :class => 'checkbox' %>
+
+            </td>
+            <td>
+              <%= link_to image_tag("report_edit.png", :alt => "Edit",:border=>"0"), :action => 'edit',:id => record.id,:field_name => record.field_name, :group_no => record.group_no, :payer => record.payer_id, :page => params[:page] %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <%= submit_tag 'Delete', :onclick => "return(confirm('Records will be deleted. Are you sure?'))", :class => 'button' %>
+    <% end %>
+  <% end %>
+<% else %>
+  No Double Keying Records
+<% end %>
+
+
+<br/>
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'admin/pop_up', :action => 'add_message' %>

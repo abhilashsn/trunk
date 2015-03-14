@@ -1,0 +1,18 @@
+<%= javascript_include_tag  "payer" %>
+<div id="login_main">
+  <h1>Editing payer</h1>
+  <%= form_tag(admin_payer_path, :method=>'put', :payer_id => @payer, :flag => @flag, :id => "payer_form") do %>
+    <%= render :partial => 'form' %>
+  <% if !@micr_line_information.blank? %>
+    <%= hidden_field_tag 'micr_id', @micr_line_information.id %>
+  <% end %>
+    <%= submit_tag 'Edit', :class => 'button',
+      :onclick => "return mustPassValidationsForPayer('#{@blank_output_payid_records_array}',
+      '#{@blank_output_payid_records.length}', '#{@payer_specific_records_array}',
+      '#{@payer_specific_records.length}', '#{@clients_with_output_payid_mandatory}',
+      '#{@clients_with_output_payid_mandatory.length}', '#{@payer.payer_type}');"%>
+  <% end %>
+
+  <br/>
+  <%= link_to image_tag("arrow_undo.png", :alt => "Cancel"), :action => 'list_approved_payers' %>
+</div>

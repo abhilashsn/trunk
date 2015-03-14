@@ -1,0 +1,90 @@
+div.tabArea {
+font-size : 80%;
+font-weight : bold;
+padding : 0 0 3px 0;
+}
+a.tab {
+background-color : #067A91;
+border : #000000 solid 2px;
+border-bottom-width : 0;
+border-color : #078EAB;
+padding : 2px 1em 2px 1em;
+position : relative;
+text-decoration : none;
+top : 3px;
+z-index : 100;
+font-family : "Trebuchet MS", Arial;
+font-size : 11px;
+}
+.tab_selected {
+background-color : #FFFFFF;
+border : #000000 solid 2px;
+border-bottom-width : 0;
+border-color : #078EAB;
+padding : 2px 1em 2px 1em;
+position : relative;
+text-decoration : none;
+top : 3px;
+z-index : 100;
+font-family : "Trebuchet MS", Arial;
+font-size : 11px;
+}
+a.tab, a.tab:visited {
+color : #FFFFFF;
+}
+a.tab:hover {
+background-color : #09ABCE;
+border-color : #09ABCE;
+color : #ffe0ff;
+}
+a.tab.activeTab, a.tab.activeTab:hover, a.tab.activeTab:visited {
+background-color : #9070c0;
+border-color : #b090e0 #7050a0 #7050a0 #b090e0;
+color : #ffe0ff;
+}
+a.tab.activeTab {
+padding-bottom : 4px;
+top : 1px;
+z-index : 102;
+}
+div.tabMain {
+background-color : #067A91;
+border : #000000 solid 2px;
+border-color : #067A91;
+padding : 0.5em;
+position : relative;
+z-index : 101;
+}
+div.tabIframeWrapper {
+width : 100%;
+}
+iframe.tabContent {
+background-color : #fff;
+border : #000000 solid 1px;
+border-color : #7050a0 #b090e0 #b090e0 #7050a0;
+width : 100%;
+}
+h4#title {
+background-color : #503080;
+border : #000000 solid 1px;
+border-color : #7050a0 #b090e0 #b090e0 #7050a0;
+color : #d0b0ff;
+font-weight : bold;
+margin-top : 0;
+margin-bottom : 0.5em;
+padding : 2px 0.5em 2px 0.5em;
+}
+.cont {
+font-family : Arial;
+font-size : 10px;
+color : #000;
+text-decoration : none;
+}
+a.cont:hover {
+color : #FF6600;
+}
+.content {
+font-family : "Trebuchet MS", Arial;
+font-size : 11px;
+color : #000000;
+}

@@ -1,0 +1,5 @@
+
+"ATL-403872","Liberty Healthcare Group-Wholesale","Image 01","i5",20100816,15,15
+Num,Env Num,Envelope,Transaction,Lockbox,Date,Time,Batch,Batch Item,Check,Check Amount,ABA/RT,Account Num,Check Num,Check Image,Envelope Image,Page Images
+1,1,G-2073878,G-2073878,ATL-403872,2010/08/16,01:00,32,1,1,$2143.21,041203895,0573936806,3974757,9,1,12
+2,2,G-0452258,G-0452258,ATL-403872,2010/08/16,01:00,32,2,2,$978.28,053101561,5028200018571,03058087,31,23,34

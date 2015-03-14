@@ -1,0 +1,765 @@
+# == Schema Information
+# Schema version: 69
+#
+# Table name: facilities
+#
+#  id        :integer(11)   not null, primary key
+#  name      :string(255)   
+#  client_id :integer(11)   
+#  sitecode  :string(255)   
+#
+
+# == Schema Information
+# Schema version: 65
+#
+# Table name: facilities
+#
+#  id        :integer(11)   not null, primary key
+#  name      :string(255)   
+#  client_id :integer(11)   
+#  sitecode  :string(255)   
+#
+
+facility1:
+      id: 1
+      name: "Apria - Carolinas"
+      client_id: 1
+      sitecode:  00811
+      patient_pay_format: "Simplified Format"
+      patient_payerid: 1 
+      image_type: 1
+      default_insurance_payer_tin: 123123
+
+facility2:
+      id: 2
+      name: "Apria - Home Medical"
+      client_id: 1
+      sitecode: 00823
+      image_type: 0
+      patient_payerid:
+    
+facility3:
+      id: 3
+      name: "Apria - Minster"
+      client_id: 1
+      sitecode: 00807
+    
+facility4:
+      id: 4
+      name: "Apria - Plains"
+      client_id: 1
+      sitecode: 00802
+
+facility5:
+      id: 5
+      name: "Triad-Facility"
+      client_id: 3
+      sitecode: 003802
+
+facility7:
+      id: 7
+      name: "STANFORD UNIVERSITY MEDICAL CENTER"
+      client_id: 1
+
+facility8:
+      id: 15
+      name: "PATHOLOGY MEDICAL SERVICES"
+      sitecode: PATLGY
+      patient_payerid: "P9998"
+      details:
+          !map:HashWithIndifferentAccess 
+          payment_code: false
+          rx_code: false
+          micr_line_info: true
+          revenue_code: true
+          payment_type: true
+          micr_line_info: true
+          payer_tin: true
+          service_date_from: true
+          denied: true
+          patient_type: true
+          date_received_by_insurer: true
+          carrier_code: true
+          hcra: true
+          drg_code: true
+          late_fee_charge: true
+          expected_payment: true
+          revenue_code: true
+          rx_code: true
+          reference_code: true
+          bundled_procedure_code: true
+          remark_code: true
+          interest_in_service_line: true
+          remark_code: true
+          transaction_type: true
+          re_pricer_info: true
+          practice_id: 1234
+      client_id: 5
+
+facility_1:
+      id: 8
+      name: facility_1
+      client_id: 6
+      facility_npi: 111111
+      facility_tin: 222222
+      default_service_date: 2010-10-31
+      sitecode: 001289
+      details:
+            !map:HashWithIndifferentAccess 
+            claim_level_eob: true
+            payment_type: false
+            service_date_from: false
+            denied: false
+            patient_type: false
+            date_received_by_insurer: false
+            carrier_code: false
+            hcra: false
+            drg_code: false
+            late_fee_charge: false
+            micr_line_info: false
+            payer_tin: false 
+            expected_payment: false
+            revenue_code: false
+            rx_code: false
+            reference_code: false
+            bundled_procedure_code: false
+            interest_in_service_line: true
+            remark_code: false
+            re_pricer_info: false
+            transaction_type: false
+
+facility_2:
+      id: 9
+      name: facility_2
+      client_id: 6
+      sitecode: 36601
+      details:
+            !map:HashWithIndifferentAccess 
+            claim_level_eob: false
+            denied: false
+            service_date_from: true
+            default_payer_address_one: ADDRESS ONE
+            default_payer_city: PAYER CITY
+            default_payer_state: SS
+            default_payer_zip_code: 00099
+
+facility_southcoast:
+        id: 10
+        name: "SOUTH COAST"
+        client_id: 8
+        abbr_name: "CPO"
+        sitecode: 90332
+
+facility_3:
+        id: 11
+        name: 'SHEPHERD EYE SURGICENTER'
+        facility_tin: '768798798'
+        facility_npi: '898989'
+        address_one: 'postbox 67'
+        client_id: 1
+        details:   
+              !map:HashWithIndifferentAccess
+              interest_in_service_line: true
+              payer_tin: true
+              site_level_claim_status: 18
+              cas_01: "cas"
+        default_insurance_payer_tin: '798798'
+        default_patpay_payer_tin: '89809809'
+        lockbox_number: '8989'
+        sitecode : '00S66'
+
+facility_4:
+        id: 14
+        name: 'PATHOLOGY CONSULTANTS LLC'
+        client_id: 9
+        sitecode: PATLLC
+
+facility_quadax:
+        id: 16
+        name: "PATHOLOGY MEDICAL SERVICES"
+        client_id: 5
+        sitecode: "PM"
+        lockbox_number: 2342
+               
+facility_merit_mountain:   #Owner: Dhanya
+       id: 151
+       name: 'Merit Mountainside'
+       sitecode: 48901
+       client_id: 10
+       details:
+             !map:HashWithIndifferentAccess
+              payment_code: false
+              rx_code: false
+              micr_line_info: false
+              cas_01: Group Code
+              cas_02: HIPAA Code
+              lq_he:
+                 - Reason Code
+              default_cas_code: 45
+              default_mapping: true
+
+facility_rumc:         #Owner: Dhanya
+       id: 152
+       name: 'Richmond University Medical Center'
+       sitecode: RUMC001
+       details:
+                !map:HashWithIndifferentAccess
+                claim_level_eob: false
+                payer_tin: true
+                late_fee_charge: true
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                   - Reason Code
+                default_cas_code: 23
+                default_mapping: true
+                client_id: 10
+       default_insurance_payer_tin: '888888'
+
+facility_153:
+      id: 153
+      name: 'PATHOLOGY CONSULTANTS LLC'
+      image_type: 1
+      client_id: 9
+      sitecode: PATCONS4
+
+facility_20:
+      id: 20 
+      name: 'VISALIA MEDICAL CLINIC'
+      client_id: 10
+      details:   
+               !map:HashWithIndifferentAccess
+               interest_in_service_line: true
+               payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: '549'
+
+facility_205:
+      id: 205
+      name: 'WHS'
+      client_id: 10
+      details:
+              !map:HashWithIndifferentAccess
+              interest_in_service_line: true
+              payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: '834'
+
+facility_21:
+      id: 21
+      name: 'SOUTH COAST'
+      sitecode: 52237Q
+      client_id: 11
+      details:
+               !map:HashWithIndifferentAccess
+                payment_code: false
+                rx_code: false
+                micr_line_info: false
+
+facility_22:
+      id: 22
+      name: 'SOUTH COAST'
+      sitecode: SC0707
+      client_id: 11
+      details:
+               !map:HashWithIndifferentAccess
+                payment_code: false
+                rx_code: false
+                micr_line_info: false
+
+facility_23: #Owner : Sunil
+      id: 23
+      name: 'GOODMAN CAMPBELL BRAIN AND SPINE'
+      client_id: 12
+      sitecode: 'qwe2344'
+      index_file_parser_type: 'BOA_bank'
+      details:   
+                !map:HashWithIndifferentAccess
+                 interest_in_service_line: true
+                 payer_tin: true
+      batch_load_type: 'P'
+
+facility_24:
+      id: 24
+      name: 'HORIZON LABORATORY LLC'
+      client_id: 12
+      sitecode: 4rt67
+
+facility_25:
+      id: 25
+      name: 'facility_25'
+      sitecode: 25001
+      client_id: 6
+      details:
+               !map:HashWithIndifferentAccess 
+                claim_level_eob: false
+                check_received_and_mailed_date: true
+                pbid: true
+                payment_status_code: true
+                retention_fee: true
+                line_item: true
+                secondary_plan_code: true
+                tertiary_plan_code: true
+                payer_control_number: true
+                state_use_only: true
+                marital_status: true
+                number: 'claim'
+                interest_in_service_line: false
+                denied: false
+                service_date_from: false
+
+facility_26:
+      id: 26
+      name: 'facility_26'
+      client_id: 6
+      sitecode: 260990
+      default_cpt_code: 12345
+      default_ref_number: 1234
+      details:
+                !map:HashWithIndifferentAccess 
+                payment_type: false
+                claim_level_eob: false
+                payment_type: false
+                check_received_and_mailed_date: false
+                pbid: false
+                payment_status_code: false
+                retention_fee: false
+                line_item: false
+                secondary_plan_code: false
+                tertiary_plan_code: false
+                payer_control_number: false
+                state_use_only: false
+                marital_status: false
+                number: 'control'
+
+facility_with_rcc_crosswalk_and_default_mapping:
+        id: 81
+        client_id: 13
+        sitecode: t6709
+        enable_crosswalk: 1
+        details:
+                 !map:HashWithIndifferentAccess
+                 cas_01: Group Code
+                 cas_02: HIPAA Code
+                 lq_he:
+                    - Reason Code
+                 default_cas_code:
+                 default_mapping: true
+                 enable_crosswalk_level: All
+                 global_mapping: true
+
+facility_with_rcc_crosswalk_and_client_code_as_cas01:
+      id: 82
+      client_id: 13
+      sitecode: 44io0
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Client Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Reason Code
+                default_cas_code:
+                default_mapping: true
+
+facility_with_rcc_crosswalk_and_client_code_as_cas02:
+      id: 83
+      client_id: 13
+      sitecode: 009rt2
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: Client Code
+                lq_he:
+                  - Reason Code
+                default_cas_code:
+                default_mapping: true
+
+facility_with_rcc_crosswalk_and_default_cas_code:
+      id: 84
+      client_id: 13
+      sitecode: rio67
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Reason Code
+                default_cas_code: MAP
+                default_mapping: false
+                site_level_claim_status: 18
+
+facility_with_rcc_crosswalk_and_default_mapping_and_global_mapping:
+      id: 85
+      client_id: 13
+      sitecode: yuo093
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Reason Code
+                  - Client Code
+                default_cas_code:
+                default_mapping: true
+                global_mapping: true
+    
+
+facility_with_no_rcc_crosswalk:
+      id: 86
+      client_id: 13
+      sitecode: er380
+      enable_crosswalk: 0
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Reason Code
+                default_cas_code: MAP
+                default_mapping: false
+
+facility_with_global_rcc_crosswalk_and_default_mapping_for_non_bac:
+      id: 87
+      client_id: 14
+      sitecode: 223eklw
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Reason Code
+                default_cas_code:
+                default_mapping: true
+                global_mapping: true
+    
+    
+facility_with_remark_code:
+      id: 88
+      client_id: 14
+      sitecode: 88888
+      enable_crosswalk: 1
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: HIPAA Code
+                lq_he:
+                  - Remark Code
+                default_cas_code:
+                default_mapping: true
+
+facility_with_payer_classification_config:
+      id: 89
+      sitecode: 56hj78
+      details:
+                !map:HashWithIndifferentAccess
+                min_reason_codes: 2
+                min_percentage_of_reason_codes: 100
+                min_number_of_eobs: 1
+                threshold_time_to_tat: 1
+
+facility_with_some_payers_excluded:
+      id: 90
+      sitecode: ui789
+
+facility_27:
+      id:        27
+      client_id: 14
+      sitecode: ui563
+      details:
+                !map:HashWithIndifferentAccess
+                payer_indicator: true
+    
+facility_28:
+      id: 28
+      name: 'facility_28'
+      sitecode: 280045
+      client_id: 12
+
+facility_206:
+      id: 206
+      name: 'CHMP'
+      client_id: 10
+      details:
+                !map:HashWithIndifferentAccess
+                interest_in_service_line: true
+                payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: 'C2Q'
+
+facility_207:
+      id: 207
+      name: 'MCP'
+      client_id: 10
+      details:
+                !map:HashWithIndifferentAccess
+                interest_in_service_line: true
+                payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: 'K38'
+
+facility_208:
+      id: 208
+      name: 'HAR'
+      client_id: 10
+      details:
+                !map:HashWithIndifferentAccess
+                interest_in_service_line: true
+                payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: 'K29'
+
+facility_209:
+      id: 209
+      sitecode: '00549'
+
+facility_210:
+      id: 210
+      sitecode: '0054'
+
+facility_211:
+      id: 211
+      name: 'ALBERT EINSTEIN COLLEGE OF MEDICINE'
+      client_id: 15
+      
+facility_91:
+      id: 91
+      details:
+               !map:HashWithIndifferentAccess
+               site_level_claim_status: 1
+
+facility_gcbs_212: #owner: Ramya
+      id: 212
+      name: "GOODMAN CAMPBELL BRAIN AND SPINE"
+
+facility_pm_213: #owner: Ramya
+      id: 213
+      name: "PATHOLOGY MEDICAL SERVICES"
+
+facility_setup_214: #owner: Ramya
+      id:                   214
+      name:                 "PATHOLOGY MEDICAL SERVICES"
+      commercial_payerid:   "D9998"
+      patient_payerid:      "P9998"
+
+
+facility_228:  #Owner: Dhanya
+      id: 228
+      name: 'HAR1'
+      client_id: 10
+      details:
+               !map:HashWithIndifferentAccess
+               interest_in_service_line: true
+               payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: 'K290'
+
+facility_229:  #Owner: Dhanya
+      id: 229
+      name: 'Consultants NEurological Surgery'
+      client_id: 10
+      details:
+               !map:HashWithIndifferentAccess
+               interest_in_service_line: true
+               payer_tin: true
+      default_patient_name: 'Payer Name'
+      default_patpay_payer_tin: '7777777'
+      sitecode: '501'
+facility_92:
+      id: 92
+      name: Facility 92
+      client_id: 14
+      enable_crosswalk: 1
+      details:
+              !map:HashWithIndifferentAccess
+              cas_01: Group Code
+              cas_02: HIPAA Code
+              lq_he:
+                - Reason Code
+              default_cas_code:
+              default_mapping: true
+
+facility_93:
+      id: 93
+      name: Facility_NOR
+      sitecode: 00987
+      client_id: 16
+
+facility_94:
+      id: 94
+      name: Facility_94
+      details:
+              !map:HashWithIndifferentAccess
+              interest_in_service_line: false
+
+facility_95:
+      id: 95
+      name: Facility_95
+      details:
+              !map:HashWithIndifferentAccess
+              interest_in_service_line: false
+
+facility_29:
+      id: 29
+      name: Facility 29
+      sitecode: 00877
+      client_id: 16
+
+facility_30:
+      id:             30
+      name:           "Suma's Facility"
+      details:
+              !map:HashWithIndifferentAccess
+              simplified_patpay_multiple_service_lines: false
+              rx_code: false
+              micr_line_info: true
+              revenue_code: true
+              payment_type: true
+              micr_line_info: true
+              payer_tin: true
+              service_date_from: true
+              denied: true
+              patient_type: true
+              date_received_by_insurer: true
+              carrier_code: true
+              hcra: true
+              drg_code: true
+              late_fee_charge: true
+              expected_payment: true
+              revenue_code: true
+              rx_code: true
+              reference_code: true
+              bundled_procedure_code: true
+              remark_code: true
+              interest_in_service_line: true
+              remark_code: true
+              transaction_type: true
+      client_id:      5
+
+facility_with_single_svc_line_for_patpay:
+      id: 31
+      name: "Suma's Facility1"
+      details:
+                !map:HashWithIndifferentAccess
+                simplified_patpay_multiple_service_lines: false
+                service_date_from: true
+facility_32:
+      id: 32
+      name: Facility_Medistreams
+      sitecode: 22877
+      client_id: 17
+
+facility_33:
+      id: 33
+      name: Facility 33
+      client_id: 21
+      sitecode: 0033
+
+facility_34:
+      id: 34
+      name: Facility 34
+      client_id: 22
+      sitecode: 0034
+
+facility_35:
+      id: 35
+      name: Facility 35
+      client_id: 23
+      sitecode: 0035
+
+facility_36:
+      id: 36
+      name: Facility 36
+      client_id: 24
+      sitecode: 0036
+
+facility_37:
+      id: 37
+      name: Facility 37
+      client_id: 25
+      sitecode: 0037
+
+facility_38: #owner: Ramya
+      id:             38
+      name:           "TRIDENT"
+      details:
+              !map:HashWithIndifferentAccess
+              late_fee_charge: true
+              interest_in_service_line: false
+              transaction_type: true
+              fund: true
+      client_id:      5
+
+facility_39: #owner: Ramya
+      id:             39
+      name:           "TRIDENT MEDICAL"
+      details:
+              !map:HashWithIndifferentAccess
+              late_fee_charge: false
+              interest_in_service_line: false
+              transaction_type: true
+              fund: true
+      client_id:      5
+
+facility_40: #owner: Ramya
+      id:             40
+      name:           "TRIDENT MEDICAL IMAGES"
+      details:
+              !map:HashWithIndifferentAccess
+              late_fee_charge: false
+              interest_in_service_line: true
+              transaction_type: true
+              fund: true
+      client_id:      5
+
+facility_41: #owner: Ramya
+      id:             41
+      name:           "TRIDENT MEDICAL IMAGES FACILITY"
+      details:
+              !map:HashWithIndifferentAccess
+              late_fee_charge: false
+              interest_in_service_line: true
+              transaction_type: true
+              fund: false
+      client_id:      5
+
+facility_42:
+      id: 42
+      name: "Facility_42"
+      details:
+                !map:HashWithIndifferentAccess
+                micr_line_info: true
+      client_id: 17
+
+facility_43:
+      id: 43
+      name: "Apria - Carolinas"
+      client_id: 1
+      sitecode:  008111
+      patient_pay_format: "Nextgen Format"
+      patient_payerid: 1
+      image_type: 1
+      default_insurance_payer_tin: 123123
+
+facility_with_no_rcc_crosswalk_and_reason_code_as_cas_02:
+      id: 44
+      client_id: 13
+      sitecode: site44
+      enable_crosswalk: 0
+      details:
+                !map:HashWithIndifferentAccess
+                cas_01: Group Code
+                cas_02: Reason Code
+                lq_he:
+                default_cas_code: MAP
+                default_mapping: false

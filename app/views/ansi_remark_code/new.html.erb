@@ -1,0 +1,11 @@
+<%= render "shared/error_messages", :target => @ansi_remark_code %>  
+<!-- %= error_messages_for 'ansi_remark_code' % -->
+<h1>New ANSI Remark Code</h1>
+
+<%= form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create", :class => 'button' %>
+<% end %>
+<br><br>
+
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => '/ansi_remark_code', :action => 'index' %>

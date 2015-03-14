@@ -1,0 +1,68 @@
+<%= form_tag({:controller => '/admin/twice_keying_fields', :action => 'create',
+    :mode => 'twice_keying', :method => 'post'}, :multipart => true) do %>
+
+  <fieldset>
+    <legend style="font-family: Arial; font-size: 12px">
+      <a href="javascript:animatedcollapse.toggle('twice_keying_create_div'); ">Double Keying Fields Creation</a>
+    </legend>
+    <div id="twice_keying_create_div" style="width: 100%; display:none">
+      <span id="twice_keying_create">
+        <table>
+          <tr>
+            <th width="10%">
+              Select Payer <span class="alert"></span>
+            </th>
+            <th width="20%">
+              Select Client<span class="alert"> *</span>
+            </th>
+            <th width="20%">
+              Select Payee (Facility)<span class="alert"></span>
+            </th>
+            <th width="10%">
+              Processor Name<span class="alert"></span>
+            </th>
+            <th width="10%">
+              Duration<span class="alert"> *</span>
+            </th>
+            <th width="20%">
+              Field Name<span class="alert"> *</span>
+            </th>
+          </tr>
+          <tr>
+            <td style="text-align:center">
+              <% if params[:mode] == 'twice_keying' && @payer %>
+                <textarea name='payer' readonly='true' cols="15" rows="5" class = "black_text">
+                  <%=@payer.payer %>
+                </textarea>
+                <%= hidden_field_tag :payer_id, @payer.id unless @payer.blank? %>
+                <%= hidden_field_tag :group_no%>
+              <%end %>
+              <%= link_to 'Select Payer', :controller => 'pop_up', :action => 'select_payer', :previous_page => 'add_message', :mode => 'twice_keying' %>
+            </td>
+            <td>
+              <%= select_tag 'client_id', ("<option value=''>--Select--</option>" + options_for_select(@clients, @selected_client)).html_safe,
+                :onchange => "getFacilitiesByClientForAlert(this.value, 'twice_keying_facility_span_id');",
+                :id => 'client_id' %>
+            </td>
+            <td>
+              <span id = "twice_keying_facility_span_id"></span>
+            </td>
+            <td>
+              <%= select_tag 'user_ids', options_for_select(processor_list, @selected_users), { :multiple => true, :id => "example" } %>
+            </td>
+            <td>
+              <%=text_field_tag 'duration_number','', :size => 3 %>
+              <%= select_tag 'duration_type', options_for_select(['week', 'month', 'year'], @selected_duration),:class => "black_text" %>
+            </td>
+            <td>
+              <%= select_tag 'field_names', options_for_select(field_names_list.invert.sort, @selected_field_name), { :multiple => true, :id => "example_1" } %>
+            </td>
+          </tr>
+        </table>
+        <%= submit_tag "Submit", :class => 'button', :name => "option2",
+          :onclick => "return validateTwiceKeyingRecord();"%>
+      <% end %>
+    </span>
+  </div>
+</fieldset>
+

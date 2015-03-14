@@ -1,0 +1,29 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://ecdl.revmansolutions.com/mbx-claim-lookup/LookupClaim?pan=03099791&pid=80&pw=c037b660-431f-11e2-a25f-0800200c9a66&un=revmed
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 401
+      message: Unauthorized
+    headers: 
+      Server: 
+      - Apache-Coyote/1.1
+      Content-Type: 
+      - text/html;charset=utf-8
+      Content-Length: 
+      - "1056"
+      Date: 
+      - Fri, 15 Feb 2013 21:01:29 GMT
+    body: 
+      encoding: US-ASCII
+      string: "<html><head><title>Apache Tomcat/7.0.29 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 401 - invalid provider id specified (80)</h1><HR size=\"1\" noshade=\"noshade\"><p><b>type</b> Status report</p><p><b>message</b> <u>invalid provider id specified (80)</u></p><p><b>description</b> <u>This request requires HTTP authentication (invalid provider id specified (80)).</u></p><HR size=\"1\" noshade=\"noshade\"><h3>Apache Tomcat/7.0.29</h3></body></html>"
+    http_version: 
+  recorded_at: Fri, 15 Feb 2013 21:01:42 GMT
+recorded_with: VCR 2.4.0

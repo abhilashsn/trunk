@@ -1,0 +1,59 @@
+<div id="claim_level_service_lines_container">
+  <% last_serial_num = if @claim_level_service_lines
+    @claim_level_service_lines.count
+  else
+    0
+  end %>
+  <%= hidden_field :claim_level_svc, :last_serial_num, :value => last_serial_num %>
+  <%= hidden_field :claim_level_svc, :record_ids_to_delete, :value => '' %>
+  <%= hidden_field :claim_level_svc, :serial_and_record_ids, :value => '' %>
+  <table id="claim_level_service_line_id" class="claim_level_service_line">
+    <tr>
+      <th> # </th>
+      <th> Service Description </th>
+      <th width="47px"> Amount </th>
+      <th> +/- </th>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>
+        <%= text_field :service, :description, :id => "service_line_description",
+          :onblur => "changeToCapital(id); validateServiceDescription(id)", :class => "fullwidth"  %>
+      </td>
+      <td>
+        <%= text_field :service, :amount, :id => "service_line_amount",
+          :onblur => "validateDollarAmount(id);", :style => "width:45px; text-align:right"  %>
+      </td>
+      <td align="center" valign="middle" id ="add_button">
+        <input type="button" name="add_button" value="+" onclick ="addClaimLevelServiceLine()" style="width:20px;" class = "submit_add"/>
+      </td>
+    </tr>
+    <% line_count = 0
+    if @claim_level_service_lines
+      @claim_level_service_lines.each do |service_line|
+        line_count = line_count + 1
+        line_count_string = line_count.to_s %>
+        <tr id="claim_level_service_row_<%= line_count_string %>">
+          <td><%= line_count_string %></td>
+          <td>
+            <%= text_field :claim_level_service_line, "description_" + line_count_string, :value => service_line.description %>
+          </td>
+          <td>
+            <%= text_field :claim_level_service_line, "amount_" + line_count_string, :value => service_line.amount,
+              :onblur => "validateDollarAmount(id)", :style => "width:47px; text-align:right" %>
+          </td>
+          <% service_line_record_id = service_line.id || '' %>
+          <%= hidden_field :claim_level_service_line, "record_id_" + line_count_string,
+            :value => "#{line_count_string}_#{service_line_record_id}", :class => 'claim_level_service_lines_to_add' %>
+          <% td_add_or_delete = "td_add_or_delete_" + line_count_string %>
+          <td align="center" valign="middle" id= "<%= td_add_or_delete %>" >
+            <input type="button" name="delete_button" value="-" class = "submit_add" style ="width:20px" onclick="removeClaimLevelServiceLine('<%=line_count_string%>', '<%=service_line_record_id%>');" />
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+<script>
+  $('service_line_description').focus();
+</script>

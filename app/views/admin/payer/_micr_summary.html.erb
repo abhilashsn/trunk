@@ -1,0 +1,21 @@
+<div class="summary" style="font-size:15px; color:#cccccc;">  
+  <div id="failed_micr">
+  <%= @micrs_failed.count %> Newly Encounted Micr Combination Failed! <%= link_to("<button id='approve' class='button'>approve</button>".html_safe,{:controller=>"payer", :action=>"reapprove"}, :remote=>:true, :id=>"reapprove_link" )  %><%= image_tag "loading.gif", :id=>"loadinggif", :style=>"display:none;" %>
+  </div>
+</div>
+
+
+<%= javascript_tag do %>
+document.on('ajax:create','#reapprove_link', function(event,con){
+   $('reapprove_link').hide();
+   $('loadinggif').show();
+})
+
+document.on('ajax:complete','#reapprove_link', function(event,con){
+   $('reapprove_link').show();
+   $('loadinggif').hide();
+})
+
+<% end %>
+
+

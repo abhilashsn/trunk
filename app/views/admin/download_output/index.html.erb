@@ -1,0 +1,48 @@
+<%= stylesheet_link_tag "default"%>
+<%= stylesheet_link_tag "fonts"%>
+
+
+<script>
+  function validate_form(){
+    var facility = document.getElementById("facility_name");
+    var facility_name_txt = facility.options[facility.selectedIndex].value;
+    if (facility_name_txt == "Select"){
+     alert("Please select a facility name");
+     return false;
+    }
+    var download_date = document.getElementById("download_date");
+    if (download_date.value == ""){
+     alert("Please select a valid date");
+     return false;
+    }
+    return true;
+  }
+
+
+</script>
+<div style="width:100%">
+  <div id="innercontent">
+    <div style="min-height:450px;width:100%; margin-left:20px; margin-top:20px;">
+    <% if @user_has_access %>
+      <%= form_tag({:action => 'index'}, :multipart => true) do %>
+      <div><h1>Download Output</h1></div>
+          <p>
+            <label for="facilities_names">
+              Select a  Facility:
+            </label></br>
+             <%= select("facility", "name", ["Select"].concat(Facility.all.collect {|p| [ p.name, p.name ] })) %>
+          </p>
+          <p>
+            
+            <label for="download_date" style="vertical-align:text-top">
+              Date for which data to be Exported:</label></br>
+              <input name="download_date" id="download_date" value="<%= Time.now.strftime("%Y-%m-%d") %>">
+            <%=  image_tag("/assets/calender.png", :onclick=>"displayDatePicker('download_date', false, 'ymd', '-');")%>
+            
+          </p>
+          <%= submit_tag "Download Output", :onclick => "return validate_form()"%>
+        <%end %>
+      <%end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<% last_serial_num = if @balancing_records
+  @balancing_records.length
+else
+  0
+end %>
+<%= hidden_field :balancing_record, :last_serial_num, :value => last_serial_num %>
+<%= hidden_field :balancing_record, :ids_to_delete, :value => '' %>
+<%= hidden_field :balancing_record, :serial_and_record_ids, :value => '' %>
+<table id="balancing_record_table_id" class="balancing_record_table"  width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr><th height="25" colspan="8">Balancing Records</th></tr>
+  <tr>
+    <th>&nbsp;Balancing&nbsp;Record&nbsp;Type&nbsp;<span class="alert">*</span></th>
+    <th>&nbsp;Patient&nbsp;First&nbsp;Name&nbsp;</th>
+    <th>&nbsp;Patient&nbsp;Last&nbsp;Name&nbsp;</th>
+    <th>&nbsp;Patient&nbsp;Account&nbsp;No.&nbsp;<span class="alert">*</span></th>
+    <th>&nbsp;Payer</th>
+    <th>&nbsp;Charge&nbsp;/&nbsp;Payment&nbsp;<span class="alert">*</span></th>
+    <th>EOB Type<span class="alert">*</span></th>
+    <th>+/-</th>
+  </tr>
+
+  <tr>
+    <td> <%= text_field 'balancing_record', 'category', :value => '' %> </td>
+    <td> <%= text_field 'balancing_record', 'first_name', :value => '', :onblur => "#{validations_for_balance_record_patient_name}" %> </td>
+    <td> <%= text_field 'balancing_record', 'last_name', :value => '', :onblur => "#{validations_for_balance_record_patient_name}" %> </td>
+    <td> <%= text_field 'balancing_record', 'account_number', :value => '', :onblur => "#{validations_for_balance_record_account_number}" %> </td>
+    <td> <%= check_box 'balancing_record', 'is_payer_the_patient', :checked => false, :onclick => "clearPatientNames(id)" %> </td>
+    <td>Check<%= radio_button 'balancing_record', 'source_of_adjustment','check',
+        :title => "Populate Check Amount as Charge and Payment",
+        :checked => false %>
+      Balance<%= radio_button 'balancing_record', 'source_of_adjustment','balance',
+        :title => "Populate Check Amount as Charge and Payment",
+        :checked => false %>
+    </td>
+    <td>Claim<%= radio_button 'balancing_record', 'is_claim_level','claim',
+        :title => "Claim Level EOB", :checked => false %>
+      Standard<%= radio_button 'balancing_record', 'is_claim_level','standard',
+        :title => "Service Level EOB", :checked => false %>
+    </td>
+    <td align="center" valign="middle" id ="add_button">
+      <input type="button" name="button" value="+" id="add"  accesskey="+" onclick ="addBalancingRecord()" style="width:20px;" class = "submit_add"/>
+    </td>
+  </tr>
+  <% line_count = 0
+  if @balancing_records
+    @balancing_records.each do |record|
+      line_count = line_count + 1
+      line_count_string = line_count.to_s %>
+      <tr id="balancing_record_row_<%= line_count_string %>">
+        <td> <%= text_field 'balancing_record', "category_" + line_count_string, :value => record.category, :class => 'category nonblank' %> </td>
+        <td> <%= text_field 'balancing_record', "first_name_" + line_count_string, :value => record.first_name,
+          :class => 'patient_name', :onblur => "#{validations_for_balance_record_patient_name}"  %> </td>
+        <td> <%= text_field 'balancing_record', "last_name_" + line_count_string, :value => record.last_name,
+          :class => 'patient_name', :onblur => "#{validations_for_balance_record_patient_name}"  %> </td>
+        <td> <%= text_field 'balancing_record', "account_number_" + line_count_string, :value => record.account_number,
+  :class => 'nonblank valid_balance_record_account_number', :onblur => "#{validations_for_balance_record_account_number}"%> </td>
+        <td> <%= check_box 'balancing_record', "is_payer_the_patient_" + line_count_string, :checked => record.is_payer_the_patient, 
+          :class => 'required_with_dependent_on_patient_name', :onclick => "clearPatientNames(id, '#{line_count_string}')" %> </td>
+        <td>Check<%= radio_button 'balancing_record', 'source_of_adjustment_' + line_count_string, 'check',
+            :title => "Populate Check Amount as Charge and Payment",
+            :checked => (record.source_of_adjustment == 'check' ? true : false), :value => record.source_of_adjustment, :class => 'nonblank' %>
+          Balance<%= radio_button 'balancing_record', 'source_of_adjustment_' + line_count_string, 'balance',
+            :title => "Populate Balance Amount as Charge and Payment",
+            :checked => (record.source_of_adjustment == 'balance' ? true : false), :value => record.source_of_adjustment, :class => 'nonblank' %>
+        </td>
+        <td>Claim<%= radio_button 'balancing_record', 'is_claim_level_eob_' + line_count_string, 'claim',
+            :title => "Claim Level EOB", :checked => record.is_claim_level_eob, :value => record.is_claim_level_eob, :class => 'nonblank' %>
+          Standard<%= radio_button 'balancing_record', 'is_claim_level_eob_' + line_count_string, 'standard',
+            :title => "Service Level EOB", :checked => !record.is_claim_level_eob, :value => record.is_claim_level_eob, :class => 'nonblank' %>
+        </td>
+
+        <% td_add_or_delete = "td_add_or_delete_" + line_count_string %>
+        <td align="center" valign="middle" id= "<%= td_add_or_delete %>" >
+          <% record_id = record.id || '' %>
+          <%= hidden_field :balancing_record, "record_id_" + line_count_string,
+            :value => "#{line_count_string}_#{record_id}", :class => 'balancing_record_ids_to_add' %>
+          <input type="button" name="delete_button" value="-" class = "submit_add" style ="width:20px" onclick="removeBalancingRecord('<%=line_count_string%>', '<%= record_id%>');" />
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+</table>

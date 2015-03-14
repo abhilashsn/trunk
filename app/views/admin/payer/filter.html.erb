@@ -1,0 +1,68 @@
+<h1>Listing payers</h1>
+
+<div class="light_info">
+  <%= link_to 'New payer', :action => 'new' %>  
+</div>
+
+<% if @payers.size > 0 %>
+<div class="light_info">
+  <%= form_tag :action => 'filter' do %>
+    <%= select 'payer', 'criteria', ['Date Added', 'Initials','From Date' ,'Gateway', 'Payer Id', 'Payer', 'Address-1','Address-2','Address-3','Phone'] %> 
+    <%= select 'payer', 'compare', ['=','>=', '<=']%>
+    <%= text_field 'payer', 'to_find', :size => '10' %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
+</div>
+<% end %>
+
+
+<% unless @payers.empty? %>
+ <%= form_tag :action => 'delete_payers', :id => @payers_to_delete do %>
+ 
+<table class="sortable" id="batch_filter">
+  <tr>
+  <% for column in Payer.content_columns %>
+      <%if column.human_name == 'Payor' %>
+        <th><%= 'Payer' %></th>
+      <% else %>
+      <%if column.human_name == 'Pay address one' %>
+      <th><%= 'Address -1' %></th>
+       <% else %>
+      <%if column.human_name == 'Pay address two' %>
+      <th><%= 'Address -2' %></th>
+     
+      <% else %>
+      <%if column.human_name == 'Pay address three' %>
+      <th><%= 'Address -3' %></th>
+     
+      <% else %>
+       
+       <th><%= column.human_name %></th>
+       <% end%>
+       <%end%>
+       <% end%>
+       <%end%>
+  <% end %>
+  </tr>
+  
+<% for payer in @payers %>
+  <tr>
+  <% for column in Payer.content_columns %>
+    <td><%=h payer.send(column.name) %></td>
+  <% end %>
+    <!-- <td><%= link_to 'Show', :action => 'show', :id => payer %></td> -->
+    <td><%= link_to 'Edit', :action => 'edit', :id => payer %></td>
+    <!-- <td><%= link_to 'Destroy', { :action => 'destroy', :id => payer }, :confirm => 'Are you sure?' %></td> -->
+    <td><%= check_box :payers_to_delete, payer.id  %> </td>
+  </tr>
+<% end %>
+</table>
+
+<%= submit_tag 'Delete',:onclick => "return(confirm('Payer filter will be deleted. Are you sure?'))" %>
+<% else %>
+  <h4> No Payers found. Click 'New Payer' to create one. </h4>
+<% end %>
+
+
+
+

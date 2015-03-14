@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><%= $APP_TITLE %></title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <link rel="shortcut icon" href="/favicon.ico">
+      <%= stylesheet_link_tag "navicure_consolidated" %>
+      <%= javascript_include_tag 'navicure_consolidated' %>
+  </head>
+  <body onbeforeunload="sessionTimeOutOnBrowserClose()">
+    <div id="idletimeout" style="display: none">
+	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity.
+      <a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
+    </div>
+    <div id="naviheader">
+      <div id="navilogo">
+      </div>
+    </div>
+    <div id="navibar">
+      <div id="message" style:align="float: left">
+        <% if flash[:error] %>
+          <div id="flash_error">
+            <%= flash[:error] %>
+          </div>
+        <% end %>
+        <% if flash[:notice] %>
+          <div id="flash_notice">
+            <%= image_tag("alert.gif", :alt => "Edit") %>
+            <%= flash[:notice] %>
+          </div>
+        <% end %>
+      </div>
+      <div style="float: right;">
+        <%= link_to image_tag("home.gif", :alt => "home",:border=>'0',:align=>'absmiddle'), :controller => '/dashboard' %>|<% if logged_in? %>
+          <span class="alert">Logged in as <%= @current_user.login %></span>
+          <%= hidden_field_tag :user_id, (current_user.id if current_user)%>
+          <% if current_user
+            roles = current_user.roles
+            current_user_role = roles.first.name if roles
+          end %>
+          <%= hidden_field_tag :user_role, current_user_role %>
+          <%= hidden_field_tag :refresh_page, false %>
+          |<%= link_to image_tag("logout.gif", :alt => "Logout",:border=>'0',:align=>'absmiddle'), :controller => '/logout' %>
+        <% else -%>
+          <%= link_to image_tag("login.gif", :alt => "Login",:border=>'0',:align=>'absmiddle'), :controller => '/login' %>
+        <% end -%>
+      </div>
+    </div>
+    <div id="navimiddle">
+      <%=yield %>
+    </div>
+    <div id="navifooter">
+      <div id="navipowered">
+      </div>
+      <div id="navicopyrights" class="navitext">
+        Send any issues, questions, or suggestions to <a href="mailto: revremit-support@revenuemed.com">revremit-support@revenuemed.com</a>
+        <br/>
+        2008-2009 RevenueMed Inc.All Rights Reserved
+      </div>
+    </div>
+  </body>
+</html>
+
+<% unless current_user.nil? %>
+  <script type="text/javascript">
+    function relative_url_root() {
+      return "<%= app_root -%>"
+    }
+    jQuery.noConflict();
+    sessionTimeOut();
+    document.attachEvent("onkeydown", myOnKeyDownHandler);
+  </script>
+<% end %>

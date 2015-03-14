@@ -1,0 +1,10 @@
+<h1><%= @message if !@message.blank?%></h1>
+<br/><br/>
+  
+<br/><br/>
+
+<br/>
+<br/>
+
+<%= link_to image_tag("arrow_undo.png", :alt => "Back"), :controller => 'admin/batch', :action => 'batch_payer_report_835',
+          :date_from => params[:date_from], :date_to => params[:date_to] %>

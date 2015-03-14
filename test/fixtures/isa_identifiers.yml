@@ -1,0 +1,4 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+isa_1:
+      id: 1
+      isa_number: 8888

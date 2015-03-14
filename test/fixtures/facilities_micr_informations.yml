@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+facilities_micr_info_1:
+  id: 1
+  onbase_name: "NO CHECK"
+  facility_id: 2
+  micr_line_information_id: 2
+
+facilities_micr_info_2:
+  id: 2
+  onbase_name: "ONBASE NAME PRESENT"
+  facility_id: 15
+  micr_line_information_id: 154
+
+facilities_micr_info_3:
+  id: 3
+  onbase_name: "TEST"
+  facility_id: 40
+  micr_line_information_id: 768
+  
+
